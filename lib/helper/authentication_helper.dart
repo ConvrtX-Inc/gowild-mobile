@@ -36,8 +36,6 @@ class AuthenticationHelper extends ChangeNotifier {
 
       _currentUser.accountCreated = DateTime.now();
 
-      // String _returnString = await DBFuture().createUser(_currentUser);
-
       if (_currentUser != null) {
         retVal = 'success';
       }
@@ -57,7 +55,6 @@ class AuthenticationHelper extends ChangeNotifier {
       UserCredential _authResult = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
 
-      // _currentUser = await Database().getUserInfo(_authResult.user.uid);
       if (_currentUser != null) {
         retVal = 'success';
       }
@@ -73,7 +70,6 @@ class AuthenticationHelper extends ChangeNotifier {
     try {
       User? _firebaseUser = _auth.currentUser;
       if (_firebaseUser != null) {
-        // _currentUser! = await Database().getUserInfo(_firebaseUser.uid);
         if (_currentUser != null) {
           print('success');
           retVal = 'success';
