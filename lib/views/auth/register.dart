@@ -1,6 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gowild_mobile/views/auth/login.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+import 'login.dart';
 
 import '../../constants/colors.dart';
 import '../../widgets/auth_widgets.dart';
@@ -13,15 +13,36 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController addressLine1Controller = TextEditingController();
   TextEditingController addressLine2Controller = TextEditingController();
+  bool? _success;
+  String? _userEmail;
+  void _register() async {
+    final User? user = (await auth.createUserWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+    ))
+        .user;
+    if (user != null) {
+      setState(() {
+        _success = true;
+        _userEmail = user.email;
+      });
+    } else {
+      setState(() {
+        _success = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: primaryBlack,
       extendBodyBehindAppBar: true,
@@ -46,64 +67,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 context, 'Email', emailController, 'myemail@gowild.com', false),
             buildTextField(
                 context, 'Password', passwordController, '***********', true),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 16),
-                  child: Text(
-                    'Phone number',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                  child: Container(
-                      height: 90,
-                      width: size.width * 0.9,
-                      padding: const EdgeInsets.all(8.0),
-                      child: IntlPhoneField(
-                        cursorColor: const Color(0xff6B6968),
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400),
-                        decoration: InputDecoration(
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color(0xff6B6968), width: 2.0),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10.0),
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                  color: Color(0xff6B6968), width: 2.0)),
-                          contentPadding: // Text Field height
-                              const EdgeInsets.symmetric(
-                                  vertical: 20.0, horizontal: 20.0),
-                          hintText: '123-456-789',
-                          hintStyle: const TextStyle(
-                              // height: 3,
-                              color: Color(0xff6B6968),
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18),
-                        ),
-                        initialCountryCode: 'US',
-                        onChanged: (phone) {},
-                      )),
-                ),
-              ],
-            ),
+            buildPhoneNumberTextField(context),
             buildTextField(context, 'Address Line 1', addressLine1Controller,
                 '123 Street Name, City', false),
             buildTextField(context, 'Address Line 2', addressLine2Controller,
                 'State, Country, Postal Code', false),
-            mainAuthButton(context, 'Register'),
+            mainAuthButton(
+              context,
+              'Register',
+              () {
+                _register();
+                // AuthenticationHelper()
+                //     .signUp(
+                //         email: emailController.text,
+                //         password: passwordController.text)
+                //     .then((result) {
+                //   if (result == null) {
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: ((context) => const VerifyPhoneScreen())));
+                //   } else {
+                //     print('denied');
+                //   }
+                // });
+              },
+            ),
             const SizedBox(
               height: 10,
             ),

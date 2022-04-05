@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 context, 'Password', passwordController, '***********', true),
             forgotPassword(),
             const SizedBox(height: 10),
-            mainAuthButton(context, "Login"),
+            mainAuthButton(context, "Login", () {}),
             const SizedBox(
               height: 30,
             ),

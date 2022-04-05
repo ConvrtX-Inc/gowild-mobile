@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../constants/colors.dart';
 
-//used in login.dart
+//used in login.dart and register.dart
 RichText dontHaveAnAccount(BuildContext context, String text1, String text2) {
   return RichText(
     textAlign: TextAlign.center,
@@ -22,20 +23,21 @@ RichText dontHaveAnAccount(BuildContext context, String text1, String text2) {
 }
 
 //reusable button with asset image
-Padding mainAuthButton(BuildContext context, String text) {
+//used in login.dart and register.dart
+Padding mainAuthButton(BuildContext context, String text, Function() onTap) {
   Size size = MediaQuery.of(context).size;
   return Padding(
     padding: const EdgeInsets.all(16.0),
     child: ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(16.0)),
       child: GestureDetector(
-        onTap: () {},
+        onTap: onTap,
         child: Container(
           height: 80,
           width: size.width * 0.9,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-            color: const Color(0xff1C7355).withOpacity(0.8),
+            color: const Color(0xff1C7355).withOpacity(0.6),
             image: const DecorationImage(
                 image: AssetImage("assets/button_design.png"),
                 fit: BoxFit.cover),
@@ -46,6 +48,7 @@ Padding mainAuthButton(BuildContext context, String text) {
               textAlign: TextAlign.center,
               style: const TextStyle(
                   color: Colors.white,
+                  letterSpacing: 1,
                   fontSize: 18,
                   fontWeight: FontWeight.w700),
             ),
@@ -61,14 +64,14 @@ Row titleTextWithAsset(String text, String assetFileName) {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Padding(
-        padding: const EdgeInsets.only(left: 30, top: 106),
+        padding: const EdgeInsets.only(left: 30, top: 176),
         child: Text(
           text,
           style: TextStyle(
               color: primaryYellow,
               fontSize: 50,
               fontWeight: FontWeight.w400,
-              fontFamily: 'TheForegenRegular.ttf'),
+              fontFamily: 'assets/TheForegenRegular.ttf'),
         ),
       ),
       Image.asset(
@@ -120,7 +123,7 @@ Column buildTextField(BuildContext context, String titleText,
                         const BorderSide(color: Color(0xff6B6968), width: 2.0)),
                 contentPadding: // Text Field height
                     const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 20.0),
+                        vertical: 15.0, horizontal: 20.0),
                 hintText: hintText,
                 hintStyle: const TextStyle(
                     // height: 3,
@@ -209,5 +212,67 @@ Padding socialContainer(
             ],
           )),
     ),
+  );
+}
+
+//used in register.dart
+//intl phone number package used
+Column buildPhoneNumberTextField(BuildContext context) {
+  Size size = MediaQuery.of(context).size;
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Padding(
+        padding: EdgeInsets.only(left: 16),
+        child: Text(
+          'Phone number',
+          style: TextStyle(
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
+        ),
+      ),
+      ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+        child: Container(
+            height: 90,
+            width: size.width * 0.9,
+            padding: const EdgeInsets.all(8.0),
+            child: IntlPhoneField(
+              flagsButtonMargin: const EdgeInsets.all(16),
+              dropdownIconPosition: IconPosition.trailing,
+              dropdownIcon: Icon(
+                Icons.arrow_drop_down,
+                color: secondaryGray,
+              ),
+              cursorColor: const Color(0xff6B6968),
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400),
+              decoration: InputDecoration(
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xff6B6968), width: 2.0),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide:
+                        const BorderSide(color: Color(0xff6B6968), width: 2.0)),
+                contentPadding: // Text Field height
+                    const EdgeInsets.symmetric(
+                        vertical: 20.0, horizontal: 20.0),
+                hintText: '123-456-789',
+                hintStyle: const TextStyle(
+                    // height: 3,
+                    color: Color(0xff6B6968),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 18),
+              ),
+              initialCountryCode: 'US',
+              onChanged: (phone) {},
+            )),
+      ),
+    ],
   );
 }
