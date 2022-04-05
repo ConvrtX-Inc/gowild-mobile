@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gowild_mobile/helper/authentication_helper.dart';
+import 'package:gowild_mobile/root.dart';
 import '../../widgets/auth_widgets.dart';
 import '../../constants/colors.dart';
 import 'register.dart';
@@ -10,9 +12,48 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+enum LoginType { email, google }
+
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  void _loginUser({
+    @required LoginType? type,
+    String? email,
+    String? password,
+    required BuildContext context,
+  }) async {
+    try {
+      String _returnString;
+      _returnString = await AuthenticationHelper()
+          .loginUser(emailController.text, passwordController.text);
+      switch (type) {
+        case LoginType.email:
+          _returnString = await AuthenticationHelper()
+              .loginUser(emailController.text, passwordController.text);
+          break;
+        case LoginType.google:
+          // _returnString = await Auth().loginUserWithGoogle();
+          break;
+        default:
+      }
+
+      if (_returnString == "success") {
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context) => Root()), (route) => false);
+      } else {
+        print('$_returnString');
+        // Scaffold.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text(_returnString),
+        //     duration: Duration(seconds: 2),
+        //   ),
+        // );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +83,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 context, 'Password', passwordController, '***********', true),
             forgotPassword(),
             const SizedBox(height: 10),
-            mainAuthButton(context, "Login", () {}),
+            mainAuthButton(context, "Login", () {
+              _loginUser(type: LoginType.email, context: context);
+            }),
             const SizedBox(
               height: 30,
             ),

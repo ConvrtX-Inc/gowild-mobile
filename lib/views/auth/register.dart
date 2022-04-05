@@ -1,5 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gowild_mobile/helper/authentication_helper.dart';
+import 'package:gowild_mobile/models/user_model.dart';
+import 'package:gowild_mobile/views/auth/verify_phone_screen.dart';
 import 'login.dart';
 
 import '../../constants/colors.dart';
@@ -13,31 +15,26 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController addressLine1Controller = TextEditingController();
   TextEditingController addressLine2Controller = TextEditingController();
-  bool? _success;
-  String? _userEmail;
-  void _register() async {
-    final User? user = (await auth.createUserWithEmailAndPassword(
-      email: emailController.text,
-      password: passwordController.text,
-    ))
-        .user;
-    if (user != null) {
-      setState(() {
-        _success = true;
-        _userEmail = user.email;
-      });
-    } else {
-      setState(() {
-        _success = true;
-      });
+
+  void _signUpUser(String email, String password, BuildContext context) async {
+    try {
+      String _returnString =
+          await AuthenticationHelper().signUpUser(email, password);
+      if (_returnString == "success") {
+        print('success');
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const VerifyPhoneScreen()),
+            (route) => false);
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -76,21 +73,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               context,
               'Register',
               () {
-                _register();
-                // AuthenticationHelper()
-                //     .signUp(
-                //         email: emailController.text,
-                //         password: passwordController.text)
-                //     .then((result) {
-                //   if (result == null) {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: ((context) => const VerifyPhoneScreen())));
-                //   } else {
-                //     print('denied');
-                //   }
-                // });
+                _signUpUser(
+                    emailController.text, passwordController.text, context);
               },
             ),
             const SizedBox(

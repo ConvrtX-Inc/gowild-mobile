@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gowild_mobile/helper/authentication_helper.dart';
+import 'package:gowild_mobile/root.dart';
 import 'package:gowild_mobile/widgets/auth_widgets.dart';
 
 import '../../constants/colors.dart';
@@ -119,7 +121,13 @@ class EwaiverScreen extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                mainAuthButton(context, 'I Agree', () {}),
+                mainAuthButton(context, 'I Agree', () {
+                  AuthenticationHelper().onSignOut();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => Root()),
+                      (route) => false);
+                }),
                 const SizedBox(
                   height: 30,
                 ),
