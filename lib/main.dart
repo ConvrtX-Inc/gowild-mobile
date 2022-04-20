@@ -5,7 +5,6 @@ import 'package:gowild_mobile/helper/authentication_helper.dart';
 import 'package:gowild_mobile/root.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'views/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

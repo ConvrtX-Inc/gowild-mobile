@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/views/home.dart';
+import 'package:gowild_mobile/views/landing_page.dart';
 import 'helper/authentication_helper.dart';
 import 'views/auth/e_waiver.dart';
 import 'package:provider/provider.dart';

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:gowild_mobile/root.dart';
 
 import 'landing_page.dart';
 
@@ -16,17 +15,18 @@ class _SpashScreenState extends State<SpashScreen> {
   @override
   void dispose() {
     // TODO: implement dispose
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     if (mounted) {
-      Timer(
-          const Duration(seconds: 1),
-          () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (BuildContext context) => const LandingPage())));
+      Timer(const Duration(seconds: 1), () {
+        if (mounted) {
+          Navigator?.of(context).pushReplacement(
+              MaterialPageRoute(builder: (_) => const LandingPage()));
+        }
+      });
     }
     return Scaffold(
         body: Column(

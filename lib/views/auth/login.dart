@@ -43,12 +43,6 @@ class _LoginScreenState extends State<LoginScreen> {
             MaterialPageRoute(builder: (context) => Root()), (route) => false);
       } else {
         print('$_returnString');
-        // Scaffold.of(context).showSnackBar(
-        //   SnackBar(
-        //     content: Text(_returnString),
-        //     duration: Duration(seconds: 2),
-        //   ),
-        // );
       }
     } catch (e) {
       print(e);
