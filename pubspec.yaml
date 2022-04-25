@@ -29,7 +29,11 @@ dependencies:
   draggable_widget: ^2.0.0
   location: ^4.3.0
   sliding_up_panel: ^2.0.0+1
+  geolocator: ^7.0.3 
+  geocoding: ^2.0.0 
   flutter_map: ^0.14.0
+  flutter_polyline_points: ^1.0.0
+  google_maps_routes: ^1.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

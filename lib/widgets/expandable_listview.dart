@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geocoding/geocoding.dart';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:gowild_mobile/constants/secret.dart';
+import 'package:gowild_mobile/views/feed/gowild_feed.dart';
+import 'package:gowild_mobile/views/maps/google_maps.dart';
+import 'package:gowild_mobile/widgets/panel_widget.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'expandable_container.dart';
@@ -22,6 +28,7 @@ class ExpandableListView extends StatefulWidget {
 class _ExpandableListViewState extends State<ExpandableListView> {
   bool expandFlag = false;
   var rating = 3.0;
+
   Widget buildAdventureCard(context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -161,261 +168,57 @@ class _ExpandableListViewState extends State<ExpandableListView> {
     );
   }
 
-  late GoogleMapController mapController;
-
-  final LatLng _center = const LatLng(42.637310, -77.596007);
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
-  Set<Marker> _createMarker() {
-    return {
-      Marker(
-          markerId: const MarkerId("marker_1"),
-          position: _center,
-          infoWindow: const InfoWindow(title: 'Marker 1'),
-          rotation: 70),
-      const Marker(
-        // icon:Bita,
-        markerId: MarkerId("marker_2"),
-        position: LatLng(42.637321, -77.5960179),
+  Widget buildSlidingPanel() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(30.0),
+      child: SizedBox(
+        width: 418,
+        child: SlidingUpPanel(
+          minHeight: MediaQuery.of(context).size.height * 0.05,
+          panelBuilder: (sc) => PanelWidget(
+            sc: sc,
+          ),
+          body: Container(
+              height: 550,
+              // width: 200,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(12.0),
+                ),
+              ),
+              child: Container(width: 200, child: const MyGoogleMap())),
+          maxHeight: MediaQuery.of(context).size.height / 2,
+          backdropEnabled: true,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
+          parallaxEnabled: true,
+          parallaxOffset: .5,
+          color: Colors.white,
+          // collapsed:
+        ),
       ),
-    };
+    );
   }
 
-  final scaffoldState = GlobalKey<ScaffoldState>();
-  final double _initFabHeight = 120.0;
-  double _fabHeight = 0;
-  double _panelHeightOpen = 0;
-  double _panelHeightClosed = 95.0;
-
-  PanelController _pc1 = new PanelController();
-  PanelController _pc2 = new PanelController();
-  bool _visible = true;
-
-  Widget buildRoutesCard(context) {
-    BorderRadiusGeometry radius = BorderRadius.only(
-      topLeft: Radius.circular(24.0),
-      topRight: Radius.circular(24.0),
-    );
-
-    return Container(
+  buildMap() {
+    return Padding(
       padding: const EdgeInsets.all(8.0),
-      height: 550,
-      width: 300,
-      child: ListView(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(30.0),
-              child: Container(
-                height: 550,
-                width: 300,
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(30.0),
+            child: Container(
+                height: 650,
+                width: 420,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(
                     Radius.circular(12.0),
                   ),
                 ),
-                child: GoogleMap(
-                  onMapCreated: _onMapCreated,
-                  mapType: MapType.satellite,
-                  markers: _createMarker(),
-                  trafficEnabled: true,
-                  initialCameraPosition: CameraPosition(
-                    target: _center,
-                    zoom: 11.0,
-                  ),
-                ),
-              ),
-            ),
-          ]),
-    );
-  }
-
-  buildMap() {
-    BorderRadiusGeometry radius = BorderRadius.only(
-      topLeft: Radius.circular(24.0),
-      topRight: Radius.circular(24.0),
-    );
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(30.0),
-      child: Container(
-        padding: const EdgeInsets.all(8.0),
-        height: 550,
-        width: 300,
-        child: Stack(
-            // controller: ,
-            children: [
-              Positioned(
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: ListView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      Container(
-                        height: 400,
-                        width: 300,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(12.0),
-                          ),
-                        ),
-                        child: GoogleMap(
-                          mapToolbarEnabled: false,
-                          onMapCreated: _onMapCreated,
-                          mapType: MapType.terrain,
-                          markers: _createMarker(),
-                          trafficEnabled: true,
-                          initialCameraPosition: CameraPosition(
-                            target: _center,
-                            zoom: 11.0,
-                          ),
-                        ),
-                      ),
-                      SlidingUpPanel(
-                          panel: Column(
-                        children: [
-                          SizedBox(
-                            height: 80,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.white),
-                                onPressed: () {},
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          child: Image.asset('assets/map.png'),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: Colors.white,
-                                          ),
-                                          height: 50,
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text('Route Text Goes Here',
-                                            style: TextStyle(
-                                                color: Color(0xff18243C),
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500)),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.location_on_outlined,
-                                          color: Colors.grey,
-                                        ),
-                                        Text('1.7 Miles',
-                                            style: TextStyle(
-                                                color: Color(0xff18243C),
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500)),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.timer,
-                                              color: Colors.grey,
-                                            ),
-                                            Text('1 hr 30 mins',
-                                                style: TextStyle(
-                                                    color: Color(0xff18243C),
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w500))
-                                          ],
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                )),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            height: 80,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.white),
-                                onPressed: () {},
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          child: Image.asset('assets/map.png'),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: Colors.white,
-                                          ),
-                                          height: 50,
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text('Route Text Goes Here',
-                                            style: TextStyle(
-                                                color: Color(0xff18243C),
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500)),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.location_on_outlined,
-                                          color: Colors.grey,
-                                        ),
-                                        Text('1.7 Miles',
-                                            style: TextStyle(
-                                                color: Color(0xff18243C),
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500)),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.timer,
-                                              color: Colors.grey,
-                                            ),
-                                            Text('1 hr 30 mins',
-                                                style: TextStyle(
-                                                    color: Color(0xff18243C),
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w500))
-                                          ],
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                )),
-                          ),
-                        ],
-                      ))
-                    ]),
-              ),
-            ]),
+                child: buildSlidingPanel()),
+          ),
+        ],
       ),
     );
   }
@@ -472,17 +275,17 @@ class _ExpandableListViewState extends State<ExpandableListView> {
               itemBuilder: (BuildContext context, int index) {
                 return widget.title == 'ROUTES'
                     ? Container(
-                        // height: 80,
                         decoration:
                             const BoxDecoration(color: Colors.transparent),
                         child: buildMap())
-                    : Container(
-                        // height: 80,
-                        decoration:
-                            const BoxDecoration(color: Colors.transparent),
-                        child: buildAdventureCard(context));
+                    : widget.title == 'NEARBY ADVENTURES'
+                        ? Container(
+                            decoration:
+                                const BoxDecoration(color: Colors.transparent),
+                            child: buildAdventureCard(context))
+                        : const GoWildFeed();
               },
-              itemCount: 5,
+              itemCount: 2,
             ),
           )
         ],

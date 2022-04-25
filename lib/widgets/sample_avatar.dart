@@ -8,8 +8,8 @@ class SampleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 37.0,
-      height: 37.0,
+      width: 30.0,
+      height: 30.0,
       padding: const EdgeInsets.all(2),
       decoration: const BoxDecoration(
         shape: BoxShape.circle,

@@ -1,10 +1,12 @@
 import 'package:draggable_widget/draggable_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:gowild_mobile/constants/colors.dart';
 import 'package:gowild_mobile/widgets/bottom_flat_button.dart';
 import 'package:gowild_mobile/widgets/bottom_nav_bar.dart';
+import 'package:gowild_mobile/widgets/search_textfield.dart';
 
+import '../helper/authentication_helper.dart';
+import '../root.dart';
 import '../widgets/expandable_listview.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,9 +17,71 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController _searchController = TextEditingController();
   List nameList = ['ROUTES', 'NEARBY ADVENTURES', 'GO WILD FEED'];
   final dragController = DragController();
+  buildRowNameAndAvatar() => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            'JENNYLYN',
+            style: TextStyle(color: Colors.white, fontSize: 22),
+          ),
+          Container(
+            width: 70,
+            height: 70,
+            decoration: const BoxDecoration(
+              color: Colors.white, // border color
+              shape: BoxShape.circle,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(2), // border width
+              child: Container(
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.amber,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo2pMgqzy7f2CLXEVRNian-4UiqfJKfmPK3w&usqp=CAU'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Container(), // inner content
+              ),
+            ),
+          ),
+        ],
+      );
+  buildDraggableWidget() => DraggableWidget(
+        bottomMargin: 80,
+        topMargin: 80,
+        intialVisibility: true,
+        horizontalSpace: 20,
+        shadowBorderRadius: 50,
+        child: GestureDetector(
+          onDoubleTap: () {
+            AuthenticationHelper().onSignOut();
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const Root()),
+                (route) => false);
+          },
+          child: Container(
+            height: 64,
+            width: 64,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.blue,
+            ),
+            child: const Icon(
+              Icons.border_color_sharp,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        initialPosition: AnchoringPosition.topRight,
+        dragController: dragController,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,76 +123,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'JENNYLYN',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 22),
-                            ),
-                            Container(
-                              width: 70,
-                              height: 70,
-                              decoration: const BoxDecoration(
-                                color: Colors.white, // border color
-                                shape: BoxShape.circle,
-                              ),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.all(2), // border width
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.amber,
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo2pMgqzy7f2CLXEVRNian-4UiqfJKfmPK3w&usqp=CAU'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-
-                                  child: Container(), // inner content
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        buildRowNameAndAvatar(),
                         const SizedBox(
                           height: 20,
                         ),
-                        TextField(
-                          onChanged: (value) {
-                            // Method For Searching
-                          },
-                          controller: _searchController,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: const Color(0xff3B352F),
-                            hintText: 'Search for trail or activity',
-                            hintStyle: const TextStyle(
-                              color: Colors.white30,
-                            ),
-                            prefixIcon: const Icon(
-                              Icons.search,
-                              color: Colors.white,
-                              size: 34,
-                            ),
-                            contentPadding: const EdgeInsets.only(
-                                left: 14.0, bottom: 20.0, top: 20.0),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0xff3B352F),
-                              ),
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0xff3B352F),
-                              ),
-                              borderRadius: BorderRadius.circular(25.7),
-                            ),
-                          ),
+                        buildSearchTextField(),
+                        const SizedBox(
+                          height: 20,
                         ),
                         ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
@@ -143,27 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               )),
-          DraggableWidget(
-            bottomMargin: 80,
-            topMargin: 80,
-            intialVisibility: true,
-            horizontalSpace: 20,
-            shadowBorderRadius: 50,
-            child: Container(
-              height: 64,
-              width: 64,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.blue,
-              ),
-              child: const Icon(
-                Icons.border_color_sharp,
-                color: Colors.white,
-              ),
-            ),
-            initialPosition: AnchoringPosition.topRight,
-            dragController: dragController,
-          ),
+          buildDraggableWidget()
         ]),
       ),
     );
