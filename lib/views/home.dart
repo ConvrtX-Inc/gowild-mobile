@@ -92,13 +92,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       child: Scaffold(
-        extendBody: true,
-        resizeToAvoidBottomInset: true,
+        // extendBody: true,
+        // resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
-        extendBodyBehindAppBar: true,
-        floatingActionButton: const BottomFlatButton(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: const BottomNavBar(),
+        // extendBodyBehindAppBar: true,
+        // floatingActionButton: const BottomFlatButton(),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // bottomNavigationBar: const BottomNavBar(),
         body: Stack(children: [
           Positioned(
               top: 0,

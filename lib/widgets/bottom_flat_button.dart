@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gowild_mobile/constants/image_constants.dart';
 
 class BottomFlatButton extends StatelessWidget {
   const BottomFlatButton({Key? key}) : super(key: key);
-
+  final String cameraFlat =
+      '${ImageAssetPath.imagePathSvg}${ImageAssetName.cameraFlat}';
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,7 +31,11 @@ class BottomFlatButton extends StatelessWidget {
                 ],
               ),
             ),
-            child: const Icon(Icons.photo_camera, size: 20),
+            child: UnconstrainedBox(
+              child: SvgPicture.asset(
+                cameraFlat,
+              ),
+            ),
           ),
         ),
       ),
