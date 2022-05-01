@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gowild_mobile/models/user_model.dart';
 import 'package:gowild_mobile/views/home.dart';
 import 'package:gowild_mobile/views/landing_page.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:gowild_mobile/views/main_screen.dart';
+
 import 'helper/authentication_helper.dart';
 import 'services/prefs_service.dart';
 import 'views/auth/e_waiver.dart';
@@ -51,7 +55,7 @@ class _RootState extends State<Root> {
         retVal = const SpashScreen();
         break;
       case AuthStatus.loggedIn:
-        retVal = const HomeScreen();
+        retVal = const MainNavigation();
         break;
       default:
     }

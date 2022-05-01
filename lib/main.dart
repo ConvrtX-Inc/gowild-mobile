@@ -4,8 +4,17 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
 import 'package:gowild_mobile/root.dart';
+import 'package:gowild_mobile/views/notifications/notifications_screen.dart';
+import 'package:gowild_mobile/views/profile/edit_profile_screen.dart';
+import 'package:gowild_mobile/views/profile/faqs_screen.dart';
+import 'package:gowild_mobile/views/profile/profile_screen.dart';
+import 'package:gowild_mobile/views/support/new_ticket_screen.dart';
+import 'package:gowild_mobile/views/support/tickets_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:gowild_mobile/constants/colors.dart' as AppColorConstants;
+
+import 'views/support/ticket_messages_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,11 +53,11 @@ class MyApp extends StatelessWidget {
           home: Root(),
           title: 'Flutter Demo',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
-            textTheme: GoogleFonts.sourceSansProTextTheme(
-              Theme.of(context).textTheme,
-            ),
-          )),
+              appBarTheme: AppBarTheme(
+                  titleTextStyle: TextStyle(fontFamily: 'TheForegenRegular')),
+              primarySwatch: Colors.blue,
+              scaffoldBackgroundColor: AppColorConstants.scaffoldColor,
+              textTheme: GoogleFonts.sourceSansProTextTheme())),
     );
   }
 }
