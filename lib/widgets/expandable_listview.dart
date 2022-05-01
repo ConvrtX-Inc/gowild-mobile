@@ -14,12 +14,12 @@ import 'sample_avatar.dart';
 import 'star_rating.dart';
 
 class ExpandableListView extends StatefulWidget {
-  final String title;
-
   const ExpandableListView({
     Key? key,
     required this.title,
   }) : super(key: key);
+
+  final String title;
 
   @override
   _ExpandableListViewState createState() => _ExpandableListViewState();
@@ -285,7 +285,7 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                             child: buildAdventureCard(context))
                         : const GoWildFeed();
               },
-              itemCount: 2,
+              itemCount: 1,
             ),
           )
         ],

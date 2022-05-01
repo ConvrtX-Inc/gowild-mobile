@@ -7,3 +7,4 @@ Color googleColor = const Color(0xffEB4132);
 Color secondaryWhite = const Color(0xffF9F9F9);
 Color primaryRed = const Color(0xffE4572E);
 Color secondaryGray = const Color(0xff6B6968);
+Color primaryOrange = const Color(0xffE75B31);

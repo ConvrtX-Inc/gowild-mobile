@@ -1,12 +1,4 @@
 class UserModel {
-  String? fullName;
-  String? email;
-  String? password;
-  String? address1;
-  String? address2;
-  String? phoneNumber;
-  String? uid;
-  DateTime? accountCreated;
   UserModel(
       {this.fullName,
       this.email,
@@ -15,5 +7,16 @@ class UserModel {
       this.address2,
       this.accountCreated,
       this.phoneNumber,
+      this.isLoggedIn,
       this.uid});
+
+  DateTime? accountCreated;
+  String? address1;
+  String? address2;
+  String? email;
+  String? fullName;
+  String? password;
+  String? phoneNumber;
+  String? uid;
+  bool? isLoggedIn;
 }

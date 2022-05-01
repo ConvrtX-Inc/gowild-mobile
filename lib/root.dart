@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gowild_mobile/models/user_model.dart';
 import 'package:gowild_mobile/views/home.dart';
 import 'package:gowild_mobile/views/landing_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'helper/authentication_helper.dart';
+import 'services/prefs_service.dart';
 import 'views/auth/e_waiver.dart';
 import 'package:provider/provider.dart';
 
@@ -10,15 +13,19 @@ import 'views/splash_screen.dart';
 enum AuthStatus { notLoggedIn, loggedIn }
 
 class Root extends StatefulWidget {
-  const Root({Key? key}) : super(key: key);
+  const Root({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _RootState createState() => _RootState();
 }
 
 class _RootState extends State<Root> {
-  AuthStatus _authStatus = AuthStatus.notLoggedIn;
   String? currentUid;
+
+  AuthStatus _authStatus = AuthStatus.notLoggedIn;
+  bool userLogIn = false;
 
   @override
   void didChangeDependencies() async {

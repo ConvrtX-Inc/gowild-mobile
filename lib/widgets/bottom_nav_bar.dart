@@ -39,7 +39,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           showUnselectedLabels: true,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Expanded(child: Icon(Icons.home)),
+              icon: Icon(Icons.home),
               label: '',
             ),
             BottomNavigationBarItem(
@@ -57,7 +57,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Expanded(child: Icon(Icons.more_horiz_rounded)),
+              icon: Icon(Icons.more_horiz_rounded),
               label: '',
             ),
           ],

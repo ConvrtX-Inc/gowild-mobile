@@ -33,7 +33,11 @@ dependencies:
   geocoding: ^2.0.0 
   flutter_map: ^0.14.0
   flutter_polyline_points: ^1.0.0
+  fluttertoast: ^8.0.9
   google_maps_routes: ^1.1.2
+  shared_preferences: ^2.0.13
+  flutter_animarker: ^3.2.0 
+  dio: ^4.0.6 
 dev_dependencies:
   flutter_test:
     sdk: flutter

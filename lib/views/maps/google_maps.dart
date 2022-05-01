@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:gowild_mobile/constants/size.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:math' show cos, sqrt, asin;
 
-import '../../constants/secret.dart';
+import '../../services/prefs_service.dart';
 
 class MyGoogleMap extends StatefulWidget {
   const MyGoogleMap({Key? key}) : super(key: key);
@@ -13,123 +14,168 @@ class MyGoogleMap extends StatefulWidget {
 }
 
 class _MyGoogleMapState extends State<MyGoogleMap> {
-// Object for PolylinePoints
-  late PolylinePoints polylinePoints;
+  late GoogleMapController controller;
+  List<LatLng> latlngSegment1 = [];
+  List<LatLng> latlngSegment2 = [];
 
-// List of coordinates to join
-  List<LatLng> polylineCoordinates = [];
+  static const LatLng _lat1 = LatLng(13.035606, 77.562381);
+  static const LatLng _lat2 = LatLng(14.090930, 77.693071);
+  static const LatLng _lat3 = LatLng(12.970387, 77.693621);
+  static const LatLng _lat4 = LatLng(12.858433, 77.575691);
+  static const LatLng _lat5 = LatLng(12.948029, 77.472936);
+  static const LatLng _lat6 = LatLng(13.069280, 77.455844);
 
-// Map storing polylines created by connecting two points
-  Map<PolylineId, Polyline> polylines = {};
+  final LatLng _lastMapPosition = _lat1;
+  final Set<Marker> _markers = {};
+  final Set<Polyline> _polyline = {};
 
-  late GoogleMapController mapController;
+  String distance = '';
+  @override
+  void initState() {
+    super.initState();
+    //line segment 1
+    latlngSegment1.add(_lat1);
+    latlngSegment1.add(_lat2);
+    latlngSegment1.add(_lat3);
+    latlngSegment1.add(_lat4);
 
-  final LatLng _center = const LatLng(44.511710, -80.380860);
+    //line segment 2
+    latlngSegment2.add(_lat4);
+    latlngSegment2.add(_lat5);
+    latlngSegment2.add(_lat6);
+    latlngSegment2.add(_lat1);
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+    calculateDistance(
+        _lat1.latitude, _lat1.longitude, _lat2.latitude, _lat2.longitude);
+    // mapType();
   }
 
-  Set<Marker> _createMarker() {
-    return {
-      Marker(
-          markerId: const MarkerId("marker_1"),
-          position: _center,
-          infoWindow: const InfoWindow(title: 'Marker 1'),
-          rotation: 70),
-      const Marker(
-        markerId: MarkerId("marker_2"),
-        position: LatLng(49.5119220, -80.322620),
-      ),
-    };
-  }
-
-  _createPolylines(
-    double startLatitude,
-    double startLongitude,
-    double destinationLatitude,
-    double destinationLongitude,
-  ) async {
-    // Initializing PolylinePoints
-    polylinePoints = PolylinePoints();
-
-    // Generating the list of coordinates to be used for
-    // drawing the polylines
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      googleMapApiKey, // Google Maps API Key
-      const PointLatLng(44.511710, -80.380860),
-      const PointLatLng(44.5119220, -80.322620),
-      // travelMode: TravelMode,
-    );
-
-    // Adding the coordinates to the list
-    if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) =>
-          polylineCoordinates.add(LatLng(point.latitude, point.longitude)));
-    }
-
-    // Defining an ID
-    PolylineId id = const PolylineId('poly');
-
-    // Initializing Polyline
-    Polyline polyline = Polyline(
-      polylineId: id,
-      color: Colors.blue,
-      points: polylineCoordinates,
-      width: 3,
-    );
-
-    // Adding the polyline to the map
-    polylines[id] = polyline;
-  }
-
-  Map<PolylineId, Polyline> _mapPolylines = {};
-  int _polylineIdCounter = 1;
-  List<LatLng> _createPoints() {
-    final List<LatLng> points = <LatLng>[];
-    points.add(LatLng(1.875249, 0.845140));
-    points.add(LatLng(4.851221, 1.715736));
-    points.add(LatLng(8.196142, 2.094979));
-    points.add(LatLng(12.196142, 3.094979));
-    points.add(LatLng(16.196142, 4.094979));
-    points.add(LatLng(20.196142, 5.094979));
-    return points;
-  }
-
-  void _add() {
-    final String polylineIdVal = 'polyline_id_$_polylineIdCounter';
-    _polylineIdCounter++;
-    final PolylineId polylineId = PolylineId(polylineIdVal);
-
-    final Polyline polyline = Polyline(
-      polylineId: polylineId,
-      consumeTapEvents: true,
-      color: Colors.red,
-      width: 5,
-      points: _createPoints(),
-    );
-
+  void _onMapCreated(GoogleMapController controllerParam) {
     setState(() {
-      _mapPolylines[polylineId] = polyline;
+      controller = controllerParam;
+      controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          bearing: 50.0,
+          target: _lastMapPosition,
+          tilt: 10.0,
+          zoom: 8.0,
+        ),
+      ));
+
+      _markers.add(Marker(
+        // This marker id can be anything that uniquely identifies each marker.
+        markerId: MarkerId(_lastMapPosition.toString()),
+        //_lastMapPosition is any coordinate which should be your default
+        //position when map opens up
+        position: _lastMapPosition,
+        infoWindow: const InfoWindow(
+          title: 'Start here',
+          snippet: 'details',
+        ),
+      ));
+      _markers.add(Marker(
+        // This marker id can be anything that uniquely identifies each marker.
+        markerId: MarkerId(_lat2.toString()),
+        //_lastMapPosition is any coordinate which should be your default
+        //position when map opens up
+        position: _lat2,
+        infoWindow: const InfoWindow(
+          title: 'End here',
+          snippet: 'details',
+        ),
+      ));
+
+      _polyline.add(Polyline(
+        polylineId: const PolylineId('line1'),
+        visible: true,
+        //latlng is List<LatLng>
+        points: latlngSegment1,
+        width: 6,
+        color: Colors.blue,
+      ));
+      //different sections of polyline can have different colors
+      _polyline.add(Polyline(
+        polylineId: const PolylineId('line2'),
+        visible: true,
+        //latlng is List<LatLng>
+        points: latlngSegment2,
+        width: 6,
+        color: Colors.red,
+      ));
     });
+  }
+
+  double calculateDistance(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((_lat2.latitude - _lat1.latitude) * p) / 2 +
+        c(_lat1.latitude * p) *
+            c(_lat2.latitude * p) *
+            (1 - c((_lat2.longitude - _lat1.longitude) * p)) /
+            2;
+    final dis = 12742 * asin(sqrt(a));
+    setState(() {
+      distance = dis.truncate().toString();
+    });
+    return dis;
+  }
+
+  final _preferenceService = PrefService();
+  MapType? _mapType;
+
+  Future mapType() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('roadMapString');
+    await prefs.remove('terrainString');
+    await prefs.remove('satelliteString');
+    final value = await _preferenceService.getMapType();
+
+    if (value.roadMapString == 'roadMapString') {
+      setState(() => _mapType = MapType.normal);
+
+      print(_mapType);
+    } else if (value.terrainString == 'terrainString') {
+      setState(() => _mapType = MapType.terrain);
+
+      print(_mapType);
+    } else if (value.satelliteString == 'satelliteString') {
+      setState(() => _mapType = MapType.satellite);
+
+      print(_mapType);
+    } else {
+      print('no');
+    }
+    // setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-      myLocationButtonEnabled: false,
-      compassEnabled: false,
-      mapToolbarEnabled: false,
-      onMapCreated: _onMapCreated,
-      polylines: Set<Polyline>.of(_mapPolylines.values),
-      mapType: MapType.satellite,
-      markers: _createMarker(),
-      trafficEnabled: true,
-      initialCameraPosition: CameraPosition(target: _center, zoom: 4.0),
-      // initialCameraPosition: CameraPosition(
-      //   target: _center,
-      //   zoom: 15.0,
-      // ),
+    return Scaffold(
+      body: Stack(alignment: const Alignment(0.0, 0.0), children: [
+        GoogleMap(
+          zoomGesturesEnabled: false,
+          scrollGesturesEnabled: false,
+          tiltGesturesEnabled: false,
+          rotateGesturesEnabled: false,
+          zoomControlsEnabled: false,
+          polylines: _polyline,
+          markers: _markers,
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: _lastMapPosition,
+            zoom: 7.0,
+          ),
+          mapType: MapType.satellite,
+        ),
+        sizedBox(20, 0),
+        Center(
+          child: Text(
+            '$distance KM',
+            style: const TextStyle(fontSize: 22, color: Colors.white),
+          ),
+        ),
+      ]),
     );
   }
 }
