@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gowild_mobile/constants/image_constants.dart';
 import 'package:gowild_mobile/views/home.dart';
 import 'package:gowild_mobile/views/profile/profile_screen.dart';
+import 'package:gowild_mobile/views/profile/settings_screen.dart';
 import 'package:gowild_mobile/widgets/bottom_flat_button.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -38,7 +39,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
     /// Dont remove this
     Container(),
-    ProfileScreen()
+    SettingsScreen()
   ];
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:gowild_mobile/constants/colors.dart' as AppColorConstants;
@@ -9,6 +11,8 @@ class ProfileHeader extends StatelessWidget {
 
   final String leafBg =
       '${ImageAssetPath.imagePathPng}${ImageAssetName.leafBg}';
+  final String profilePlaceholder =
+      '${ImageAssetPath.imagePathPng}${ImageAssetName.profilePlaceHolder}';
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -32,8 +36,9 @@ class ProfileHeader extends StatelessWidget {
                 BoxDecoration(color: Colors.white, shape: BoxShape.circle),
             child: CircleAvatar(
               radius: 90,
-              backgroundImage: NetworkImage(
-                  'https://images.pexels.com/photos/11831940/pexels-photo-11831940.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
+              backgroundImage: imageAsset == null || imageAsset == ''
+                  ? AssetImage(profilePlaceholder)
+                  : Image.memory(base64Decode(imageAsset!)) as ImageProvider,
             ),
           ),
         )

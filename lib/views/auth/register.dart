@@ -36,9 +36,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _signUpUser(String email, String password, BuildContext context) async {
     try {
+      final Map<String, dynamic> userDetails = {
+        'email': emailController.text,
+        'password': passwordController.text,
+        'full_name': fullNameController.text,
+        'phone_no': phoneNumberController.text,
+        'addressline1': addressLine1Controller.text,
+        'addressline2': addressLine2Controller.text
+      };
       String _returnString =
           await AuthenticationHelper().signUpUser(email, password);
-
+      await AuthenticationHelper().saveUserDetails(userDetails);
       if (_returnString == "success") {
         print('success');
         Navigator.push(context,

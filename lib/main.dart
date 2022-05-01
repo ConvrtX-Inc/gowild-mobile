@@ -8,6 +8,7 @@ import 'package:gowild_mobile/views/notifications/notifications_screen.dart';
 import 'package:gowild_mobile/views/profile/edit_profile_screen.dart';
 import 'package:gowild_mobile/views/profile/faqs_screen.dart';
 import 'package:gowild_mobile/views/profile/profile_screen.dart';
+import 'package:gowild_mobile/views/profile/settings_screen.dart';
 import 'package:gowild_mobile/views/support/new_ticket_screen.dart';
 import 'package:gowild_mobile/views/support/tickets_screen.dart';
 import 'package:provider/provider.dart';

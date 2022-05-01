@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:gowild_mobile/constants/api_path_constants.dart';
+import 'package:gowild_mobile/services/api_services.dart';
+import 'package:gowild_mobile/services/secure_storage.dart';
+import 'package:gowild_mobile/views/main_screen.dart';
 import '../models/user_model.dart';
 
 enum AuthStatus {
@@ -60,9 +64,19 @@ class AuthenticationHelper extends ChangeNotifier {
     print('checked user if once logeged');
   }
 
+  Future<void> saveUserDetails(Map<String, dynamic> userDetails) async {
+    try {
+      final dynamic response = await ApiServices().request(
+          ApiPathConstants.registerUrl, RequestType.POST,
+          data: userDetails);
+      print(response);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<String> loginUser(String email, String password) async {
     String retVal = 'error';
-
     try {
       UserCredential _authResult = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -76,6 +90,26 @@ class AuthenticationHelper extends ChangeNotifier {
     }
     notifyListeners();
     return retVal;
+  }
+
+  Future<void> emailLogin(
+      Map<String, dynamic> emailAndPassword, BuildContext context) async {
+    try {
+      final dynamic response = await ApiServices().request(
+          ApiPathConstants.loginUrl, RequestType.POST,
+          data: emailAndPassword);
+      print(response);
+      if (response is Map<String, dynamic>) {
+        await SecureStorage.saveValue(
+            key: SecureStorage.userTokenKey, value: response['token']);
+        await SecureStorage.saveValue(
+            key: SecureStorage.userIdKey, value: response['user']['id']);
+        await Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const MainNavigation()));
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<String> onStartUp() async {

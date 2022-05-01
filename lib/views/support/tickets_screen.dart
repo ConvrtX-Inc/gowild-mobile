@@ -15,7 +15,10 @@ class _TicketsScreenState extends State<TicketsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(titleText: 'SUPPORT'),
+      appBar: CustomAppBar(
+        titleText: 'SUPPORT',
+        onLeadingTap: () => Navigator.pop(context),
+      ),
       body: ListView.builder(
           itemCount: 4,
           physics: BouncingScrollPhysics(),

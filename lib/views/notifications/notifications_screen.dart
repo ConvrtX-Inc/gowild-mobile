@@ -13,7 +13,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(titleText: 'Notifications'),
+      appBar: CustomAppBar(
+        titleText: 'Notifications',
+        onLeadingTap: () => Navigator.pop(context),
+      ),
       body: ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: 3,
