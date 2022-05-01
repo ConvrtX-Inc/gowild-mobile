@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_model.dart';
 
 enum AuthStatus {
@@ -16,11 +17,15 @@ enum AuthStatus {
 class AuthenticationHelper extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   UserModel _currentUser = UserModel();
-  User? _user;
-  User get user => _user!;
   String? _email;
+  User? _user;
+
+  User get user => _user!;
+
   UserModel get getCurrentUser => _currentUser;
+
   String? get getEmail => _currentUser.email;
+
   Future<String> signUpUser(
     String email,
     String password,
@@ -48,6 +53,13 @@ class AuthenticationHelper extends ChangeNotifier {
     return retVal;
   }
 
+  Future loggedOnce() async {
+    final prefs = await SharedPreferences.getInstance();
+    final init = await prefs.setBool("initScreen", true);
+
+    print('checked user if once logeged');
+  }
+
   Future<String> loginUser(String email, String password) async {
     String retVal = 'error';
 
@@ -56,6 +68,7 @@ class AuthenticationHelper extends ChangeNotifier {
           email: email, password: password);
 
       if (_currentUser != null) {
+        // await prefs.setBool("initScreen", true);
         retVal = 'success';
       }
     } catch (e) {
@@ -72,6 +85,8 @@ class AuthenticationHelper extends ChangeNotifier {
       if (_firebaseUser != null) {
         if (_currentUser != null) {
           print('success');
+
+          print('initScreen ${loggedOnce}');
           retVal = 'success';
         }
       }

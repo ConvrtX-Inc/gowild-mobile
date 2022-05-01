@@ -48,11 +48,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
           enableFeedback: false,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
+
               icon: SvgPicture.asset(
                 homeIcon,
                 color:
                     _selectedTabIndex == 0 ? Color(0xffE5592F) : Colors.white,
               ),
+
               label: '',
             ),
             BottomNavigationBarItem(
@@ -74,10 +76,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
               label: '',
             ),
             BottomNavigationBarItem(
+
+
               icon: SvgPicture.asset(profileIcon,
                   color: _selectedTabIndex == 4
                       ? Color(0xffE5592F)
                       : Colors.white),
+
               label: '',
             ),
           ],

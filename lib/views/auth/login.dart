@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
 import 'package:gowild_mobile/root.dart';
+import 'package:gowild_mobile/views/auth/e_waiver.dart';
 import '../../widgets/auth_widgets.dart';
 import '../../constants/colors.dart';
 import 'register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,12 +19,29 @@ enum LoginType { email, google }
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  Future<bool> isFirstTime() async {
+    final prefs = await SharedPreferences.getInstance();
+    var isFirstTime = prefs.getBool('first_time');
+    if (isFirstTime != null && !isFirstTime) {
+      prefs.setBool('first_time', true);
+      print('firest time');
+      return true;
+    } else {
+      prefs.setBool('first_time', false);
+      print('not first time');
+
+      return false;
+    }
+  }
+
   void _loginUser({
     @required LoginType? type,
-    String? email,
-    String? password,
+    // String? email,
+    // String? password,
     required BuildContext context,
   }) async {
+    final prefs = await SharedPreferences.getInstance();
     try {
       String _returnString;
       _returnString = await AuthenticationHelper()
@@ -39,10 +58,21 @@ class _LoginScreenState extends State<LoginScreen> {
       }
 
       if (_returnString == "success") {
-        Navigator.pushAndRemoveUntil(context,
-            MaterialPageRoute(builder: (context) => Root()), (route) => false);
+        isFirstTime().then((isFirstTime) {
+          print(isFirstTime);
+          isFirstTime
+              ? Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const EwaiverScreen()),
+                  (route) => false)
+              : Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Root()),
+                  (route) => false);
+        });
       } else {
-        print('$_returnString');
+        print('$_returnString returnString');
       }
     } catch (e) {
       print(e);

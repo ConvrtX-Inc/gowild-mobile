@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
 import 'package:gowild_mobile/models/user_model.dart';
+import 'package:gowild_mobile/services/prefs_service.dart';
 import 'package:gowild_mobile/views/auth/verify_phone_screen.dart';
 import 'login.dart';
 
@@ -15,23 +17,36 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
   TextEditingController addressLine1Controller = TextEditingController();
   TextEditingController addressLine2Controller = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  final _preferenceService = PrefService();
+  void saveUser() {
+    final user = UserModel(
+        email: emailController.text,
+        password: passwordController.text,
+        // uid: userFromFirebase?.uid,
+        accountCreated: DateTime.now());
+
+    print(user);
+  }
 
   void _signUpUser(String email, String password, BuildContext context) async {
     try {
       String _returnString =
           await AuthenticationHelper().signUpUser(email, password);
+
       if (_returnString == "success") {
         print('success');
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const VerifyPhoneScreen()),
-            (route) => false);
+        Navigator.push(context,
+            MaterialPageRoute(builder: ((context) => const LoginScreen())));
+        // Navigator.pushAndRemoveUntil(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => const VerifyPhoneScreen()),
+        //     (route) => false);
       }
     } catch (e) {
       print(e);

@@ -1,5 +1,6 @@
 import 'package:draggable_widget/draggable_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:gowild_mobile/views/maps/map_overlay.dart';
 
 import 'package:gowild_mobile/widgets/bottom_flat_button.dart';
 import 'package:gowild_mobile/widgets/bottom_nav_bar.dart';
@@ -17,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List nameList = ['ROUTES', 'NEARBY ADVENTURES', 'GO WILD FEED'];
+  List<String> nameList = ['ROUTES', 'NEARBY ADVENTURES', 'GO WILD FEED'];
   final dragController = DragController();
   buildRowNameAndAvatar() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -35,17 +36,26 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: Padding(
               padding: const EdgeInsets.all(2), // border width
-              child: Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.amber,
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo2pMgqzy7f2CLXEVRNian-4UiqfJKfmPK3w&usqp=CAU'),
-                    fit: BoxFit.cover,
+              child: GestureDetector(
+                onDoubleTap: () {
+                  AuthenticationHelper().onSignOut();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => Root()),
+                      (route) => false);
+                },
+                child: Container(
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.amber,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo2pMgqzy7f2CLXEVRNian-4UiqfJKfmPK3w&usqp=CAU'),
+                      fit: BoxFit.cover,
+                    ),
                   ),
+                  child: Container(), // inner content
                 ),
-                child: Container(), // inner content
               ),
             ),
           ),
@@ -59,11 +69,13 @@ class _HomeScreenState extends State<HomeScreen> {
         shadowBorderRadius: 50,
         child: GestureDetector(
           onDoubleTap: () {
-            AuthenticationHelper().onSignOut();
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const Root()),
-                (route) => false);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => MapOverlay()));
+            // AuthenticationHelper().onSignOut();
+            // Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => const Root()),
+            //     (route) => false);
           },
           child: Container(
             height: 64,
