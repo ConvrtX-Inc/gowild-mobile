@@ -18,7 +18,10 @@ class _FaqsScreenState extends State<FaqsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(titleText: 'FAQS'),
+      appBar: CustomAppBar(
+        titleText: 'FAQS',
+        onLeadingTap: () => Navigator.pop(context),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(

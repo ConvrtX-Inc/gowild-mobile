@@ -47,10 +47,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
       String phoneNumber,
       BuildContext context) async {
     try {
+
       var _returnString = await DioClient().registerUser(
           email, password, fullName, address1, address2, phoneNumber);
 
       if (_returnString != null) {
+
+      final Map<String, dynamic> userDetails = {
+        'email': emailController.text,
+        'password': passwordController.text,
+        'full_name': fullNameController.text,
+        'phone_no': phoneNumberController.text,
+        'addressline1': addressLine1Controller.text,
+        'addressline2': addressLine2Controller.text
+      };
+      String _returnString =
+          await AuthenticationHelper().signUpUser(email, password);
+      await AuthenticationHelper().saveUserDetails(userDetails);
+      if (_returnString == "success") {
+
         print('success');
 
         Navigator.pushAndRemoveUntil(

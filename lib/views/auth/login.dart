@@ -51,7 +51,17 @@ class _LoginScreenState extends State<LoginScreen> {
       _returnString = await DioClient().loginUser(email!, password!);
       switch (type) {
         case LoginType.email:
+
           _returnString = await DioClient().loginUser(email, password);
+
+          _returnString = await AuthenticationHelper()
+              .loginUser(emailController.text, passwordController.text);
+          final Map<String, dynamic> emailAndPass = {
+            'email': emailController.text,
+            'password': passwordController.text
+          };
+          await AuthenticationHelper().emailLogin(emailAndPass, context);
+
           break;
         case LoginType.google:
           _returnString = await AuthenticationHelper().loginUserWithGoogle();
