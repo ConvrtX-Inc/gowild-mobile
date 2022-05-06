@@ -82,8 +82,13 @@ Row titleTextWithAsset(String text, String assetFileName) {
 }
 
 //reusable textfield for login.dart and register.dart
-Column buildTextField(BuildContext context, String titleText,
-    TextEditingController controller, String hintText, bool obscureText) {
+Column buildTextField(
+    BuildContext context,
+    String titleText,
+    TextEditingController controller,
+    String hintText,
+    bool obscureText,
+    String Function(String?) validator) {
   Size size = MediaQuery.of(context).size;
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +107,8 @@ Column buildTextField(BuildContext context, String titleText,
             height: 90,
             width: size.width * 0.9,
             padding: const EdgeInsets.all(8.0),
-            child: TextField(
+            child: TextFormField(
+              validator: validator,
               obscureText: obscureText,
               controller: controller,
               cursorColor: const Color(0xff6B6968),
@@ -217,7 +223,8 @@ Padding socialContainer(
 
 //used in register.dart
 //intl phone number package used
-Column buildPhoneNumberTextField(BuildContext context) {
+Column buildPhoneNumberTextField(
+    BuildContext context, TextEditingController controller) {
   Size size = MediaQuery.of(context).size;
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,6 +244,7 @@ Column buildPhoneNumberTextField(BuildContext context) {
             width: size.width * 0.9,
             padding: const EdgeInsets.all(8.0),
             child: IntlPhoneField(
+              controller: controller,
               flagsButtonMargin: const EdgeInsets.all(16),
               dropdownIconPosition: IconPosition.trailing,
               dropdownIcon: Icon(

@@ -1,9 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
 import 'package:gowild_mobile/models/user_model.dart';
+import 'package:gowild_mobile/services/dio_client.dart';
 import 'package:gowild_mobile/services/prefs_service.dart';
 import 'package:gowild_mobile/views/auth/verify_phone_screen.dart';
+
 import 'login.dart';
 
 import '../../constants/colors.dart';
@@ -23,6 +25,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  final fb = FacebookLogin();
   final _preferenceService = PrefService();
   void saveUser() {
     final user = UserModel(
@@ -34,19 +38,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
     print(user);
   }
 
-  void _signUpUser(String email, String password, BuildContext context) async {
+  Future<void> _signUpUser(
+      String email,
+      String password,
+      String fullName,
+      String address1,
+      String address2,
+      String phoneNumber,
+      BuildContext context) async {
     try {
-      String _returnString =
-          await AuthenticationHelper().signUpUser(email, password);
+      var _returnString = await DioClient().registerUser(
+          email, password, fullName, address1, address2, phoneNumber);
 
-      if (_returnString == "success") {
+      if (_returnString != null) {
         print('success');
-        Navigator.push(context,
-            MaterialPageRoute(builder: ((context) => const LoginScreen())));
-        // Navigator.pushAndRemoveUntil(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => const VerifyPhoneScreen()),
-        //     (route) => false);
+
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => VerifyPhoneScreen(
+                      phoneNumber: phoneNumber,
+                    )),
+            (route) => false);
       }
     } catch (e) {
       print(e);
@@ -73,25 +86,84 @@ class _RegisterScreenState extends State<RegisterScreen> {
             const SizedBox(
               height: 20,
             ),
-            buildTextField(context, 'Full name', fullNameController,
-                'Jennylyn Aretcona', false),
-            buildTextField(
-                context, 'Email', emailController, 'myemail@gowild.com', false),
-            buildTextField(
-                context, 'Password', passwordController, '***********', true),
-            buildPhoneNumberTextField(context),
-            buildTextField(context, 'Address Line 1', addressLine1Controller,
-                '123 Street Name, City', false),
-            buildTextField(context, 'Address Line 2', addressLine2Controller,
-                'State, Country, Postal Code', false),
-            mainAuthButton(
-              context,
-              'Register',
-              () {
-                _signUpUser(
-                    emailController.text, passwordController.text, context);
+            InkWell(
+              onTap: () async {
+                await AuthenticationHelper().loginUserWithGoogle();
               },
+              child: socialContainer(context, kgoogleColor,
+                  'assets/google_logo.png', 'Sign in with Google'),
             ),
+            InkWell(
+              onTap: () async {
+                final res = await fb.logIn(permissions: [
+                  FacebookPermission.publicProfile,
+                  FacebookPermission.email,
+                ]);
+
+                switch (res.status) {
+                  case FacebookLoginStatus.success:
+                    final accessToken = res.accessToken;
+
+                    final profile = await fb.getUserProfile();
+                    print('Hello, ${profile!.name}! You ID: ${profile.userId}');
+
+                    final email = await fb.getUserEmail();
+
+                    if (email != null) print('And your email is $email');
+
+                    break;
+                  case FacebookLoginStatus.cancel:
+                    break;
+                  case FacebookLoginStatus.error:
+                    print('Error while log in: ${res.error}');
+                    break;
+                }
+              },
+              child: socialContainer(context, kfacebookColor,
+                  'assets/facebook_logo.png', 'Sign in with Facebook'),
+            ),
+            buildTextField(context, 'Full name', fullNameController,
+                'Jennylyn Aretcona', false, (String? value) {
+              return value!;
+            }),
+            buildTextField(
+                context, 'Email', emailController, 'myemail@gowild.com', false,
+                (String? value) {
+              return value!;
+            }),
+            buildTextField(
+                context, 'Password', passwordController, '***********', true,
+                (String? value) {
+              return value!;
+            }),
+            buildTextField(
+                context,
+                'Confirm Password',
+                confirmPasswordController,
+                '***********',
+                true, (String? value) {
+              return value!;
+            }),
+            buildPhoneNumberTextField(context, phoneNumberController),
+            buildTextField(context, 'Address Line 1', addressLine1Controller,
+                '123 Street Name, City', false, (String? value) {
+              return value!;
+            }),
+            buildTextField(context, 'Address Line 2', addressLine2Controller,
+                'State, Country, Postal Code', false, (String? value) {
+              return value!;
+            }),
+            mainAuthButton(
+                context,
+                'Register',
+                () async => await _signUpUser(
+                    emailController.text,
+                    passwordController.text,
+                    fullNameController.text,
+                    addressLine1Controller.text,
+                    addressLine2Controller.text,
+                    phoneNumberController.text,
+                    context)),
             const SizedBox(
               height: 10,
             ),

@@ -21,15 +21,15 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: primaryYellow),
+        iconTheme: const IconThemeData(color: primaryYellow),
         elevation: 0.0,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
+          const Padding(
+            padding: EdgeInsets.only(
               left: 30,
               top: 176,
             ),
@@ -42,9 +42,9 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
                   fontFamily: 'TheForegenRegular.ttf'),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: Text(
+          const Padding(
+            padding: EdgeInsets.only(left: 30),
+            child: const Text(
               'Password',
               style: TextStyle(
                   color: primaryYellow,
@@ -55,21 +55,21 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
           const SizedBox(
             height: 40,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
+          const Padding(
+            padding: EdgeInsets.only(left: 30),
             child: Text(
               'Your password must be different from',
-              style: TextStyle(
+              style: const TextStyle(
                   color: secondaryWhite,
                   fontSize: 18,
                   fontWeight: FontWeight.w400),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
+          const Padding(
+            padding: EdgeInsets.only(left: 30),
             child: Text(
               'previous used passwords',
-              style: TextStyle(
+              style: const TextStyle(
                   color: secondaryWhite,
                   fontSize: 18,
                   fontWeight: FontWeight.w400),
@@ -81,12 +81,16 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
           Padding(
             padding: const EdgeInsets.only(left: 18, bottom: 5),
             child: buildTextField(context, 'Enter new password',
-                newPasswordController, '********', true),
+                newPasswordController, '********', true, (String? value) {
+              return value!;
+            }),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18, bottom: 5),
             child: buildTextField(context, 'Confirm new password',
-                confirmPasswordController, '********', true),
+                confirmPasswordController, '********', true, (String? value) {
+              return value!;
+            }),
           ),
           const SizedBox(
             height: 80,

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:gowild_mobile/constants/size.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_tappable_polyline/flutter_map_tappable_polyline.dart';
+import 'package:gowild_mobile/constants/colors.dart';
+import 'package:gowild_mobile/views/maps/map_overlay.dart';
+import 'package:latlong2/latlong.dart';
 import 'dart:math' show cos, sqrt, asin;
 
 import '../../services/prefs_service.dart';
+import 'data.dart';
 
 class MyGoogleMap extends StatefulWidget {
   const MyGoogleMap({Key? key}) : super(key: key);
@@ -14,168 +17,239 @@ class MyGoogleMap extends StatefulWidget {
 }
 
 class _MyGoogleMapState extends State<MyGoogleMap> {
-  late GoogleMapController controller;
-  List<LatLng> latlngSegment1 = [];
-  List<LatLng> latlngSegment2 = [];
+  var markers = <Marker>[];
+  final _preferenceService = PrefService();
+  String setAsDefaultRoadMap = '';
+  String setAsDefaultTerrain = '';
+  String setAsDefaultSatellite = '';
+  bool isSwitched = false;
+  double currentZoom = 11.0;
+  MapController _mapController = MapController();
+  LatLng currentCenter = LatLng(45.1313258, 5.5171205);
 
-  static const LatLng _lat1 = LatLng(13.035606, 77.562381);
-  static const LatLng _lat2 = LatLng(14.090930, 77.693071);
-  static const LatLng _lat3 = LatLng(12.970387, 77.693621);
-  static const LatLng _lat4 = LatLng(12.858433, 77.575691);
-  static const LatLng _lat5 = LatLng(12.948029, 77.472936);
-  static const LatLng _lat6 = LatLng(13.069280, 77.455844);
+  void _zoomAdd() {
+    currentZoom = currentZoom + 1;
+    _mapController.move(currentCenter, currentZoom);
+  }
 
-  final LatLng _lastMapPosition = _lat1;
-  final Set<Marker> _markers = {};
-  final Set<Polyline> _polyline = {};
+  void _zoomMinus() {
+    currentZoom = currentZoom - 1;
+    _mapController.move(currentCenter, currentZoom);
+  }
 
-  String distance = '';
   @override
   void initState() {
+    // TODO: implement initState
+    getAllSavedData();
+    _mapController = MapController();
     super.initState();
-    //line segment 1
-    latlngSegment1.add(_lat1);
-    latlngSegment1.add(_lat2);
-    latlngSegment1.add(_lat3);
-    latlngSegment1.add(_lat4);
-
-    //line segment 2
-    latlngSegment2.add(_lat4);
-    latlngSegment2.add(_lat5);
-    latlngSegment2.add(_lat6);
-    latlngSegment2.add(_lat1);
-
-    calculateDistance(
-        _lat1.latitude, _lat1.longitude, _lat2.latitude, _lat2.longitude);
-    // mapType();
   }
 
-  void _onMapCreated(GoogleMapController controllerParam) {
-    setState(() {
-      controller = controllerParam;
-      controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(
-          bearing: 50.0,
-          target: _lastMapPosition,
-          tilt: 10.0,
-          zoom: 8.0,
-        ),
-      ));
-
-      _markers.add(Marker(
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId(_lastMapPosition.toString()),
-        //_lastMapPosition is any coordinate which should be your default
-        //position when map opens up
-        position: _lastMapPosition,
-        infoWindow: const InfoWindow(
-          title: 'Start here',
-          snippet: 'details',
-        ),
-      ));
-      _markers.add(Marker(
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId(_lat2.toString()),
-        //_lastMapPosition is any coordinate which should be your default
-        //position when map opens up
-        position: _lat2,
-        infoWindow: const InfoWindow(
-          title: 'End here',
-          snippet: 'details',
-        ),
-      ));
-
-      _polyline.add(Polyline(
-        polylineId: const PolylineId('line1'),
-        visible: true,
-        //latlng is List<LatLng>
-        points: latlngSegment1,
-        width: 6,
-        color: Colors.blue,
-      ));
-      //different sections of polyline can have different colors
-      _polyline.add(Polyline(
-        polylineId: const PolylineId('line2'),
-        visible: true,
-        //latlng is List<LatLng>
-        points: latlngSegment2,
-        width: 6,
-        color: Colors.red,
-      ));
-    });
-  }
-
-  double calculateDistance(lat1, lon1, lat2, lon2) {
-    var p = 0.017453292519943295;
-    var c = cos;
-    var a = 0.5 -
-        c((_lat2.latitude - _lat1.latitude) * p) / 2 +
-        c(_lat1.latitude * p) *
-            c(_lat2.latitude * p) *
-            (1 - c((_lat2.longitude - _lat1.longitude) * p)) /
-            2;
-    final dis = 12742 * asin(sqrt(a));
-    setState(() {
-      distance = dis.truncate().toString();
-    });
-    return dis;
-  }
-
-  final _preferenceService = PrefService();
-  MapType? _mapType;
-
-  Future mapType() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('roadMapString');
-    await prefs.remove('terrainString');
-    await prefs.remove('satelliteString');
+  Future getAllSavedData() async {
     final value = await _preferenceService.getMapType();
+    setState(() {
+      setAsDefaultRoadMap = value.roadMapString!;
+      setAsDefaultTerrain = value.terrainString!;
+      setAsDefaultSatellite = value.satelliteString!;
+    });
 
-    if (value.roadMapString == 'roadMapString') {
-      setState(() => _mapType = MapType.normal);
-
-      print(_mapType);
-    } else if (value.terrainString == 'terrainString') {
-      setState(() => _mapType = MapType.terrain);
-
-      print(_mapType);
-    } else if (value.satelliteString == 'satelliteString') {
-      setState(() => _mapType = MapType.satellite);
-
-      print(_mapType);
-    } else {
-      print('no');
-    }
-    // setState(() {});
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    markers = [
+      Marker(
+        width: 80.0,
+        height: 80.0,
+        point: getPoints(0).first,
+        builder: (ctx) => const Icon(
+          Icons.location_on,
+          color: Colors.red,
+          size: 40,
+        ),
+      ),
+      Marker(
+        width: 80.0,
+        height: 80.0,
+        point: getPoints(1).last,
+        builder: (ctx) => const Icon(
+          Icons.location_on,
+          color: Colors.black,
+          size: 40,
+        ),
+      ),
+      Marker(
+        width: 80.0,
+        height: 80.0,
+        point: getPoints(1).first,
+        builder: (ctx) => const Icon(
+          Icons.location_on,
+          color: Colors.blue,
+          size: 40,
+        ),
+      ),
+    ];
     return Scaffold(
-      body: Stack(alignment: const Alignment(0.0, 0.0), children: [
-        GoogleMap(
-          zoomGesturesEnabled: false,
-          scrollGesturesEnabled: false,
-          tiltGesturesEnabled: false,
-          rotateGesturesEnabled: false,
-          zoomControlsEnabled: false,
-          polylines: _polyline,
-          markers: _markers,
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _lastMapPosition,
-            zoom: 7.0,
+        body: Column(
+      children: [
+        Container(
+          child: Flexible(
+            child: Stack(children: [
+              FlutterMap(
+                mapController: _mapController,
+                options: MapOptions(
+                  plugins: [
+                    TappablePolylineMapPlugin(),
+                  ],
+                  center: currentCenter,
+                  zoom: currentZoom,
+                  minZoom: 8.0,
+                  maxZoom: 12.0,
+                  // center: LatLng(lat, lng),
+                  interactiveFlags:
+                      InteractiveFlag.pinchZoom | InteractiveFlag.drag,
+                ),
+                layers: [
+                  if (setAsDefaultRoadMap.isNotEmpty)
+                    //road
+                    TileLayerOptions(
+                        urlTemplate:
+                            'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+                        // maxZoom: 20,
+                        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
+                  if (setAsDefaultSatellite.isNotEmpty)
+                    //satellite
+                    TileLayerOptions(
+                        urlTemplate:
+                            'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+                        // maxZoom: 20,
+                        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
+                  if (setAsDefaultTerrain.isNotEmpty)
+                    //terrain
+                    TileLayerOptions(
+                        urlTemplate:
+                            'http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
+                        // maxZoom: 20,
+                        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
+                  if (setAsDefaultRoadMap.isEmpty &&
+                      setAsDefaultSatellite.isEmpty &&
+                      setAsDefaultTerrain.isEmpty)
+                    TileLayerOptions(
+                        urlTemplate:
+                            'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+                        // maxZoom: 20,
+                        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
+                  MarkerLayerOptions(
+                    markers: markers,
+                  ),
+                  TappablePolylineLayerOptions(
+                      // Will only render visible polylines, increasing performance
+                      polylineCulling: true,
+                      pointerDistanceTolerance: 20,
+                      polylines: [
+                        TaggedPolyline(
+                          tag: '1st Polyline',
+                          // An optional tag to distinguish polylines in callback
+                          points: getPoints(0),
+                          color: Colors.red,
+                          strokeWidth: 9.0,
+                        ),
+                        TaggedPolyline(
+                          tag: '2nd Polyline',
+                          // An optional tag to distinguish polylines in callback
+                          points: getPoints(1),
+                          color: Colors.black,
+                          strokeWidth: 3.0,
+                        ),
+                        TaggedPolyline(
+                          tag: '3rd Polyline',
+                          // An optional tag to distinguish polylines in callback
+                          points: getPoints(0),
+                          color: Colors.blue,
+                          strokeWidth: 3.0,
+                        ),
+                      ],
+                      onTap: (polylines, tapPosition) => print('Tapped: ' +
+                          polylines.map((polyline) => polyline.tag).join(',') +
+                          ' at ' +
+                          tapPosition.globalPosition.toString()),
+                      onMiss: (tapPosition) {
+                        print('No polyline was tapped at position ' +
+                            tapPosition.globalPosition.toString());
+                      })
+                ],
+              ),
+              Positioned(
+                  top: 40,
+                  right: 40,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.white),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.map,
+                        color: Colors.black,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MapOverlay()));
+                      },
+                    ),
+                  )),
+              Positioned(
+                  top: 100,
+                  right: 45,
+                  child: InkWell(
+                    onTap: _zoomAdd,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.rectangle, color: Color(0xffC4C4C4)),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.black,
+                      ),
+                    ),
+                  )),
+              Positioned(
+                  top: 150,
+                  right: 45,
+                  child: InkWell(
+                    onTap: _zoomMinus,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.rectangle, color: Color(0xffC4C4C4)),
+                      child: const Icon(
+                        Icons.remove,
+                        color: Colors.black,
+                      ),
+                    ),
+                  )),
+              Positioned(
+                  top: 40,
+                  left: 40,
+                  child: Switch(
+                    value: isSwitched,
+                    onChanged: (value) {
+                      setState(() {
+                        isSwitched = value;
+                      });
+                    },
+                    activeTrackColor: kprimaryOrange,
+                    activeColor: Colors.white,
+                  )),
+            ]),
           ),
-          mapType: MapType.satellite,
         ),
-        sizedBox(20, 0),
-        Center(
-          child: Text(
-            '$distance KM',
-            style: const TextStyle(fontSize: 22, color: Colors.white),
-          ),
-        ),
-      ]),
-    );
+      ],
+    ));
   }
 }

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
+import 'package:gowild_mobile/models/user_model.dart';
 import 'package:gowild_mobile/root.dart';
+import 'package:gowild_mobile/services/dio_client.dart';
 import 'package:gowild_mobile/views/auth/e_waiver.dart';
+import 'package:gowild_mobile/views/home.dart';
 import '../../widgets/auth_widgets.dart';
 import '../../constants/colors.dart';
 import 'register.dart';
@@ -19,7 +23,7 @@ enum LoginType { email, google }
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  final fb = FacebookLogin();
   Future<bool> isFirstTime() async {
     final prefs = await SharedPreferences.getInstance();
     var isFirstTime = prefs.getBool('first_time');
@@ -37,27 +41,39 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _loginUser({
     @required LoginType? type,
-    // String? email,
-    // String? password,
+    String? email,
+    String? password,
     required BuildContext context,
   }) async {
-    final prefs = await SharedPreferences.getInstance();
+    // final prefs = await SharedPreferences.getInstance();
     try {
-      String _returnString;
-      _returnString = await AuthenticationHelper()
-          .loginUser(emailController.text, passwordController.text);
+      dynamic _returnString;
+      _returnString = await DioClient().loginUser(email!, password!);
       switch (type) {
         case LoginType.email:
-          _returnString = await AuthenticationHelper()
-              .loginUser(emailController.text, passwordController.text);
+          _returnString = await DioClient().loginUser(email, password);
           break;
         case LoginType.google:
-          // _returnString = await Auth().loginUserWithGoogle();
+          _returnString = await AuthenticationHelper().loginUserWithGoogle();
           break;
         default:
       }
 
       if (_returnString == "success") {
+        isFirstTime().then((isFirstTime) {
+          print(isFirstTime);
+          isFirstTime
+              ? Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const EwaiverScreen()),
+                  (route) => false)
+              : Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Root()),
+                  (route) => false);
+        });
+      } else if (_returnString != null) {
         isFirstTime().then((isFirstTime) {
           print(isFirstTime);
           isFirstTime
@@ -90,10 +106,40 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 30,
             ),
-            socialContainer(context, facebookColor, 'assets/facebook_logo.png',
-                'Log in with Facebook'),
-            socialContainer(context, googleColor, 'assets/google_logo.png',
-                'Log in with Google'),
+            InkWell(
+              onTap: () async {
+                final res = await fb.logIn(permissions: [
+                  FacebookPermission.publicProfile,
+                  FacebookPermission.email,
+                ]);
+
+                switch (res.status) {
+                  case FacebookLoginStatus.success:
+                    final accessToken = res.accessToken;
+
+                    final profile = await fb.getUserProfile();
+                    print('Hello, ${profile!.name}! You ID: ${profile.userId}');
+
+                    final email = await fb.getUserEmail();
+
+                    if (email != null) print('And your email is $email');
+
+                    break;
+                  case FacebookLoginStatus.cancel:
+                    break;
+                  case FacebookLoginStatus.error:
+                    print('Error while log in: ${res.error}');
+                    break;
+                }
+              },
+              child: socialContainer(context, facebookColor,
+                  'assets/facebook_logo.png', 'Log in with Facebook'),
+            ),
+            InkWell(
+              onTap: () => _loginUser(type: LoginType.google, context: context),
+              child: socialContainer(context, googleColor,
+                  'assets/google_logo.png', 'Log in with Google'),
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -102,13 +148,40 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 20,
             ),
             buildTextField(
-                context, 'Email', emailController, 'myemail@gowild.com', false),
+                context, 'Email', emailController, 'myemail@gowild.com', false,
+                (String? value) {
+              return value!;
+            }),
             buildTextField(
-                context, 'Password', passwordController, '***********', true),
+                context, 'Password', passwordController, '***********', true,
+                (String? value) {
+              return value!;
+            }),
             forgotPassword(),
             const SizedBox(height: 10),
-            mainAuthButton(context, "Login", () {
-              _loginUser(type: LoginType.email, context: context);
+            mainAuthButton(context, "Login", () async {
+              try {
+                final res = await DioClient()
+                    .loginUser(emailController.text, passwordController.text);
+                if (res.toJson().isNotEmpty) {
+                  isFirstTime().then((isFirstTime) {
+                    print(isFirstTime);
+                    isFirstTime
+                        ? Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EwaiverScreen()),
+                            (route) => false)
+                        : Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen()),
+                            (route) => false);
+                  });
+                }
+              } catch (e) {
+                print(e.toString());
+              }
             }),
             const SizedBox(
               height: 30,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/constants/colors.dart';
 import 'package:gowild_mobile/constants/size.dart';
+import 'package:gowild_mobile/views/home.dart';
 
 import '../../models/settings.dart';
 import '../../services/prefs_service.dart';
@@ -152,7 +153,7 @@ class _MapOverlayState extends State<MapOverlay> {
                                     ),
                                     style: ElevatedButton.styleFrom(
                                       shape: const StadiumBorder(),
-                                      primary: primaryOrange,
+                                      primary: kprimaryOrange,
                                     ),
                                   ),
                           ],
@@ -177,9 +178,21 @@ class _MapOverlayState extends State<MapOverlay> {
       bottomNavigationBar: const BottomNavBar(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: primaryYellow, size: 28),
+        // iconTheme: const IconThemeData(color: primaryYellow, size: 28),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  (route) => false);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              size: 29,
+              color: kprimaryYellow,
+            )),
         centerTitle: false,
-        title: Text(
+        title: const Text(
           'Map Overlay',
           style: TextStyle(
               color: primaryYellow, fontSize: 28, fontWeight: FontWeight.bold),

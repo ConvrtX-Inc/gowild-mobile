@@ -2,17 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:gowild_mobile/services/dio_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_model.dart';
-
-enum AuthStatus {
-  Success,
-  NewUser,
-  UserNotFound,
-  InvalidEmail,
-  InvalidPassword,
-  Error,
-}
 
 class AuthenticationHelper extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -82,18 +75,56 @@ class AuthenticationHelper extends ChangeNotifier {
     String retVal = 'error';
     try {
       User? _firebaseUser = _auth.currentUser;
+      // _currentUser = await DioClient().getUser();
       if (_firebaseUser != null) {
-        if (_currentUser != null) {
-          print('success');
-
-          print('initScreen ${loggedOnce}');
-          retVal = 'success';
-        }
+        print('success');
+        print('initScreen ${loggedOnce}');
+        retVal = 'success';
       }
+      //   } else if (_currentUser.toJson().isNotEmpty) {
+      //     print('success');
+      //     print('initScreen ${loggedOnce}');
+      //     retVal = 'success';
+      //   }
     } catch (e) {
       print(e);
     }
 
+    return retVal;
+  }
+
+  Future<String> loginUserWithGoogle() async {
+    String retVal = "error";
+    GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
+    UserModel _users = UserModel();
+    try {
+      GoogleSignInAccount? _googleUser = await _googleSignIn.signIn();
+      GoogleSignInAuthentication _googleAuth =
+          await _googleUser!.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+          idToken: _googleAuth.idToken, accessToken: _googleAuth.accessToken);
+      UserCredential _authResult = await _auth.signInWithCredential(credential);
+      if (_authResult.additionalUserInfo!.isNewUser) {
+        _users.uid = _authResult.user!.uid;
+        _users.email = _authResult.user!.email;
+        _users.fullName = _authResult.user!.displayName;
+      }
+
+      if (_currentUser != null) {
+        retVal = "success";
+      }
+    } on PlatformException catch (e) {
+      retVal = e.message!;
+      print(retVal);
+    } catch (e) {
+      // retVal = e.message;
+      print(e);
+    }
     return retVal;
   }
 

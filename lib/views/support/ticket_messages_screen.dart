@@ -78,7 +78,7 @@ class _TicketMessagesScreenState extends State<TicketMessagesScreen> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                       decoration: BoxDecoration(
-                          color: AppColorConstants.ticketBadgePendingColor,
+                          // color: AppColorConstants.ticketBadgePendingColor,
                           borderRadius: BorderRadius.circular(18),
                           shape: BoxShape.rectangle),
                       child: Text(
