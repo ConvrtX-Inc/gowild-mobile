@@ -61,38 +61,38 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       );
-  buildDraggableWidget() => DraggableWidget(
-        bottomMargin: 80,
-        topMargin: 80,
-        intialVisibility: true,
-        horizontalSpace: 20,
-        shadowBorderRadius: 50,
-        child: GestureDetector(
-          onDoubleTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => MapOverlay()));
-            // AuthenticationHelper().onSignOut();
-            // Navigator.pushAndRemoveUntil(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => const Root()),
-            //     (route) => false);
-          },
-          child: Container(
-            height: 64,
-            width: 64,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.blue,
-            ),
-            child: const Icon(
-              Icons.border_color_sharp,
-              color: Colors.white,
-            ),
-          ),
-        ),
-        initialPosition: AnchoringPosition.topRight,
-        dragController: dragController,
-      );
+  // buildDraggableWidget() => DraggableWidget(
+  //       bottomMargin: 80,
+  //       topMargin: 80,
+  //       intialVisibility: true,
+  //       horizontalSpace: 20,
+  //       shadowBorderRadius: 50,
+  //       child: GestureDetector(
+  //         onDoubleTap: () {
+  //           Navigator.push(
+  //               context, MaterialPageRoute(builder: (context) => MapOverlay()));
+  //           // AuthenticationHelper().onSignOut();
+  //           // Navigator.pushAndRemoveUntil(
+  //           //     context,
+  //           //     MaterialPageRoute(builder: (context) => const Root()),
+  //           //     (route) => false);
+  //         },
+  //         child: Container(
+  //           height: 64,
+  //           width: 64,
+  //           decoration: const BoxDecoration(
+  //             shape: BoxShape.circle,
+  //             color: Colors.blue,
+  //           ),
+  //           child: const Icon(
+  //             Icons.border_color_sharp,
+  //             color: Colors.white,
+  //           ),
+  //         ),
+  //       ),
+  //       initialPosition: AnchoringPosition.topRight,
+  //       dragController: dragController,
+  //     );
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +156,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               )),
-          buildDraggableWidget()
         ]),
       ),
     );

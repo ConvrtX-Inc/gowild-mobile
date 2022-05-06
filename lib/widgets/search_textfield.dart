@@ -6,6 +6,7 @@ buildSearchTextField() => TextField(
         // Method For Searching
       },
       controller: _searchController,
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         filled: true,
         fillColor: const Color(0xff3B352F),

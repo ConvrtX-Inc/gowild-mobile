@@ -76,11 +76,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 18, bottom: 5),
             child: buildTextField(
-                context, 'Email', emailController, 'myemail@gowild.com', false),
+                context, 'Email', emailController, 'myemail@gowild.com', false,
+                (String? value) {
+              return value!;
+            }),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18, bottom: 5),
-            child: buildPhoneNumberTextField(context),
+            child: buildPhoneNumberTextField(context, phoneNumberController),
           ),
           mainAuthButton(context, 'Verify account', () {
             Navigator.push(

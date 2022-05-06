@@ -5,15 +5,22 @@ import 'package:gowild_mobile/widgets/auth_widgets.dart';
 
 import '../../constants/colors.dart';
 
-class VerifyPhoneScreen extends StatelessWidget {
-  const VerifyPhoneScreen({Key? key}) : super(key: key);
+class VerifyPhoneScreen extends StatefulWidget {
+  String phoneNumber;
+  VerifyPhoneScreen({Key? key, required this.phoneNumber}) : super(key: key);
+
+  @override
+  State<VerifyPhoneScreen> createState() => _VerifyPhoneScreenState();
+}
+
+class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
   Row buildResendOtpText() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextButton(
             onPressed: () {},
-            child: Text(
+            child: const Text(
               'Resend OTP',
               style: TextStyle(
                   decoration: TextDecoration.underline,
@@ -28,7 +35,7 @@ class VerifyPhoneScreen extends StatelessWidget {
   Row buildDidNotRecieveCode() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+      children: const [
         Text(
           'Didn\'t recieve code? ',
           style: TextStyle(
@@ -46,7 +53,7 @@ class VerifyPhoneScreen extends StatelessWidget {
           underlineUnfocusedColor: primaryRed,
           autofocus: true,
           underlineWidth: 6,
-          textStyle: TextStyle(fontSize: 30.0, color: primaryRed),
+          textStyle: const TextStyle(fontSize: 30.0, color: primaryRed),
           keyboardType: TextInputType.number,
           underlineColor: const Color(0xff6B6968),
           length: 4,
@@ -67,15 +74,15 @@ class VerifyPhoneScreen extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: primaryYellow),
+        iconTheme: const IconThemeData(color: primaryYellow),
         elevation: 0.0,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 30, top: 176, bottom: 10),
+          const Padding(
+            padding: EdgeInsets.only(left: 30, top: 176, bottom: 10),
             child: Text(
               'VERIFY PHONE',
               style: TextStyle(
@@ -85,21 +92,21 @@ class VerifyPhoneScreen extends StatelessWidget {
                   fontFamily: 'TheForegenRegular.ttf'),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 35, bottom: 5),
+          const Padding(
+            padding: EdgeInsets.only(left: 35, bottom: 5),
             child: Text(
               'Verification code sent to',
-              style: TextStyle(
+              style: const TextStyle(
                   color: secondaryWhite,
                   fontSize: 18,
                   fontWeight: FontWeight.w400),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 35),
+          const Padding(
+            padding: EdgeInsets.only(left: 35),
             child: Text(
               '+123-456-789',
-              style: TextStyle(
+              style: const TextStyle(
                   color: secondaryWhite,
                   fontSize: 18,
                   fontWeight: FontWeight.w400),

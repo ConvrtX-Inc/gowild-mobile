@@ -31,7 +31,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 85,
+      height: 95,
       decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
@@ -48,13 +48,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
           enableFeedback: false,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-
               icon: SvgPicture.asset(
                 homeIcon,
                 color:
                     _selectedTabIndex == 0 ? Color(0xffE5592F) : Colors.white,
               ),
-
               label: '',
             ),
             BottomNavigationBarItem(
@@ -76,13 +74,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
               label: '',
             ),
             BottomNavigationBarItem(
-
-
               icon: SvgPicture.asset(profileIcon,
                   color: _selectedTabIndex == 4
                       ? Color(0xffE5592F)
                       : Colors.white),
-
               label: '',
             ),
           ],

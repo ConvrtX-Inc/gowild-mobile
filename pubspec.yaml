@@ -35,13 +35,23 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   fluttertoast: ^8.0.9
   google_maps_routes: ^1.1.2
+
+  flutter_map_tappable_polyline: ^3.1.0 
+  shared_preferences: ^2.0.13
+  latlong2: ^0.8.1 
+  flutter_login_facebook: ^1.4.1
+  google_sign_in: ^5.3.0
+  expandable: ^5.0.1
+  flutter_svg: ^1.0.3
   dio: ^4.0.6
+
   shared_preferences: ^2.0.13
   flutter_animarker: ^3.2.0 
   expandable: ^5.0.1
   flutter_svg: ^1.0.3
   http: ^0.13.4
   flutter_secure_storage: ^5.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
