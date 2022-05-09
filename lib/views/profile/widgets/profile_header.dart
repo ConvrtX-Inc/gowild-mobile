@@ -1,13 +1,19 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:gowild_mobile/constants/colors.dart' as AppColorConstants;
 import 'package:gowild_mobile/constants/image_constants.dart';
 
 class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({Key? key, this.imageAsset}) : super(key: key);
+  const ProfileHeader(
+      {Key? key,
+      this.imageAsset,
+      this.forChangingPhoto = false,
+      this.changePhotoButtonTap})
+      : super(key: key);
   final String? imageAsset;
+  final bool forChangingPhoto;
+  final VoidCallback? changePhotoButtonTap;
 
   final String leafBg =
       '${ImageAssetPath.imagePathPng}${ImageAssetName.leafBg}';
@@ -30,16 +36,33 @@ class ProfileHeader extends StatelessWidget {
         ),
         Positioned(
           bottom: -50,
-          child: Container(
-            padding: EdgeInsets.all(10),
-            decoration:
-                BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-            child: CircleAvatar(
-              radius: 90,
-              backgroundImage: imageAsset == null || imageAsset == ''
-                  ? AssetImage(profilePlaceholder)
-                  : Image.memory(base64Decode(imageAsset!)) as ImageProvider,
-            ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration:
+                    BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                child: CircleAvatar(
+                  radius: 90,
+                  backgroundImage: imageAsset == null || imageAsset == ''
+                      ? AssetImage(profilePlaceholder)
+                      : MemoryImage(base64Decode(imageAsset!)) as ImageProvider,
+                ),
+              ),
+              if (forChangingPhoto)
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: Colors.black54.withOpacity(0.3),
+                      shape: BoxShape.circle),
+                  child: IconButton(
+                    onPressed: changePhotoButtonTap,
+                    icon: Icon(Icons.photo_rounded),
+                    iconSize: 40,
+                  ),
+                )
+            ],
           ),
         )
       ],

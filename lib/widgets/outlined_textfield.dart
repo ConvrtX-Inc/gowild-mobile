@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 
 class OutlinedTextField extends StatelessWidget {
-  const OutlinedTextField(
-      {required this.title, Key? key, this.controller, this.hintText})
-      : super(key: key);
+  const OutlinedTextField({
+    required this.title,
+    Key? key,
+    this.controller,
+    this.hintText,
+    this.onChanged,
+    this.focus,
+    this.initialValue,
+  }) : super(key: key);
 
   final TextEditingController? controller;
   final String? hintText;
   final String title;
+  final ValueChanged<String?>? onChanged;
+  final FocusNode? focus;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +31,15 @@ class OutlinedTextField extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        TextField(
+        TextFormField(
           // obscureText: obscureText,
+          initialValue: initialValue,
           controller: controller,
           cursorColor: const Color(0xff6B6968),
           style: const TextStyle(
               color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+          onChanged: onChanged,
+          focusNode: focus,
           decoration: InputDecoration(
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xff6B6968), width: 2.0),

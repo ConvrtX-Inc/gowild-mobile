@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gowild_mobile/views/support/new_ticket_screen.dart';
 import 'package:gowild_mobile/widgets/custom_appbar.dart';
 import 'package:gowild_mobile/widgets/grass_themed_button.dart';
 
@@ -27,7 +28,11 @@ class _TicketsScreenState extends State<TicketsScreen> {
           }),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20),
-        child: GrassThemedButton(title: 'Send New Ticket'),
+        child: GrassThemedButton(
+          title: 'Send New Ticket',
+          onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => NewTicketScreen())),
+        ),
       ),
     );
   }

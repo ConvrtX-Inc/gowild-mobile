@@ -7,11 +7,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     Key? key,
     this.height = 80,
     this.onLeadingTap,
+    this.actions,
   }) : super(key: key);
 
   final double height;
   final String titleText;
   final VoidCallback? onLeadingTap;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             fontWeight: FontWeight.w800,
             fontSize: 25),
       ),
+      actions: actions,
     );
   }
 

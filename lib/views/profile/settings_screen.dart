@@ -13,6 +13,7 @@ import 'package:gowild_mobile/views/notifications/notifications_screen.dart';
 
 import 'package:gowild_mobile/constants/colors.dart' as AppColorConstants;
 import 'package:gowild_mobile/views/profile/faqs_screen.dart';
+import 'package:gowild_mobile/views/profile/profile_screen.dart';
 import 'package:gowild_mobile/views/support/tickets_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -84,7 +85,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 30.0),
-                  child: _header(),
+                  child: GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileScreen())),
+                      child: _header()),
                 ),
                 _menuButton(gearIcon, 'General',
                     onTap: () => Navigator.push(context,

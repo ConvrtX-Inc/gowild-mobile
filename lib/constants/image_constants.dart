@@ -1,11 +1,13 @@
 class ImageAssetPath {
   static const String imagePathPng = 'assets/images/pngs/';
   static const String imagePathSvg = 'assets/images/svgs/';
+  static const String imagePathAny = 'assets/';
 }
 
 class ImageAssetName {
   static const String leafBg = 'leaf_bg.png';
   static const String grassButtonBg = 'grass_button_bg.png';
+  static const String walkthrough = 'Walkthrough.png';
   static const String profilePlaceHolder = 'profile_placeholder.png';
   static const String arrowForward = 'arrow_forward.svg';
   static const String arrowDown = 'arrow_down.svg';

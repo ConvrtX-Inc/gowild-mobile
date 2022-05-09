@@ -1,9 +1,11 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
+import 'package:gowild_mobile/constants/app_text_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gowild_mobile/constants/api_path_constants.dart';
 import 'package:gowild_mobile/services/api_services.dart';
@@ -93,6 +95,13 @@ class AuthenticationHelper extends ChangeNotifier {
           data: emailAndPassword);
       print(response);
       if (response is Map<String, dynamic>) {
+        if (response.containsKey('status')) {
+          showOkAlertDialog(
+              context: context,
+              title: AppTextConstants.loginFailedText,
+              message: AppTextConstants.wrongEmailOrPassword);
+          return;
+        }
         await SecureStorage.saveValue(
             key: SecureStorage.userTokenKey, value: response['token']);
         await SecureStorage.saveValue(
@@ -100,6 +109,21 @@ class AuthenticationHelper extends ChangeNotifier {
         await Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const MainNavigation()));
       }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool> authenticateToken() async {
+    try {
+      final dynamic response = await ApiServices().request(
+          ApiPathConstants.authUrl, RequestType.GET,
+          needAccessToken: true);
+      print(response);
+      if (response['status'] != 200) {
+        return false;
+      }
+      return true;
     } catch (e) {
       rethrow;
     }
@@ -120,7 +144,6 @@ class AuthenticationHelper extends ChangeNotifier {
     } catch (e) {
       print(e);
     }
-
     return retVal;
   }
 
