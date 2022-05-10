@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gowild_mobile/constants/image_constants.dart';
 import 'package:gowild_mobile/models/user_model.dart';
 import 'package:gowild_mobile/services/database.dart';
+import 'package:gowild_mobile/services/firebase_storage.dart';
 import 'package:gowild_mobile/utils/camera_services.dart';
 import 'package:gowild_mobile/views/profile/widgets/profile_header.dart';
 import 'package:gowild_mobile/widgets/custom_appbar.dart';
@@ -93,7 +94,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               imageAsset:
                   imageBase64 != null ? imageBase64 : widget.user.profileImg,
               changePhotoButtonTap: () async {
-                imageBase64 = await CameraServices.pickPicture();
+                final Map<String, dynamic>? file =
+                    await CameraServices.pickPicture();
+                print(file);
+                final String? downloadUrl = await FBStorage.uploadPicture(
+                  file!['file'],
+                  file['file_name'],
+                );
+                print(downloadUrl);
                 setState(() {});
               },
             ),

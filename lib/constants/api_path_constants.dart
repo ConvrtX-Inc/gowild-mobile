@@ -20,4 +20,6 @@ class ApiPathConstants {
   static String authUrl = 'api/v1/auth/me';
 
   static String usersUrl = 'api/v1/users/';
+
+  static String notificationUrl = 'api/v1/notifications';
 }

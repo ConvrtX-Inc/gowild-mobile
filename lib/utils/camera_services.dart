@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:path/path.dart';
 import 'package:image_picker/image_picker.dart';
 
 // ignore: avoid_classes_with_only_static_members
@@ -10,19 +10,21 @@ class CameraServices {
 
   /// Pick image from gallery or from camera
   /// set an optional source parameter
-  static Future<String> pickPicture(
+  static Future<Map<String, dynamic>?> pickPicture(
       {ImageSource source = ImageSource.gallery}) async {
-    late String imageBase64;
+    late String imageName;
+    late File file;
 
     final XFile? pickedImage =
         await _picker.pickImage(source: source, imageQuality: 70);
 
     if (pickedImage != null) {
       List<int>? imageBytes;
-      imageBytes = File(pickedImage.path).readAsBytesSync();
-      imageBase64 = base64Encode(imageBytes);
+      file = File(pickedImage.path);
+      imageName = basename(file.path);
+      return {'file_name': imageName, 'file': file.path};
     }
-    return imageBase64;
+    return null;
   }
 
   static Future<List<String>> pickMultiPicture(

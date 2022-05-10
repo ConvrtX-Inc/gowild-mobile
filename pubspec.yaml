@@ -54,6 +54,7 @@ dependencies:
   adaptive_dialog: ^1.6.2+1
   loading_animation_widget: ^1.1.0+3
   image_picker: ^0.8.4+4
+  firebase_storage: ^10.2.15
 dev_dependencies:
   flutter_test:
     sdk: flutter
