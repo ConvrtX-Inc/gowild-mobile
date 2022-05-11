@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gowild_mobile/constants/api_path.dart';
 import 'package:gowild_mobile/models/user_model.dart';
 
+import '../models/route.dart';
+
 class DioClient {
   static const String baseUrl = 'https://gowild-api-dev.herokuapp.com';
 
@@ -78,7 +80,7 @@ class DioClient {
     }
   }
 
-  Future<UserModel> getUser() async {
+  Future<UserModel> getUser({String? token}) async {
     final String postEndPoint = baseUrl + ApiPath().getUser;
     BaseOptions options = BaseOptions(
       baseUrl: postEndPoint,
@@ -87,12 +89,47 @@ class DioClient {
     );
     final Dio dio = Dio(options);
     try {
-      Response response = await dio.get(postEndPoint);
+      Response response = await dio.get(
+        postEndPoint,
+        options: Options(
+          headers: {
+            "authorization":
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxMDYyODQzLWY5YzktNGNjMC1iMzYzLWYwZmM0NDc5ODAzYyIsImlhdCI6MTY1MjIzOTI0NSwiZXhwIjoxNjUyMzI1NjQ1fQ.0kjQeEIE4AcfKL2gLNqvU8PliNdQiRsl50oz5u4O0Z4",
+          },
+        ),
+      );
       debugPrint(response.toString());
       return UserModel.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create post request - get user");
+      throw Exception("Failed to create get request - get user");
+    }
+  }
+
+  Future<Routes> getRoute() async {
+    const String postEndPoint =
+        baseUrl + '/api/v1/route/2f1ab43e-e7db-482a-91a3-3990020f271b';
+    BaseOptions options = BaseOptions(
+      baseUrl: postEndPoint,
+      connectTimeout: 10000,
+      receiveTimeout: 10000,
+    );
+    final Dio dio = Dio(options);
+    try {
+      Response response = await dio.get(
+        postEndPoint,
+        options: Options(
+          headers: {
+            "authorization":
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxMDYyODQzLWY5YzktNGNjMC1iMzYzLWYwZmM0NDc5ODAzYyIsImlhdCI6MTY1MjIzOTI0NSwiZXhwIjoxNjUyMzI1NjQ1fQ.0kjQeEIE4AcfKL2gLNqvU8PliNdQiRsl50oz5u4O0Z4",
+          },
+        ),
+      );
+      debugPrint(response.toString());
+      return Routes.fromJson(response.data);
+    } on DioError catch (e) {
+      debugPrint("Status code: ${e.response?.statusCode.toString()}");
+      throw Exception("Failed to create get request - get routes");
     }
   }
 }

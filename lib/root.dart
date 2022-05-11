@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gowild_mobile/models/user_model.dart';
-import 'package:gowild_mobile/views/home.dart';
-import 'package:gowild_mobile/views/landing_page.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:gowild_mobile/views/main_screen.dart';
 
 import 'helper/authentication_helper.dart';
-import 'services/prefs_service.dart';
-import 'views/auth/e_waiver.dart';
 import 'package:provider/provider.dart';
 
 import 'views/splash_screen.dart';
@@ -26,10 +19,7 @@ class Root extends StatefulWidget {
 }
 
 class _RootState extends State<Root> {
-  String? currentUid;
-
   AuthStatus _authStatus = AuthStatus.notLoggedIn;
-  bool userLogIn = false;
 
   @override
   void didChangeDependencies() async {
@@ -39,11 +29,15 @@ class _RootState extends State<Root> {
 
     String returnString = await _user.onStartUp();
 
-    if (returnString == 'success') {
-      setState(() {
-        _authStatus = AuthStatus.loggedIn;
-      });
+    if (returnString == "success") {
+      print(returnString);
+      if (mounted) {
+        setState(() {
+          _authStatus = AuthStatus.loggedIn;
+        });
+      }
     }
+    print(_authStatus);
   }
 
   @override

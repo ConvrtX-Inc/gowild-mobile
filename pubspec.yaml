@@ -43,6 +43,7 @@ dependencies:
   expandable: ^5.0.1
   flutter_svg: ^1.0.3
   dio: ^4.0.6
+  google_directions_api: ^0.9.1 
 dev_dependencies:
   flutter_test:
     sdk: flutter

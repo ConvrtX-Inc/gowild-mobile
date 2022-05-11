@@ -6,6 +6,7 @@ import 'package:gowild_mobile/root.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
 import 'package:gowild_mobile/views/auth/e_waiver.dart';
 import 'package:gowild_mobile/views/home.dart';
+import 'package:gowild_mobile/views/main_screen.dart';
 import '../../widgets/auth_widgets.dart';
 import '../../constants/colors.dart';
 import 'register.dart';
@@ -175,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         : Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const HomeScreen()),
+                                builder: (context) => const MainNavigation()),
                             (route) => false);
                   });
                 }

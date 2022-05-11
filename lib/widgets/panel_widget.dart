@@ -3,10 +3,48 @@ import 'package:gowild_mobile/constants/size.dart';
 import 'package:gowild_mobile/views/maps/try_routes.dart';
 import 'package:gowild_mobile/widgets/sample_avatar.dart';
 
-class PanelWidget extends StatelessWidget {
+import '../services/dio_client.dart';
+
+class PanelWidget extends StatefulWidget {
   const PanelWidget({Key? key, required this.sc}) : super(key: key);
 
   final ScrollController sc;
+
+  @override
+  State<PanelWidget> createState() => _PanelWidgetState();
+}
+
+class _PanelWidgetState extends State<PanelWidget> {
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    getRoutes();
+
+    super.initState();
+  }
+
+  String? routeImage;
+  String? routeText;
+  double? startLat;
+  double? startLong;
+  double? endLat;
+  double? endLong;
+
+  Future getRoutes() async {
+    final routes = await DioClient().getRoute();
+    final user = await DioClient().getUser();
+
+    setState(() {
+      routeImage = routes.imgUrl;
+      routeText = routes.routeName;
+      startLat = routes.startPointLat;
+      startLong = routes.startPointLong;
+      endLat = routes.stopPointLat;
+      endLong = routes.stopPointLong;
+    });
+    setState(() {});
+  }
 
   Widget buildContainer() => Column(
         children: [
@@ -130,6 +168,7 @@ class PanelWidget extends StatelessWidget {
 
   buildSmallMap(double height) =>
       SizedBox(height: height, child: Image.asset('assets/map.png'));
+
   build1stContainer(BuildContext context) => SizedBox(
         width: 320,
         height: 135,
@@ -152,15 +191,15 @@ class PanelWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset('assets/bigMap.png'),
+              child: Image.network(routeImage!),
             ),
             Column(
               children: [
                 sizedBox(20, 0),
-                const Padding(
-                  padding: EdgeInsets.only(right: 90),
-                  child: Text('Route Text Goes Here',
-                      style: TextStyle(
+                Padding(
+                  padding: const EdgeInsets.only(right: 90),
+                  child: Text(routeText!,
+                      style: const TextStyle(
                           color: Color(0xff18243C),
                           fontSize: 11,
                           fontWeight: FontWeight.w700)),
@@ -215,11 +254,19 @@ class PanelWidget extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    TryRoutes(isProximity: true)));
+                        WidgetsBinding.instance?.addPostFrameCallback((_) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TryRoutes(
+                                        isProximity: true,
+                                        endLat: endLat,
+                                        endLong: endLong,
+                                        startLat: startLat,
+                                        startLong: startLong,
+                                        routeText: routeText,
+                                      )));
+                        });
                       },
                       child: Container(
                         // margin: const EdgeInsets.all(5),
@@ -286,11 +333,12 @@ class PanelWidget extends StatelessWidget {
           ]),
         ),
       );
+
   @override
   Widget build(BuildContext context) => ListView(
         physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,
-        controller: sc,
+        controller: widget.sc,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 40),

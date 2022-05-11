@@ -12,13 +12,13 @@ class AuthenticationHelper extends ChangeNotifier {
   UserModel _currentUser = UserModel();
   String? _email;
   User? _user;
-
+  static const String _token = '';
   User get user => _user!;
 
   UserModel get getCurrentUser => _currentUser;
 
   String? get getEmail => _currentUser.email;
-
+  String get tokenUser => _token;
   Future<String> signUpUser(
     String email,
     String password,
@@ -75,17 +75,14 @@ class AuthenticationHelper extends ChangeNotifier {
     String retVal = 'error';
     try {
       User? _firebaseUser = _auth.currentUser;
-      // _currentUser = await DioClient().getUser();
-      if (_firebaseUser != null) {
+      _currentUser = await DioClient().getUser();
+      if (_firebaseUser != null || _currentUser.toJson().values.isNotEmpty) {
         print('success');
+
         print('initScreen ${loggedOnce}');
+
         retVal = 'success';
       }
-      //   } else if (_currentUser.toJson().isNotEmpty) {
-      //     print('success');
-      //     print('initScreen ${loggedOnce}');
-      //     retVal = 'success';
-      //   }
     } catch (e) {
       print(e);
     }
