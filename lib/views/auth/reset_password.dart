@@ -83,7 +83,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18, bottom: 5),
-            child: buildPhoneNumberTextField(context, phoneNumberController),
+            child: buildPhoneNumberTextField(
+              context,
+            ),
           ),
           mainAuthButton(context, 'Verify account', () {
             Navigator.push(

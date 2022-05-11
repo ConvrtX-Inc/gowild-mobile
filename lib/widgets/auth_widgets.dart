@@ -223,8 +223,9 @@ Padding socialContainer(
 
 //used in register.dart
 //intl phone number package used
-Column buildPhoneNumberTextField(
-    BuildContext context, TextEditingController controller) {
+
+Column buildPhoneNumberTextField(BuildContext context,
+    {TextEditingController? controller}) {
   Size size = MediaQuery.of(context).size;
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,

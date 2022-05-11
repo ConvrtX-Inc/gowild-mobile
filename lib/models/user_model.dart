@@ -5,6 +5,16 @@ UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 String userModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
+  String? fullName;
+  String? email;
+  String? password;
+  String? address1;
+  String? address2;
+  String? phoneNumber;
+  String? uid;
+  String? profileImg;
+  DateTime? accountCreated;
+  bool? isLoggedIn;
   UserModel(
       {this.fullName,
       this.email,
@@ -14,17 +24,8 @@ class UserModel {
       this.accountCreated,
       this.phoneNumber,
       this.isLoggedIn,
-      this.uid});
-
-  DateTime? accountCreated;
-  String? address1;
-  String? address2;
-  String? email;
-  String? fullName;
-  String? password;
-  String? phoneNumber;
-  String? uid;
-  bool? isLoggedIn;
+      this.uid,
+      this.profileImg});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         email: json["email"],
