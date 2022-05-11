@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/constants/colors.dart' as AppColorConstants;
 import 'package:gowild_mobile/constants/image_constants.dart';
@@ -47,7 +48,8 @@ class ProfileHeader extends StatelessWidget {
                   radius: 90,
                   backgroundImage: imageAsset == null || imageAsset == ''
                       ? AssetImage(profilePlaceholder)
-                      : MemoryImage(base64Decode(imageAsset!)) as ImageProvider,
+                      : CachedNetworkImageProvider(imageAsset!)
+                          as ImageProvider,
                 ),
               ),
               if (forChangingPhoto)
