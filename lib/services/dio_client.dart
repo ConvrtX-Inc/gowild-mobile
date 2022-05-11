@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/constants/api_path.dart';
 import 'package:gowild_mobile/models/user_model.dart';
+import 'package:gowild_mobile/services/secure_storage.dart';
 
 import '../models/route.dart';
 
@@ -51,6 +52,10 @@ class DioClient {
         "password": password,
       });
       debugPrint(response.toString());
+      await SecureStorage.saveValue(
+          key: SecureStorage.userTokenKey, value: response.data['token']);
+      await SecureStorage.saveValue(
+          key: SecureStorage.userIdKey, value: response.data['user']['id']);
       return UserModel.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");

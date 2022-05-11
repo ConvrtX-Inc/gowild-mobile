@@ -91,8 +91,10 @@ class AuthenticationHelper extends ChangeNotifier {
       Map<String, dynamic> emailAndPassword, BuildContext context) async {
     try {
       final dynamic response = await ApiServices().request(
-          ApiPathConstants.loginUrl, RequestType.POST,
-          data: emailAndPassword);
+        ApiPathConstants.loginUrl,
+        RequestType.POST,
+        data: emailAndPassword,
+      );
       print(response);
       if (response is Map<String, dynamic>) {
         if (response.containsKey('status')) {
