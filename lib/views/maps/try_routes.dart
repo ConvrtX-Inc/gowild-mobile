@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geolocator/geolocator.dart';
 
 // import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -30,7 +31,8 @@ class TryRoutes extends StatefulWidget {
       this.endLong,
       this.routeText,
       this.startLat,
-      this.startLong})
+      this.startLong,
+      required this.route})
       : super(key: key);
 
   double? endLat;
@@ -39,6 +41,7 @@ class TryRoutes extends StatefulWidget {
   String? routeText;
   double? startLat;
   double? startLong;
+  final Routes route;
 
   @override
   _TryRoutesState createState() => _TryRoutesState();
@@ -47,6 +50,7 @@ class TryRoutes extends StatefulWidget {
 class _TryRoutesState extends State<TryRoutes> {
   bool atEndPoint = true;
   bool atFinishLine = false;
+  LatLng? currentPostion;
   double? endLat;
   late LatLng endLocation = LatLng(endLat!, endLong!);
   double? endLong;
@@ -55,7 +59,7 @@ class _TryRoutesState extends State<TryRoutes> {
   bool pressedStartProximity = false;
   String? routeText;
   double? startLat;
-  late LatLng startLocation = LatLng(startLat!, startLong!);
+
   double? startLong;
   bool state = false;
 
@@ -66,28 +70,22 @@ class _TryRoutesState extends State<TryRoutes> {
   Location _location = Location();
   Marker? _origin;
   final Set<Polyline> _polyline = {};
-
+  late Future<RouteList> getRoutes;
+  late LatLng startLocation = LatLng(startLat!, startLong!);
   // Set<Marker> markers = Set();
   @override
   void initState() {
     super.initState();
     // TODO: implement initState
-
-    // getDirections();
-    startLat = widget.startLat;
-    startLong = widget.startLong;
-    endLat = widget.endLat;
-    endLong = widget.endLong;
-    routeText = widget.routeText;
-    isProximity = widget.isProximity;
+    getRoutes = DioClient().getRoutes();
+    _getUserLocation();
+    startLat = widget.route.startPointLat!;
+    startLong = widget.route.startPointLong!;
+    endLat = widget.route.startPointLat!;
+    endLong = widget.route.stopPointLong!;
+    routeText = widget.route.routeName!;
+    isProximity = widget.isProximity!;
   }
-
-  // Future<void> getDirections(LatLng pos) async {
-  //   final directions = await DirectionsRepository()
-  //       .getDirections(origin: _origin!.position, destination: pos);
-  //   setState(() => _info = directions);
-  //   print(_info);
-  // }
 
   showToast() {
     return Container(
@@ -111,13 +109,33 @@ class _TryRoutesState extends State<TryRoutes> {
     );
   }
 
-  // GoogleMapController? _googleMapController;
+  Future<void> _getUserLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
 
-  // @override
-  // void dispose() {
-  //   _googleMapController!.dispose();
-  //   super.dispose();
-  // }
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    permission = await Geolocator.requestPermission();
+
+    if (permission == LocationPermission.denied) {
+      return Future.error('Location permissions are denied');
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    var position = await GeolocatorPlatform.instance.getCurrentPosition();
+
+    setState(() {
+      currentPostion = LatLng(position.latitude, position.longitude);
+    });
+  }
 
   void _onMapCreated(GoogleMapController _cntlr) async {
     _controller = _cntlr;
@@ -134,21 +152,21 @@ class _TryRoutesState extends State<TryRoutes> {
 
     final marker = [
       Marker(
-        markerId: MarkerId('endpoint'),
+        markerId: const MarkerId('endpoint'),
         position: LatLng(endLat!, endLong!),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-        infoWindow: InfoWindow(
+        infoWindow: const InfoWindow(
           title: ' end here',
           snippet: '',
         ),
       ),
       Marker(
-        markerId: MarkerId('startpoint'),
-        position: LatLng(startLat!, startLong!),
+        markerId: const MarkerId('startpoint'),
+        position: startLocation,
         // icon: BitmapDescriptor.,
-        infoWindow: InfoWindow(
+        infoWindow: const InfoWindow(
           title: 'start here',
-          snippet: 'address',
+          snippet: '',
         ),
       ),
     ];
@@ -159,11 +177,17 @@ class _TryRoutesState extends State<TryRoutes> {
     });
   }
 
+  void _addMarker() async {
+    final directions = await DirectionsRepository()
+        .getDirections(origin: currentPostion!, destination: endLocation);
+    setState(() => _info = directions);
+  }
+
   @override
   Widget build(BuildContext context) {
     var _initialCameraPosition = CameraPosition(
-      target: LatLng(startLat!, startLong!),
-      zoom: 11.5,
+      target: currentPostion!,
+      zoom: 12,
     );
 
     return Scaffold(
@@ -258,204 +282,228 @@ class _TryRoutesState extends State<TryRoutes> {
               ],
             ),
             Stack(children: [
-              Column(
-                children: [
-                  sizedBox(30, 0),
-                  // atFinishLine
-                  //     ? Column(
-                  //         crossAxisAlignment: CrossAxisAlignment.center,
-                  //         children: const [
-                  //           Text(
-                  //             'Congratulations!',
-                  //             style: TextStyle(
-                  //                 color: Colors.white, fontSize: 18),
-                  //           ),
-                  //           Text(
-                  //             'You Completed This Route.',
-                  //             style: TextStyle(
-                  //                 color: Colors.white, fontSize: 18),
-                  //           )
-                  //         ],
-                  //       )
-                  //     : Container(),
-                  sizedBox(30, 0),
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(30.0),
-                      child:
-                          // atEndPoint
-                          //     ? Container(
-                          //         height: 600,
-                          //         width: double.infinity,
-                          //         decoration: BoxDecoration(
-                          //           image: DecorationImage(
-                          //             image: AssetImage('assets/autumn.png'),
-                          //             fit: BoxFit.fill,
-                          //           ),
-                          //         ))
-                          // :
-                          SizedBox(
-                              height: 600,
-                              width: double.infinity,
-                              child: isProximity!
-                                  ? GoogleMap(
-                                      myLocationButtonEnabled: true,
-                                      zoomControlsEnabled: true,
-                                      zoomGesturesEnabled: true,
-                                      tiltGesturesEnabled: false,
-                                      initialCameraPosition:
-                                          _initialCameraPosition,
-                                      onMapCreated: _onMapCreated,
-                                      // polylines:
-                                      //     Set<Polyline>.of(polylines.values),
-                                      markers: {
-                                        // if (_origin != null) _origin!,
-                                        // if (_destination != null)
-                                        //   _destination!
-                                        // else
-                                        markers.values.toSet().first,
-                                      },
+              Column(children: [
+                sizedBox(30, 0),
+                // atFinishLine
+                //     ? Column(
+                //         crossAxisAlignment: CrossAxisAlignment.center,
+                //         children: const [
+                //           Text(
+                //             'Congratulations!',
+                //             style: TextStyle(
+                //                 color: Colors.white, fontSize: 18),
+                //           ),
+                //           Text(
+                //             'You Completed This Route.',
+                //             style: TextStyle(
+                //                 color: Colors.white, fontSize: 18),
+                //           )
+                //         ],
+                //       )
+                //     : Container(),
 
-                                      polylines: {
-                                        if (_info != null)
-                                          Polyline(
-                                            polylineId: const PolylineId(
-                                                'overview_polyline'),
-                                            color: Colors.red,
-                                            width: 5,
-                                            points: _info!.polylinePoints
-                                                .map((e) => LatLng(
-                                                    e.latitude, e.longitude))
-                                                .toList(),
-                                          ),
-                                      },
-                                      // onLongPress: _addMarker,
-                                      // initialCameraPosition:
-                                      //     CameraPosition(target: startLocation),
-                                      mapType: MapType.normal,
+                // FutureBuilder<RouteList>(
+                //     future: getRoutes,
+                //     builder: (context, AsyncSnapshot<RouteList> snapshot) {
+                //       if (snapshot.hasData) {
+                //         return ClipRRect(
+                //             borderRadius: BorderRadius.circular(30.0),
+                //             child:
+                //                 // atEndPoint
+                //                 //     ? Container(
+                //                 //         height: 600,
+                //                 //         width: double.infinity,
+                //                 //         decoration: BoxDecoration(
+                //                 //           image: DecorationImage(
+                //                 //             image: AssetImage('assets/autumn.png'),
+                //                 //             fit: BoxFit.fill,
+                //                 //           ),
+                //                 //         ))
+                //                 // :
+                //                 SizedBox(
+                //                     height: 600,
+                //                     width: double.infinity,
+                //                     child: isProximity!
+                //                         ? GoogleMap(
+                //                             myLocationButtonEnabled: true,
+                //                             zoomControlsEnabled: true,
+                //                             zoomGesturesEnabled: true,
+                //                             tiltGesturesEnabled: false,
+                //                             initialCameraPosition:
+                //                                 _initialCameraPosition,
+                //                             onMapCreated: _onMapCreated,
+                //                             // polylines:
+                //                             //     Set<Polyline>.of(polylines.values),
+                //                             markers: markers.values.toSet(),
 
-                                      // onMapCreated: _onMapCreated,
-                                      myLocationEnabled: true,
+                //                             polylines: {
+                //                               if (_info != null)
+                //                                 Polyline(
+                //                                   polylineId: const PolylineId(
+                //                                       'overview_polyline'),
+                //                                   color: Colors.red,
+                //                                   width: 5,
+                //                                   points: _info!.polylinePoints
+                //                                       .map((e) => LatLng(
+                //                                           e.latitude,
+                //                                           e.longitude))
+                //                                       .toList(),
+                //                                 ),
+                //                             },
+                //                             // onLongPress: _addMarker,
+                //                             // initialCameraPosition:
+                //                             //     CameraPosition(target: startLocation),
+                //                             mapType: MapType.normal,
 
-                                      // markers: markers.values.toSet(),
-                                    )
-                                  : const MyGoogleMap())),
-                  // : Stack(children: [
-                  //     Container(
-                  //       alignment: Alignment.center,
-                  //       child: Image.asset(
-                  //         'assets/scroll.png',
-                  //         // height: ,
-                  //         width: double.infinity,
-                  //         fit: BoxFit.cover,
-                  //       ),
-                  //     ),
-                  //     Container(
-                  //         padding: const EdgeInsets.only(top: 40),
-                  //         alignment: Alignment.center,
-                  //         child: SingleChildScrollView(
-                  //           child: Column(
-                  //             children: [
-                  //               const Text(
-                  //                 'Did You Know?',
-                  //                 style: TextStyle(
-                  //                     color: Colors.black,
-                  //                     fontWeight: FontWeight.bold,
-                  //                     fontSize: 22.0),
-                  //               ),
-                  //               sizedBox(20, 0),
-                  //               const Padding(
-                  //                 padding: EdgeInsets.only(
-                  //                     left: 80, right: 80),
-                  //                 child: Text(
-                  //                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
-                  //                   style: TextStyle(
-                  //                       color: Colors.black,
-                  //                       fontWeight:
-                  //                           FontWeight.bold,
-                  //                       fontSize: 14.0),
-                  //                 ),
-                  //               ),
-                  //               sizedBox(20, 0),
-                  //               const Padding(
-                  //                 padding: EdgeInsets.only(
-                  //                     left: 80, right: 80),
-                  //                 child: Text(
-                  //                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
-                  //                   style: TextStyle(
-                  //                       color: Colors.black,
-                  //                       fontWeight:
-                  //                           FontWeight.bold,
-                  //                       fontSize: 14.0),
-                  //                 ),
-                  //               ),
-                  sizedBox(50, 0),
-                  // Container(
-                  //     padding: const EdgeInsets.only(left: 80, right: 80),
-                  //     child: mainAuthButton(context, 'Got It', () {
-                  //       setState(() {
-                  //         atFinishLine = true;
-                  //       });
-                  //     })),
+                //                             // onMapCreated: _onMapCreated,
+                //                             myLocationEnabled: true,
 
-                  sizedBox(20, 0),
-                  mainAuthButton(
-                      context, atFinishLine ? 'Show My Results' : 'Start', () {
-                    if (isProximity == false) {
-                      setState(() {
-                        pressedStartProximity = true;
-                      });
-                      Future.delayed(const Duration(seconds: 2), () {
-                        setState(() {
-                          pressedStartProximity = false;
-                        });
-                      });
-                    } else {
-                      // _addMarker(endLocation);
-                    }
-                  })
-                ],
-              ),
-            ])
+                //                             // markers: markers.values.toSet(),
+                //                           )
+                //                         : const MyGoogleMap()));
+
+                //         // : Stack(children:
+                //         //     Container(
+                //         //       alignment: Alignment.center,
+                //         //       child: Image.asset(
+                //         //         'assets/scroll.png',
+                //         //         // height: ,
+                //         //         width: double.infinity,
+                //         //         fit: BoxFit.cover,
+                //         //       ),
+                //         //     )
+
+                //       } else {
+                //         return Center(child: CircularProgressIndicator());
+                //       }
+                //     }
+
+                //     Container(
+                //         padding: const EdgeInsets.only(top: 40),
+                //         alignment: Alignment.center,
+                //         child: SingleChildScrollView(
+                //           child: Column(
+                //             children: [
+                //               const Text(
+                //                 'Did You Know?',
+                //                 style: TextStyle(
+                //                     color: Colors.black,
+                //                     fontWeight: FontWeight.bold,
+                //                     fontSize: 22.0),
+                //               ),
+                //               sizedBox(20, 0),
+                //               const Padding(
+                //                 padding: EdgeInsets.only(
+                //                     left: 80, right: 80),
+                //                 child: Text(
+                //                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
+                //                   style: TextStyle(
+                //                       color: Colors.black,
+                //                       fontWeight:
+                //                           FontWeight.bold,
+                //                       fontSize: 14.0),
+                //                 ),
+                //               ),
+                //               sizedBox(20, 0),
+                //               const Padding(
+                //                 padding: EdgeInsets.only(
+                //                     left: 80, right: 80),
+                //                 child: Text(
+                //                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
+                //                   style: TextStyle(
+                //                       color: Colors.black,
+                //                       fontWeight:
+                //                           FontWeight.bold,
+                //                       fontSize: 14.0),
+                //                 ),
+                //               ),
+
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(30.0),
+                    child:
+                        // atEndPoint
+                        //     ? Container(
+                        //         height: 600,
+                        //         width: double.infinity,
+                        //         decoration: BoxDecoration(
+                        //           image: DecorationImage(
+                        //             image: AssetImage('assets/autumn.png'),
+                        //             fit: BoxFit.fill,
+                        //           ),
+                        //         ))
+                        // :
+                        SizedBox(
+                            height: 600,
+                            width: double.infinity,
+                            child: isProximity!
+                                ? GoogleMap(
+                                    myLocationButtonEnabled: true,
+                                    zoomControlsEnabled: true,
+                                    zoomGesturesEnabled: true,
+                                    tiltGesturesEnabled: true,
+                                    initialCameraPosition:
+                                        _initialCameraPosition,
+                                    onMapCreated: _onMapCreated,
+                                    // polylines:
+                                    //     Set<Polyline>.of(polylines.values),
+                                    markers: markers.values.toSet(),
+
+                                    polylines: {
+                                      if (_info != null)
+                                        Polyline(
+                                          polylineId: const PolylineId(
+                                              'overview_polyline'),
+                                          color: Colors.red,
+                                          width: 5,
+                                          points: _info!.polylinePoints
+                                              .map((e) => LatLng(
+                                                  e.latitude, e.longitude))
+                                              .toList(),
+                                        ),
+                                    },
+                                    // onLongPress: _addMarker,
+                                    // initialCameraPosition:
+                                    //     CameraPosition(target: startLocation),
+                                    mapType: MapType.normal,
+
+                                    // onMapCreated: _onMapCreated,
+                                    myLocationEnabled: true,
+
+                                    // markers: markers.values.toSet(),
+                                  )
+                                : const MyGoogleMap())),
+              ]),
+            ]),
+
+            // Container(
+            //     padding: const EdgeInsets.only(left: 80, right: 80),
+            //     child: mainAuthButton(context, 'Got It', () {
+            //       setState(() {
+            //         atFinishLine = true;
+            //       });
+            //     })),
+
+            sizedBox(20, 0),
+            mainAuthButton(context, atFinishLine ? 'Show My Results' : 'Start',
+                () {
+              if (currentPostion != startLocation) {
+                print(_info!.totalDistance);
+
+                setState(() {
+                  pressedStartProximity = true;
+                });
+                Future.delayed(const Duration(seconds: 2), () {
+                  setState(() {
+                    pressedStartProximity = false;
+                  });
+                });
+              } else {
+                _addMarker();
+              }
+            })
           ],
         )),
       ),
     );
-  }
-
-  void _addMarker(LatLng pos) async {
-    if (_origin == null || (_origin != null && _destination != null)) {
-      // Origin is not set OR Origin/Destination are both set
-      // Set origin
-      setState(() {
-        _origin = Marker(
-          markerId: const MarkerId('origin'),
-          infoWindow: const InfoWindow(title: 'Origin'),
-          icon:
-              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-          position: pos,
-        );
-        // Reset destination
-        _destination = null;
-
-        // Reset info
-        _info = null;
-      });
-    } else {
-      // Origin is already set
-      // Set destination
-      setState(() {
-        _destination = Marker(
-          markerId: const MarkerId('destination'),
-          infoWindow: const InfoWindow(title: 'Destination'),
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-          position: pos,
-        );
-      });
-
-      // Get directions
-      final directions = await DirectionsRepository()
-          .getDirections(origin: _origin!.position, destination: pos);
-      setState(() => _info = directions);
-    }
   }
 }
