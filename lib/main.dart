@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
+import 'package:gowild_mobile/helper/map_helper.dart';
 import 'package:gowild_mobile/root.dart';
+import 'package:gowild_mobile/views/auth/login.dart';
+import 'package:gowild_mobile/views/main_screen.dart';
 
 import 'package:gowild_mobile/views/notifications/notifications_screen.dart';
 import 'package:gowild_mobile/views/profile/edit_profile_screen.dart';
@@ -39,6 +42,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AuthenticationHelper>(
             create: (_) => AuthenticationHelper()),
+        ChangeNotifierProvider<MapHelper>(create: (_) => MapHelper()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -53,7 +57,7 @@ class MyApp extends StatelessWidget {
                   const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
                 ],
               ),
-          home: Root(),
+          home: const MainNavigation(),
           title: 'Flutter Demo',
           theme: ThemeData(
               appBarTheme: AppBarTheme(

@@ -181,6 +181,7 @@ class _MapOverlayState extends State<MapOverlay> {
         // iconTheme: const IconThemeData(color: primaryYellow, size: 28),
         leading: IconButton(
             onPressed: () {
+              // Navigator.pop(context, false);
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => const HomeScreen()),
@@ -191,6 +192,7 @@ class _MapOverlayState extends State<MapOverlay> {
               size: 29,
               color: kprimaryYellow,
             )),
+
         centerTitle: false,
         title: const Text(
           'Map Overlay',
