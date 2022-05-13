@@ -112,33 +112,33 @@ class DioClient {
     }
   }
 
-  Future<RouteList> getRoutes() async {
-    final String? token =
-        await SecureStorage.readValue(key: SecureStorage.userTokenKey);
+  // Future<RouteList> getRoutes() async {
+  //   final String? token =
+  //       await SecureStorage.readValue(key: SecureStorage.userTokenKey);
 
-    const String postEndPoint = baseUrl + '/api/v1/route';
-    BaseOptions options = BaseOptions(
-      baseUrl: postEndPoint,
-      connectTimeout: 10000,
-      receiveTimeout: 10000,
-    );
-    final Dio dio = Dio(options);
-    try {
-      Response response = await dio.get(
-        postEndPoint,
-        options: Options(
-          headers: {
-            "authorization": "Bearer $token",
-          },
-        ),
-      );
-      debugPrint(response.toString());
-      return RouteList.fromJson(response.data);
-    } on DioError catch (e) {
-      debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create get request - get routes");
-    }
-  }
+  //   const String postEndPoint = baseUrl + '/api/v1/route';
+  //   BaseOptions options = BaseOptions(
+  //     baseUrl: postEndPoint,
+  //     connectTimeout: 10000,
+  //     receiveTimeout: 10000,
+  //   );
+  //   final Dio dio = Dio(options);
+  //   try {
+  //     Response response = await dio.get(
+  //       postEndPoint,
+  //       options: Options(
+  //         headers: {
+  //           "authorization": "Bearer $token",
+  //         },
+  //       ),
+  //     );
+  //     debugPrint(response.toString());
+  //     return RouteList.fromJson(response.data);
+  //   } on DioError catch (e) {
+  //     debugPrint("Status code: ${e.response?.statusCode.toString()}");
+  //     throw Exception("Failed to create get request - get routes");
+  //   }
+  // }
 
   Future<Routes> getRoute() async {
     final token =
