@@ -152,11 +152,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   top: -25,
                   child: CircleAvatar(
                     radius: 22,
-                    backgroundImage:
-                        user.profileImg == null || user.profileImg == ''
-                            ? AssetImage(profilePlaceholder)
-                            : CachedNetworkImageProvider(user.profileImg!)
-                                as ImageProvider,
+                    backgroundImage: user.imgUrl == null || user.imgUrl == ''
+                        ? AssetImage(profilePlaceholder)
+                        : CachedNetworkImageProvider(user.imgUrl!)
+                            as ImageProvider,
                   ),
                 )
               ],
@@ -171,7 +170,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           {VoidCallback? onTap}) =>
       GestureDetector(
         onTap: onTap,
-        child: Padding(
+        child: Container(
+          width: double.infinity,
+          color: Colors.transparent,
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
           child: Row(
             children: [

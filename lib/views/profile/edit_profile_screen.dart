@@ -27,7 +27,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final FocusNode lastNameFocus = FocusNode();
   final FocusNode userNameFocus = FocusNode();
   final FocusNode emailFocus = FocusNode();
-  String? imageBase64;
+  String? imageUrl;
 
   bool isLoading = false;
 
@@ -54,15 +54,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     });
     final Map<String, dynamic> details = {
       'full_name': '$firstNameController $lastNameController',
-      'username': emailController,
+      'username': userNameController,
       'email': emailController == widget.user.email ? null : emailController,
-      'profile_photo': imageBase64,
+      'img_url': imageUrl,
     };
-    await Database.editProfile(details);
+    await Database.editProfile(details, context);
     setState(() {
       isLoading = false;
     });
-    Navigator.pop(context);
   }
 
   List<String> parseName = [];
@@ -73,7 +72,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     parseName = widget.user.fullName!.split(" ");
     firstNameController = parseName[0];
     lastNameController = parseName[1];
-    userNameController = '';
+    userNameController = widget.user.username;
     emailController = widget.user.email;
   }
 
@@ -91,18 +90,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: Column(children: [
             ProfileHeader(
               forChangingPhoto: true,
-              imageAsset:
-                  imageBase64 != null ? imageBase64 : widget.user.profileImg,
+              imageAsset: imageUrl ?? widget.user.imgUrl,
               changePhotoButtonTap: () async {
                 final Map<String, dynamic>? file =
                     await CameraServices.pickPicture();
-                print(file);
+
                 final String? downloadUrl = await FBStorage.uploadPicture(
                   file!['file'],
                   file['file_name'],
                 );
                 print(downloadUrl);
-                setState(() {});
+                setState(() {
+                  imageUrl = downloadUrl;
+                });
               },
             ),
             SizedBox(
@@ -126,7 +126,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
             OutlinedTextField(
               title: 'Username',
-              // initialValue: widget.user.,
+              initialValue: widget.user.username,
               // controller: userNameController,
               focus: userNameFocus,
               onChanged: (String? val) {

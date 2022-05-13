@@ -4,6 +4,16 @@ Routes routeFromJson(String str) => Routes.fromJson(json.decode(str));
 
 String routeToJson(Routes data) => json.encode(data.toJson());
 
+class RouteList {
+  RouteList({this.routeList = const []});
+
+  final List<Routes> routeList;
+
+  factory RouteList.fromJson(List<Map<String, dynamic>> json) {
+    return RouteList(routeList: json.map((e) => Routes.fromJson(e)).toList());
+  }
+}
+
 class Routes {
   Routes({
     this.userId,

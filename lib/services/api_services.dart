@@ -54,6 +54,7 @@ class ApiServices {
     // debugPrint(body.toString());
 
     if (returnStatusCodeOnly) {
+      print(response.body);
       return response.statusCode;
     }
 

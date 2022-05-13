@@ -89,7 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Column(
                     children: <Widget>[
-                      ProfileHeader(imageAsset: user.profileImg),
+                      ProfileHeader(imageAsset: user.imgUrl),
                       SizedBox(
                         height: 65,
                       ),

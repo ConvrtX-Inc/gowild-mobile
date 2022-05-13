@@ -5,5 +5,9 @@ class AppTextConstants {
   static const loginText = 'Login';
   static const emptyOrInvalidEmail = 'Empty or Invalid email format';
   static const emptyOrShortPassword = 'Empty or Password too short';
+
+  static const editProfileTitle = 'Edit Profile';
+  static const editProfileMessage =
+      'Edit profile failed: Email/Username already exists';
   static const wrongEmailOrPassword = 'Wrong Email or Password';
 }

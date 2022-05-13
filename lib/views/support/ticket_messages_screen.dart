@@ -53,63 +53,74 @@ class _TicketMessagesScreenState extends State<TicketMessagesScreen> {
       ),
       margin: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
       padding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
         children: [
-          CircleAvatar(
-            radius: 20,
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                radius: 20,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '1235CA432',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700, color: Colors.white),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '1235CA432',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700, color: Colors.white),
+                        ),
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                          decoration: BoxDecoration(
+                              // color: AppColorConstants.ticketBadgePendingColor,
+                              borderRadius: BorderRadius.circular(18),
+                              shape: BoxShape.rectangle),
+                          child: Text(
+                            'Pending',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                                fontSize: 12),
+                          ),
+                        )
+                      ],
                     ),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                      decoration: BoxDecoration(
-                          // color: AppColorConstants.ticketBadgePendingColor,
-                          borderRadius: BorderRadius.circular(18),
-                          shape: BoxShape.rectangle),
-                      child: Text(
-                        'Pending',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            fontSize: 12),
-                      ),
-                    )
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Jestoni Salas',
+                      style: TextStyle(color: Colors.white, fontSize: 23),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'April 28, 2022 | 10:22',
+                      style: TextStyle(
+                          color: AppColorConstants.primaryYellow, fontSize: 12),
+                    ),
                   ],
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'April 28, 2022 | 10:22',
-                  style: TextStyle(
-                      color: AppColorConstants.primaryYellow, fontSize: 12),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  'Hi @johnsmith, when you have time please take a look at the new location we have shared.',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: AppColorConstants.secondaryGray),
-                )
-              ],
-            ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            'Hi @johnsmith, when you have time please take a look at the new location we have shared.',
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: AppColorConstants.secondaryGray),
           )
         ],
       ),
