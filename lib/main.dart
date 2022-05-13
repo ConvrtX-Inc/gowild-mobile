@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
+import 'package:gowild_mobile/helper/map_helper.dart';
 import 'package:gowild_mobile/root.dart';
 import 'package:gowild_mobile/views/auth/login.dart';
 import 'package:gowild_mobile/views/main_screen.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AuthenticationHelper>(
             create: (_) => AuthenticationHelper()),
+        ChangeNotifierProvider<MapHelper>(create: (_) => MapHelper()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

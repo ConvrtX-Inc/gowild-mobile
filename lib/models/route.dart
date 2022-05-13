@@ -10,6 +10,7 @@ class RouteList {
   final List<Routes> routeList;
 
   factory RouteList.fromJson(List<Map<String, dynamic>> json) {
+
     return RouteList(routeList: json.map((e) => Routes.fromJson(e)).toList());
   }
 }

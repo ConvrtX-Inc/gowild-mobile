@@ -5,9 +5,11 @@ import 'package:gowild_mobile/views/maps/map_overlay.dart';
 import 'package:gowild_mobile/widgets/bottom_flat_button.dart';
 import 'package:gowild_mobile/widgets/bottom_nav_bar.dart';
 import 'package:gowild_mobile/widgets/search_textfield.dart';
+import 'package:provider/provider.dart';
 
 import '../helper/authentication_helper.dart';
 import '../root.dart';
+import '../services/secure_storage.dart';
 import '../widgets/expandable_listview.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<String> nameList = ['ROUTES', 'NEARBY ADVENTURES', 'GO WILD FEED'];
+
   final dragController = DragController();
   buildRowNameAndAvatar() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,12 +41,17 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(2), // border width
               child: GestureDetector(
                 onDoubleTap: () {
-                  AuthenticationHelper().onSignOut();
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => Root()),
-                      (route) => false);
+                  // var helper =
+                  //     Provider.of<AuthenticationHelper>(context, listen: false);
+
+                  // print(helper.);
                 },
+                // AuthenticationHelper().onSignOut();
+                // Navigator.pushAndRemoveUntil(
+                //     context,
+                //     MaterialPageRoute(builder: (context) => Root()),
+                //     (route) => false);
+                // },
                 child: Container(
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,

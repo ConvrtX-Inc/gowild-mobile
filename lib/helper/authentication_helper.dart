@@ -18,7 +18,7 @@ class AuthenticationHelper extends ChangeNotifier {
   UserModel _currentUser = UserModel();
   String? _email;
   User? _user;
-  static const String _token = '';
+  String _token = '';
   User get user => _user!;
 
   UserModel get getCurrentUser => _currentUser;

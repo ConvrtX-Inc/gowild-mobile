@@ -87,6 +87,8 @@ class DioClient {
 
   Future<UserModel> getUser({String? token}) async {
     final String postEndPoint = baseUrl + ApiPath().getUser;
+    final token =
+        await SecureStorage.readValue(key: SecureStorage.userTokenKey);
     BaseOptions options = BaseOptions(
       baseUrl: postEndPoint,
       connectTimeout: 10000,
@@ -98,8 +100,7 @@ class DioClient {
         postEndPoint,
         options: Options(
           headers: {
-            "authorization":
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxMDYyODQzLWY5YzktNGNjMC1iMzYzLWYwZmM0NDc5ODAzYyIsImlhdCI6MTY1MjIzOTI0NSwiZXhwIjoxNjUyMzI1NjQ1fQ.0kjQeEIE4AcfKL2gLNqvU8PliNdQiRsl50oz5u4O0Z4",
+            "authorization": "Bearer $token",
           },
         ),
       );
@@ -111,7 +112,38 @@ class DioClient {
     }
   }
 
+  Future<RouteList> getRoutes() async {
+    final String? token =
+        await SecureStorage.readValue(key: SecureStorage.userTokenKey);
+
+    const String postEndPoint = baseUrl + '/api/v1/route';
+    BaseOptions options = BaseOptions(
+      baseUrl: postEndPoint,
+      connectTimeout: 10000,
+      receiveTimeout: 10000,
+    );
+    final Dio dio = Dio(options);
+    try {
+      Response response = await dio.get(
+        postEndPoint,
+        options: Options(
+          headers: {
+            "authorization": "Bearer $token",
+          },
+        ),
+      );
+      debugPrint(response.toString());
+      return RouteList.fromJson(response.data);
+    } on DioError catch (e) {
+      debugPrint("Status code: ${e.response?.statusCode.toString()}");
+      throw Exception("Failed to create get request - get routes");
+    }
+  }
+
   Future<Routes> getRoute() async {
+    final token =
+        await SecureStorage.readValue(key: SecureStorage.userTokenKey);
+
     const String postEndPoint =
         baseUrl + '/api/v1/route/2f1ab43e-e7db-482a-91a3-3990020f271b';
     BaseOptions options = BaseOptions(
@@ -125,8 +157,7 @@ class DioClient {
         postEndPoint,
         options: Options(
           headers: {
-            "authorization":
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxMDYyODQzLWY5YzktNGNjMC1iMzYzLWYwZmM0NDc5ODAzYyIsImlhdCI6MTY1MjIzOTI0NSwiZXhwIjoxNjUyMzI1NjQ1fQ.0kjQeEIE4AcfKL2gLNqvU8PliNdQiRsl50oz5u4O0Z4",
+            "authorization": "Bearer $token",
           },
         ),
       );

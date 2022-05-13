@@ -40,26 +40,27 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   void initState() {
     // TODO: implement initState
     getAllSavedData();
-    getRoutes();
+    getRoutes = DioClient().getRoute();
     _mapController = MapController();
     super.initState();
   }
 
-  Future getRoutes() async {
-    var helper = Provider.of<AuthenticationHelper>(context, listen: false);
-    final routes = await DioClient().getRoute();
-    // final user = await DioClient().getUser();
+  late Future<Routes> getRoutes;
+  // Future getRoutes() async {
+  //   // var helper = Provider.of<AuthenticationHelper>(context, listen: false);
+  //   final routes = await DioClient().getRoute();
+  //   // final user = await DioClient().getUser();
 
-    setState(() {
-      startLat = routes.startPointLat;
-      startLong = routes.startPointLong;
-      endLat = routes.stopPointLat;
-      endLong = routes.stopPointLong;
-      points.add([startLat!, startLong]);
-      points.add([endLat!, endLong!]);
-    });
-    // setState(() {});
-  }
+  //   setState(() {
+  //     startLat = routes.startPointLat;
+  //     startLong = routes.startPointLong;
+  //     endLat = routes.stopPointLat;
+  //     endLong = routes.stopPointLong;
+  //     points.add([startLat!, startLong]);
+  //     points.add([endLat!, endLong!]);
+  //   });
+  //   // setState(() {});
+  // }
 
   Future getAllSavedData() async {
     final value = await _preferenceService.getMapType();
@@ -89,40 +90,42 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
 
   @override
   Widget build(BuildContext context) {
-    LatLng currentCenter =
-        LatLng(startLat ?? startLong!, startLong ?? startLong!);
-    LatLng endCenter = LatLng(endLat ?? 9.669111, endLong ?? 80.014007);
-    markers = [
-      Marker(
-        width: 80.0,
-        height: 80.0,
-        point: endCenter,
-        builder: (ctx) => const Icon(
-          Icons.location_on,
-          color: Colors.red,
-          size: 40,
-        ),
-      ),
-      Marker(
-        width: 80.0,
-        height: 80.0,
-        point: currentCenter,
-        builder: (ctx) => const Icon(
-          Icons.location_on,
-          color: Colors.blue,
-          size: 40,
-        ),
-      ),
-    ];
     return Scaffold(
         body: Column(
       children: [
-        Container(
-          child: Flexible(
-            child: Stack(children: [
-              currentCenter == null
-                  ? CircularProgressIndicator()
-                  : FlutterMap(
+        Flexible(
+          child: FutureBuilder<Routes>(
+              future: getRoutes,
+              builder: (context, AsyncSnapshot<Routes> snapshot) {
+                LatLng currentCenter = LatLng(snapshot.data!.startPointLat!,
+                    snapshot.data!.startPointLong!);
+                LatLng endCenter = LatLng(snapshot.data!.stopPointLat!,
+                    snapshot.data!.stopPointLong!);
+                markers = [
+                  Marker(
+                    width: 80.0,
+                    height: 80.0,
+                    point: endCenter,
+                    builder: (ctx) => const Icon(
+                      Icons.location_on,
+                      color: Colors.red,
+                      size: 40,
+                    ),
+                  ),
+                  Marker(
+                    width: 80.0,
+                    height: 80.0,
+                    point: currentCenter,
+                    builder: (ctx) => const Icon(
+                      Icons.location_on,
+                      color: Colors.blue,
+                      size: 40,
+                    ),
+                  ),
+                ];
+                if (snapshot.hasData) {
+                  return Stack(children: [
+                    FlutterMap(
                       mapController: _mapController,
                       options: MapOptions(
                         plugins: [
@@ -208,74 +211,83 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
                             })
                       ],
                     ),
-              Positioned(
-                  top: 40,
-                  right: 40,
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.white),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.map,
-                        color: Colors.black,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MapOverlay()));
-                      },
-                    ),
-                  )),
-              Positioned(
-                  top: 100,
-                  right: 45,
-                  child: InkWell(
-                    onTap: () => _zoomAdd(currentCenter),
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.rectangle, color: Color(0xffC4C4C4)),
-                      child: const Icon(
-                        Icons.add,
-                        color: Colors.black,
-                      ),
-                    ),
-                  )),
-              Positioned(
-                  top: 150,
-                  right: 45,
-                  child: InkWell(
-                    onTap: () => _zoomMinus(currentCenter),
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.rectangle, color: Color(0xffC4C4C4)),
-                      child: const Icon(
-                        Icons.remove,
-                        color: Colors.black,
-                      ),
-                    ),
-                  )),
-              // Positioned(
-              //     top: 40,
-              //     left: 40,
-              //     child: Switch(
-              //       value: isSwitched,
-              //       onChanged: (value) {
-              //         setState(() {
-              //           isSwitched = value;
-              //         });
-              //       },
-              //       activeTrackColor: kprimaryOrange,
-              //       activeColor: Colors.white,
-              //     )),
-            ]),
-          ),
+                    Positioned(
+                        top: 40,
+                        right: 40,
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.white),
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.map,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MapOverlay()));
+                            },
+                          ),
+                        )),
+                    Positioned(
+                        top: 100,
+                        right: 45,
+                        child: InkWell(
+                          onTap: () => _zoomAdd(currentCenter),
+                          child: Container(
+                            width: 30,
+                            height: 30,
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Color(0xffC4C4C4)),
+                            child: const Icon(
+                              Icons.add,
+                              color: Colors.black,
+                            ),
+                          ),
+                        )),
+                    Positioned(
+                        top: 150,
+                        right: 45,
+                        child: InkWell(
+                          onTap: () => _zoomMinus(currentCenter),
+                          child: Container(
+                            width: 30,
+                            height: 30,
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Color(0xffC4C4C4)),
+                            child: const Icon(
+                              Icons.remove,
+                              color: Colors.black,
+                            ),
+                          ),
+                        )),
+                  ]);
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                // Positioned(
+                //     top: 40,
+                //     left: 40,
+                //     child: Switch(
+                //       value: isSwitched,
+                //       onChanged: (value) {
+                //         setState(() {
+                //           isSwitched = value;
+                //         });
+                //       },
+                //       activeTrackColor: kprimaryOrange,
+                //       activeColor: Colors.white,
+                //     )),
+              }),
         ),
       ],
     ));
