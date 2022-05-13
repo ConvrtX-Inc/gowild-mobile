@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
@@ -13,7 +14,9 @@ import 'package:gowild_mobile/views/notifications/notifications_screen.dart';
 
 import 'package:gowild_mobile/constants/colors.dart' as AppColorConstants;
 import 'package:gowild_mobile/views/profile/faqs_screen.dart';
+import 'package:gowild_mobile/views/profile/profile_screen.dart';
 import 'package:gowild_mobile/views/support/tickets_screen.dart';
+import 'package:gowild_mobile/widgets/custom_appbar.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -76,42 +79,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0),
-          child: SafeArea(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
-                  child: _header(),
-                ),
-                _menuButton(gearIcon, 'General',
-                    onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => FaqsScreen()))),
-                // _menuButton(chatIcon, 'Messages'),
-                // _menuButton(usersIcon, 'My Races'),
-                _menuButton(headphoneIcon, 'Support',
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TicketsScreen()))),
-                // _menuButton(userIcon, 'My Achievements'),
-                // _menuButton(creditCardIcon, 'Payment'),
-                _menuButton(notificationIcon, 'Notifications',
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NotificationScreen()))),
-                _menuButton(logoutIcon, 'Logout', onTap: () async {
-                  await SecureStorage.deleteKeys();
-                  await Navigator.pushAndRemoveUntil(
+      appBar: CustomAppBar(
+        titleText: 'Settings',
+        hideAppBar: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40.0),
+        child: SafeArea(
+          child: Column(
+            children: [
+              GestureDetector(
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProfileScreen())),
+                  child: _header()),
+              _menuButton(gearIcon, 'General',
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => FaqsScreen()))),
+              // _menuButton(chatIcon, 'Messages'),
+              // _menuButton(usersIcon, 'My Races'),
+              _menuButton(headphoneIcon, 'Support',
+                  onTap: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                      (Route<dynamic> route) => false);
-                }),
-              ],
-            ),
+                      MaterialPageRoute(
+                          builder: (context) => TicketsScreen()))),
+              // _menuButton(userIcon, 'My Achievements'),
+              // _menuButton(creditCardIcon, 'Payment'),
+              _menuButton(notificationIcon, 'Notifications',
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NotificationScreen()))),
+              _menuButton(logoutIcon, 'Logout', onTap: () async {
+                await SecureStorage.deleteKeys();
+                await Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                    (Route<dynamic> route) => false);
+              }),
+            ],
           ),
         ),
       ),
@@ -147,11 +152,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   top: -25,
                   child: CircleAvatar(
                     radius: 22,
-                    backgroundImage:
-                        user.profileImg == null || user.profileImg == ''
-                            ? AssetImage(profilePlaceholder)
-                            : Image.memory(base64Decode(user.profileImg!))
-                                as ImageProvider,
+                    backgroundImage: user.imgUrl == null || user.imgUrl == ''
+                        ? AssetImage(profilePlaceholder)
+                        : CachedNetworkImageProvider(user.imgUrl!)
+                            as ImageProvider,
                   ),
                 )
               ],
@@ -166,7 +170,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           {VoidCallback? onTap}) =>
       GestureDetector(
         onTap: onTap,
-        child: Padding(
+        child: Container(
+          width: double.infinity,
+          color: Colors.transparent,
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
           child: Row(
             children: [

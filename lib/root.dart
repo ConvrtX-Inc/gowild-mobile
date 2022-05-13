@@ -21,38 +21,34 @@ class Root extends StatefulWidget {
 class _RootState extends State<Root> {
   AuthStatus _authStatus = AuthStatus.notLoggedIn;
 
+  Widget screen = const Scaffold(
+      body: Center(
+    child: CircularProgressIndicator(),
+  ));
+
   @override
-  void didChangeDependencies() async {
-    super.didChangeDependencies();
-    AuthenticationHelper _user =
-        Provider.of<AuthenticationHelper>(context, listen: false);
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getNextScreen();
+  }
 
-    String returnString = await _user.onStartUp();
+  getNextScreen() async {
+    bool isAuthenticated = await AuthenticationHelper().authenticateToken();
 
-    if (returnString == "success") {
-      print(returnString);
-      if (mounted) {
-        setState(() {
-          _authStatus = AuthStatus.loggedIn;
-        });
-      }
+    if (isAuthenticated) {
+      setState(() {
+        screen = MainNavigation();
+      });
+    } else {
+      setState(() {
+        screen = SpashScreen();
+      });
     }
-    print(_authStatus);
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget? retVal;
-
-    switch (_authStatus) {
-      case AuthStatus.notLoggedIn:
-        retVal = const SpashScreen();
-        break;
-      case AuthStatus.loggedIn:
-        retVal = const MainNavigation();
-        break;
-      default:
-    }
-    return retVal!;
+    return screen;
   }
 }
