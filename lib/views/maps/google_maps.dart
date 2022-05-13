@@ -91,205 +91,208 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: true,
         body: Column(
-      children: [
-        Flexible(
-          child: FutureBuilder<Routes>(
-              future: getRoutes,
-              builder: (context, AsyncSnapshot<Routes> snapshot) {
-                LatLng currentCenter = LatLng(snapshot.data!.startPointLat!,
-                    snapshot.data!.startPointLong!);
-                LatLng endCenter = LatLng(snapshot.data!.stopPointLat!,
-                    snapshot.data!.stopPointLong!);
-                markers = [
-                  Marker(
-                    width: 80.0,
-                    height: 80.0,
-                    point: endCenter,
-                    builder: (ctx) => const Icon(
-                      Icons.location_on,
-                      color: Colors.red,
-                      size: 40,
-                    ),
-                  ),
-                  Marker(
-                    width: 80.0,
-                    height: 80.0,
-                    point: currentCenter,
-                    builder: (ctx) => const Icon(
-                      Icons.location_on,
-                      color: Colors.blue,
-                      size: 40,
-                    ),
-                  ),
-                ];
-                if (snapshot.hasData) {
-                  return Stack(children: [
-                    FlutterMap(
-                      mapController: _mapController,
-                      options: MapOptions(
-                        plugins: [
-                          TappablePolylineMapPlugin(),
-                        ],
-                        center: currentCenter,
-                        zoom: currentZoom,
-                        minZoom: 8.0,
-                        maxZoom: 12.0,
-                        interactiveFlags:
-                            InteractiveFlag.pinchZoom | InteractiveFlag.drag,
-                      ),
-                      layers: [
-                        if (setAsDefaultRoadMap.isNotEmpty)
-                          //road
-                          TileLayerOptions(
-                              urlTemplate:
-                                  'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-                              // maxZoom: 20,
-                              subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
-                        if (setAsDefaultSatellite.isNotEmpty)
-                          //satellite
-                          TileLayerOptions(
-                              urlTemplate:
-                                  'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-                              // maxZoom: 20,
-                              subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
-                        if (setAsDefaultTerrain.isNotEmpty)
-                          //terrain
-                          TileLayerOptions(
-                              urlTemplate:
-                                  'http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
-                              // maxZoom: 20,
-                              subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
-                        if (setAsDefaultRoadMap.isEmpty &&
-                            setAsDefaultSatellite.isEmpty &&
-                            setAsDefaultTerrain.isEmpty)
-                          TileLayerOptions(
-                              urlTemplate:
-                                  'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-                              // maxZoom: 20,
-                              subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
-                        MarkerLayerOptions(
-                          markers: markers,
+          children: [
+            Flexible(
+              child: FutureBuilder<Routes>(
+                  future: getRoutes,
+                  builder: (context, AsyncSnapshot<Routes> snapshot) {
+                    LatLng currentCenter = LatLng(
+                        snapshot.data?.startPointLat ?? 0.0,
+                        snapshot.data?.startPointLong ?? 0.0);
+                    LatLng endCenter = LatLng(
+                        snapshot.data?.stopPointLat ?? 0.0,
+                        snapshot.data?.stopPointLong ?? 0.0);
+                    markers = [
+                      Marker(
+                        width: 80.0,
+                        height: 80.0,
+                        point: endCenter,
+                        builder: (ctx) => const Icon(
+                          Icons.location_on,
+                          color: Colors.red,
+                          size: 40,
                         ),
-                        TappablePolylineLayerOptions(
-                            // Will only render visible polylines, increasing performance
-                            polylineCulling: true,
-                            pointerDistanceTolerance: 20,
-                            polylines: [
-                              // TaggedPolyline(
-                              //   tag: '1st Polyline',
-                              //   // An optional tag to distinguish polylines in callback
-                              //   points: getPointsApi(1),
-                              //   color: Colors.red,
-                              //   strokeWidth: 9.0,
-                              // ),
-                              // TaggedPolyline(
-                              //   tag: '2nd Polyline',
-                              //   // An optional tag to distinguish polylines in callback
-                              //   points: getPointsApi(1),
-                              //   color: Colors.black,
-                              //   strokeWidth: 3.0,
-                              // ),
-                              // TaggedPolyline(
-                              //   tag: '3rd Polyline',
-                              //   // An optional tag to distinguish polylines in callback
-                              //   points: getPoints(0),
-                              //   color: Colors.blue,
-                              //   strokeWidth: 3.0,
-                              // ),
+                      ),
+                      Marker(
+                        width: 80.0,
+                        height: 80.0,
+                        point: currentCenter,
+                        builder: (ctx) => const Icon(
+                          Icons.location_on,
+                          color: Colors.blue,
+                          size: 40,
+                        ),
+                      ),
+                    ];
+                    if (snapshot.hasData) {
+                      return Stack(children: [
+                        FlutterMap(
+                          mapController: _mapController,
+                          options: MapOptions(
+                            plugins: [
+                              TappablePolylineMapPlugin(),
                             ],
-                            onTap: (polylines, tapPosition) => print(
-                                'Tapped: ' +
-                                    polylines
-                                        .map((polyline) => polyline.tag)
-                                        .join(',') +
-                                    ' at ' +
-                                    tapPosition.globalPosition.toString()),
-                            onMiss: (tapPosition) {
-                              print('No polyline was tapped at position ' +
-                                  tapPosition.globalPosition.toString());
-                            })
-                      ],
-                    ),
-                    Positioned(
-                        top: 40,
-                        right: 40,
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.white),
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.map,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MapOverlay()));
-                            },
+                            center: currentCenter,
+                            zoom: currentZoom,
+                            minZoom: 8.0,
+                            maxZoom: 12.0,
+                            interactiveFlags: InteractiveFlag.pinchZoom |
+                                InteractiveFlag.drag,
                           ),
-                        )),
-                    Positioned(
-                        top: 100,
-                        right: 45,
-                        child: InkWell(
-                          onTap: () => _zoomAdd(currentCenter),
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                color: Color(0xffC4C4C4)),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.black,
+                          layers: [
+                            if (setAsDefaultRoadMap.isNotEmpty)
+                              //road
+                              TileLayerOptions(
+                                  urlTemplate:
+                                      'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+                                  // maxZoom: 20,
+                                  subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
+                            if (setAsDefaultSatellite.isNotEmpty)
+                              //satellite
+                              TileLayerOptions(
+                                  urlTemplate:
+                                      'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+                                  // maxZoom: 20,
+                                  subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
+                            if (setAsDefaultTerrain.isNotEmpty)
+                              //terrain
+                              TileLayerOptions(
+                                  urlTemplate:
+                                      'http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
+                                  // maxZoom: 20,
+                                  subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
+                            if (setAsDefaultRoadMap.isEmpty &&
+                                setAsDefaultSatellite.isEmpty &&
+                                setAsDefaultTerrain.isEmpty)
+                              TileLayerOptions(
+                                  urlTemplate:
+                                      'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+                                  // maxZoom: 20,
+                                  subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
+                            MarkerLayerOptions(
+                              markers: markers,
                             ),
-                          ),
-                        )),
-                    Positioned(
-                        top: 150,
-                        right: 45,
-                        child: InkWell(
-                          onTap: () => _zoomMinus(currentCenter),
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                color: Color(0xffC4C4C4)),
-                            child: const Icon(
-                              Icons.remove,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )),
-                  ]);
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
+                            TappablePolylineLayerOptions(
+                                // Will only render visible polylines, increasing performance
+                                polylineCulling: true,
+                                pointerDistanceTolerance: 20,
+                                polylines: [
+                                  // TaggedPolyline(
+                                  //   tag: '1st Polyline',
+                                  //   // An optional tag to distinguish polylines in callback
+                                  //   points: getPointsApi(1),
+                                  //   color: Colors.red,
+                                  //   strokeWidth: 9.0,
+                                  // ),
+                                  // TaggedPolyline(
+                                  //   tag: '2nd Polyline',
+                                  //   // An optional tag to distinguish polylines in callback
+                                  //   points: getPointsApi(1),
+                                  //   color: Colors.black,
+                                  //   strokeWidth: 3.0,
+                                  // ),
+                                  // TaggedPolyline(
+                                  //   tag: '3rd Polyline',
+                                  //   // An optional tag to distinguish polylines in callback
+                                  //   points: getPoints(0),
+                                  //   color: Colors.blue,
+                                  //   strokeWidth: 3.0,
+                                  // ),
+                                ],
+                                onTap: (polylines, tapPosition) => print(
+                                    'Tapped: ' +
+                                        polylines
+                                            .map((polyline) => polyline.tag)
+                                            .join(',') +
+                                        ' at ' +
+                                        tapPosition.globalPosition.toString()),
+                                onMiss: (tapPosition) {
+                                  print('No polyline was tapped at position ' +
+                                      tapPosition.globalPosition.toString());
+                                })
+                          ],
+                        ),
+                        Positioned(
+                            top: 40,
+                            right: 40,
+                            child: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle, color: Colors.white),
+                              child: IconButton(
+                                icon: const Icon(
+                                  Icons.map,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const MapOverlay()));
+                                },
+                              ),
+                            )),
+                        Positioned(
+                            top: 100,
+                            right: 45,
+                            child: InkWell(
+                              onTap: () => _zoomAdd(currentCenter),
+                              child: Container(
+                                width: 30,
+                                height: 30,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: Color(0xffC4C4C4)),
+                                child: const Icon(
+                                  Icons.add,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            )),
+                        Positioned(
+                            top: 150,
+                            right: 45,
+                            child: InkWell(
+                              onTap: () => _zoomMinus(currentCenter),
+                              child: Container(
+                                width: 30,
+                                height: 30,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: Color(0xffC4C4C4)),
+                                child: const Icon(
+                                  Icons.remove,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            )),
+                      ]);
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
 
-                // Positioned(
-                //     top: 40,
-                //     left: 40,
-                //     child: Switch(
-                //       value: isSwitched,
-                //       onChanged: (value) {
-                //         setState(() {
-                //           isSwitched = value;
-                //         });
-                //       },
-                //       activeTrackColor: kprimaryOrange,
-                //       activeColor: Colors.white,
-                //     )),
-              }),
-        ),
-      ],
-    ));
+                    // Positioned(
+                    //     top: 40,
+                    //     left: 40,
+                    //     child: Switch(
+                    //       value: isSwitched,
+                    //       onChanged: (value) {
+                    //         setState(() {
+                    //           isSwitched = value;
+                    //         });
+                    //       },
+                    //       activeTrackColor: kprimaryOrange,
+                    //       activeColor: Colors.white,
+                    //     )),
+                  }),
+            ),
+          ],
+        ));
   }
 }

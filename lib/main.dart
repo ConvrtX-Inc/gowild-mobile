@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
                   const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
                 ],
               ),
-          home: const MainNavigation(),
+          home: const Root(),
           title: 'Flutter Demo',
           theme: ThemeData(
               appBarTheme: AppBarTheme(

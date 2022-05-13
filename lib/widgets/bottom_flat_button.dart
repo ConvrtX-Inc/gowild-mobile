@@ -9,10 +9,10 @@ class BottomFlatButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 40),
+      padding: const EdgeInsets.only(top: 45),
       child: SizedBox(
-        height: 70,
-        width: 70,
+        height: 68,
+        width: 68,
         child: FloatingActionButton(
           backgroundColor: Colors.transparent,
           elevation: 0,

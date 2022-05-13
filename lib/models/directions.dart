@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -7,10 +6,11 @@ class Directions {
   final List<PointLatLng> polylinePoints;
   final String totalDistance;
   final String totalDuration;
-
+  final List steps;
   const Directions({
     required this.bounds,
     required this.polylinePoints,
+    required this.steps,
     required this.totalDistance,
     required this.totalDuration,
   });
@@ -29,6 +29,12 @@ class Directions {
       northeast: LatLng(northeast['lat'], northeast['lng']),
       southwest: LatLng(southwest['lat'], southwest['lng']),
     );
+    List<String> html = [];
+    if ((data['legs'][0]['steps'] as List).isNotEmpty) {
+      print('1');
+      final s = data['legs'][0]['steps'][1]['html_instructions'];
+      html.add(s);
+    }
 
     // Distance & Duration
     String distance = '';
@@ -40,6 +46,7 @@ class Directions {
     }
 
     return Directions(
+      steps: html,
       bounds: bounds,
       polylinePoints:
           PolylinePoints().decodePolyline(data['overview_polyline']['points']),

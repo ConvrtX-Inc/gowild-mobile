@@ -28,7 +28,10 @@ class DirectionsRepository {
     // Check if response is successful
     if (response.statusCode == 200) {
       print(response.data);
+      // Parse this package's pub.dev page as a XML document.
+
       return Directions.fromMap(response.data);
+      // return Payload.fromJson(response.data);
     }
     return null;
   }
