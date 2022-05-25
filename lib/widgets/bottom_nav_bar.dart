@@ -40,47 +40,61 @@ class _BottomNavBarState extends State<BottomNavBar> {
       child: ClipRRect(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-        child: BottomNavigationBar(
-          onTap: _changeIndex,
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedTabIndex,
-          backgroundColor: Color(0xff00755E),
-          enableFeedback: false,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                homeIcon,
-                color:
-                    _selectedTabIndex == 0 ? Color(0xffE5592F) : Colors.white,
+        child: Flexible(
+          child: BottomNavigationBar(
+            onTap: _changeIndex,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedTabIndex,
+            backgroundColor: Color(0xff00755E),
+            enableFeedback: false,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  homeIcon,
+                  width: 18,
+                  height: 10,
+                  color:
+                      _selectedTabIndex == 0 ? Color(0xffE5592F) : Colors.white,
+                ),
+                label: '',
               ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(treasureMapIcon,
-                  color: _selectedTabIndex == 1
-                      ? Color(0xffE5592F)
-                      : Colors.white),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: SizedBox.shrink(),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(directionSignIcon,
-                  color: _selectedTabIndex == 3
-                      ? Color(0xffE5592F)
-                      : Colors.white),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(profileIcon,
-                  color: _selectedTabIndex == 4
-                      ? Color(0xffE5592F)
-                      : Colors.white),
-              label: '',
-            ),
-          ],
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(treasureMapIcon,
+                    width: 18,
+                    height: 10,
+                    color: _selectedTabIndex == 1
+                        ? Color(0xffE5592F)
+                        : Colors.white),
+                label: '',
+              ),
+              // BottomNavigationBarItem(
+
+              //   icon: SizedBox.shrink(
+
+              //   ),
+
+              //   label: '',
+              // ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(directionSignIcon,
+                    width: 18,
+                    height: 10,
+                    color: _selectedTabIndex == 3
+                        ? Color(0xffE5592F)
+                        : Colors.white),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(profileIcon,
+                    width: 18,
+                    height: 10,
+                    color: _selectedTabIndex == 4
+                        ? Color(0xffE5592F)
+                        : Colors.white),
+                label: '',
+              ),
+            ],
+          ),
         ),
       ),
     );

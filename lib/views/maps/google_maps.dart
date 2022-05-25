@@ -11,7 +11,6 @@ import 'dart:math' show cos, sqrt, asin;
 
 import '../../models/route.dart';
 import '../../services/prefs_service.dart';
-import 'data.dart';
 
 class MyGoogleMap extends StatefulWidget {
   const MyGoogleMap({Key? key}) : super(key: key);

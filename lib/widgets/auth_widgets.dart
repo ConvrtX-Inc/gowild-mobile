@@ -30,7 +30,7 @@ Padding mainAuthButton(BuildContext context, String text, Function() onTap) {
     padding: const EdgeInsets.all(16.0),
     child: ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-      child: GestureDetector(
+      child: InkWell(
         onTap: onTap,
         child: Container(
           height: 80,

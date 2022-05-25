@@ -32,14 +32,14 @@ class _MainNavigationState extends State<MainNavigation> {
   final String profileIcon =
       '${ImageAssetPath.imagePathSvg}${ImageAssetName.profile}';
 
-  List<Widget> _screens = [
-    HomeScreen(),
+  final List<Widget> _screens = [
+    const HomeScreen(),
     Container(),
     Container(),
 
     /// Dont remove this
     Container(),
-    SettingsScreen()
+    const SettingsScreen()
   ];
 
   @override
@@ -60,52 +60,61 @@ class _MainNavigationState extends State<MainNavigation> {
 
   _bottomNavBar() {
     return Container(
-      height: 90,
+      height: 95,
       decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         child: BottomNavigationBar(
           onTap: _changeIndex,
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedTabIndex,
-          backgroundColor: Color(0xff00755E),
+          backgroundColor: const Color(0xff00755E),
           enableFeedback: false,
-          items: <BottomNavigationBarItem>[
+          items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 homeIcon,
-                color:
-                    _selectedTabIndex == 0 ? Color(0xffE5592F) : Colors.white,
+                // width: 25,
+                // height: 19,
+                color: _selectedTabIndex == 0
+                    ? const Color(0xffE5592F)
+                    : Colors.white,
               ),
               label: '',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(treasureMapIcon,
+                  // width: 25,
+                  // height: 19,
                   color: _selectedTabIndex == 1
-                      ? Color(0xffE5592F)
+                      ? const Color(0xffE5592F)
                       : Colors.white),
               label: '',
             ),
-            BottomNavigationBarItem(
-              icon: SizedBox.shrink(),
+            const BottomNavigationBarItem(
+              icon: const SizedBox.shrink(),
               label: '',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(directionSignIcon,
+                  // width: 25,
+                  // height: 19,
                   color: _selectedTabIndex == 3
-                      ? Color(0xffE5592F)
+                      ? const Color(0xffE5592F)
                       : Colors.white),
               label: '',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(profileIcon,
+                  // width: 25,
+                  // height: 19,
                   color: _selectedTabIndex == 4
-                      ? Color(0xffE5592F)
+                      ? const Color(0xffE5592F)
                       : Colors.white),
               label: '',
             ),

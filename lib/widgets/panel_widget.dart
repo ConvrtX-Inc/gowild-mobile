@@ -32,60 +32,62 @@ class _PanelWidgetState extends State<PanelWidget> {
   double? endLat;
   double? endLong;
 
-  Widget buildContainer(Routes route) => Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 120),
-            child: Text(route.routeName!,
-                style: const TextStyle(
-                    color: Color(0xff18243C),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500)),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.location_on_outlined,
-                color: Colors.grey,
-              ),
-              const Text('1.7 Miles',
-                  style: TextStyle(
+  Widget buildContainer(Routes route) => Expanded(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 120),
+              child: Text(route.routeName!,
+                  style: const TextStyle(
                       color: Color(0xff18243C),
                       fontSize: 14,
                       fontWeight: FontWeight.w500)),
-              const SizedBox(
-                width: 10,
-              ),
-              Row(
-                children: const [
-                  Icon(
-                    Icons.timer,
-                    color: Colors.grey,
-                  ),
-                  Text('1 hr 30 mins',
-                      style: TextStyle(
-                          color: Color(0xff18243C),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500))
-                ],
-              ),
-              sizedBox(0, 8),
-              Row(
-                children: const [
-                  Text('500m',
-                      style: TextStyle(
-                          color: Color(0xff18243C),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500))
-                ],
-              )
-            ],
-          )
-        ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.location_on_outlined,
+                  color: Colors.grey,
+                ),
+                const Text('1.7 Miles',
+                    style: TextStyle(
+                        color: Color(0xff18243C),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500)),
+                const SizedBox(
+                  width: 10,
+                ),
+                Row(
+                  children: const [
+                    Icon(
+                      Icons.timer,
+                      color: Colors.grey,
+                    ),
+                    Text('1 hr 30 mins',
+                        style: TextStyle(
+                            color: Color(0xff18243C),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500))
+                  ],
+                ),
+                sizedBox(0, 8),
+                Row(
+                  children: const [
+                    Text('500m',
+                        style: TextStyle(
+                            color: Color(0xff18243C),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500))
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
       );
 
   buildRanking(String text, bool isSelected) => Container(

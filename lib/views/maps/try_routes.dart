@@ -20,6 +20,9 @@ import '../../widgets/bottom_flat_button.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import 'directions_repository.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'dart:convert';
+
+JsonEncoder encoder = new JsonEncoder.withIndent("     ");
 
 class TryRoutes extends StatefulWidget {
   TryRoutes({Key? key, this.isProximity, required this.route})
@@ -39,8 +42,7 @@ class TryRoutes extends StatefulWidget {
 
 class _TryRoutesState extends State<TryRoutes> {
   // late StreamController<bool> isOpenStreamController;
-  late Stream<bool> isOpenNStream;
-  late StreamSink<bool> isOpenNSink;
+
   StreamController<GeofenceStatus>? geofenceStatusStreamController =
       StreamController<GeofenceStatus>.broadcast();
   bool atEndPoint = true;
@@ -60,19 +62,19 @@ class _TryRoutesState extends State<TryRoutes> {
   bool state = false;
   StreamSubscription<GeofenceStatus>? geofenceStatusStream;
   GoogleMapController? _controller;
-  MapType _currentMapType = MapType.normal;
-  Marker? _destination;
   Directions? _info;
   Location _location = Location();
-  Marker? _origin;
-  final Set<Polyline> _polyline = {};
+  bool? _isMoving;
+  bool? _enabled;
+  String? _motionActivity;
+  String? _odometer;
+  String? _content;
 
-  // Set<Marker> markers = Set();
   @override
   void initState() {
     super.initState();
     // TODO: implement initState
-    getRoutes = DioClient().getRoutes();
+    // getRoutes = DioClient().getRoutes();
     _getUserLocation();
 
     startLat = widget.route.startPointLat!;
@@ -81,31 +83,131 @@ class _TryRoutesState extends State<TryRoutes> {
     endLong = widget.route.stopPointLong!;
     routeText = widget.route.routeName!;
     isProximity = widget.isProximity!;
-    // bg.BackgroundGeolocation.onGeofence(_onGeofence);
 
-    // Configure the plugin and call ready
-    bg.BackgroundGeolocation.ready(bg.Config(
-            desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
-            distanceFilter: 10.0,
-            stopOnTerminate: false,
-            startOnBoot: true,
-            debug: false, // true
-            logLevel: bg.Config.LOG_LEVEL_OFF // bg.Config.LOG_LEVEL_VERBOSE
-            ))
-        .then((bg.State state) {
-      if (!state.enabled) {
-        // start the plugin
-        // bg.BackgroundGeolocation.start();
+    _isMoving = false;
+    _enabled = false;
+    _content = '';
+    _motionActivity = 'UNKNOWN';
+    _odometer = '0';
 
-        // start geofences only
-        bg.BackgroundGeolocation.startGeofences();
-      }
+    // 1.  Listen to events (See docs for all 12 available events).
+    // bg.BackgroundGeolocation.onLocation(_onLocation);
+    // bg.BackgroundGeolocation.onMotionChange(_onMotionChange);
+    // bg.BackgroundGeolocation.onActivityChange(_onActivityChange);
+    // bg.BackgroundGeolocation.onProviderChange(_onProviderChange);
+    // bg.BackgroundGeolocation.onConnectivityChange(_onConnectivityChange);
+    // // 2.  Configure the plugin
+    // bg.BackgroundGeolocation.ready(bg.Config(
+    //         desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
+    //         distanceFilter: 10.0,
+    //         stopOnTerminate: false,
+    //         startOnBoot: true,
+    //         debug: true,
+    //         logLevel: bg.Config.LOG_LEVEL_VERBOSE,
+    //         reset: true))
+    //     .then((bg.State state) {
+    //   setState(() {
+    //     _enabled = state.enabled;
+    //     _isMoving = state.isMoving;
+    //   });
+    // });
+  }
+
+  void _onClickEnable(enabled) {
+    if (enabled) {
+      bg.BackgroundGeolocation.start().then((bg.State state) {
+        print('[start] success $state');
+        setState(() {
+          _enabled = state.enabled;
+          _isMoving = state.isMoving;
+        });
+      });
+    } else {
+      bg.BackgroundGeolocation.stop().then((bg.State state) {
+        print('[stop] success: $state');
+        // Reset odometer.
+        bg.BackgroundGeolocation.setOdometer(0.0);
+
+        setState(() {
+          _odometer = '0.0';
+          _enabled = state.enabled;
+          _isMoving = state.isMoving;
+        });
+      });
+    }
+  }
+
+  // Manually toggle the tracking state:  moving vs stationary
+  void _onClickChangePace() {
+    setState(() {
+      _isMoving = !_isMoving!;
     });
+    print("[onClickChangePace] -> $_isMoving");
+
+    bg.BackgroundGeolocation.changePace(_isMoving!).then((bool isMoving) {
+      print('[changePace] success $isMoving');
+    }).catchError((e) {
+      print('[changePace] ERROR: ' + e.code.toString());
+    });
+  }
+
+  // Manually fetch the current position.
+  void _onClickGetCurrentPosition() {
+    bg.BackgroundGeolocation.getCurrentPosition(
+            persist: false, // <-- do not persist this location
+            desiredAccuracy: 0, // <-- desire best possible accuracy
+            timeout: 30000, // <-- wait 30s before giving up.
+            samples: 3 // <-- sample 3 location before selecting best.
+            )
+        .then((bg.Location location) {
+      setState(() {
+        currentPostion = location.coords as LatLng;
+      });
+      _addMarker();
+      print('[getCurrentPosition] - $location');
+    }).catchError((error) {
+      print('[getCurrentPosition] ERROR: $error');
+    });
+  }
+  // Event handlers
+  //
+
+  void _onLocation(bg.Location location) {
+    print('[location] - $location');
+
+    String odometerKM = (location.odometer / 1000.0).toStringAsFixed(1);
+
+    setState(() {
+      _content = encoder.convert(location.toMap());
+      _odometer = odometerKM;
+    });
+  }
+
+  void _onMotionChange(bg.Location location) {
+    print('[motionchange] - $location');
+  }
+
+  void _onActivityChange(bg.ActivityChangeEvent event) {
+    print('[activitychange] - $event');
+    setState(() {
+      _motionActivity = event.activity;
+    });
+  }
+
+  void _onProviderChange(bg.ProviderChangeEvent event) {
+    print('$event');
+
+    setState(() {
+      _content = encoder.convert(event.toMap());
+    });
+  }
+
+  void _onConnectivityChange(bg.ConnectivityChangeEvent event) {
+    print('$event');
   }
 
   @override
   void dispose() {
-    isOpenNSink.close();
     geofenceStatusStream?.cancel();
     EasyGeofencing.stopGeofenceService();
     super.dispose();
@@ -132,19 +234,6 @@ class _TryRoutesState extends State<TryRoutes> {
       ),
     );
   }
-
-  // void _onGeofence(bg.GeofenceEvent event) {
-  //   print('onGeofence $event');
-  //   const platformChannelSpecifics =
-  //       NotificationDetails(null, IOSNotificationDetails());
-  //   flutterLocalNotificationsPlugin
-  //       .show(0, 'Welcome home!', 'Don\'t forget to wash your hands!',
-  //           platformChannelSpecifics)
-  //       .then((result) {})
-  //       .catchError((onError) {
-  //     print('[flutterLocalNotificationsPlugin.show] ERROR: $onError');
-  //   });
-  // }
 
   String removeAllHtmlTags(String htmlText) {
     RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
@@ -175,33 +264,42 @@ class _TryRoutesState extends State<TryRoutes> {
     }
 
     var position = await GeolocatorPlatform.instance.getCurrentPosition();
+
     setState(() {
       currentPostion = LatLng(position.latitude, position.longitude);
     });
-    _addGeofence();
+    // _addGeofence();
   }
 
   bool geoFenceSuccess = false;
-  void _addGeofence() {
-    bg.BackgroundGeolocation.addGeofence(bg.Geofence(
-      identifier: 'HOME',
-      radius: 150,
-      latitude: currentPostion!.latitude,
-      longitude: currentPostion!.longitude,
-      notifyOnEntry: true, // only notify on entry
-      notifyOnExit: false,
-      notifyOnDwell: false,
-      loiteringDelay: 30000, // 30 seconds
-    )).then((bool success) {
-      setState(() {
-        geoFenceSuccess = success;
-      });
-      print(
-          '[addGeofence] success with ${currentPostion!.latitude} and ${currentPostion!.longitude}');
-    }).catchError((error) {
-      print('[addGeofence] FAILURE: $error');
-    });
-  }
+  // void _addGeofence() {
+  //   bg.BackgroundGeolocation.addGeofence(bg.Geofence(
+  //     identifier: 'HOME',
+  //     radius: 150,
+  //     latitude: startLat!,
+  //     longitude: startLong!,
+  //     notifyOnEntry: true, // only notify on entry
+  //     notifyOnExit: false,
+  //     notifyOnDwell: false,
+  //     loiteringDelay: 30000, // 30 seconds
+  //   )).then((bool success) {
+  //     print(success);
+  //     if (success == true) {
+  //       setState(() {
+  //         geoFenceSuccess = success;
+  //       });
+  //     } else {
+  //       setState(() {
+  //         geoFenceSuccess = success;
+  //       });
+  //     }
+
+  //     print(
+  //         '[addGeofence] success with $startLat and ${currentPostion!.longitude}');
+  //   }).catchError((error) {
+  //     print('[addGeofence] FAILURE: $error');
+  //   });
+  // }
 
   void _onMapCreated(GoogleMapController _cntlr) async {
     _controller = _cntlr;
@@ -262,9 +360,9 @@ class _TryRoutesState extends State<TryRoutes> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       resizeToAvoidBottomInset: true,
-      floatingActionButton: const BottomFlatButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const BottomNavBar(),
+      // floatingActionButton: const BottomFlatButton(),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // bottomNavigationBar: const BottomNavBar(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: IconButton(
@@ -552,8 +650,12 @@ class _TryRoutesState extends State<TryRoutes> {
 
                 sizedBox(20, 0),
                 mainAuthButton(
-                    context, atFinishLine ? 'Show My Results' : 'Start', () {
-                  if (geoFenceSuccess) {
+                    context, atFinishLine ? 'Show My Results' : 'Start',
+                    // _onClickGetCurrentPosition
+                    () {
+                  if (currentPostion != startLocation) {
+                    _addMarker();
+                    print(geoFenceSuccess);
                     setState(() {
                       pressedStartProximity = true;
                     });
