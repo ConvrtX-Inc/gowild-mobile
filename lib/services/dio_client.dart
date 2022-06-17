@@ -168,4 +168,26 @@ class DioClient {
       throw Exception("Failed to create get request - get routes");
     }
   }
+
+  Future<UserModel> postGoogleLogin() async {
+    final token =
+        await SecureStorage.readValue(key: SecureStorage.userTokenKey);
+    final String postEndPoint = baseUrl + ApiPath().getUser;
+    BaseOptions options = BaseOptions(
+      baseUrl: postEndPoint,
+      connectTimeout: 10000,
+      receiveTimeout: 10000,
+    );
+    final Dio dio = Dio(options);
+    try {
+      Response response = await dio.post(postEndPoint, data: {
+        "id_token": '$token',
+      });
+      debugPrint(response.toString());
+      return UserModel.fromJson(response.data);
+    } on DioError catch (e) {
+      debugPrint("Status code: ${e.response?.statusCode.toString()}");
+      throw Exception("Failed to create post request - register user");
+    }
+  }
 }

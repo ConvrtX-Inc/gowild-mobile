@@ -13,13 +13,12 @@ class MapOverlay extends StatefulWidget {
 
   @override
   _MapOverlayState createState() => _MapOverlayState();
-}
+   }
 
-class _MapOverlayState extends State<MapOverlay> {
-  bool setAsDefaultRoadMap = true;
+   class _MapOverlayState extends State<MapOverlay>{
   bool setAsDefaultSatellite = false;
   bool setAsDefaultTerrain = false;
-
+bool setAsDefaultRoadMap = false;
   final _preferenceService = PrefService();
 
   // var _selectedMapType = Set<MapPicked>();
@@ -29,7 +28,6 @@ class _MapOverlayState extends State<MapOverlay> {
     getAllSavedData();
     super.initState();
   }
-
   Future getAllSavedData() async {
     final value = await _preferenceService.getMapType();
     setState(() {

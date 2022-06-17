@@ -16,11 +16,11 @@ class Root extends StatefulWidget {
 
   @override
   _RootState createState() => _RootState();
+
+
 }
-
-class _RootState extends State<Root> {
+class _RootState extends State<Root>{
   AuthStatus _authStatus = AuthStatus.notLoggedIn;
-
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();

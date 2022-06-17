@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -12,7 +11,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'expandable_container.dart';
 import 'sample_avatar.dart';
 import 'star_rating.dart';
-
+import 'package:flutter/material.dart';
 class ExpandableListView extends StatefulWidget {
   const ExpandableListView({
     Key? key,

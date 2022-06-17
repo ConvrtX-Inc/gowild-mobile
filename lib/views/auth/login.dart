@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
 import 'package:gowild_mobile/models/user_model.dart';
 import 'package:gowild_mobile/root.dart';
@@ -24,7 +23,7 @@ enum LoginType { email, google }
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final fb = FacebookLogin();
+  // final fb = FacebookLogin();
   Future<bool> isFirstTime() async {
     final prefs = await SharedPreferences.getInstance();
     var isFirstTime = prefs.getBool('first_time');
@@ -40,6 +39,12 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   void _loginUser({
     @required LoginType? type,
     String? email,
@@ -52,11 +57,10 @@ class _LoginScreenState extends State<LoginScreen> {
       _returnString = await DioClient().loginUser(email!, password!);
       switch (type) {
         case LoginType.email:
-
           _returnString = await DioClient().loginUser(email, password);
 
-          _returnString = await AuthenticationHelper()
-              .loginUser(emailController.text, passwordController.text);
+          // _returnString = await AuthenticationHelper()
+          //     .loginUser(emailController.text, passwordController.text);
           final Map<String, dynamic> emailAndPass = {
             'email': emailController.text,
             'password': passwordController.text
@@ -65,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
           break;
         case LoginType.google:
-          _returnString = await AuthenticationHelper().loginUserWithGoogle();
+          _returnString = await DioClient().postGoogleLogin();
           break;
         default:
       }
@@ -106,6 +110,26 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> googleLogin() async {
+    try {
+      var _returnString = await DioClient().postGoogleLogin();
+      if (_returnString != null) {
+        // final Map<String, dynamic> userDetails = {
+        //   'email': emailController.text,
+        //   'password': passwordController.text,
+        // };
+        // String _returnString =
+        //     await DioClient().
+        // await AuthenticationHelper().saveUserDetails(userDetails);
+        // if (_returnString == "success") {
+        //   print('success');
+        // }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,29 +143,29 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             InkWell(
               onTap: () async {
-                final res = await fb.logIn(permissions: [
-                  FacebookPermission.publicProfile,
-                  FacebookPermission.email,
-                ]);
+                // final res = await fb.logIn(permissions: [
+                //   // FacebookPermission.publicProfile,
+                //   // FacebookPermission.email,
+                // ]);
 
-                switch (res.status) {
-                  case FacebookLoginStatus.success:
-                    final accessToken = res.accessToken;
+                // switch (res.status) {
+                //   // case FacebookLoginStatus.success:
+                //     final accessToken = res.accessToken;
 
-                    final profile = await fb.getUserProfile();
-                    print('Hello, ${profile!.name}! You ID: ${profile.userId}');
+                //     final profile = await fb.getUserProfile();
+                //     print('Hello, ${profile!.name}! You ID: ${profile.userId}');
 
-                    final email = await fb.getUserEmail();
+                //     final email = await fb.getUserEmail();
 
-                    if (email != null) print('And your email is $email');
+                //     if (email != null) print('And your email is $email');
 
-                    break;
-                  case FacebookLoginStatus.cancel:
-                    break;
-                  case FacebookLoginStatus.error:
-                    print('Error while log in: ${res.error}');
-                    break;
-                }
+                //     break;
+                //   case FacebookLoginStatus.cancel:
+                //     break;
+                //   case FacebookLoginStatus.error:
+                //     print('Error while log in: ${res.error}');
+                //     break;
+                // }
               },
               child: socialContainer(context, facebookColor,
                   'assets/facebook_logo.png', 'Log in with Facebook'),

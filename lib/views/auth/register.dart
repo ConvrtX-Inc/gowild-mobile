@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+
 import 'package:gowild_mobile/helper/authentication_helper.dart';
 import 'package:gowild_mobile/models/user_model.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
@@ -26,7 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  final fb = FacebookLogin();
+  // final fb = FacebookLogin();
   final _preferenceService = PrefService();
   void saveUser() {
     final user = UserModel(
@@ -59,8 +59,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           'addressline1': addressLine1Controller.text,
           'addressline2': addressLine2Controller.text
         };
-        String _returnString =
-            await AuthenticationHelper().signUpUser(email, password);
+        // String _returnString =
+        // await AuthenticationHelper().signUpUser(email, password);
         await AuthenticationHelper().saveUserDetails(userDetails);
         if (_returnString == "success") {
           print('success');
@@ -79,6 +79,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
+  Future<void> googleLogin(String email, String password) async {
+    try {
+      var _returnString = await DioClient().postGoogleLogin();
+      if (_returnString != null) {
+        final Map<String, dynamic> userDetails = {
+          'email': emailController.text,
+          'password': passwordController.text,
+          'full_name': fullNameController.text,
+          'phone_no': phoneNumberController.text,
+          'addressline1': addressLine1Controller.text,
+          'addressline2': addressLine2Controller.text
+        };
+        // String _returnString =
+        // await AuthenticationHelper().signUpUser(email, password);
+        // await AuthenticationHelper().saveUserDetails(userDetails);
+        if (_returnString == "success") {
+          print('success');
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: primaryYellow),
+        iconTheme: const IconThemeData(color: primaryYellow),
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
@@ -101,36 +125,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             InkWell(
               onTap: () async {
-                await AuthenticationHelper().loginUserWithGoogle();
+                await googleLogin(emailController.text.trim(),
+                    passwordController.text.trim());
               },
               child: socialContainer(context, kgoogleColor,
                   'assets/google_logo.png', 'Sign in with Google'),
             ),
             InkWell(
               onTap: () async {
-                final res = await fb.logIn(permissions: [
-                  FacebookPermission.publicProfile,
-                  FacebookPermission.email,
-                ]);
+                // final res = await fb.logIn(permissions: [
+                //   FacebookPermission.publicProfile,
+                //   FacebookPermission.email,
+                // ]);
 
-                switch (res.status) {
-                  case FacebookLoginStatus.success:
-                    final accessToken = res.accessToken;
+                // switch (res.status) {
+                //   case FacebookLoginStatus.success:
+                //     final accessToken = res.accessToken;
 
-                    final profile = await fb.getUserProfile();
-                    print('Hello, ${profile!.name}! You ID: ${profile.userId}');
+                //     final profile = await fb.getUserProfile();
+                //     print('Hello, ${profile!.name}! You ID: ${profile.userId}');
 
-                    final email = await fb.getUserEmail();
+                //     final email = await fb.getUserEmail();
 
-                    if (email != null) print('And your email is $email');
+                //     if (email != null) print('And your email is $email');
 
-                    break;
-                  case FacebookLoginStatus.cancel:
-                    break;
-                  case FacebookLoginStatus.error:
-                    print('Error while log in: ${res.error}');
-                    break;
-                }
+                //     break;
+                //   case FacebookLoginStatus.cancel:
+                //     break;
+                //   case FacebookLoginStatus.error:
+                //     print('Error while log in: ${res.error}');
+                //     break;
+                // }
               },
               child: socialContainer(context, kfacebookColor,
                   'assets/facebook_logo.png', 'Sign in with Facebook'),

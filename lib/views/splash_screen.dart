@@ -17,7 +17,6 @@ class _SpashScreenState extends State<SpashScreen> {
     // TODO: implement dispose
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     if (mounted) {

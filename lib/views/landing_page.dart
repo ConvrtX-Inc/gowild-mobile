@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gowild_mobile/views/auth/login.dart';
 
+import 'auth/login.dart';
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
 

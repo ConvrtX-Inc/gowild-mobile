@@ -275,20 +275,6 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
                         child: CircularProgressIndicator(),
                       );
                     }
-
-                    // Positioned(
-                    //     top: 40,
-                    //     left: 40,
-                    //     child: Switch(
-                    //       value: isSwitched,
-                    //       onChanged: (value) {
-                    //         setState(() {
-                    //           isSwitched = value;
-                    //         });
-                    //       },
-                    //       activeTrackColor: kprimaryOrange,
-                    //       activeColor: Colors.white,
-                    //     )),
                   }),
             ),
           ],

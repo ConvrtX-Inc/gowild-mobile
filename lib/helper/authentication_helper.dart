@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
@@ -12,43 +11,43 @@ import 'package:gowild_mobile/views/main_screen.dart';
 import '../models/user_model.dart';
 
 class AuthenticationHelper extends ChangeNotifier {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
   UserModel _currentUser = UserModel();
   String? _email;
-  User? _user;
+  // User? _user;
   String _token = '';
-  User get user => _user!;
+  // User get user => _user!;
 
   UserModel get getCurrentUser => _currentUser;
 
   String? get getEmail => _currentUser.email;
   String get tokenUser => _token;
-  Future<String> signUpUser(
-    String email,
-    String password,
-  ) async {
-    String retVal = "error";
+  // Future<String> signUpUser(
+  //   String email,
+  //   String password,
+  // ) async {
+  //   String retVal = "error";
 
-    try {
-      UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
-          email: email.trim(), password: password);
+  //   try {
+  //     UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
+  //         email: email.trim(), password: password);
 
-      _currentUser.uid = _authResult.user?.uid;
-      _currentUser.email = _authResult.user?.email;
+  //     _currentUser.uid = _authResult.user?.uid;
+  //     _currentUser.email = _authResult.user?.email;
 
-      _currentUser.accountCreated = DateTime.now();
+  //     _currentUser.accountCreated = DateTime.now();
 
-      if (_currentUser != null) {
-        retVal = 'success';
-      }
-    } on PlatformException catch (e) {
-      retVal = e.message!;
-    } catch (e) {
-      print(e);
-    }
-    notifyListeners();
-    return retVal;
-  }
+  //     if (_currentUser != null) {
+  //       retVal = 'success';
+  //     }
+  //   } on PlatformException catch (e) {
+  //     retVal = e.message!;
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  //   notifyListeners();
+  //   return retVal;
+  // }
 
   Future loggedOnce() async {
     final prefs = await SharedPreferences.getInstance();
@@ -68,22 +67,22 @@ class AuthenticationHelper extends ChangeNotifier {
     }
   }
 
-  Future<String> loginUser(String email, String password) async {
-    String retVal = 'error';
-    try {
-      UserCredential _authResult = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+  // Future<String> loginUser(String email, String password) async {
+  //   String retVal = 'error';
+  //   try {
+  //     UserCredential _authResult = await _auth.signInWithEmailAndPassword(
+  //         email: email, password: password);
 
-      if (_currentUser != null) {
-        // await prefs.setBool("initScreen", true);
-        retVal = 'success';
-      }
-    } catch (e) {
-      retVal = e.toString();
-    }
-    notifyListeners();
-    return retVal;
-  }
+  //     if (_currentUser != null) {
+  //       // await prefs.setBool("initScreen", true);
+  //       retVal = 'success';
+  //     }
+  //   } catch (e) {
+  //     retVal = e.toString();
+  //   }
+  //   notifyListeners();
+  //   return retVal;
+  // }
 
   Future<void> emailLogin(
       Map<String, dynamic> emailAndPassword, BuildContext context) async {
@@ -108,9 +107,9 @@ class AuthenticationHelper extends ChangeNotifier {
   Future<String> onStartUp() async {
     String retVal = 'error';
     try {
-      User? _firebaseUser = _auth.currentUser;
+      // User? _firebaseUser = _auth.currentUser;
       _currentUser = await DioClient().getUser();
-      if (_firebaseUser != null || _currentUser.toJson().values.isNotEmpty) {
+      if (_currentUser.toJson().values.isNotEmpty) {
         print('success');
 
         print('initScreen ${loggedOnce}');
@@ -124,45 +123,45 @@ class AuthenticationHelper extends ChangeNotifier {
     return retVal;
   }
 
-  Future<String> loginUserWithGoogle() async {
-    String retVal = "error";
-    GoogleSignIn _googleSignIn = GoogleSignIn(
-      scopes: [
-        'email',
-        'https://www.googleapis.com/auth/contacts.readonly',
-      ],
-    );
-    UserModel _users = UserModel();
-    try {
-      GoogleSignInAccount? _googleUser = await _googleSignIn.signIn();
-      GoogleSignInAuthentication _googleAuth =
-          await _googleUser!.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-          idToken: _googleAuth.idToken, accessToken: _googleAuth.accessToken);
-      UserCredential _authResult = await _auth.signInWithCredential(credential);
-      if (_authResult.additionalUserInfo!.isNewUser) {
-        _users.uid = _authResult.user!.uid;
-        _users.email = _authResult.user!.email;
-        _users.fullName = _authResult.user!.displayName;
-      }
+  // Future<String> loginUserWithGoogle() async {
+  //   String retVal = "error";
+  //   GoogleSignIn _googleSignIn = GoogleSignIn(
+  //     scopes: [
+  //       'email',
+  //       'https://www.googleapis.com/auth/contacts.readonly',
+  //     ],
+  //   );
+  //   UserModel _users = UserModel();
+  //   try {
+  //     GoogleSignInAccount? _googleUser = await _googleSignIn.signIn();
+  //     GoogleSignInAuthentication _googleAuth =
+  //         await _googleUser!.authentication;
+  //     final AuthCredential credential = GoogleAuthProvider.credential(
+  //         idToken: _googleAuth.idToken, accessToken: _googleAuth.accessToken);
+  //     UserCredential _authResult = await _auth.signInWithCredential(credential);
+  //     if (_authResult.additionalUserInfo!.isNewUser) {
+  //       _users.uid = _authResult.user!.uid;
+  //       _users.email = _authResult.user!.email;
+  //       _users.fullName = _authResult.user!.displayName;
+  //     }
 
-      if (_currentUser != null) {
-        retVal = "success";
-      }
-    } on PlatformException catch (e) {
-      retVal = e.message!;
-      print(retVal);
-    } catch (e) {
-      // retVal = e.message;
-      print(e);
-    }
-    return retVal;
-  }
+  //     if (_currentUser != null) {
+  //       retVal = "success";
+  //     }
+  //   } on PlatformException catch (e) {
+  //     retVal = e.message!;
+  //     print(retVal);
+  //   } catch (e) {
+  //     // retVal = e.message;
+  //     print(e);
+  //   }
+  //   return retVal;
+  // }
 
   Future<String> onSignOut() async {
     String retVal = "error";
     try {
-      await _auth.signOut();
+      // await _auth.signOut();
 
       _email = null;
       _currentUser = UserModel();
