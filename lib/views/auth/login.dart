@@ -23,6 +23,7 @@ enum LoginType { email, google }
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   // final fb = FacebookLogin();
   Future<bool> isFirstTime() async {
     final prefs = await SharedPreferences.getInstance();
@@ -81,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ? Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const EwaiverScreen()),
+                      builder: (context) => const MainNavigation()),
                   (route) => false)
               : Navigator.pushAndRemoveUntil(
                   context,
@@ -95,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ? Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const EwaiverScreen()),
+                      builder: (context) => const MainNavigation()),
                   (route) => false)
               : Navigator.pushAndRemoveUntil(
                   context,
@@ -135,102 +136,123 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: primaryBlack,
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            titleTextWithAsset("LOGIN", 'assets/leaf.png'),
-            const SizedBox(
-              height: 30,
-            ),
-            InkWell(
-              onTap: () async {
-                // final res = await fb.logIn(permissions: [
-                //   // FacebookPermission.publicProfile,
-                //   // FacebookPermission.email,
-                // ]);
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              titleTextWithAsset("LOGIN", 'assets/leaf.png'),
+              const SizedBox(
+                height: 30,
+              ),
+              InkWell(
+                onTap: () async {
+                  // final res = await fb.logIn(permissions: [
+                  //   // FacebookPermission.publicProfile,
+                  //   // FacebookPermission.email,
+                  // ]);
 
-                // switch (res.status) {
-                //   // case FacebookLoginStatus.success:
-                //     final accessToken = res.accessToken;
+                  // switch (res.status) {
+                  //   // case FacebookLoginStatus.success:
+                  //     final accessToken = res.accessToken;
 
-                //     final profile = await fb.getUserProfile();
-                //     print('Hello, ${profile!.name}! You ID: ${profile.userId}');
+                  //     final profile = await fb.getUserProfile();
+                  //     print('Hello, ${profile!.name}! You ID: ${profile.userId}');
 
-                //     final email = await fb.getUserEmail();
+                  //     final email = await fb.getUserEmail();
 
-                //     if (email != null) print('And your email is $email');
+                  //     if (email != null) print('And your email is $email');
 
-                //     break;
-                //   case FacebookLoginStatus.cancel:
-                //     break;
-                //   case FacebookLoginStatus.error:
-                //     print('Error while log in: ${res.error}');
-                //     break;
-                // }
-              },
-              child: socialContainer(context, facebookColor,
-                  'assets/facebook_logo.png', 'Log in with Facebook'),
-            ),
-            InkWell(
-              onTap: () => _loginUser(type: LoginType.google, context: context),
-              child: socialContainer(context, googleColor,
-                  'assets/google_logo.png', 'Log in with Google'),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            orText(),
-            const SizedBox(
-              height: 20,
-            ),
-            buildTextField(
-                context, 'Email', emailController, 'myemail@gowild.com', false,
-                (String? value) {
-              return value!;
-            }),
-            buildTextField(
-                context, 'Password', passwordController, '***********', true,
-                (String? value) {
-              return value!;
-            }),
-            forgotPassword(),
-            const SizedBox(height: 10),
-            mainAuthButton(context, "Login", () async {
-              try {
-                final res = await DioClient()
-                    .loginUser(emailController.text, passwordController.text);
-                if (res.toJson().isNotEmpty) {
-                  isFirstTime().then((isFirstTime) {
-                    print(isFirstTime);
-                    isFirstTime
-                        ? Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const EwaiverScreen()),
-                            (route) => false)
-                        : Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MainNavigation()),
-                            (route) => false);
-                  });
-                }
-              } catch (e) {
-                print(e.toString());
-              }
-            }),
-            const SizedBox(
-              height: 30,
-            ),
-            GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: ((context) => const RegisterScreen())));
+                  //     break;
+                  //   case FacebookLoginStatus.cancel:
+                  //     break;
+                  //   case FacebookLoginStatus.error:
+                  //     print('Error while log in: ${res.error}');
+                  //     break;
+                  // }
                 },
-                child: dontHaveAnAccount(
-                    context, "Dont't have an account? ", "Register"))
-          ],
+                child: socialContainer(context, facebookColor,
+                    'assets/facebook_logo.png', 'Log in with Facebook'),
+              ),
+              InkWell(
+                onTap: () =>
+                    _loginUser(type: LoginType.google, context: context),
+                child: socialContainer(context, googleColor,
+                    'assets/google_logo.png', 'Log in with Google'),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              orText(),
+              const SizedBox(
+                height: 20,
+              ),
+              buildTextField(context, 'Email', emailController,
+                  'myemail@gowild.com', false, (value) {
+                if (value == null ||
+                    value.isEmpty ||
+                    !value.contains('@') ||
+                    !value.contains('.') ||
+                    !value.endsWith('.com')) {
+                  return 'Invalid Email';
+                }
+                return value;
+              }),
+              buildTextField(
+                  context, 'Password', passwordController, '***********', true,
+                  (value) {
+                RegExp regex = RegExp(
+                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                if (value!.isEmpty) {
+                  return 'Please enter password';
+                } else {
+                  if (!regex.hasMatch(value)) {
+                    return 'Enter valid password';
+                  } else {
+                    return value;
+                  }
+                }
+              }),
+              forgotPassword(),
+              const SizedBox(height: 10),
+              mainAuthButton(context, "Login", () async {
+                try {
+                  final res = await DioClient().loginUser(
+                      emailController.text.toLowerCase().trim(),
+                      passwordController.text.toLowerCase().trim());
+                  if (res.toJson().isNotEmpty) {
+                    isFirstTime().then((isFirstTime) {
+                      print(isFirstTime);
+                      isFirstTime
+                          ? Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MainNavigation()),
+                              (route) => false)
+                          : Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MainNavigation()),
+                              (route) => false);
+                    });
+                  }
+                } catch (e) {
+                  print(e.toString());
+                }
+              }),
+              const SizedBox(
+                height: 30,
+              ),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => const RegisterScreen())));
+                  },
+                  child: dontHaveAnAccount(
+                      context, "Dont't have an account? ", "Register"))
+            ],
+          ),
         ),
       ),
     );

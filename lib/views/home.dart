@@ -1,4 +1,3 @@
-import 'package:draggable_widget/draggable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/models/user_model.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
@@ -22,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> nameList = ['ROUTES', 'NEARBY ADVENTURES', 'GO WILD FEED'];
+  List<String> nameList = ['ROUTES'];
   late Future<UserModel> users;
   @override
   void initState() {
@@ -31,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  final dragController = DragController();
+  // final dragController = DragController();
   buildRowNameAndAvatar(String username) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -119,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               buildRowNameAndAvatar(
-                                  snapshot.data!.fullName ?? ''),
+                                  snapshot.data!.fullName ?? 'Jen'),
                               const SizedBox(
                                 height: 20,
                               ),

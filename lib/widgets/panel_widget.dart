@@ -37,7 +37,7 @@ class _PanelWidgetState extends State<PanelWidget> {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 120),
-              child: Text(route.routeName!,
+              child: Text(route.routeName ?? 'route',
                   style: const TextStyle(
                       color: Color(0xff18243C),
                       fontSize: 14,
@@ -154,8 +154,10 @@ class _PanelWidgetState extends State<PanelWidget> {
         ]),
       );
 
-  buildSmallMap(double height, Routes route) =>
-      SizedBox(height: height, child: Image.network(route.imgUrl!));
+  buildSmallMap(double height, Routes route) => SizedBox(
+      height: height,
+      child: Image.network(
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsGLoIRnCPzhOWrcXhzhCeHjhNr8fzGeX5qQ&usqp=CAU'));
 
   build1stContainer(BuildContext context, Routes route) => SizedBox(
         width: 320,
@@ -179,14 +181,15 @@ class _PanelWidgetState extends State<PanelWidget> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.network(route.imgUrl!),
+              child: Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsGLoIRnCPzhOWrcXhzhCeHjhNr8fzGeX5qQ&usqp=CAU'),
             ),
             Column(
               children: [
                 sizedBox(20, 0),
                 Padding(
                   padding: const EdgeInsets.only(right: 90),
-                  child: Text(route.routeName!,
+                  child: Text(route.routeName ?? 'route',
                       style: const TextStyle(
                           color: Color(0xff18243C),
                           fontSize: 11,
@@ -198,7 +201,6 @@ class _PanelWidgetState extends State<PanelWidget> {
                 Padding(
                   padding: const EdgeInsets.only(right: 50),
                   child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const Icon(
                         Icons.location_on_outlined,
@@ -323,8 +325,8 @@ class _PanelWidgetState extends State<PanelWidget> {
       );
 
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(
-        child: Column(
+  Widget build(BuildContext context) => ListView(children: [
+        Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 40),
@@ -335,63 +337,37 @@ class _PanelWidgetState extends State<PanelWidget> {
                     Text('Suggested Routes'),
                   ]),
             ),
-            FutureBuilder<RouteList>(
-              future: getRoutes,
-              builder: (context, AsyncSnapshot<RouteList> snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.routeList.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final Routes route = snapshot.data!.routeList[index];
-                      return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => TryRoutes(
-                                          isProximity: true,
-                                          route: route,
-                                        )));
-                          },
-                          child: buildMapRow(index == 1, route));
-
-                      // return Column(
-                      //   children: [
-                      //     Padding(
-                      //       padding: const EdgeInsets.only(right: 40),
-                      //       child: Column(
-                      //           mainAxisAlignment: MainAxisAlignment.center,
-                      //           children: const <Widget>[
-                      //             Icon(Icons.arrow_upward_rounded),
-                      //             Text('Suggested Routes'),
-                      //           ]),
-                      //     ),
-                      //     sizedBox(46, 0),
-                      //     Row(
-                      //       children: [
-                      //         buildAvatar(),
-                      //         build1stContainer(context, route)
-                      //       ],
-                      //     ),
-                      //     sizedBox(24, 0),
-
-                      //     buildMapRow(index == 1, route),
-                      //     sizedBox(10, 0),
-                      //     buildMapRow(false, route),
-                      //   ],
-                      // );
-                    },
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    controller: widget.sc,
-                  );
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
           ],
         ),
-      );
+        FutureBuilder<RouteList>(
+          future: getRoutes,
+          builder: (context, AsyncSnapshot<RouteList> snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data!.routeList.length,
+                physics: const AlwaysScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final Routes route = snapshot.data!.routeList[index];
+                  return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TryRoutes(
+                                      isProximity: true,
+                                      route: route,
+                                    )));
+                      },
+                      child: buildMapRow(index == 1, route));
+                },
+                padding: EdgeInsets.zero,
+                // controller: widget.sc,
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
+      ]);
 }

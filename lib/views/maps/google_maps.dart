@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_tappable_polyline/flutter_map_tappable_polyline.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gowild_mobile/constants/colors.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
@@ -38,7 +39,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   @override
   void initState() {
     // TODO: implement initState
-    getAllSavedData();
+    // getAllSavedData();
     getRoutes = DioClient().getRoute();
     _mapController = MapController();
     super.initState();
@@ -61,17 +62,18 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   //   // setState(() {});
   // }
 
-  Future getAllSavedData() async {
-    final value = await _preferenceService.getMapType();
+  // Future getAllSavedData() async {
+  //   final value = await _preferenceService.getMapType();
 
-    setState(() {
-      setAsDefaultRoadMap = value.roadMapString!;
-      setAsDefaultTerrain = value.terrainString!;
-      setAsDefaultSatellite = value.satelliteString!;
-    });
+  //   setState(() {
+  //     setAsDefaultRoadMap = value.roadMapString ?? MapType.normal.toString();
+  //     setAsDefaultTerrain = value.terrainString ?? MapType.terrain.toString();
+  //     setAsDefaultSatellite =
+  //         value.satelliteString ?? MapType.satellite.toString();
+  //   });
 
-    setState(() {});
-  }
+  //   setState(() {});
+  // }
 
   List<LatLng> getPointsApi(int index) {
     return points[index].map((e) => LatLng(e[1], e(0))).toList();

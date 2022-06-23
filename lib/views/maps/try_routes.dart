@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:easy_geofencing/easy_geofencing.dart';
 import 'package:easy_geofencing/enums/geofence_status.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
-    as bg;
+
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gowild_mobile/constants/size.dart';
@@ -12,17 +12,15 @@ import 'package:gowild_mobile/models/directions.dart';
 import 'package:gowild_mobile/views/maps/google_maps.dart';
 import 'package:gowild_mobile/widgets/auth_widgets.dart';
 import 'package:location/location.dart';
-import 'package:easy_geofencing/easy_geofencing.dart';
+
 import '../../constants/colors.dart';
 import '../../models/route.dart';
-import '../../services/dio_client.dart';
-import '../../widgets/bottom_flat_button.dart';
-import '../../widgets/bottom_nav_bar.dart';
+
 import 'directions_repository.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 import 'dart:convert';
 
-JsonEncoder encoder = new JsonEncoder.withIndent("     ");
+JsonEncoder encoder = const JsonEncoder.withIndent("     ");
 
 class TryRoutes extends StatefulWidget {
   TryRoutes({Key? key, this.isProximity, required this.route})
@@ -41,10 +39,6 @@ class TryRoutes extends StatefulWidget {
 }
 
 class _TryRoutesState extends State<TryRoutes> {
-  // late StreamController<bool> isOpenStreamController;
-
-  StreamController<GeofenceStatus>? geofenceStatusStreamController =
-      StreamController<GeofenceStatus>.broadcast();
   bool atEndPoint = true;
   bool atFinishLine = false;
   LatLng? currentPostion;
@@ -60,21 +54,19 @@ class _TryRoutesState extends State<TryRoutes> {
   late LatLng startLocation = LatLng(startLat!, startLong!);
   double? startLong;
   bool state = false;
-  StreamSubscription<GeofenceStatus>? geofenceStatusStream;
+
   GoogleMapController? _controller;
   Directions? _info;
   Location _location = Location();
-  bool? _isMoving;
-  bool? _enabled;
-  String? _motionActivity;
-  String? _odometer;
-  String? _content;
-
+  StreamSubscription<GeofenceStatus>? geofenceStatusStream;
+  Geolocator geolocator = Geolocator();
+  String geofenceStatus = '';
+  bool isReady = false;
+  Position? position;
   @override
   void initState() {
     super.initState();
-    // TODO: implement initState
-    // getRoutes = DioClient().getRoutes();
+
     _getUserLocation();
 
     startLat = widget.route.startPointLat!;
@@ -83,134 +75,6 @@ class _TryRoutesState extends State<TryRoutes> {
     endLong = widget.route.stopPointLong!;
     routeText = widget.route.routeName!;
     isProximity = widget.isProximity!;
-
-    _isMoving = false;
-    _enabled = false;
-    _content = '';
-    _motionActivity = 'UNKNOWN';
-    _odometer = '0';
-
-    // 1.  Listen to events (See docs for all 12 available events).
-    // bg.BackgroundGeolocation.onLocation(_onLocation);
-    // bg.BackgroundGeolocation.onMotionChange(_onMotionChange);
-    // bg.BackgroundGeolocation.onActivityChange(_onActivityChange);
-    // bg.BackgroundGeolocation.onProviderChange(_onProviderChange);
-    // bg.BackgroundGeolocation.onConnectivityChange(_onConnectivityChange);
-    // // 2.  Configure the plugin
-    // bg.BackgroundGeolocation.ready(bg.Config(
-    //         desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
-    //         distanceFilter: 10.0,
-    //         stopOnTerminate: false,
-    //         startOnBoot: true,
-    //         debug: true,
-    //         logLevel: bg.Config.LOG_LEVEL_VERBOSE,
-    //         reset: true))
-    //     .then((bg.State state) {
-    //   setState(() {
-    //     _enabled = state.enabled;
-    //     _isMoving = state.isMoving;
-    //   });
-    // });
-  }
-
-  void _onClickEnable(enabled) {
-    if (enabled) {
-      bg.BackgroundGeolocation.start().then((bg.State state) {
-        print('[start] success $state');
-        setState(() {
-          _enabled = state.enabled;
-          _isMoving = state.isMoving;
-        });
-      });
-    } else {
-      bg.BackgroundGeolocation.stop().then((bg.State state) {
-        print('[stop] success: $state');
-        // Reset odometer.
-        bg.BackgroundGeolocation.setOdometer(0.0);
-
-        setState(() {
-          _odometer = '0.0';
-          _enabled = state.enabled;
-          _isMoving = state.isMoving;
-        });
-      });
-    }
-  }
-
-  // Manually toggle the tracking state:  moving vs stationary
-  void _onClickChangePace() {
-    setState(() {
-      _isMoving = !_isMoving!;
-    });
-    print("[onClickChangePace] -> $_isMoving");
-
-    bg.BackgroundGeolocation.changePace(_isMoving!).then((bool isMoving) {
-      print('[changePace] success $isMoving');
-    }).catchError((e) {
-      print('[changePace] ERROR: ' + e.code.toString());
-    });
-  }
-
-  // Manually fetch the current position.
-  void _onClickGetCurrentPosition() {
-    bg.BackgroundGeolocation.getCurrentPosition(
-            persist: false, // <-- do not persist this location
-            desiredAccuracy: 0, // <-- desire best possible accuracy
-            timeout: 30000, // <-- wait 30s before giving up.
-            samples: 3 // <-- sample 3 location before selecting best.
-            )
-        .then((bg.Location location) {
-      setState(() {
-        currentPostion = location.coords as LatLng;
-      });
-      _addMarker();
-      print('[getCurrentPosition] - $location');
-    }).catchError((error) {
-      print('[getCurrentPosition] ERROR: $error');
-    });
-  }
-  // Event handlers
-  //
-
-  void _onLocation(bg.Location location) {
-    print('[location] - $location');
-
-    String odometerKM = (location.odometer / 1000.0).toStringAsFixed(1);
-
-    setState(() {
-      _content = encoder.convert(location.toMap());
-      _odometer = odometerKM;
-    });
-  }
-
-  void _onMotionChange(bg.Location location) {
-    print('[motionchange] - $location');
-  }
-
-  void _onActivityChange(bg.ActivityChangeEvent event) {
-    print('[activitychange] - $event');
-    setState(() {
-      _motionActivity = event.activity;
-    });
-  }
-
-  void _onProviderChange(bg.ProviderChangeEvent event) {
-    print('$event');
-
-    setState(() {
-      _content = encoder.convert(event.toMap());
-    });
-  }
-
-  void _onConnectivityChange(bg.ConnectivityChangeEvent event) {
-    print('$event');
-  }
-
-  @override
-  void dispose() {
-    geofenceStatusStream?.cancel();
-    EasyGeofencing.stopGeofenceService();
-    super.dispose();
   }
 
   showToast() {
@@ -241,7 +105,6 @@ class _TryRoutesState extends State<TryRoutes> {
     return htmlText.replaceAll(exp, '');
   }
 
-  bool isReady = false;
   Future<void> _getUserLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -264,42 +127,14 @@ class _TryRoutesState extends State<TryRoutes> {
     }
 
     var position = await GeolocatorPlatform.instance.getCurrentPosition();
-
-    setState(() {
-      currentPostion = LatLng(position.latitude, position.longitude);
-    });
-    // _addGeofence();
+    print("LOCATION => ${position.toJson()}");
+    if (mounted) {
+      setState(() {
+        isReady = (position != null) ? true : false;
+        currentPostion = LatLng(position.latitude, position.longitude);
+      });
+    }
   }
-
-  bool geoFenceSuccess = false;
-  // void _addGeofence() {
-  //   bg.BackgroundGeolocation.addGeofence(bg.Geofence(
-  //     identifier: 'HOME',
-  //     radius: 150,
-  //     latitude: startLat!,
-  //     longitude: startLong!,
-  //     notifyOnEntry: true, // only notify on entry
-  //     notifyOnExit: false,
-  //     notifyOnDwell: false,
-  //     loiteringDelay: 30000, // 30 seconds
-  //   )).then((bool success) {
-  //     print(success);
-  //     if (success == true) {
-  //       setState(() {
-  //         geoFenceSuccess = success;
-  //       });
-  //     } else {
-  //       setState(() {
-  //         geoFenceSuccess = success;
-  //       });
-  //     }
-
-  //     print(
-  //         '[addGeofence] success with $startLat and ${currentPostion!.longitude}');
-  //   }).catchError((error) {
-  //     print('[addGeofence] FAILURE: $error');
-  //   });
-  // }
 
   void _onMapCreated(GoogleMapController _cntlr) async {
     _controller = _cntlr;
@@ -326,7 +161,7 @@ class _TryRoutesState extends State<TryRoutes> {
       ),
       Marker(
         markerId: const MarkerId('startpoint'),
-        position: startLocation,
+        position: LatLng(startLat!, startLong!),
         // icon: BitmapDescriptor.,
         infoWindow: const InfoWindow(
           title: 'start here',
@@ -345,9 +180,23 @@ class _TryRoutesState extends State<TryRoutes> {
     final directions = await DirectionsRepository()
         .getDirections(origin: currentPostion!, destination: endLocation);
     setState(() => _info = directions);
+    EasyGeofencing.startGeofenceService(
+        pointedLatitude: startLat.toString(),
+        pointedLongitude: startLong.toString(),
+        radiusMeter: '5',
+        eventPeriodInSeconds: 5);
+    if (geofenceStatusStream == null) {
+      geofenceStatusStream =
+          EasyGeofencing.getGeofenceStream()!.listen((GeofenceStatus status) {
+        print(status.toString());
+        setState(() {
+          geofenceStatus = status.toString();
+        });
+      });
+    }
   }
 
-  bool geoFenceFound = false;
+  // bool geoFenceFound = false;
   @override
   Widget build(BuildContext context) {
     var _initialCameraPosition = CameraPosition(
@@ -360,27 +209,20 @@ class _TryRoutesState extends State<TryRoutes> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       resizeToAvoidBottomInset: true,
-      // floatingActionButton: const BottomFlatButton(),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // bottomNavigationBar: const BottomNavBar(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            // EasyGeofencing.stopGeofenceService();
-            // geofenceStatusStream!.cancel();
-
             Navigator.pop(context);
-
-            // WidgetsBinding.instance?.addPostFrameCallback((_) {
-
-            // });
+            EasyGeofencing.stopGeofenceService();
+            if (geofenceStatusStream != null) {
+              geofenceStatusStream?.cancel();
+            }
           },
           icon: const Icon(Icons.arrow_back_ios),
           color: primaryYellow,
           iconSize: 28,
         ),
-        // iconTheme: const IconThemeData(color: primaryYellow, size: 28),
         centerTitle: false,
         actions: [
           SizedBox(
@@ -479,82 +321,6 @@ class _TryRoutesState extends State<TryRoutes> {
                     //       )
                     //     : Container(),
 
-                    // FutureBuilder<RouteList>(
-                    //     future: getRoutes,
-                    //     builder: (context, AsyncSnapshot<RouteList> snapshot) {
-                    //       if (snapshot.hasData) {
-                    //         return ClipRRect(
-                    //             borderRadius: BorderRadius.circular(30.0),
-                    //             child:
-                    //                 // atEndPoint
-                    //                 //     ? Container(
-                    //                 //         height: 600,
-                    //                 //         width: double.infinity,
-                    //                 //         decoration: BoxDecoration(
-                    //                 //           image: DecorationImage(
-                    //                 //             image: AssetImage('assets/autumn.png'),
-                    //                 //             fit: BoxFit.fill,
-                    //                 //           ),
-                    //                 //         ))
-                    //                 // :
-                    //                 SizedBox(
-                    //                     height: 600,
-                    //                     width: double.infinity,
-                    //                     child: isProximity!
-                    //                         ? GoogleMap(
-                    //                             myLocationButtonEnabled: true,
-                    //                             zoomControlsEnabled: true,
-                    //                             zoomGesturesEnabled: true,
-                    //                             tiltGesturesEnabled: false,
-                    //                             initialCameraPosition:
-                    //                                 _initialCameraPosition,
-                    //                             onMapCreated: _onMapCreated,
-                    //                             // polylines:
-                    //                             //     Set<Polyline>.of(polylines.values),
-                    //                             markers: markers.values.toSet(),
-
-                    //                             polylines: {
-                    //                               if (_info != null)
-                    //                                 Polyline(
-                    //                                   polylineId: const PolylineId(
-                    //                                       'overview_polyline'),
-                    //                                   color: Colors.red,
-                    //                                   width: 5,
-                    //                                   points: _info!.polylinePoints
-                    //                                       .map((e) => LatLng(
-                    //                                           e.latitude,
-                    //                                           e.longitude))
-                    //                                       .toList(),
-                    //                                 ),
-                    //                             },
-                    //                             // onLongPress: _addMarker,
-                    //                             // initialCameraPosition:
-                    //                             //     CameraPosition(target: startLocation),
-                    //                             mapType: MapType.normal,
-
-                    //                             // onMapCreated: _onMapCreated,
-                    //                             myLocationEnabled: true,
-
-                    //                             // markers: markers.values.toSet(),
-                    //                           )
-                    //                         : const MyGoogleMap()));
-
-                    //         // : Stack(children:
-                    //         //     Container(
-                    //         //       alignment: Alignment.center,
-                    //         //       child: Image.asset(
-                    //         //         'assets/scroll.png',
-                    //         //         // height: ,
-                    //         //         width: double.infinity,
-                    //         //         fit: BoxFit.cover,
-                    //         //       ),
-                    //         //     )
-
-                    //       } else {
-                    //         return Center(child: CircularProgressIndicator());
-                    //       }
-                    //     }
-
                     //     Container(
                     //         padding: const EdgeInsets.only(top: 40),
                     //         alignment: Alignment.center,
@@ -650,12 +416,8 @@ class _TryRoutesState extends State<TryRoutes> {
 
                 sizedBox(20, 0),
                 mainAuthButton(
-                    context, atFinishLine ? 'Show My Results' : 'Start',
-                    // _onClickGetCurrentPosition
-                    () {
+                    context, atFinishLine ? 'Show My Results' : 'Start', () {
                   if (currentPostion != startLocation) {
-                    _addMarker();
-                    print(geoFenceSuccess);
                     setState(() {
                       pressedStartProximity = true;
                     });

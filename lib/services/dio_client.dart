@@ -143,9 +143,9 @@ class DioClient {
   Future<Routes> getRoute() async {
     final token =
         await SecureStorage.readValue(key: SecureStorage.userTokenKey);
-
-    const String postEndPoint =
-        baseUrl + '/api/v1/route/2f1ab43e-e7db-482a-91a3-3990020f271b';
+    final id = await SecureStorage.readValue(key: SecureStorage.userIdKey);
+    String postEndPoint =
+        baseUrl + '/api/v1/route/64ed8173-2ac1-436f-8a0b-0edd8950fe9b';
     BaseOptions options = BaseOptions(
       baseUrl: postEndPoint,
       connectTimeout: 10000,

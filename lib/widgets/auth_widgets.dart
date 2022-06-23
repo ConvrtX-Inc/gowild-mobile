@@ -67,7 +67,7 @@ Row titleTextWithAsset(String text, String assetFileName) {
         padding: const EdgeInsets.only(left: 30, top: 176),
         child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
               color: primaryYellow,
               fontSize: 50,
               fontWeight: FontWeight.w400,

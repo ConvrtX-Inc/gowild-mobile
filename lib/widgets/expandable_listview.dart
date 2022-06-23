@@ -12,6 +12,7 @@ import 'expandable_container.dart';
 import 'sample_avatar.dart';
 import 'star_rating.dart';
 import 'package:flutter/material.dart';
+
 class ExpandableListView extends StatefulWidget {
   const ExpandableListView({
     Key? key,
@@ -173,27 +174,33 @@ class _ExpandableListViewState extends State<ExpandableListView> {
       child: SizedBox(
         width: 418,
         child: SlidingUpPanel(
+          // panelSnapping: false,
           minHeight: MediaQuery.of(context).size.height * 0.05,
           panelBuilder: (sc) => PanelWidget(
             sc: sc,
           ),
-          body: Container(
-              height: 550,
-              // width: 200,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(12.0),
-                ),
-              ),
-              child: Container(width: 200, child: const MyGoogleMap())),
+
+          //! added listview
+          body: ListView(
+              // physics: const NeverScrollableScrollPhysics(),
+              children: [
+                Container(
+                    height: 550,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12.0),
+                      ),
+                    ),
+                    child: const SizedBox(width: 200, child: MyGoogleMap())),
+              ]),
           maxHeight: MediaQuery.of(context).size.height / 2,
           backdropEnabled: true,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
           parallaxEnabled: true,
           parallaxOffset: .5,
+          // onPanelSlide: (double? num) => print(num),
           color: Colors.white,
-          // collapsed:
         ),
       ),
     );
@@ -268,23 +275,28 @@ class _ExpandableListViewState extends State<ExpandableListView> {
           ),
           ExpandableContainer(
             expanded: expandFlag,
-            child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return widget.title == 'ROUTES'
-                    ? Container(
-                        decoration:
-                            const BoxDecoration(color: Colors.transparent),
-                        child: buildMap())
-                    : widget.title == 'NEARBY ADVENTURES'
-                        ? Container(
-                            decoration:
-                                const BoxDecoration(color: Colors.transparent),
-                            child: buildAdventureCard(context))
-                        : const GoWildFeed();
-              },
-              itemCount: 1,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: ListView.builder(
+                shrinkWrap: true,
+                // physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  // return widget.title == 'ROUTES'
+                  //     ?
+                  return Container(
+                      decoration:
+                          const BoxDecoration(color: Colors.transparent),
+                      child: buildMap());
+                  // : widget.title == 'NEARBY ADVENTURES'
+                  //     ? Container(
+                  //         decoration: const BoxDecoration(
+                  //             color: Colors.transparent),
+                  //         child: buildAdventureCard(context))
+                  //     : Container();
+                },
+                itemCount: 1,
+              ),
             ),
           )
         ],

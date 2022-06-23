@@ -26,6 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   // final fb = FacebookLogin();
   final _preferenceService = PrefService();
   void saveUser() {
@@ -114,111 +115,123 @@ class _RegisterScreenState extends State<RegisterScreen> {
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            titleTextWithAsset("REGISTER", 'assets/register_leaf.png'),
-            const SizedBox(
-              height: 20,
-            ),
-            InkWell(
-              onTap: () async {
-                await googleLogin(emailController.text.trim(),
-                    passwordController.text.trim());
-              },
-              child: socialContainer(context, kgoogleColor,
-                  'assets/google_logo.png', 'Sign in with Google'),
-            ),
-            InkWell(
-              onTap: () async {
-                // final res = await fb.logIn(permissions: [
-                //   FacebookPermission.publicProfile,
-                //   FacebookPermission.email,
-                // ]);
-
-                // switch (res.status) {
-                //   case FacebookLoginStatus.success:
-                //     final accessToken = res.accessToken;
-
-                //     final profile = await fb.getUserProfile();
-                //     print('Hello, ${profile!.name}! You ID: ${profile.userId}');
-
-                //     final email = await fb.getUserEmail();
-
-                //     if (email != null) print('And your email is $email');
-
-                //     break;
-                //   case FacebookLoginStatus.cancel:
-                //     break;
-                //   case FacebookLoginStatus.error:
-                //     print('Error while log in: ${res.error}');
-                //     break;
-                // }
-              },
-              child: socialContainer(context, kfacebookColor,
-                  'assets/facebook_logo.png', 'Sign in with Facebook'),
-            ),
-            buildTextField(context, 'Full name', fullNameController,
-                'Jennylyn Aretcona', false, (String? value) {
-              return value!;
-            }),
-            buildTextField(
-                context, 'Email', emailController, 'myemail@gowild.com', false,
-                (String? value) {
-              return value!;
-            }),
-            buildTextField(
-                context, 'Password', passwordController, '***********', true,
-                (String? value) {
-              return value!;
-            }),
-            buildTextField(
-                context,
-                'Confirm Password',
-                confirmPasswordController,
-                '***********',
-                true, (String? value) {
-              return value!;
-            }),
-            buildPhoneNumberTextField(context,
-                controller: phoneNumberController),
-            buildTextField(context, 'Address Line 1', addressLine1Controller,
-                '123 Street Name, City', false, (String? value) {
-              return value!;
-            }),
-            buildTextField(context, 'Address Line 2', addressLine2Controller,
-                'State, Country, Postal Code', false, (String? value) {
-              return value!;
-            }),
-            mainAuthButton(
-                context,
-                'Register',
-                () async => await _signUpUser(
-                    emailController.text,
-                    passwordController.text,
-                    fullNameController.text,
-                    addressLine1Controller.text,
-                    addressLine2Controller.text,
-                    phoneNumberController.text,
-                    context)),
-            const SizedBox(
-              height: 10,
-            ),
-            GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: ((context) => const LoginScreen())));
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              titleTextWithAsset("REGISTER", 'assets/register_leaf.png'),
+              const SizedBox(
+                height: 20,
+              ),
+              InkWell(
+                onTap: () async {
+                  await googleLogin(emailController.text.trim(),
+                      passwordController.text.trim());
                 },
-                child: dontHaveAnAccount(
-                    context, 'Already have an account? ', 'Login')),
-            const SizedBox(
-              height: 50,
-            )
-          ],
+                child: socialContainer(context, kgoogleColor,
+                    'assets/google_logo.png', 'Sign in with Google'),
+              ),
+              InkWell(
+                onTap: () async {
+                  // final res = await fb.logIn(permissions: [
+                  //   FacebookPermission.publicProfile,
+                  //   FacebookPermission.email,
+                  // ]);
+
+                  // switch (res.status) {
+                  //   case FacebookLoginStatus.success:
+                  //     final accessToken = res.accessToken;
+
+                  //     final profile = await fb.getUserProfile();
+                  //     print('Hello, ${profile!.name}! You ID: ${profile.userId}');
+
+                  //     final email = await fb.getUserEmail();
+
+                  //     if (email != null) print('And your email is $email');
+
+                  //     break;
+                  //   case FacebookLoginStatus.cancel:
+                  //     break;
+                  //   case FacebookLoginStatus.error:
+                  //     print('Error while log in: ${res.error}');
+                  //     break;
+                  // }
+                },
+                child: socialContainer(context, kfacebookColor,
+                    'assets/facebook_logo.png', 'Sign in with Facebook'),
+              ),
+              buildTextField(context, 'Full name', fullNameController,
+                  'Jennylyn Aretcona', false, (String? value) {
+                return value!;
+              }),
+              buildTextField(context, 'Email', emailController,
+                  'myemail@gowild.com', false, (String? value) {
+                if (value == null ||
+                    value.isEmpty ||
+                    !value.contains('@') ||
+                    !value.contains('.') ||
+                    !value.endsWith('.com')) {
+                  return 'Invalid Email';
+                }
+                return value;
+              }),
+              buildTextField(
+                  context, 'Password', passwordController, '***********', true,
+                  (String? value) {
+                return value!;
+              }),
+              buildTextField(
+                  context,
+                  'Confirm Password',
+                  confirmPasswordController,
+                  '***********',
+                  true, (String? value) {
+                if (value != passwordController.text) {
+                  return 'Password does not match';
+                }
+                return value!;
+              }),
+              buildPhoneNumberTextField(context,
+                  controller: phoneNumberController),
+              buildTextField(context, 'Address Line 1', addressLine1Controller,
+                  '123 Street Name, City', false, (String? value) {
+                return value!;
+              }),
+              buildTextField(context, 'Address Line 2', addressLine2Controller,
+                  'State, Country, Postal Code', false, (String? value) {
+                return value!;
+              }),
+              mainAuthButton(
+                  context,
+                  'Register',
+                  () async => await _signUpUser(
+                      emailController.text,
+                      passwordController.text,
+                      fullNameController.text,
+                      addressLine1Controller.text,
+                      addressLine2Controller.text,
+                      phoneNumberController.text,
+                      context)),
+              const SizedBox(
+                height: 10,
+              ),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => const LoginScreen())));
+                  },
+                  child: dontHaveAnAccount(
+                      context, 'Already have an account? ', 'Login')),
+              const SizedBox(
+                height: 50,
+              )
+            ],
+          ),
         ),
       ),
     );

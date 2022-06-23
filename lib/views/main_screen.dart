@@ -1,4 +1,3 @@
-
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gowild_mobile/constants/image_constants.dart';
 import 'package:gowild_mobile/views/home.dart';
@@ -6,6 +5,7 @@ import 'package:gowild_mobile/views/profile/profile_screen.dart';
 import 'package:gowild_mobile/views/profile/settings_screen.dart';
 import 'package:gowild_mobile/widgets/bottom_flat_button.dart';
 import 'package:flutter/material.dart';
+
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);
 
@@ -60,7 +60,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
   _bottomNavBar() {
     return Container(
-      height: 95,
+      height: 105,
       decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
