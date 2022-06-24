@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/models/user_model.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
+import 'package:gowild_mobile/services/geolocation_service.dart';
 import 'package:gowild_mobile/widgets/search_textfield.dart';
 import '../helper/authentication_helper.dart';
 import '../root.dart';
@@ -21,6 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
     users = DioClient().getUser();
     // TODO: implement initState
     super.initState();
+
+    GeoLocationServices().requestPermissions();
+
   }
 
   // final dragController = DragController();
