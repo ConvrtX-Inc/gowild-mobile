@@ -104,6 +104,9 @@ class DioClient {
           },
         ),
       );
+
+      debugPrint('Response USER: ${response.data}');
+
       debugPrint(response.toString());
       return UserModel.fromJson(response.data);
     } on DioError catch (e) {
