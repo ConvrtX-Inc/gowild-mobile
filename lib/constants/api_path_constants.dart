@@ -3,7 +3,7 @@ class ApiPathConstants {
   const ApiPathConstants();
 
   /// Returns staging mode (change to false if deploying to live)
-  static bool isStaging = false;
+  static bool isStaging = true;
 
   /// Returns API mode
   static String apiBaseMode = 'https://';

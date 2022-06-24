@@ -24,4 +24,5 @@ class ImageAssetName {
   static const String creditCard = 'credit_card_icon.svg';
   static const String notification = 'notification_icon.svg';
   static const String logout = 'logout_icon.svg';
+
 }

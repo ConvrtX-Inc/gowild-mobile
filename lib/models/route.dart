@@ -25,8 +25,10 @@ class Routes {
     this.stopPointLat,
     this.imgUrl,
     this.description,
+    this.id =''
   });
 
+  String id;
   String? userId;
   String? routeName;
   String? routePhoto;
@@ -38,6 +40,7 @@ class Routes {
   String? description;
 
   factory Routes.fromJson(Map<String, dynamic> json) => Routes(
+        id: json["id"],
         userId: json["user_id"],
         routeName: json["route_name"],
         routePhoto: json["route_photo"],
@@ -50,6 +53,7 @@ class Routes {
       );
 
   Map<String, dynamic> toJson() => {
+        "id" : id,
         "user_id": userId,
         "route_name": routeName,
         "route_photo": routePhoto,

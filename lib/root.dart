@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:gowild_mobile/views/main_screen.dart';
+import 'package:gowild_mobile/views/test_historical.dart';
 
 import 'helper/authentication_helper.dart';
 import 'package:provider/provider.dart';
@@ -16,11 +17,11 @@ class Root extends StatefulWidget {
 
   @override
   _RootState createState() => _RootState();
-
-
 }
-class _RootState extends State<Root>{
+
+class _RootState extends State<Root> {
   AuthStatus _authStatus = AuthStatus.notLoggedIn;
+
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
@@ -46,10 +47,13 @@ class _RootState extends State<Root>{
 
     switch (_authStatus) {
       case AuthStatus.notLoggedIn:
+        // retVal = const HistoricalEvent();
+
         retVal = const SpashScreen();
         break;
       case AuthStatus.loggedIn:
         retVal = const MainNavigation();
+        // retVal = const HistoricalEvent();
         break;
       default:
     }
