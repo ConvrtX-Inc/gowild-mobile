@@ -214,7 +214,9 @@ class _TryRoutesState extends State<TryRoutes> {
   @override
   void dispose() {
     geofenceStatusStream?.cancel();
-    EasyGeofencing.stopGeofenceService();
+    // EasyGeofencing.stopGeofenceService();
+
+    _geofenceService.stop();
     super.dispose();
   }
 
@@ -380,6 +382,7 @@ class _TryRoutesState extends State<TryRoutes> {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
+            _geofenceService.stop();
             Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back_ios),
