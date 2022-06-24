@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
 import 'package:gowild_mobile/helper/map_helper.dart';
+import 'package:gowild_mobile/models/route.dart';
 import 'package:gowild_mobile/root.dart';
+import 'package:gowild_mobile/services/notifications_service.dart';
 import 'package:gowild_mobile/views/auth/login.dart';
 
 import 'package:provider/provider.dart';
@@ -10,6 +12,10 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:gowild_mobile/constants/colors.dart' as AppColorConstants;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().init(); //
+    NotificationService().requestIOSPermissions(); //
+
   runApp(const MyApp());
 }
 
@@ -17,6 +23,7 @@ class MyApp extends StatelessWidget {
   const MyApp({
     Key? key,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

@@ -9,10 +9,12 @@ class DirectionsRepository {
   final Dio _dio;
   DirectionsRepository({Dio? dio}) : _dio = dio ?? Dio();
 
+
   Future<Directions?> getDirections({
     required LatLng origin,
     required LatLng destination,
   }) async {
+
     final response = await _dio.get(
       _baseUrl,
       queryParameters: {
