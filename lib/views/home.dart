@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/models/user_model.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
-import 'package:gowild_mobile/views/maps/map_overlay.dart';
-
-import 'package:gowild_mobile/widgets/bottom_flat_button.dart';
-import 'package:gowild_mobile/widgets/bottom_nav_bar.dart';
 import 'package:gowild_mobile/widgets/search_textfield.dart';
-import 'package:provider/provider.dart';
-
 import '../helper/authentication_helper.dart';
 import '../root.dart';
-import '../services/secure_storage.dart';
 import '../widgets/expandable_listview.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -57,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   AuthenticationHelper().onSignOut();
                   Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => Root()),
+                      MaterialPageRoute(builder: (context) => const Root()),
                       (route) => false);
                 },
                 child: Container(

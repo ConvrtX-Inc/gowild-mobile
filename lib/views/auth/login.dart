@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
-import 'package:gowild_mobile/models/user_model.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:gowild_mobile/root.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
-import 'package:gowild_mobile/views/auth/e_waiver.dart';
-import 'package:gowild_mobile/views/home.dart';
 import 'package:gowild_mobile/views/main_screen.dart';
 import '../../widgets/auth_widgets.dart';
 import '../../constants/colors.dart';
@@ -24,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  // final fb = FacebookLogin();
+  final fb = FacebookLogin();
   Future<bool> isFirstTime() async {
     final prefs = await SharedPreferences.getInstance();
     var isFirstTime = prefs.getBool('first_time');
@@ -147,16 +145,17 @@ class _LoginScreenState extends State<LoginScreen> {
               InkWell(
                 onTap: () async {
                   // final res = await fb.logIn(permissions: [
-                  //   // FacebookPermission.publicProfile,
-                  //   // FacebookPermission.email,
+                  //   FacebookPermission.publicProfile,
+                  //   FacebookPermission.email,
                   // ]);
 
                   // switch (res.status) {
-                  //   // case FacebookLoginStatus.success:
+                  //   case FacebookLoginStatus.success:
                   //     final accessToken = res.accessToken;
 
                   //     final profile = await fb.getUserProfile();
-                  //     print('Hello, ${profile!.name}! You ID: ${profile.userId}');
+                  //     print(
+                  //         'Hello, ${profile!.name}! You ID: ${profile.userId}');
 
                   //     final email = await fb.getUserEmail();
 
@@ -174,8 +173,37 @@ class _LoginScreenState extends State<LoginScreen> {
                     'assets/facebook_logo.png', 'Log in with Facebook'),
               ),
               InkWell(
-                onTap: () =>
-                    _loginUser(type: LoginType.google, context: context),
+                onTap: () async {
+                  try {
+                    final res = await DioClient().postGoogleLogin();
+
+                    if (res.toJson().isNotEmpty) {
+                      isFirstTime().then((isFirstTime) {
+                        // final storage =
+                        //     SecureStorage.saveSharedPrefsValueInString(
+                        //         SecureStorage.userTokenKey,
+                        //         isFirstTime.toString());
+                        // print(storage);
+                        isFirstTime
+                            ? Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MainNavigation()),
+                                (route) => false)
+                            : Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MainNavigation()),
+                                (route) => false);
+                      });
+                    }
+                  } catch (e) {
+                    var snackBar = SnackBar(content: Text(e.toString()));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                },
                 child: socialContainer(context, googleColor,
                     'assets/google_logo.png', 'Log in with Google'),
               ),
@@ -200,28 +228,33 @@ class _LoginScreenState extends State<LoginScreen> {
               buildTextField(
                   context, 'Password', passwordController, '***********', true,
                   (value) {
-                RegExp regex = RegExp(
-                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-                if (value!.isEmpty) {
-                  return 'Please enter password';
-                } else {
-                  if (!regex.hasMatch(value)) {
-                    return 'Enter valid password';
-                  } else {
-                    return value;
-                  }
-                }
+                return value!;
+                // RegExp regex = RegExp(
+                //     r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                // if (value!.isEmpty) {
+                //   return 'Please enter password';
+                // } else {
+                //   if (!regex.hasMatch(value)) {
+                //     return 'Enter valid password';
+                //   } else {
+                //     return value;
+                //   }
+                // }
               }),
               forgotPassword(),
               const SizedBox(height: 10),
               mainAuthButton(context, "Login", () async {
                 try {
-                  final res = await DioClient().loginUser(
-                      emailController.text.toLowerCase().trim(),
-                      passwordController.text.toLowerCase().trim());
+                  final res = await DioClient()
+                      .loginUser(emailController.text, passwordController.text);
+
                   if (res.toJson().isNotEmpty) {
                     isFirstTime().then((isFirstTime) {
-                      print(isFirstTime);
+                      // final storage =
+                      //     SecureStorage.saveSharedPrefsValueInString(
+                      //         SecureStorage.userTokenKey,
+                      //         isFirstTime.toString());
+                      // print(storage);
                       isFirstTime
                           ? Navigator.pushAndRemoveUntil(
                               context,
@@ -236,21 +269,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                   }
                 } catch (e) {
-                  print(e.toString());
+                  var snackBar = SnackBar(content: Text(e.toString()));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               }),
               const SizedBox(
                 height: 30,
               ),
               GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => const RegisterScreen())));
-                  },
-                  child: dontHaveAnAccount(
-                      context, "Dont't have an account? ", "Register"))
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const RegisterScreen())));
+                },
+                child: dontHaveAnAccount(
+                    context, "Dont't have an account? ", "Register"),
+              ),
+              const SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),

@@ -60,7 +60,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
   _bottomNavBar() {
     return Container(
-      height: 105,
+      height: 75,
       decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),

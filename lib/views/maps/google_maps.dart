@@ -39,7 +39,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   @override
   void initState() {
     // TODO: implement initState
-    // getAllSavedData();
+    getAllSavedData();
     getRoutes = DioClient().getRoute();
     _mapController = MapController();
     super.initState();
@@ -62,18 +62,18 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   //   // setState(() {});
   // }
 
-  // Future getAllSavedData() async {
-  //   final value = await _preferenceService.getMapType();
+  Future getAllSavedData() async {
+    final value = await _preferenceService.getMapType();
+    if (value.roadMapString != null) {
+      setState(() {
+        setAsDefaultRoadMap = value.roadMapString!;
+        setAsDefaultTerrain = value.terrainString!;
+        setAsDefaultSatellite = value.satelliteString!;
+      });
 
-  //   setState(() {
-  //     setAsDefaultRoadMap = value.roadMapString ?? MapType.normal.toString();
-  //     setAsDefaultTerrain = value.terrainString ?? MapType.terrain.toString();
-  //     setAsDefaultSatellite =
-  //         value.satelliteString ?? MapType.satellite.toString();
-  //   });
-
-  //   setState(() {});
-  // }
+      setState(() {});
+    }
+  }
 
   List<LatLng> getPointsApi(int index) {
     return points[index].map((e) => LatLng(e[1], e(0))).toList();

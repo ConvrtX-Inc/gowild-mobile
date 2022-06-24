@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gowild_mobile/constants/colors.dart';
 import 'package:gowild_mobile/constants/size.dart';
 import 'package:gowild_mobile/views/home.dart';
+import 'package:gowild_mobile/views/main_screen.dart';
 
 import '../../models/settings.dart';
 import '../../services/prefs_service.dart';
@@ -13,12 +14,12 @@ class MapOverlay extends StatefulWidget {
 
   @override
   _MapOverlayState createState() => _MapOverlayState();
-   }
+}
 
-   class _MapOverlayState extends State<MapOverlay>{
+class _MapOverlayState extends State<MapOverlay> {
   bool setAsDefaultSatellite = false;
   bool setAsDefaultTerrain = false;
-bool setAsDefaultRoadMap = false;
+  bool setAsDefaultRoadMap = false;
   final _preferenceService = PrefService();
 
   // var _selectedMapType = Set<MapPicked>();
@@ -28,6 +29,7 @@ bool setAsDefaultRoadMap = false;
     getAllSavedData();
     super.initState();
   }
+
   Future getAllSavedData() async {
     final value = await _preferenceService.getMapType();
     setState(() {
@@ -171,19 +173,16 @@ bool setAsDefaultRoadMap = false;
       extendBodyBehindAppBar: true,
       extendBody: true,
       resizeToAvoidBottomInset: true,
-      floatingActionButton: const BottomFlatButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const BottomNavBar(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         // iconTheme: const IconThemeData(color: primaryYellow, size: 28),
         leading: IconButton(
             onPressed: () {
               // Navigator.pop(context, false);
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  (route) => false);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MainNavigation()),
+              );
             },
             icon: Icon(
               Icons.arrow_back_ios,

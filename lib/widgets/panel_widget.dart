@@ -7,9 +7,11 @@ import '../models/route.dart';
 import '../services/dio_client.dart';
 
 class PanelWidget extends StatefulWidget {
-  const PanelWidget({Key? key, required this.sc}) : super(key: key);
+  const PanelWidget({
+    Key? key,
+  }) : super(key: key);
 
-  final ScrollController sc;
+  // final ScrollController sc;
 
   @override
   State<PanelWidget> createState() => _PanelWidgetState();
@@ -121,12 +123,12 @@ class _PanelWidgetState extends State<PanelWidget> {
       );
 
   Widget buildMapRow(bool isFirstContainer, Routes route) => Container(
-        margin: EdgeInsets.only(left: 5, right: isFirstContainer ? 50 : 65),
+        margin: EdgeInsets.only(left: 5, right: isFirstContainer ? 0 : 0),
         // padding: const EdgeInsets.only(left: 10, right: 30),
-        width: isFirstContainer ? 190 : 300,
+        width: isFirstContainer ? 190 : MediaQuery.of(context).size.width,
         // height: isFirstContainer ? 300 : 10,
         decoration: BoxDecoration(
-          color: isFirstContainer ? Colors.orange : Colors.transparent,
+          color: isFirstContainer ? Colors.transparent : Colors.transparent,
           borderRadius: const BorderRadius.all(
             Radius.circular(12.0),
           ),
@@ -325,49 +327,34 @@ class _PanelWidgetState extends State<PanelWidget> {
       );
 
   @override
-  Widget build(BuildContext context) => ListView(children: [
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 40),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    Icon(Icons.arrow_upward_rounded),
-                    Text('Suggested Routes'),
-                  ]),
-            ),
-          ],
-        ),
-        FutureBuilder<RouteList>(
-          future: getRoutes,
-          builder: (context, AsyncSnapshot<RouteList> snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                itemCount: snapshot.data!.routeList.length,
-                physics: const AlwaysScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  final Routes route = snapshot.data!.routeList[index];
-                  return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TryRoutes(
-                                      isProximity: true,
-                                      route: route,
-                                    )));
-                      },
-                      child: buildMapRow(index == 1, route));
-                },
-                padding: EdgeInsets.zero,
-                // controller: widget.sc,
-              );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
-        ),
-      ]);
+  Widget build(BuildContext context) => FutureBuilder<RouteList>(
+        future: getRoutes,
+        builder: (context, AsyncSnapshot<RouteList> snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data!.routeList.length,
+              physics: const AlwaysScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final Routes route = snapshot.data!.routeList[index];
+                return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TryRoutes(
+                                    isProximity: true,
+                                    route: route,
+                                  )));
+                    },
+                    child: buildMapRow(index == 1, route));
+              },
+              padding: EdgeInsets.zero,
+              // controller: widget.sc,
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      );
 }

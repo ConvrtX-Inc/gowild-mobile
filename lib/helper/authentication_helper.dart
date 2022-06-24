@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gowild_mobile/constants/api_path_constants.dart';
@@ -48,6 +45,20 @@ class AuthenticationHelper extends ChangeNotifier {
   //   notifyListeners();
   //   return retVal;
   // }
+  Future<bool> authenticateToken() async {
+    try {
+      final dynamic response = await ApiServices().request(
+          ApiPathConstants.authUrl, RequestType.GET,
+          needAccessToken: true);
+      print(response);
+      if (response['status'] != 200) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   Future loggedOnce() async {
     final prefs = await SharedPreferences.getInstance();

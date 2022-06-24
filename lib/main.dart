@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
 import 'package:gowild_mobile/helper/map_helper.dart';
 import 'package:gowild_mobile/root.dart';
+import 'package:gowild_mobile/views/auth/login.dart';
 
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';

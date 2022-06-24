@@ -28,7 +28,6 @@ class ExpandableListView extends StatefulWidget {
 class _ExpandableListViewState extends State<ExpandableListView> {
   bool expandFlag = false;
   var rating = 3.0;
-
   Widget buildAdventureCard(context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -174,10 +173,34 @@ class _ExpandableListViewState extends State<ExpandableListView> {
       child: SizedBox(
         width: 418,
         child: SlidingUpPanel(
+          isDraggable: false,
           // panelSnapping: false,
-          minHeight: MediaQuery.of(context).size.height * 0.05,
-          panelBuilder: (sc) => PanelWidget(
-            sc: sc,
+          minHeight: 50,
+          panelBuilder: (sc) => ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Colors.white),
+            child: const Text('suggested route'),
+            onPressed: () {
+              _modalBottomSheetMenu();
+            },
+          ),
+          header: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 150,
+              ),
+              const Text(
+                'Suggested Routes',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Container(
+                width: 150,
+              )
+            ],
           ),
 
           //! added listview
@@ -194,12 +217,12 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                     ),
                     child: const SizedBox(width: 200, child: MyGoogleMap())),
               ]),
-          maxHeight: MediaQuery.of(context).size.height / 2,
+          maxHeight: MediaQuery.of(context).size.height / 3,
           backdropEnabled: true,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
-          parallaxEnabled: true,
-          parallaxOffset: .5,
-          // onPanelSlide: (double? num) => print(num),
+          parallaxEnabled: false,
+          parallaxOffset: 0.0,
+
           color: Colors.white,
         ),
       ),
@@ -214,7 +237,7 @@ class _ExpandableListViewState extends State<ExpandableListView> {
           ClipRRect(
             borderRadius: BorderRadius.circular(30.0),
             child: Container(
-                height: 650,
+                height: MediaQuery.of(context).size.height / 2,
                 width: 420,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -227,6 +250,25 @@ class _ExpandableListViewState extends State<ExpandableListView> {
         ],
       ),
     );
+  }
+
+  void _modalBottomSheetMenu() {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return Container(
+            height: MediaQuery.of(context).size.height / 2,
+            color: Colors.transparent, //could change this to Color(0xFF737373),
+
+            child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0))),
+                child: const PanelWidget()),
+          );
+        });
   }
 
   @override
@@ -258,8 +300,8 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                       child: Center(
                         child: Icon(
                           expandFlag
-                              ? Icons.keyboard_arrow_down
-                              : Icons.keyboard_arrow_right,
+                              ? Icons.keyboard_arrow_right
+                              : Icons.keyboard_arrow_down,
                           color: Colors.white,
                           size: 30.0,
                         ),

@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:easy_geofencing/easy_geofencing.dart';
-import 'package:easy_geofencing/enums/geofence_status.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +18,7 @@ import 'directions_repository.dart';
 
 import 'dart:convert';
 
-JsonEncoder encoder = const JsonEncoder.withIndent("     ");
+JsonEncoder encoder = const JsonEncoder.withIndent(" ");
 
 class TryRoutes extends StatefulWidget {
   TryRoutes({Key? key, this.isProximity, required this.route})
@@ -58,7 +56,7 @@ class _TryRoutesState extends State<TryRoutes> {
   GoogleMapController? _controller;
   Directions? _info;
   Location _location = Location();
-  StreamSubscription<GeofenceStatus>? geofenceStatusStream;
+  // StreamSubscription<GeofenceStatus>? geofenceStatusStream;
   Geolocator geolocator = Geolocator();
   String geofenceStatus = '';
   bool isReady = false;
@@ -180,20 +178,6 @@ class _TryRoutesState extends State<TryRoutes> {
     final directions = await DirectionsRepository()
         .getDirections(origin: currentPostion!, destination: endLocation);
     setState(() => _info = directions);
-    EasyGeofencing.startGeofenceService(
-        pointedLatitude: startLat.toString(),
-        pointedLongitude: startLong.toString(),
-        radiusMeter: '5',
-        eventPeriodInSeconds: 5);
-    if (geofenceStatusStream == null) {
-      geofenceStatusStream =
-          EasyGeofencing.getGeofenceStream()!.listen((GeofenceStatus status) {
-        print(status.toString());
-        setState(() {
-          geofenceStatus = status.toString();
-        });
-      });
-    }
   }
 
   // bool geoFenceFound = false;
@@ -214,10 +198,10 @@ class _TryRoutesState extends State<TryRoutes> {
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
-            EasyGeofencing.stopGeofenceService();
-            if (geofenceStatusStream != null) {
-              geofenceStatusStream?.cancel();
-            }
+            // EasyGeofencing.stopGeofenceService();
+            // if (geofenceStatusStream != null) {
+            //   geofenceStatusStream?.cancel();
+            // }
           },
           icon: const Icon(Icons.arrow_back_ios),
           color: primaryYellow,
@@ -303,79 +287,9 @@ class _TryRoutesState extends State<TryRoutes> {
                           )
                         : Container(),
                     sizedBox(10, 0),
-                    // atFinishLine
-                    //     ? Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.center,
-                    //         children: const [
-                    //           Text(
-                    //             'Congratulations!',
-                    //             style: TextStyle(
-                    //                 color: Colors.white, fontSize: 18),
-                    //           ),
-                    //           Text(
-                    //             'You Completed This Route.',
-                    //             style: TextStyle(
-                    //                 color: Colors.white, fontSize: 18),
-                    //           )
-                    //         ],
-                    //       )
-                    //     : Container(),
-
-                    //     Container(
-                    //         padding: const EdgeInsets.only(top: 40),
-                    //         alignment: Alignment.center,
-                    //         child: SingleChildScrollView(
-                    //           child: Column(
-                    //             children: [
-                    //               const Text(
-                    //                 'Did You Know?',
-                    //                 style: TextStyle(
-                    //                     color: Colors.black,
-                    //                     fontWeight: FontWeight.bold,
-                    //                     fontSize: 22.0),
-                    //               ),
-                    //               sizedBox(20, 0),
-                    //               const Padding(
-                    //                 padding: EdgeInsets.only(
-                    //                     left: 80, right: 80),
-                    //                 child: Text(
-                    //                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
-                    //                   style: TextStyle(
-                    //                       color: Colors.black,
-                    //                       fontWeight:
-                    //                           FontWeight.bold,
-                    //                       fontSize: 14.0),
-                    //                 ),
-                    //               ),
-                    //               sizedBox(20, 0),
-                    //               const Padding(
-                    //                 padding: EdgeInsets.only(
-                    //                     left: 80, right: 80),
-                    //                 child: Text(
-                    //                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
-                    //                   style: TextStyle(
-                    //                       color: Colors.black,
-                    //                       fontWeight:
-                    //                           FontWeight.bold,
-                    //                       fontSize: 14.0),
-                    //                 ),
-                    //               ),
-
                     ClipRRect(
                         borderRadius: BorderRadius.circular(30.0),
-                        child:
-                            // atEndPoint
-                            //     ? Container(
-                            //         height: 600,
-                            //         width: double.infinity,
-                            //         decoration: BoxDecoration(
-                            //           image: DecorationImage(
-                            //             image: AssetImage('assets/autumn.png'),
-                            //             fit: BoxFit.fill,
-                            //           ),
-                            //         ))
-                            // :
-                            SizedBox(
+                        child: SizedBox(
                           height: 600,
                           width: double.infinity,
                           child: GoogleMap(
@@ -405,15 +319,6 @@ class _TryRoutesState extends State<TryRoutes> {
                         )),
                   ]),
                 ]),
-
-                // Container(
-                //     padding: const EdgeInsets.only(left: 80, right: 80),
-                //     child: mainAuthButton(context, 'Got It', () {
-                //       setState(() {
-                //         atFinishLine = true;
-                //       });
-                //     })),
-
                 sizedBox(20, 0),
                 mainAuthButton(
                     context, atFinishLine ? 'Show My Results' : 'Start', () {

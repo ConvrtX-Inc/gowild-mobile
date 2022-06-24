@@ -31,7 +31,7 @@ class DioClient {
       return UserModel.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create post request - register user");
+      throw Exception("Failed to register user");
     }
   }
 
@@ -59,7 +59,7 @@ class DioClient {
       return UserModel.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create post request - log in user");
+      throw Exception("Failed to  log in user");
     }
   }
 
@@ -172,7 +172,8 @@ class DioClient {
   Future<UserModel> postGoogleLogin() async {
     final token =
         await SecureStorage.readValue(key: SecureStorage.userTokenKey);
-    final String postEndPoint = baseUrl + ApiPath().getUser;
+    debugPrint(token);
+    final String postEndPoint = baseUrl + ApiPath().googleLogin;
     BaseOptions options = BaseOptions(
       baseUrl: postEndPoint,
       connectTimeout: 10000,
@@ -184,10 +185,15 @@ class DioClient {
         "id_token": '$token',
       });
       debugPrint(response.toString());
+
       return UserModel.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create post request - register user");
+      throw Exception("Failed to log in with Google");
     }
   }
+
+  // Future<UserModel>postForgotPassword()async{
+
+  // }
 }
