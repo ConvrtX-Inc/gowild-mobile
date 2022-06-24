@@ -116,7 +116,7 @@ class DioClient {
     final String? token =
         await SecureStorage.readValue(key: SecureStorage.userTokenKey);
 
-    const String postEndPoint = baseUrl + '/api/v1/route';
+    const String postEndPoint = baseUrl + '/api/v1/route?sort=created_date,DESC';
     BaseOptions options = BaseOptions(
       baseUrl: postEndPoint,
       connectTimeout: 10000,
