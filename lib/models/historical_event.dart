@@ -1,3 +1,26 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+
+HistoricalEventModel routeFromJson(String str) =>
+    HistoricalEventModel.fromJson(json.decode(str));
+
+String routeToJson(HistoricalEventModel data) => json.encode(data.toJson());
+
+class HistoricalEventModelList {
+  HistoricalEventModelList({this.historicalEventList = const []});
+
+  final List<HistoricalEventModel> historicalEventList;
+
+  factory HistoricalEventModelList.fromJson(List<dynamic> json) {
+    debugPrint('data:: ${json}');
+
+    return HistoricalEventModelList(
+        historicalEventList:
+            json.map((e) => HistoricalEventModel.fromJson(e)).toList());
+  }
+}
+
 class HistoricalEventModel {
   String? id;
   String? routeId;

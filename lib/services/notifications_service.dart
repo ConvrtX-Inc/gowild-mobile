@@ -14,19 +14,10 @@ class NotificationService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  final AndroidNotificationDetails _androidNotificationDetails =
-      const AndroidNotificationDetails(
-    'channel ID',
-    'channel name',
-    playSound: true,
-    priority: Priority.high,
-    importance: Importance.high,
-  );
-
   Future<void> init() async {
     //Initialization Settings for Android
     final AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
+        AndroidInitializationSettings('notification_icon');
 
     //Initialization Settings for iOS
     final IOSInitializationSettings initializationSettingsIOS =
@@ -48,17 +39,28 @@ class NotificationService {
     );
   }
 
-  Future<void> showAndroidNotification() async {
+  void requestIOSPermissions() {
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+  }
+
+  Future<void> showAndroidNotification(
+      int id, String title, String content) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails('your channel id', 'your channel name',
-            channelDescription: 'your channel description',
+        AndroidNotificationDetails('1', 'Go Wild',
+            channelDescription: 'go_wild_notif',
             importance: Importance.max,
             priority: Priority.high,
             ticker: 'ticker');
     const NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.show(
-        0, 'plain title', 'plain body', platformChannelSpecifics,
-        payload: 'item x');
+    await flutterLocalNotificationsPlugin
+        .show(id, title, content, platformChannelSpecifics, payload: 'item x');
   }
 }

@@ -13,8 +13,9 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:gowild_mobile/constants/colors.dart' as AppColorConstants;
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await NotificationService().init(); //
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().init(); //
+    NotificationService().requestIOSPermissions(); //
 
   runApp(const MyApp());
 }
@@ -45,18 +46,7 @@ class MyApp extends StatelessWidget {
                   const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
                 ],
               ),
-          // home: const Root(),
-          home: TryRoutes(
-            isProximity: true,
-            route: Routes(
-              routeName: 'Test Route',
-              description: 'This is a test',
-              startPointLat: 15.180469301894657,
-              startPointLong: 120.51820038878192,
-              stopPointLat: 15.175548534742397,
-              stopPointLong: 120.53292606815042,
-            ),
-          ),
+          home: const Root(),
           title: 'Flutter Demo',
           theme: ThemeData(
               appBarTheme: const AppBarTheme(

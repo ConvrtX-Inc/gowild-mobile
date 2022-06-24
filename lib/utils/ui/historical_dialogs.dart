@@ -22,7 +22,7 @@ class HistoricalDialogs {
                     top: 125,
                     child: Container(
                       margin: EdgeInsets.only(top: 18),
-                      width: 300,
+                      width: MediaQuery.of(context).size.width * 0.65,
                       child: Text(
                         content,
                         textAlign: TextAlign.justify,

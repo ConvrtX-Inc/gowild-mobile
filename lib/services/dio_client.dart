@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/constants/api_path.dart';
+import 'package:gowild_mobile/models/historical_event.dart';
 import 'package:gowild_mobile/models/user_model.dart';
 import 'package:gowild_mobile/services/secure_storage.dart';
 
@@ -191,6 +194,37 @@ class DioClient {
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
       throw Exception("Failed to create post request - register user");
+    }
+  }
+
+  Future<HistoricalEventModelList> getHistoricalEvents(String routeId) async {
+    final String? token =
+        await SecureStorage.readValue(key: SecureStorage.userTokenKey);
+
+    String postEndPoint = baseUrl +
+        '/api/v1/route-historical-events?filter=route_id||\$eq||$routeId';
+
+    debugPrint('BaseURL $baseUrl');
+    BaseOptions options = BaseOptions(
+      baseUrl: postEndPoint,
+      connectTimeout: 10000,
+      receiveTimeout: 10000,
+    );
+    final Dio dio = Dio(options);
+    try {
+      Response response = await dio.get(
+        postEndPoint,
+        options: Options(
+          headers: {
+            "authorization": "Bearer $token",
+          },
+        ),
+      );
+      debugPrint('EVENTS ${response.data['data'].length}');
+      return HistoricalEventModelList.fromJson(response.data['data']);
+    } on DioError catch (e) {
+      debugPrint("Status code: ${e.response?.statusCode.toString()}");
+      throw Exception("Failed to create get request - get routes");
     }
   }
 }
