@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -30,9 +31,11 @@ class Directions {
       southwest: LatLng(southwest['lat'], southwest['lng']),
     );
     List<String> html = [];
+
+    debugPrint('LEGS ${data['legs'][0]['steps']}');
     if ((data['legs'][0]['steps'] as List).isNotEmpty) {
       print('1');
-      final s = data['legs'][0]['steps'][1]['html_instructions'];
+      final s = data['legs'][0]['steps'][0]['html_instructions'];
       html.add(s);
     }
 

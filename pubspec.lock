@@ -106,13 +106,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.6"
-  easy_geofencing:
-    dependency: "direct main"
-    description:
-      name: easy_geofencing
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   expandable:
     dependency: "direct main"
     description:
@@ -188,13 +181,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.7.3"
-  flutter_geofence:
-    dependency: "direct main"
-    description:
-      name: flutter_geofence
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.4"
   flutter_launcher_icons:
     dependency: "direct main"
     description:

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:gowild_mobile/views/main_screen.dart';
-import 'package:gowild_mobile/views/test_historical.dart';
 
 import 'helper/authentication_helper.dart';
 

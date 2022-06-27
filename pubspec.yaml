@@ -39,9 +39,7 @@ dependencies:
   google_sign_in: ^5.3.0
   flutter_svg: ^1.0.3
   dio: ^4.0.6
-  easy_geofencing: ^0.2.0
   flutter_animarker: ^3.2.0
-  flutter_geofence: ^0.4.4
   #  flutter_background_geolocation: ^4.6.2
   expandable: ^5.0.1
   http: ^0.13.4

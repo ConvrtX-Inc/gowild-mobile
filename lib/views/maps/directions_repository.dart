@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gowild_mobile/constants/secret.dart';
 
@@ -23,6 +24,8 @@ class DirectionsRepository {
         'key': googleMapApiKey,
       },
     );
+
+    debugPrint('DIRECTION RESPONSE ${response.data}');
 
     // Check if response is successful
     if (response.statusCode == 200) {
