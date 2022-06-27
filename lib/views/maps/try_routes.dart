@@ -1,6 +1,7 @@
 import 'dart:async';import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:gowild_mobile/constants/image_constants.dart';
 import 'package:gowild_mobile/constants/size.dart';
 import 'package:gowild_mobile/models/directions.dart';
 import 'package:gowild_mobile/models/historical_event.dart';
