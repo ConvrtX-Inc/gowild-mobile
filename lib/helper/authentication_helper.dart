@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gowild_mobile/constants/api_path_constants.dart';
@@ -8,12 +11,12 @@ import 'package:gowild_mobile/views/main_screen.dart';
 import '../models/user_model.dart';
 
 class AuthenticationHelper extends ChangeNotifier {
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   UserModel _currentUser = UserModel();
   String? _email;
-  // User? _user;
+  User? _user;
   String _token = '';
-  // User get user => _user!;
+  User get user => _user!;
 
   UserModel get getCurrentUser => _currentUser;
 
@@ -45,6 +48,7 @@ class AuthenticationHelper extends ChangeNotifier {
   //   notifyListeners();
   //   return retVal;
   // }
+
   Future<bool> authenticateToken() async {
     try {
       final dynamic response = await ApiServices().request(
@@ -134,40 +138,42 @@ class AuthenticationHelper extends ChangeNotifier {
     return retVal;
   }
 
-  // Future<String> loginUserWithGoogle() async {
-  //   String retVal = "error";
-  //   GoogleSignIn _googleSignIn = GoogleSignIn(
-  //     scopes: [
-  //       'email',
-  //       'https://www.googleapis.com/auth/contacts.readonly',
-  //     ],
-  //   );
-  //   UserModel _users = UserModel();
-  //   try {
-  //     GoogleSignInAccount? _googleUser = await _googleSignIn.signIn();
-  //     GoogleSignInAuthentication _googleAuth =
-  //         await _googleUser!.authentication;
-  //     final AuthCredential credential = GoogleAuthProvider.credential(
-  //         idToken: _googleAuth.idToken, accessToken: _googleAuth.accessToken);
-  //     UserCredential _authResult = await _auth.signInWithCredential(credential);
-  //     if (_authResult.additionalUserInfo!.isNewUser) {
-  //       _users.uid = _authResult.user!.uid;
-  //       _users.email = _authResult.user!.email;
-  //       _users.fullName = _authResult.user!.displayName;
-  //     }
+  Future<String> loginUserWithGoogle() async {
+    String retVal = "error";
+    GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
+    UserModel _users = UserModel();
+    try {
+      GoogleSignInAccount? _googleUser = await _googleSignIn.signIn();
+      GoogleSignInAuthentication _googleAuth =
+          await _googleUser!.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+          idToken: _googleAuth.idToken, accessToken: _googleAuth.accessToken);
 
-  //     if (_currentUser != null) {
-  //       retVal = "success";
-  //     }
-  //   } on PlatformException catch (e) {
-  //     retVal = e.message!;
-  //     print(retVal);
-  //   } catch (e) {
-  //     // retVal = e.message;
-  //     print(e);
-  //   }
-  //   return retVal;
-  // }
+      UserCredential _authResult = await _auth.signInWithCredential(credential);
+      if (_authResult.additionalUserInfo!.isNewUser) {
+        _users.uid = _authResult.user!.uid;
+        _users.email = _authResult.user!.email;
+        _users.fullName = _authResult.user!.displayName;
+        await DioClient().postGoogleLogin(_googleAuth.accessToken.toString());
+      }
+
+      if (_currentUser != null) {
+        retVal = "success";
+      }
+    } on PlatformException catch (e) {
+      retVal = e.message!;
+      print(retVal);
+    } catch (e) {
+      // retVal = e.message;
+      print(e);
+    }
+    return retVal;
+  }
 
   Future<String> onSignOut() async {
     String retVal = "error";

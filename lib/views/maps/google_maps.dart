@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_tappable_polyline/flutter_map_tappable_polyline.dart';
+import 'package:geolocator/geolocator.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gowild_mobile/constants/colors.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
@@ -32,7 +33,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   String setAsDefaultTerrain = '';
   double? startLat;
   double? startLong;
-
+  LatLng? currentPostion;
   MapController _mapController = MapController();
   final _preferenceService = PrefService();
 
@@ -41,8 +42,42 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     // TODO: implement initState
     getAllSavedData();
     getRoutes = DioClient().getRoute();
+    _getUserLocation();
     _mapController = MapController();
     super.initState();
+  }
+
+  LatLng? _center;
+  Position? currentLocation;
+
+  Future<void> _getUserLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    permission = await Geolocator.requestPermission();
+
+    if (permission == LocationPermission.denied) {
+      return Future.error('Location permissions are denied');
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    var position = await GeolocatorPlatform.instance.getCurrentPosition();
+    print("LOCATION => ${position.toJson()}");
+    if (mounted) {
+      setState(() {
+        currentPostion = LatLng(position.latitude, position.longitude);
+      });
+    }
   }
 
   late Future<Routes> getRoutes;
@@ -135,7 +170,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
                             plugins: [
                               TappablePolylineMapPlugin(),
                             ],
-                            center: currentCenter,
+                            // center: currentLocation,
                             zoom: currentZoom,
                             minZoom: 8.0,
                             maxZoom: 12.0,
@@ -148,14 +183,12 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
                               TileLayerOptions(
                                   urlTemplate:
                                       'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-                                  // maxZoom: 20,
                                   subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
                             if (setAsDefaultSatellite.isNotEmpty)
                               //satellite
                               TileLayerOptions(
                                   urlTemplate:
                                       'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-                                  // maxZoom: 20,
                                   subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
                             if (setAsDefaultTerrain.isNotEmpty)
                               //terrain
@@ -170,7 +203,6 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
                               TileLayerOptions(
                                   urlTemplate:
                                       'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-                                  // maxZoom: 20,
                                   subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
                             MarkerLayerOptions(
                               markers: markers,

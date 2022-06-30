@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+// import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:gowild_mobile/root.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
 import 'package:gowild_mobile/views/main_screen.dart';
@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final fb = FacebookLogin();
+  // final fb = FacebookLogin();
   Future<bool> isFirstTime() async {
     final prefs = await SharedPreferences.getInstance();
     var isFirstTime = prefs.getBool('first_time');
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
           break;
         case LoginType.google:
-          _returnString = await DioClient().postGoogleLogin();
+          _returnString = await AuthenticationHelper().loginUserWithGoogle();
           break;
         default:
       }
@@ -103,26 +103,6 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       } else {
         print('$_returnString returnString');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future<void> googleLogin() async {
-    try {
-      var _returnString = await DioClient().postGoogleLogin();
-      if (_returnString != null) {
-        // final Map<String, dynamic> userDetails = {
-        //   'email': emailController.text,
-        //   'password': passwordController.text,
-        // };
-        // String _returnString =
-        //     await DioClient().
-        // await AuthenticationHelper().saveUserDetails(userDetails);
-        // if (_returnString == "success") {
-        //   print('success');
-        // }
       }
     } catch (e) {
       print(e);
@@ -174,35 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               InkWell(
                 onTap: () async {
-                  try {
-                    final res = await DioClient().postGoogleLogin();
-
-                    if (res.toJson().isNotEmpty) {
-                      isFirstTime().then((isFirstTime) {
-                        // final storage =
-                        //     SecureStorage.saveSharedPrefsValueInString(
-                        //         SecureStorage.userTokenKey,
-                        //         isFirstTime.toString());
-                        // print(storage);
-                        isFirstTime
-                            ? Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const MainNavigation()),
-                                (route) => false)
-                            : Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const MainNavigation()),
-                                (route) => false);
-                      });
-                    }
-                  } catch (e) {
-                    var snackBar = SnackBar(content: Text(e.toString()));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }
+                  await AuthenticationHelper().loginUserWithGoogle();
                 },
                 child: socialContainer(context, googleColor,
                     'assets/google_logo.png', 'Log in with Google'),

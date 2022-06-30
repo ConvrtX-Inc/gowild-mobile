@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
@@ -10,6 +11,8 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:gowild_mobile/constants/colors.dart' as AppColorConstants;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

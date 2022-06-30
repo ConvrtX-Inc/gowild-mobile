@@ -80,29 +80,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  Future<void> googleLogin(String email, String password) async {
-    try {
-      var _returnString = await DioClient().postGoogleLogin();
-      if (_returnString != null) {
-        final Map<String, dynamic> userDetails = {
-          'email': emailController.text,
-          'password': passwordController.text,
-          'full_name': fullNameController.text,
-          'phone_no': phoneNumberController.text,
-          'addressline1': addressLine1Controller.text,
-          'addressline2': addressLine2Controller.text
-        };
-        // String _returnString =
-        // await AuthenticationHelper().signUpUser(email, password);
-        // await AuthenticationHelper().saveUserDetails(userDetails);
-        if (_returnString == "success") {
-          print('success');
-        }
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  // Future<void> googleLogin(String email, String password) async {
+  //   try {
+  //     var _returnString = await DioClient().postGoogleLogin();
+  //     if (_returnString != null) {
+  //       final Map<String, dynamic> userDetails = {
+  //         'email': emailController.text,
+  //         'password': passwordController.text,
+  //         'full_name': fullNameController.text,
+  //         'phone_no': phoneNumberController.text,
+  //         'addressline1': addressLine1Controller.text,
+  //         'addressline2': addressLine2Controller.text
+  //       };
+  //       // String _returnString =
+  //       // await AuthenticationHelper().signUpUser(email, password);
+  //       // await AuthenticationHelper().saveUserDetails(userDetails);
+  //       if (_returnString == "success") {
+  //         print('success');
+  //       }
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -128,8 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               InkWell(
                 onTap: () async {
-                  await googleLogin(emailController.text.trim(),
-                      passwordController.text.trim());
+                  await AuthenticationHelper().loginUserWithGoogle();
                 },
                 child: socialContainer(context, kgoogleColor,
                     'assets/google_logo.png', 'Sign in with Google'),

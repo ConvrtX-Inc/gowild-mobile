@@ -169,10 +169,7 @@ class DioClient {
     }
   }
 
-  Future<UserModel> postGoogleLogin() async {
-    final token =
-        await SecureStorage.readValue(key: SecureStorage.userTokenKey);
-    debugPrint(token);
+  Future<UserModel> postGoogleLogin(String token) async {
     final String postEndPoint = baseUrl + ApiPath().googleLogin;
     BaseOptions options = BaseOptions(
       baseUrl: postEndPoint,
@@ -182,7 +179,7 @@ class DioClient {
     final Dio dio = Dio(options);
     try {
       Response response = await dio.post(postEndPoint, data: {
-        "id_token": '$token',
+        "id_token": token,
       });
       debugPrint(response.toString());
 
