@@ -45,10 +45,11 @@ dependencies:
   http: ^0.13.4
   flutter_secure_storage: ^5.0.2
   flutter_local_notifications: ^9.5.2
-  flutter_login_facebook: ^1.5.0+1
+#  flutter_login_facebook: ^1.5.0+1
   adaptive_dialog: ^1.6.2+1
   geofence_service: ^3.4.8
   flutter_launcher_icons: ^0.9.3
+  get: ^4.6.5
 
 
 

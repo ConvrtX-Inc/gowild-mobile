@@ -28,6 +28,8 @@ class ExpandableListView extends StatefulWidget {
 class _ExpandableListViewState extends State<ExpandableListView> {
   bool expandFlag = false;
   var rating = 3.0;
+  final PanelController _suggestedRoutesPanelCtrl = PanelController();
+
   Widget buildAdventureCard(context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -171,19 +173,63 @@ class _ExpandableListViewState extends State<ExpandableListView> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30.0),
       child: SizedBox(
-        width: 418,
+        // width: 418,
         child: SlidingUpPanel(
+          minHeight: 80,
           isDraggable: false,
+          controller: _suggestedRoutesPanelCtrl,
+          panelBuilder: (sc) => Container(),
+          collapsed: Container(
+              // padding: EdgeInsets.all(14),
+              decoration: BoxDecoration(color: Colors.white),
+              child: GestureDetector(
+                  onTap: () {
+                    // _suggestedRoutesPanelCtrl.open();
+                    _modalBottomSheetMenu();
+                  },
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.keyboard_arrow_up),
+                          SizedBox(
+                            width: 30,
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Suggested Routes',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          SizedBox(
+                            width: 12,
+                          )
+                        ],
+                      )
+                    ],
+                  ))),
+
+          // isDraggable: false,
           // panelSnapping: false,
-          minHeight: 50,
-          panelBuilder: (sc) => ElevatedButton(
+          // minHeight: 50,
+          /*  panelBuilder: (sc) => ElevatedButton(
             style: ElevatedButton.styleFrom(primary: Colors.white),
-            child: const Text('suggested route'),
+            child: const Text('suggested route',style: TextStyle(color: Colors.black),),
             onPressed: () {
               _modalBottomSheetMenu();
             },
-          ),
-          header: Row(
+          ),*/
+
+          /*     header: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -201,14 +247,22 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                 width: 150,
               )
             ],
-          ),
+          ),*/
+          // header:  const Text(
+          //   'Suggested Routes',
+          //
+          //   style: TextStyle(
+          //     fontSize: 16,
+          //     fontWeight: FontWeight.w700,
+          //   ),
+          // ),
 
           //! added listview
-          body: ListView(
+          /* body: ListView(
               // physics: const NeverScrollableScrollPhysics(),
               children: [
                 Container(
-                    height: 550,
+                    height: MediaQuery.of(context).size.height / 1.85,
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(
@@ -216,7 +270,8 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                       ),
                     ),
                     child: const SizedBox(width: 200, child: MyGoogleMap())),
-              ]),
+              ]),*/
+          body: const SizedBox(width: 200, child: MyGoogleMap()),
           maxHeight: MediaQuery.of(context).size.height / 3,
           backdropEnabled: true,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
@@ -230,26 +285,60 @@ class _ExpandableListViewState extends State<ExpandableListView> {
   }
 
   buildMap() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(30.0),
-            child: Container(
-                height: MediaQuery.of(context).size.height / 2,
-                width: 420,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12.0),
-                  ),
-                ),
-                child: buildSlidingPanel()),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(30.0),
+      child: Container(
+        // height: MediaQuery.of(context).size.height / 2,
+
+        width: 420,
+        decoration: const BoxDecoration(
+          // color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(12.0),
           ),
-        ],
+        ),
+        child: buildSlidingPanel()
+       /* child: Stack(
+          children: [
+            MyGoogleMap(),
+            Positioned(
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: GestureDetector(
+                    onTap: () {
+                      // _suggestedRoutesPanelCtrl.open();
+                      _modalBottomSheetMenu();
+                    },
+                    child: Container(
+                      height: 70,
+                      decoration: BoxDecoration(color: Colors.white),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      child: Column(
+                        children: [
+                          Icon(Icons.keyboard_arrow_up),
+                          Text(
+                            'Suggested Routes',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          )
+                        ],
+                      ),
+                    )))
+          ],
+        ),*/
       ),
     );
+    // return Container(
+    //   padding: const EdgeInsets.all(8.0),
+    //   height: 122,
+    //   child: Row(
+    //     children: [
+    //
+    //     ],
+    //   ),
+    // );
   }
 
   void _modalBottomSheetMenu() {
@@ -317,7 +406,11 @@ class _ExpandableListViewState extends State<ExpandableListView> {
           ),
           ExpandableContainer(
             expanded: expandFlag,
+            expandedHeight: MediaQuery.of(context).size.height / 1.65,
             child: SizedBox(
+              child: buildMap(),
+            ),
+            /*   child: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: ListView.builder(
                 shrinkWrap: true,
@@ -329,7 +422,7 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                   return Container(
                       decoration:
                           const BoxDecoration(color: Colors.transparent),
-                      child: buildMap());
+                      child: );
                   // : widget.title == 'NEARBY ADVENTURES'
                   //     ? Container(
                   //         decoration: const BoxDecoration(
@@ -339,7 +432,7 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                 },
                 itemCount: 1,
               ),
-            ),
+            ),*/
           )
         ],
       ),

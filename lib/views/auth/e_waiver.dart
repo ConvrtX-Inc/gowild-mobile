@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+  import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
 import 'package:gowild_mobile/root.dart';

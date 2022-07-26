@@ -114,7 +114,7 @@ class DioClient {
       return UserModel.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create get request - get user");
+      throw Exception("Failed to create getx request - getx user");
     }
   }
 
@@ -143,7 +143,7 @@ class DioClient {
       return RouteList.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create get request - get routes");
+      throw Exception("Failed to create getx request - getx routes");
     }
   }
 
@@ -172,7 +172,7 @@ class DioClient {
       return Routes.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create get request - get routes");
+      throw Exception("Failed to create getx request - getx routes");
     }
   }
 
@@ -227,7 +227,7 @@ class DioClient {
       return HistoricalEventModelList.fromJson(response.data['data']);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create get request - get routes");
+      throw Exception("Failed to create getx request - getx routes");
     }
   }
 }

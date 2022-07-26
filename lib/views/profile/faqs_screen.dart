@@ -73,7 +73,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
                 height: 15,
               ),
               FaqsExpandableContainer(
-                question: 'Can I get refund of the money sent?',
+                question: 'Can I getx refund of the money sent?',
                 answer: AppTextConstants.loremIpsum,
                 // isExpanded: isExpanded,
               )

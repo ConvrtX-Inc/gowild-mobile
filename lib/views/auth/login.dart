@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/helper/authentication_helper.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+// import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:gowild_mobile/root.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
 import 'package:gowild_mobile/views/main_screen.dart';
@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final fb = FacebookLogin();
+  // final fb = FacebookLogin();
   Future<bool> isFirstTime() async {
     final prefs = await SharedPreferences.getInstance();
     var isFirstTime = prefs.getBool('first_time');

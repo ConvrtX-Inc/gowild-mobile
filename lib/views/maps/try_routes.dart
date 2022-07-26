@@ -1,12 +1,17 @@
-import 'dart:async';import 'package:flutter/cupertino.dart';
+import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator_platform_interface/src/models/position.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gowild_mobile/constants/image_constants.dart';
 import 'package:gowild_mobile/constants/size.dart';
 import 'package:gowild_mobile/models/directions.dart';
 import 'package:gowild_mobile/models/historical_event.dart';
 import 'package:gowild_mobile/models/route.dart';
+import 'package:gowild_mobile/services/geolocation_service.dart';
 import 'package:gowild_mobile/services/notifications_service.dart';
+import 'package:gowild_mobile/utils/getx/controllers/map_type_controller.dart';
 import 'package:gowild_mobile/utils/ui/historical_dialogs.dart';
 import 'package:gowild_mobile/widgets/auth_widgets.dart';
 import 'package:location/location.dart';
@@ -38,7 +43,7 @@ class _TryRoutesState extends State<TryRoutes> {
       StreamController<GS.GeofenceStatus>.broadcast();
   bool atEndPoint = true;
   bool atFinishLine = false;
-  LatLng? currentPostion;
+  late LatLng currentPostion = LatLng(0, 0);
   double? endLat;
   late LatLng endLocation = LatLng(endLat!, endLong!);
   double? endLong;
@@ -58,7 +63,9 @@ class _TryRoutesState extends State<TryRoutes> {
 
   String geofenceStatus = '';
 
-  double radiusInMeters = 10;
+  double proximityRadiusInMeters = 1.5;
+
+  double proximityRadiusInMetersHistorical = 3;
 
   bool isStartPointInProximity = false;
   bool isFinishPointInProximity = false;
@@ -70,21 +77,31 @@ class _TryRoutesState extends State<TryRoutes> {
 
   String radiusId = 'radius_10m';
 
-  List<Circle> _circles =[];
+  List<Circle> _circles = [];
+
+  List<LatLng> subRoutes = [];
+
+  List<Polyline> polyLines = [];
+
+  List<LatLng> myRoutes = [];
+
+  double heading = 0;
 
   ///GEOFENCE_SERVICE
   final _activityStreamController = StreamController<GS.Activity>();
   final _geofenceStreamController = StreamController<GS.Geofence>();
+
+  Marker myCurrentLocation = const Marker(markerId: MarkerId('myLocation'));
 
   // Create a [GeofenceService] instance and set options.
   final _geofenceService = GS.GeofenceService.instance.setup(
       interval: 5000,
       accuracy: 100,
       loiteringDelayMs: 60000,
-      statusChangeDelayMs: 10000,
+      statusChangeDelayMs: 20000,
       useActivityRecognition: true,
       allowMockLocations: false,
-      printDevLog: false,
+      printDevLog: true,
       geofenceRadiusSortType: GS.GeofenceRadiusSortType.DESC);
 
   // Create a [Geofence] list . Save (start point , end point and historical events)
@@ -92,10 +109,17 @@ class _TryRoutesState extends State<TryRoutes> {
 
   List<HistoricalEventModel> historicalEvents = [];
 
+  BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
+
+  final MapTypeController _mapTypeController = Get.put(MapTypeController());
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
+      setCustomLocationMarkerIcon();
+      getCurrentPosition();
+
       _geofenceService.addGeofenceStatusChangeListener(_onStatsChanged);
       _geofenceService.addLocationChangeListener(_onLocationUpdated);
       _geofenceService.addLocationServicesStatusChangeListener(
@@ -111,7 +135,7 @@ class _TryRoutesState extends State<TryRoutes> {
             latitude: startLat!,
             longitude: startLong!,
             radius: [
-              GS.GeofenceRadius(id: radiusId, length: radiusInMeters),
+              GS.GeofenceRadius(id: radiusId, length: proximityRadiusInMeters),
             ],
           ),
           GS.Geofence(
@@ -119,7 +143,7 @@ class _TryRoutesState extends State<TryRoutes> {
             latitude: endLat!,
             longitude: endLong!,
             radius: [
-              GS.GeofenceRadius(id: radiusId, length: radiusInMeters),
+              GS.GeofenceRadius(id: radiusId, length: proximityRadiusInMeters),
             ],
           ),
         ];
@@ -192,6 +216,57 @@ class _TryRoutesState extends State<TryRoutes> {
   // This function is to be called when the location has changed.
   void _onLocationUpdated(GS.Location location) {
     print('location: ${location}');
+
+    setState(() {
+      currentPostion = LatLng(location.latitude, location.longitude);
+  /*    markers[const MarkerId('myLocation')] = Marker(
+          markerId: const MarkerId('myLocation'),
+          position: LatLng(location.latitude, location.longitude),
+          icon: currentLocationIcon,
+          rotation: location.heading,
+          // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
+          infoWindow: InfoWindow(title: 'My Current Location'));*/
+    });
+
+    if (hasStarted) {
+      setState(() {
+        myRoutes.add(LatLng(location.latitude, location.longitude));
+      });
+      debugPrint('Should Draw a polyline...');
+
+      final Polyline line = polyLines
+          .firstWhere((e) => e.polylineId == const PolylineId('my_polyline'));
+
+      debugPrint("line: ${line.points.length}");
+
+      final newLine = Polyline(
+        polylineId: const PolylineId('my_polyline'),
+        color: Colors.orange.withOpacity(0.8),
+        width: 5,
+        points: myRoutes.map((e) => LatLng(e.latitude, e.longitude)).toList(),
+      );
+
+      if (line.points.isNotEmpty) {
+        int index = polyLines.indexOf(line);
+
+        setState(() {
+          polyLines[index] = newLine;
+        });
+      } else {
+        setState(() {
+          polyLines.add(newLine);
+        });
+      }
+      // Polyline(
+      //   polylineId:
+      //   const PolylineId('my_polyline'),
+      //   color: Colors.green,
+      //   width: 5,
+      //   points: subRoutes
+      //       .map((e) => LatLng(e.latitude, e.longitude))
+      //       .toList(),
+      // );
+    }
   }
 
   // This function is to be called when a location services status change occurs
@@ -213,7 +288,10 @@ class _TryRoutesState extends State<TryRoutes> {
 
   @override
   void dispose() {
+    debugPrint('Disposed');
+
     geofenceStatusStream?.cancel();
+    _geofenceService.clearAllListeners();
     _geofenceService.stop();
     super.dispose();
   }
@@ -225,18 +303,38 @@ class _TryRoutesState extends State<TryRoutes> {
 
   //MAP CREATED LISTENER
   void _onMapCreated(GoogleMapController _cntlr) async {
-     _controller = _cntlr;
+    _controller = _cntlr;
     _location.onLocationChanged.listen((l) {
-      if (hasStarted) {
+      // _controller?.showMarkerInfoWindow(MarkerId("myLocation"));
+
+      /*if (hasStarted) {
+
+
         _controller!.animateCamera(
-         /* directionsInfo != null
+         */ /* directionsInfo != null
               ? CameraUpdate.newLatLngBounds(directionsInfo!.bounds, 100.0)
               :
-          */
+          */ /*
+
+
+
+
           CameraUpdate.newCameraPosition(
                   CameraPosition(
-                      target: LatLng(l.latitude!, l.longitude!), zoom: 18),
+                      target: LatLng(l.latitude!, l.longitude!), zoom: 18, bearing: l.heading! , tilt:30),
                 ),
+        );
+      }*/
+
+      if (hasStarted && !isFinishPointInProximity) {
+        _controller!.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+                target: LatLng(l.latitude!, l.longitude!),
+                zoom: 20,
+                bearing: l.heading!,
+                tilt: 30),
+          ),
         );
       }
     });
@@ -253,17 +351,88 @@ class _TryRoutesState extends State<TryRoutes> {
     // create start and finish point circles
     createStartAndFinishPointCircles();
 
-    // get Directions
+    // getx Directions
     getDirections();
 
-    // get Historical Events
+    // getx Historical Events
     getHistoricalEvents();
   }
 
-  // This will get historical events from api
+  void setCustomLocationMarkerIcon() {
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, "assets/images/pngs/location_point.png")
+        .then(
+      (icon) {
+        debugPrint("ICON ${icon}");
+        setState(() {
+          currentLocationIcon = icon;
+        });
+      },
+    );
+  }
+
+  // This will getx historical events from api and create sub routes ( temporary fix)
   Future<void> getHistoricalEvents() async {
     final HistoricalEventModelList res =
-    await DioClient().getHistoricalEvents(routeId);
+        await DioClient().getHistoricalEvents(routeId);
+
+    if (res.historicalEventList.isNotEmpty) {
+      for (HistoricalEventModel event in res.historicalEventList) {
+        if (event.eventTitle!.toLowerCase() != 'point') {
+          final geofence = GS.Geofence(
+            id: event.id!,
+            latitude: event.eventLat!,
+            longitude: event.eventLong!,
+            radius: [
+              GS.GeofenceRadius(
+                  id: radiusId, length: proximityRadiusInMetersHistorical),
+            ],
+          );
+
+          _geofenceList.add(geofence);
+
+          historicalEvents.add(event);
+        }
+
+        subRoutes.add(LatLng(event.eventLat!, event.eventLong!));
+      }
+
+      subRoutes.insert(0, LatLng(startLat!, startLong!));
+      subRoutes.add(LatLng(endLat!, endLong!));
+
+      polyLines.add(Polyline(
+        polylineId: const PolylineId('overview_polyline'),
+        color: Colors.green,
+        width: 5,
+        points: subRoutes.map((e) => LatLng(e.latitude, e.longitude)).toList(),
+      ));
+
+      polyLines.add(Polyline(
+        polylineId: const PolylineId('my_polyline'),
+        color: Colors.orange,
+        width: 5,
+        points: myRoutes.map((e) => LatLng(e.latitude, e.longitude)).toList(),
+      ));
+    }
+
+    // Add Historical Event Markers and Circles
+    addHistoricalEventMarkersAndCircles();
+
+    // Start geofencing services
+    _geofenceService.start(_geofenceList).catchError(_onError);
+
+    // Hide Loading Indicator Dialog
+    setState(() {
+      isLoadingResources = false;
+    });
+
+    Navigator.of(context).pop();
+  }
+
+  // This will getx historical events from api
+  Future<void> _getHistoricalEvents() async {
+    final HistoricalEventModelList res =
+        await DioClient().getHistoricalEvents(routeId);
 
     if (res.historicalEventList.isNotEmpty) {
       for (HistoricalEventModel event in res.historicalEventList) {
@@ -272,7 +441,8 @@ class _TryRoutesState extends State<TryRoutes> {
           latitude: event.eventLat!,
           longitude: event.eventLong!,
           radius: [
-            GS.GeofenceRadius(id: radiusId, length: radiusInMeters),
+            GS.GeofenceRadius(
+                id: radiusId, length: proximityRadiusInMetersHistorical),
           ],
         );
 
@@ -351,11 +521,12 @@ class _TryRoutesState extends State<TryRoutes> {
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
       );
 
-      final circle =  Circle( circleId: CircleId(event.id!),
+      final circle = Circle(
+        circleId: CircleId(event.id!),
         center: LatLng(event.eventLat!, event.eventLong!),
-        radius: radiusInMeters,
+        radius: proximityRadiusInMetersHistorical,
         fillColor: Colors.yellow.shade100.withOpacity(0.5),
-        strokeColor:  Colors.yellow.shade100.withOpacity(0.1),
+        strokeColor: Colors.yellow.shade100.withOpacity(0.1),
       );
 
       _circles.add(circle);
@@ -378,30 +549,31 @@ class _TryRoutesState extends State<TryRoutes> {
   }
 
   //create start and Finish point circles
-  void createStartAndFinishPointCircles (){
+  void createStartAndFinishPointCircles() {
     setState(() {
       _circles = [
-        Circle( circleId: CircleId('startPointCircle'),
-          center: LatLng(startLat!,startLong!),
-          radius: radiusInMeters,
+        Circle(
+          circleId: CircleId('startPointCircle'),
+          center: LatLng(startLat!, startLong!),
+          radius: proximityRadiusInMeters,
           fillColor: Colors.orange.shade100.withOpacity(0.5),
-          strokeColor:  Colors.orange.shade100.withOpacity(0.1),
+          strokeColor: Colors.orange.shade100.withOpacity(0.1),
         ),
-        Circle( circleId: CircleId('finshPointCircle'),
-          center: LatLng(endLat!,endLong!),
-          radius: radiusInMeters,
+        Circle(
+          circleId: CircleId('finshPointCircle'),
+          center: LatLng(endLat!, endLong!),
+          radius: proximityRadiusInMeters,
           fillColor: Colors.red.shade100.withOpacity(0.5),
-          strokeColor:  Colors.red.shade100.withOpacity(0.1),
+          strokeColor: Colors.red.shade100.withOpacity(0.1),
         ),
       ];
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     var _initialCameraPosition = CameraPosition(
-      target: currentPostion ?? startLocation,
+      target: startLocation,
       zoom: 12,
     );
 
@@ -498,7 +670,7 @@ class _TryRoutesState extends State<TryRoutes> {
               ),
 
               sizedBox(20, 0),
-              if (directionsInfo != null &&
+              /* if (directionsInfo != null &&
                   !isFinishPointInProximity &&
                   hasStarted)
                 Text(
@@ -507,7 +679,7 @@ class _TryRoutesState extends State<TryRoutes> {
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
-                ),
+                ),*/
 
               if (isFinishPointInProximity && hasStarted)
                 Column(
@@ -524,41 +696,41 @@ class _TryRoutesState extends State<TryRoutes> {
                   ],
                 ),
               sizedBox(20, 0),
+              Stack(
+                children: [
+                  SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16.0),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.60,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20)),
+                            width: double.infinity,
+                            child: GoogleMap(
+                              myLocationButtonEnabled: false,
+                              zoomControlsEnabled: true,
+                              zoomGesturesEnabled: true,
+                              tiltGesturesEnabled: true,
+                              initialCameraPosition: _initialCameraPosition,
+                              onMapCreated: _onMapCreated,
+                              markers: markers.values.toSet(),
+                              circles: Set.from(_circles),
+                              polylines: Set.from(polyLines),
 
-              SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16.0),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)),
-                        width: double.infinity,
-                        child: GoogleMap(
-                          myLocationButtonEnabled: true,
-                          zoomControlsEnabled: true,
-                          zoomGesturesEnabled: true,
-                          tiltGesturesEnabled: true,
-                          initialCameraPosition: _initialCameraPosition,
-                          onMapCreated: _onMapCreated,
-                          markers: markers.values.toSet(),
-                          circles: Set.from(_circles),
-                          polylines: {
-                            if (directionsInfo != null)
-                              Polyline(
-                                polylineId:
-                                    const PolylineId('overview_polyline'),
-                                color: Colors.red,
-                                width: 5,
-                                points: directionsInfo!.polylinePoints
-                                    .map((e) => LatLng(e.latitude, e.longitude))
-                                    .toList(),
-                              ),
-                          },
-                          mapType: MapType.normal,
-                          myLocationEnabled: true,
-                        ),
-                      ))),
+                              // mapType: MapType.terrain,
+                              mapType: _mapTypeController.mapType,
+                              myLocationEnabled: true,
+                            ),
+                          ))),
+                  Positioned(
+                    right: 0,
+                    child: IconButton(
+                        onPressed: viewCurrentLocation,
+                        icon: Icon(Icons.my_location, color: Colors.blueGrey)),
+                  ),
+                ],
+              ),
 
               SizedBox(height: 25),
               if (!hasStarted)
@@ -572,6 +744,7 @@ class _TryRoutesState extends State<TryRoutes> {
                         1,
                         'Go Wild',
                         'You are not in the proximity of the starting point of this route.');
+                    viewCurrentLocation();
                   } else {
                     setState(() {
                       hasStarted = true;
@@ -606,5 +779,34 @@ class _TryRoutesState extends State<TryRoutes> {
         ));
       },
     );
+  }
+
+  Future<void> getCurrentPosition() async {
+    final Position coords = await GeoLocationServices().getCoordinates();
+    setState(() {
+      currentPostion = LatLng(coords.latitude, coords.longitude);
+
+      /*markers[const MarkerId('myLocation')] = Marker(
+          markerId: const MarkerId('myLocation'),
+          position: currentPostion,
+          icon: currentLocationIcon,
+          // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
+          infoWindow: InfoWindow(title: 'My Current Location'),
+          rotation: heading);*/
+    });
+
+    // _controller?.showMarkerInfoWindow(MarkerId("myLocation"));
+  }
+
+  void viewCurrentLocation() {
+     _controller!.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+            target: currentPostion, zoom: 20, tilt: 60),
+      ),
+    );
+
+
+    _controller?.showMarkerInfoWindow(MarkerId("myLocation"));
   }
 }

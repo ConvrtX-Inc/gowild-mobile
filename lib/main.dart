@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
                 ],
               ),
           home: const Root(),
-          title: 'Flutter Demo',
+
           theme: ThemeData(
               appBarTheme: const AppBarTheme(
                   titleTextStyle: TextStyle(fontFamily: 'TheForegenRegular')),

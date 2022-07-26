@@ -14,7 +14,7 @@ class VerifyPhoneScreen extends StatefulWidget {
 }
 
 class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
-  // bool get isValidPhone {
+  // bool getx isValidPhone {
   //   final phoneRegExp = RegExp(r"^\+?0[0-9]{10}$");
   //   return phoneRegExp.hasMatch(this);
   // }

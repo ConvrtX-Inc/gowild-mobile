@@ -37,7 +37,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
     return user;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

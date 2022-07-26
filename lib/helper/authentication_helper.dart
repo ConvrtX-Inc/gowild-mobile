@@ -13,7 +13,7 @@ class AuthenticationHelper extends ChangeNotifier {
   String? _email;
   // User? _user;
   String _token = '';
-  // User get user => _user!;
+  // User getx user => _user!;
 
   UserModel get getCurrentUser => _currentUser;
 

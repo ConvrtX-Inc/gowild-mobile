@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/constants/size.dart';
+import 'package:gowild_mobile/services/geolocation_service.dart';
 import 'package:gowild_mobile/views/maps/try_routes.dart';
 import 'package:gowild_mobile/widgets/sample_avatar.dart';
 
@@ -55,8 +56,9 @@ class _PanelWidgetState extends State<PanelWidget> {
                   Icons.location_on_outlined,
                   color: Colors.grey,
                 ),
-                const Text('1.7 Miles',
-                    style: TextStyle(
+                Text(
+                    '${GeoLocationServices().calculateDistanceInMeters(route.startPointLat!, route.startPointLong!, route.startPointLat!, route.stopPointLong!).toStringAsFixed(2)} meters',
+                    style: const TextStyle(
                         color: Color(0xff18243C),
                         fontSize: 14,
                         fontWeight: FontWeight.w500)),

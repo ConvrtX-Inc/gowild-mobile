@@ -62,7 +62,7 @@ class SecureStorage {
     return sharedPrefs.setString(key, value);
   }
 
-  /// get value from shared prefs local storage
+  /// getx value from shared prefs local storage
   static Future<dynamic> getSharedPrefsValue(String key) async {
     sharedPrefs = await SharedPreferences.getInstance();
     return sharedPrefs.get(key);

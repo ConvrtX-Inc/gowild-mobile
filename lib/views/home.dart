@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              buildSearchTextField(),
+                              // buildSearchTextField(),
                               const SizedBox(
                                 height: 20,
                               ),

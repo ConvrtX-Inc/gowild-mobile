@@ -10,7 +10,7 @@ class ExpandableContainer extends StatelessWidget {
     Key? key,
     required this.child,
     this.collapsedHeight = 0.0,
-    this.expandedHeight = 250,
+    this.expandedHeight = 620,
     this.expanded = false,
   }) : super(key: key);
 
@@ -21,7 +21,7 @@ class ExpandableContainer extends StatelessWidget {
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
       width: screenWidth,
-      height: expanded ? collapsedHeight : 620,
+      height: expanded ? collapsedHeight : expandedHeight,
       child: Container(
         child: child,
       ),
