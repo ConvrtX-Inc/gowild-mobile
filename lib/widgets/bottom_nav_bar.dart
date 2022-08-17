@@ -15,7 +15,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
   _changeIndex(int index) {
     setState(() {
       _selectedTabIndex = index;
-      print("index..." + index.toString());
     });
   }
 
@@ -31,21 +30,21 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 75,
+      height: 90,
       decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         child: Flexible(
           child: BottomNavigationBar(
             onTap: _changeIndex,
             type: BottomNavigationBarType.fixed,
             currentIndex: _selectedTabIndex,
-            backgroundColor: Color(0xff00755E),
+            backgroundColor: const Color(0xff00755E),
             enableFeedback: false,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
@@ -53,8 +52,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   homeIcon,
                   width: 18,
                   height: 10,
-                  color:
-                      _selectedTabIndex == 0 ? Color(0xffE5592F) : Colors.white,
+                  color: _selectedTabIndex == 0
+                      ? const Color(0xffE5592F)
+                      : Colors.white,
                 ),
                 label: '',
               ),
@@ -63,24 +63,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     width: 18,
                     height: 10,
                     color: _selectedTabIndex == 1
-                        ? Color(0xffE5592F)
+                        ? const Color(0xffE5592F)
                         : Colors.white),
                 label: '',
               ),
-              // BottomNavigationBarItem(
-
-              //   icon: SizedBox.shrink(
-
-              //   ),
-
-              //   label: '',
-              // ),
+              const BottomNavigationBarItem(
+                icon: SizedBox.shrink(),
+                label: '',
+              ),
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(directionSignIcon,
                     width: 18,
                     height: 10,
                     color: _selectedTabIndex == 3
-                        ? Color(0xffE5592F)
+                        ? const Color(0xffE5592F)
                         : Colors.white),
                 label: '',
               ),
@@ -89,7 +85,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     width: 18,
                     height: 10,
                     color: _selectedTabIndex == 4
-                        ? Color(0xffE5592F)
+                        ? const Color(0xffE5592F)
                         : Colors.white),
                 label: '',
               ),

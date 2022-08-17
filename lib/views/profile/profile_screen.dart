@@ -37,35 +37,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
     return user;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(titleText: 'PROFILE'),
+      appBar: CustomAppBar(titleText: 'PROFILE' , onLeadingTap: () => Navigator.of(context).pop(),),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: FutureBuilder<UserModel>(
             future: userProfile,
             builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
-              if (snapshot.hasData) {
-                final UserModel user = snapshot.data!;
-                return Column(
-                  children: <Widget>[
-                    ProfileHeader(imageAsset: user.profileImg),
-                    SizedBox(
-                      height: 65,
-                    ),
-                    Text(
-                      '${user.fullName}, 23',
-                      style: TextStyle(
-                          fontSize: 22,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Align(
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting: return Center(child: CircularProgressIndicator(),);
+                default:
+                  if (snapshot.hasError)
+                    return Text('Error: ${snapshot.error}');
+                  else
+                    if (snapshot.hasData) {
+                    final UserModel user = snapshot.data!;
+
+
+                    return Column(
+                      children: <Widget>[
+                        ProfileHeader(imageAsset: user.profileImg!),
+                        SizedBox(
+                          height: 65,
+                        ),
+                        Text(
+                          '${user.fullName}',
+                          style: TextStyle(
+                              fontSize: 22,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        /* Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         'About Me',
@@ -84,10 +91,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.normal),
-                    )
-                  ],
-                );
+                    )*/
+                      ],
+                    );
+                  }
               }
+
               return Container();
             }),
       ),

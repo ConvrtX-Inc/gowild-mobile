@@ -5,8 +5,8 @@ import 'package:gowild_mobile/helper/map_helper.dart';
 import 'package:gowild_mobile/models/route.dart';
 import 'package:gowild_mobile/root.dart';
 import 'package:gowild_mobile/services/notifications_service.dart';
-import 'package:gowild_mobile/views/maps/try_routes.dart';
-import 'package:gowild_mobile/views/test_historical.dart';
+import 'package:gowild_mobile/views/auth/login.dart';
+import 'package:gowild_mobile/views/map_navigations/map_box.dart';
 
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -47,7 +47,8 @@ class MyApp extends StatelessWidget {
                 ],
               ),
           home: const Root(),
-          title: 'Flutter Demo',
+
+          // home:   MapBox(),
           theme: ThemeData(
               appBarTheme: const AppBarTheme(
                   titleTextStyle: TextStyle(fontFamily: 'TheForegenRegular')),

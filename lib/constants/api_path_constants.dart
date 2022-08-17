@@ -3,7 +3,7 @@ class ApiPathConstants {
   const ApiPathConstants();
 
   /// Returns staging mode (change to false if deploying to live)
-  static bool isStaging = true;
+  static bool isStaging = false;
 
   /// Returns API mode
   static String apiBaseMode = 'https://';
@@ -17,5 +17,11 @@ class ApiPathConstants {
 
   static String loginUrl = 'api/v1/auth/login';
 
+  static String authUrl = 'api/v1/auth/me';
+
   static String usersUrl = 'api/v1/users/';
+
+  static String notificationUrl = 'api/v1/notifications';
+
+  static String ticketsUrl = 'api/v1/ticket';
 }

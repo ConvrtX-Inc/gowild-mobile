@@ -34,7 +34,7 @@ class DioClient {
       return UserModel.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create post request - register user");
+      throw Exception("Failed to register user");
     }
   }
 
@@ -62,7 +62,7 @@ class DioClient {
       return UserModel.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create post request - log in user");
+      throw Exception("Failed to  log in user");
     }
   }
 
@@ -114,7 +114,7 @@ class DioClient {
       return UserModel.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create get request - get user");
+      throw Exception("Failed to create getx request - getx user");
     }
   }
 
@@ -122,7 +122,8 @@ class DioClient {
     final String? token =
         await SecureStorage.readValue(key: SecureStorage.userTokenKey);
 
-    const String postEndPoint = baseUrl + '/api/v1/route';
+    const String postEndPoint =
+        baseUrl + '/api/v1/route?sort=created_date,DESC';
     BaseOptions options = BaseOptions(
       baseUrl: postEndPoint,
       connectTimeout: 10000,
@@ -142,16 +143,16 @@ class DioClient {
       return RouteList.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create get request - get routes");
+      throw Exception("Failed to create getx request - getx routes");
     }
   }
 
   Future<Routes> getRoute() async {
     final token =
         await SecureStorage.readValue(key: SecureStorage.userTokenKey);
-
-    const String postEndPoint =
-        baseUrl + '/api/v1/route/2f1ab43e-e7db-482a-91a3-3990020f271b';
+    final id = await SecureStorage.readValue(key: SecureStorage.userIdKey);
+    String postEndPoint =
+        baseUrl + '/api/v1/route/64ed8173-2ac1-436f-8a0b-0edd8950fe9b';
     BaseOptions options = BaseOptions(
       baseUrl: postEndPoint,
       connectTimeout: 10000,
@@ -171,14 +172,15 @@ class DioClient {
       return Routes.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create get request - get routes");
+      throw Exception("Failed to create getx request - getx routes");
     }
   }
 
   Future<UserModel> postGoogleLogin() async {
     final token =
         await SecureStorage.readValue(key: SecureStorage.userTokenKey);
-    final String postEndPoint = baseUrl + ApiPath().getUser;
+    debugPrint(token);
+    final String postEndPoint = baseUrl + ApiPath().googleLogin;
     BaseOptions options = BaseOptions(
       baseUrl: postEndPoint,
       connectTimeout: 10000,
@@ -190,10 +192,11 @@ class DioClient {
         "id_token": '$token',
       });
       debugPrint(response.toString());
+
       return UserModel.fromJson(response.data);
     } on DioError catch (e) {
       debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create post request - register user");
+      throw Exception("Failed to log in with Google");
     }
   }
 
@@ -220,11 +223,54 @@ class DioClient {
           },
         ),
       );
-      debugPrint('EVENTS ${response.data['data'].length}');
+      debugPrint('EVENTS : ${response.data['data'].length}');
       return HistoricalEventModelList.fromJson(response.data['data']);
     } on DioError catch (e) {
-      debugPrint("Status code: ${e.response?.statusCode.toString()}");
-      throw Exception("Failed to create get request - get routes");
+      debugPrint("Status code: ${e.toString()}");
+      throw Exception("Failed to create getx request - getx routes");
+    }
+  }
+
+
+  Future<dynamic> getMapDirections(String routes) async {
+    final String? token =
+    await SecureStorage.readValue(key: SecureStorage.userTokenKey);
+
+
+    String mapBoxToken = 'pk.eyJ1IjoiZWRuYW1hZWciLCJhIjoiY2w2N2YzZThvMDJybjNib2N6Nmt5b3ozcCJ9.l-qlUwWbrEmcuWITEFSG5w';
+
+    String url = 'https://api.mapbox.com/directions/v5/mapbox/walking/$routes?alternatives=true&continue_straight=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=$mapBoxToken';
+
+    debugPrint('BaseURL $url');
+    BaseOptions options = BaseOptions(
+      baseUrl: url,
+      connectTimeout: 10000,
+      receiveTimeout: 10000,
+    );
+    final Dio dio = Dio(options);
+    try {
+      Response response = await dio.get(
+        url,
+        /*options: Options(
+          headers: {
+            "authorization": "Bearer $token",
+          },
+        ),*/
+      );
+      debugPrint('DATA FROM DIRECI ${response.data['routes'][0]['geometry']['coordinates']}');
+
+      if(response.statusCode == 200){
+        return response.data['routes'][0]['geometry']['coordinates'];
+      }else {
+        return '';
+      }
+
+
+
+    } on DioError catch (e) {
+      return '';
+      debugPrint("Status code: ${e.toString()}");
+      throw Exception("Failed to create getx request - getx routes");
     }
   }
 }

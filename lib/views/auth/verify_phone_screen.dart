@@ -14,6 +14,10 @@ class VerifyPhoneScreen extends StatefulWidget {
 }
 
 class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
+  // bool getx isValidPhone {
+  //   final phoneRegExp = RegExp(r"^\+?0[0-9]{10}$");
+  //   return phoneRegExp.hasMatch(this);
+  // }
   Row buildResendOtpText() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

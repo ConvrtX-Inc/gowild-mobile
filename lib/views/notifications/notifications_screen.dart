@@ -7,7 +7,8 @@ class NotificationScreen extends StatefulWidget {
 
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
-  }
+}
+
 class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
@@ -16,14 +17,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
         titleText: 'Notifications',
         onLeadingTap: () => Navigator.pop(context),
       ),
-      body: ListView.builder(
+     body: const Center(
+      child: Text('Nothing to Display.' , style: TextStyle(color: Colors.white),)
+     ),
+     /* body: ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: 3,
         itemBuilder: (BuildContext context, int index) {
           bool isLastNotif = 3 == index + 1;
           return _notificationCard(isLastNotif: isLastNotif);
         },
-      ),
+      ),*/
     );
   }
 
@@ -31,7 +35,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         decoration: BoxDecoration(
             border: isLastNotif
                 ? null
-                : Border(
+                : const Border(
                     bottom: BorderSide(
                         width: .2, color: AppColorConstants.primaryYellow))),
         margin: EdgeInsets.symmetric(horizontal: 22),
@@ -39,10 +43,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 20,
             ),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Flexible(
@@ -53,7 +57,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                      children: const [
                         Text(
                           'Benjamin Poole',
                           style: TextStyle(
@@ -67,7 +71,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       ],
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Hi @johnsmith, when you have time please take a look at the new location we have shared.',
                     style: TextStyle(
                         fontWeight: FontWeight.w500,

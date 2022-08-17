@@ -19,7 +19,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBar: CustomAppBar(titleText: 'EDIT PROFILE'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
-        child: Column(children: [
+        child: Column(children: const [
           ProfileHeader(),
           SizedBox(
             height: 65,

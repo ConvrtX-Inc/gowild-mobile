@@ -9,7 +9,7 @@ class BottomFlatButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 45),
+      padding: const EdgeInsets.only(top: 40),
       child: SizedBox(
         height: 68,
         width: 68,

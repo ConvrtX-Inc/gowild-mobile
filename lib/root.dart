@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:gowild_mobile/views/main_screen.dart';
-import 'package:gowild_mobile/views/test_historical.dart';
 
 import 'helper/authentication_helper.dart';
-import 'package:provider/provider.dart';
 
 import 'views/splash_screen.dart';
 
@@ -20,43 +18,36 @@ class Root extends StatefulWidget {
 }
 
 class _RootState extends State<Root> {
-  AuthStatus _authStatus = AuthStatus.notLoggedIn;
+  // AuthStatus _authStatus = AuthStatus.notLoggedIn;
+
+  Widget screen = const Scaffold(
+      body: Center(
+    child: CircularProgressIndicator(),
+  ));
 
   @override
-  void didChangeDependencies() async {
-    super.didChangeDependencies();
-    AuthenticationHelper _user =
-        Provider.of<AuthenticationHelper>(context, listen: false);
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getNextScreen();
+  }
 
-    String returnString = await _user.onStartUp();
+  getNextScreen() async {
+    bool isAuthenticated = await AuthenticationHelper().authenticateToken();
 
-    if (returnString == "success") {
-      print(returnString);
-      if (mounted) {
-        setState(() {
-          _authStatus = AuthStatus.loggedIn;
-        });
-      }
+    if (isAuthenticated) {
+      setState(() {
+        screen = const MainNavigation();
+      });
+    } else {
+      setState(() {
+        screen = const SpashScreen();
+      });
     }
-    print(_authStatus);
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget? retVal;
-
-    switch (_authStatus) {
-      case AuthStatus.notLoggedIn:
-        // retVal = const HistoricalEvent();
-
-        retVal = const SpashScreen();
-        break;
-      case AuthStatus.loggedIn:
-        retVal = const MainNavigation();
-        // retVal = const HistoricalEvent();
-        break;
-      default:
-    }
-    return retVal!;
+    return screen;
   }
 }

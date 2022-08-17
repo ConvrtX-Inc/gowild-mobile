@@ -18,6 +18,9 @@ class SecureStorage {
   /// Returns refresh token key
   static const String ssoTokenKey = 'sso_token';
 
+  //Returns bool if user is logged in for the first time
+  static const String isFirstTime = 'first_time';
+
   /// For saving secure string
   static Future<void> saveValue(
       {required String key, required String value}) async {
@@ -59,7 +62,7 @@ class SecureStorage {
     return sharedPrefs.setString(key, value);
   }
 
-  /// get value from shared prefs local storage
+  /// getx value from shared prefs local storage
   static Future<dynamic> getSharedPrefsValue(String key) async {
     sharedPrefs = await SharedPreferences.getInstance();
     return sharedPrefs.get(key);

@@ -3,5 +3,6 @@ class ApiPath {
   final String loginUser = '/api/v1/auth/login';
   final String getUser = '/api/v1/auth/me';
   final String smsCode = '/api/v1/sms/send';
+  final String googleLogin = '/api/v1/auth/google/login';
   String getRoute(id) => '/api/v1/route/$id';
 }

@@ -12,6 +12,7 @@ import 'expandable_container.dart';
 import 'sample_avatar.dart';
 import 'star_rating.dart';
 import 'package:flutter/material.dart';
+
 class ExpandableListView extends StatefulWidget {
   const ExpandableListView({
     Key? key,
@@ -27,6 +28,7 @@ class ExpandableListView extends StatefulWidget {
 class _ExpandableListViewState extends State<ExpandableListView> {
   bool expandFlag = false;
   var rating = 3.0;
+  final PanelController _suggestedRoutesPanelCtrl = PanelController();
 
   Widget buildAdventureCard(context) {
     return Padding(
@@ -171,55 +173,191 @@ class _ExpandableListViewState extends State<ExpandableListView> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30.0),
       child: SizedBox(
-        width: 418,
+        // width: 418,
         child: SlidingUpPanel(
-          minHeight: MediaQuery.of(context).size.height * 0.05,
-          panelBuilder: (sc) => PanelWidget(
-            sc: sc,
-          ),
-          body: Container(
-              height: 550,
-              // width: 200,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(12.0),
+          minHeight: 80,
+          isDraggable: false,
+          controller: _suggestedRoutesPanelCtrl,
+          panelBuilder: (sc) => Container(),
+          collapsed: Container(
+              // padding: EdgeInsets.all(14),
+              decoration: BoxDecoration(color: Colors.white),
+              child: GestureDetector(
+                  onTap: () {
+                    // _suggestedRoutesPanelCtrl.open();
+                    _modalBottomSheetMenu();
+                  },
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.keyboard_arrow_up),
+                          SizedBox(
+                            width: 30,
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Suggested Routes',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          SizedBox(
+                            width: 12,
+                          )
+                        ],
+                      )
+                    ],
+                  ))),
+
+          // isDraggable: false,
+          // panelSnapping: false,
+          // minHeight: 50,
+          /*  panelBuilder: (sc) => ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Colors.white),
+            child: const Text('suggested route',style: TextStyle(color: Colors.black),),
+            onPressed: () {
+              _modalBottomSheetMenu();
+            },
+          ),*/
+
+          /*     header: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 150,
+              ),
+              const Text(
+                'Suggested Routes',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-              child: Container(width: 200, child: const MyGoogleMap())),
-          maxHeight: MediaQuery.of(context).size.height / 2,
+              Container(
+                width: 150,
+              )
+            ],
+          ),*/
+          // header:  const Text(
+          //   'Suggested Routes',
+          //
+          //   style: TextStyle(
+          //     fontSize: 16,
+          //     fontWeight: FontWeight.w700,
+          //   ),
+          // ),
+
+          //! added listview
+          /* body: ListView(
+              // physics: const NeverScrollableScrollPhysics(),
+              children: [
+                Container(
+                    height: MediaQuery.of(context).size.height / 1.85,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12.0),
+                      ),
+                    ),
+                    child: const SizedBox(width: 200, child: MyGoogleMap())),
+              ]),*/
+          body: const SizedBox(width: 200, child: MyGoogleMap()),
+          maxHeight: MediaQuery.of(context).size.height / 3,
           backdropEnabled: true,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
-          parallaxEnabled: true,
-          parallaxOffset: .5,
+          parallaxEnabled: false,
+          parallaxOffset: 0.0,
+
           color: Colors.white,
-          // collapsed:
         ),
       ),
     );
   }
 
   buildMap() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(30.0),
-            child: Container(
-                height: 650,
-                width: 420,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12.0),
-                  ),
-                ),
-                child: buildSlidingPanel()),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(30.0),
+      child: Container(
+        // height: MediaQuery.of(context).size.height / 2,
+
+        width: 420,
+        decoration: const BoxDecoration(
+          // color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(12.0),
           ),
-        ],
+        ),
+        child: buildSlidingPanel()
+       /* child: Stack(
+          children: [
+            MyGoogleMap(),
+            Positioned(
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: GestureDetector(
+                    onTap: () {
+                      // _suggestedRoutesPanelCtrl.open();
+                      _modalBottomSheetMenu();
+                    },
+                    child: Container(
+                      height: 70,
+                      decoration: BoxDecoration(color: Colors.white),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      child: Column(
+                        children: [
+                          Icon(Icons.keyboard_arrow_up),
+                          Text(
+                            'Suggested Routes',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          )
+                        ],
+                      ),
+                    )))
+          ],
+        ),*/
       ),
     );
+    // return Container(
+    //   padding: const EdgeInsets.all(8.0),
+    //   height: 122,
+    //   child: Row(
+    //     children: [
+    //
+    //     ],
+    //   ),
+    // );
+  }
+
+  void _modalBottomSheetMenu() {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return Container(
+            height: MediaQuery.of(context).size.height / 2,
+            color: Colors.transparent, //could change this to Color(0xFF737373),
+
+            child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0))),
+                child: const PanelWidget()),
+          );
+        });
   }
 
   @override
@@ -251,8 +389,8 @@ class _ExpandableListViewState extends State<ExpandableListView> {
                       child: Center(
                         child: Icon(
                           expandFlag
-                              ? Icons.keyboard_arrow_down
-                              : Icons.keyboard_arrow_right,
+                              ? Icons.keyboard_arrow_right
+                              : Icons.keyboard_arrow_down,
                           color: Colors.white,
                           size: 30.0,
                         ),
@@ -268,24 +406,33 @@ class _ExpandableListViewState extends State<ExpandableListView> {
           ),
           ExpandableContainer(
             expanded: expandFlag,
-            child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return widget.title == 'ROUTES'
-                    ? Container(
-                        decoration:
-                            const BoxDecoration(color: Colors.transparent),
-                        child: buildMap())
-                    : widget.title == 'NEARBY ADVENTURES'
-                        ? Container(
-                            decoration:
-                                const BoxDecoration(color: Colors.transparent),
-                            child: buildAdventureCard(context))
-                        : const GoWildFeed();
-              },
-              itemCount: 1,
+            expandedHeight: MediaQuery.of(context).size.height / 1.65,
+            child: SizedBox(
+              child: buildMap(),
             ),
+            /*   child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: ListView.builder(
+                shrinkWrap: true,
+                // physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  // return widget.title == 'ROUTES'
+                  //     ?
+                  return Container(
+                      decoration:
+                          const BoxDecoration(color: Colors.transparent),
+                      child: );
+                  // : widget.title == 'NEARBY ADVENTURES'
+                  //     ? Container(
+                  //         decoration: const BoxDecoration(
+                  //             color: Colors.transparent),
+                  //         child: buildAdventureCard(context))
+                  //     : Container();
+                },
+                itemCount: 1,
+              ),
+            ),*/
           )
         ],
       ),
