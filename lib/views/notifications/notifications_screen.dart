@@ -17,14 +17,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
         titleText: 'Notifications',
         onLeadingTap: () => Navigator.pop(context),
       ),
-      body: ListView.builder(
+     body: const Center(
+      child: Text('Nothing to Display.' , style: TextStyle(color: Colors.white),)
+     ),
+     /* body: ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: 3,
         itemBuilder: (BuildContext context, int index) {
           bool isLastNotif = 3 == index + 1;
           return _notificationCard(isLastNotif: isLastNotif);
         },
-      ),
+      ),*/
     );
   }
 

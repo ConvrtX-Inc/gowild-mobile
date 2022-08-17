@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gowild_mobile/constants/api_path_constants.dart';
+import 'package:gowild_mobile/constants/image_constants.dart';
 import 'package:gowild_mobile/models/user_model.dart';
+import 'package:gowild_mobile/services/api_services.dart';
 import 'package:gowild_mobile/services/dio_client.dart';
 import 'package:gowild_mobile/services/geolocation_service.dart';
+import 'package:gowild_mobile/services/secure_storage.dart';
+import 'package:gowild_mobile/views/profile/profile_screen.dart';
 import 'package:gowild_mobile/widgets/search_textfield.dart';
 import '../helper/authentication_helper.dart';
 import '../root.dart';
@@ -17,6 +22,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<String> nameList = ['ROUTES'];
   late Future<UserModel> users;
+
+  UserModel currentUser = UserModel();
   @override
   void initState() {
     users = DioClient().getUser();
@@ -24,6 +31,26 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     GeoLocationServices().requestPermissions();
+
+    getUserProfile();
+
+  }
+
+  Future<void> getUserProfile() async {
+    final String? userId =
+    await SecureStorage.readValue(key: SecureStorage.userIdKey);
+    final dynamic response = await ApiServices().request(
+        '${ApiPathConstants.usersUrl}$userId', RequestType.GET,
+        needAccessToken: true);
+
+    print(response);
+    if (response is Map<String, dynamic>) {
+      if (!response.containsKey('statusCode')) {
+        setState(() {
+          currentUser = UserModel.fromJson(response);
+        });
+      }
+    }
 
   }
 
@@ -45,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.all(2), // border width
               child: GestureDetector(
-                onDoubleTap: () {
+              /*  onDoubleTap: () {
                   // var helper =
                   //     Provider.of<AuthenticationHelper>(context, listen: false);
 
@@ -56,16 +83,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       context,
                       MaterialPageRoute(builder: (context) => const Root()),
                       (route) => false);
+                },*/
+                onTap: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfileScreen()));
                 },
                 child: Container(
-                  decoration: const BoxDecoration(
+                  decoration:   BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.amber,
-                    image: DecorationImage(
+                    image: currentUser.profileImg!.isNotEmpty ?  DecorationImage(
                       image: NetworkImage(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo2pMgqzy7f2CLXEVRNian-4UiqfJKfmPK3w&usqp=CAU'),
+                          currentUser.profileImg!),
                       fit: BoxFit.cover,
-                    ),
+                    ) : DecorationImage(image: AssetImage('${ImageAssetPath.imagePathPng}${ImageAssetName.profilePlaceHolder}')),
                   ),
                   child: Container(), // inner content
                 ),
@@ -86,7 +116,55 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: FutureBuilder<UserModel>(
+       body: Stack(children: [
+         Positioned(
+             top: 0,
+             bottom: 0,
+             left: 0,
+             right: 0,
+             child: ListView(
+               physics: const NeverScrollableScrollPhysics(),
+               children: [
+                 Padding(
+                   padding: const EdgeInsets.only(
+                       top: 20, left: 20, right: 20),
+                   child: Column(
+                     children: [
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.start,
+                         children: const [
+                           Text(
+                             'GOOD AFTERNOON,',
+                             style: TextStyle(
+                                 color: Colors.white, fontSize: 22),
+                           ),
+                         ],
+                       ),
+                       buildRowNameAndAvatar(
+                           currentUser.fullName ?? ''),
+                       const SizedBox(
+                         height: 20,
+                       ),
+                       // buildSearchTextField(),
+                       const SizedBox(
+                         height: 20,
+                       ),
+                       ListView.builder(
+                         physics: const NeverScrollableScrollPhysics(),
+                         shrinkWrap: true,
+                         itemBuilder: (BuildContext context, int index) {
+                           return ExpandableListView(
+                               title: nameList[index]);
+                         },
+                         itemCount: nameList.length,
+                       ),
+                     ],
+                   ),
+                 ),
+               ],
+             )),
+       ])
+       /* body: FutureBuilder<UserModel>(
           future: users,
           builder: (context, AsyncSnapshot<UserModel> snapshot) {
             if (snapshot.hasData) {
@@ -115,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               buildRowNameAndAvatar(
-                                  snapshot.data!.fullName ?? 'Jen'),
+                                  snapshot.data!.fullName ?? ''),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -144,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             }
           },
-        ),
+        ),*/
       ),
     );
   }

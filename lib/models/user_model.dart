@@ -15,6 +15,7 @@ class UserModel {
   String? profileImg;
   DateTime? accountCreated;
   bool? isLoggedIn;
+
   UserModel(
       {this.fullName,
       this.email,
@@ -25,16 +26,16 @@ class UserModel {
       this.phoneNumber,
       this.isLoggedIn,
       this.uid,
-      this.profileImg});
+      this.profileImg =''});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        email: json["email"],
-        password: json["password"],
-        fullName: json["full_name"],
-        address1: json["address_line1"],
-        address2: json["address_line2"],
-        phoneNumber: json["phone_no"],
-      );
+      email: json["email"],
+      password: json["password"],
+      fullName: json["full_name"],
+      address1: json["address_line1"],
+      address2: json["address_line2"],
+      phoneNumber: json["phone_no"],
+      profileImg: json['img_url'] ?? '');
 
   Map<String, dynamic> toJson() => {
         "email": email,

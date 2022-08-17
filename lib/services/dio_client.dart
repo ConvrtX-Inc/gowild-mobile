@@ -223,10 +223,53 @@ class DioClient {
           },
         ),
       );
-      debugPrint('EVENTS ${response.data['data'].length}');
+      debugPrint('EVENTS : ${response.data['data'].length}');
       return HistoricalEventModelList.fromJson(response.data['data']);
     } on DioError catch (e) {
-      debugPrint("Status code: ${e.response?.statusCode.toString()}");
+      debugPrint("Status code: ${e.toString()}");
+      throw Exception("Failed to create getx request - getx routes");
+    }
+  }
+
+
+  Future<dynamic> getMapDirections(String routes) async {
+    final String? token =
+    await SecureStorage.readValue(key: SecureStorage.userTokenKey);
+
+
+    String mapBoxToken = 'pk.eyJ1IjoiZWRuYW1hZWciLCJhIjoiY2w2N2YzZThvMDJybjNib2N6Nmt5b3ozcCJ9.l-qlUwWbrEmcuWITEFSG5w';
+
+    String url = 'https://api.mapbox.com/directions/v5/mapbox/walking/$routes?alternatives=true&continue_straight=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=$mapBoxToken';
+
+    debugPrint('BaseURL $url');
+    BaseOptions options = BaseOptions(
+      baseUrl: url,
+      connectTimeout: 10000,
+      receiveTimeout: 10000,
+    );
+    final Dio dio = Dio(options);
+    try {
+      Response response = await dio.get(
+        url,
+        /*options: Options(
+          headers: {
+            "authorization": "Bearer $token",
+          },
+        ),*/
+      );
+      debugPrint('DATA FROM DIRECI ${response.data['routes'][0]['geometry']['coordinates']}');
+
+      if(response.statusCode == 200){
+        return response.data['routes'][0]['geometry']['coordinates'];
+      }else {
+        return '';
+      }
+
+
+
+    } on DioError catch (e) {
+      return '';
+      debugPrint("Status code: ${e.toString()}");
       throw Exception("Failed to create getx request - getx routes");
     }
   }

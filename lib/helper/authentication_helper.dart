@@ -56,7 +56,8 @@ class AuthenticationHelper extends ChangeNotifier {
       }
       return true;
     } catch (e) {
-      rethrow;
+      // rethrow;
+      return false;
     }
   }
 

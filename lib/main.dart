@@ -6,6 +6,7 @@ import 'package:gowild_mobile/models/route.dart';
 import 'package:gowild_mobile/root.dart';
 import 'package:gowild_mobile/services/notifications_service.dart';
 import 'package:gowild_mobile/views/auth/login.dart';
+import 'package:gowild_mobile/views/map_navigations/map_box.dart';
 
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
               ),
           home: const Root(),
 
+          // home:   MapBox(),
           theme: ThemeData(
               appBarTheme: const AppBarTheme(
                   titleTextStyle: TextStyle(fontFamily: 'TheForegenRegular')),

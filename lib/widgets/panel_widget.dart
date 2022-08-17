@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gowild_mobile/constants/size.dart';
 import 'package:gowild_mobile/services/geolocation_service.dart';
+import 'package:gowild_mobile/views/map_navigations/map_box.dart';
 import 'package:gowild_mobile/views/maps/try_routes.dart';
 import 'package:gowild_mobile/widgets/sample_avatar.dart';
 
@@ -57,7 +58,7 @@ class _PanelWidgetState extends State<PanelWidget> {
                   color: Colors.grey,
                 ),
                 Text(
-                    '${GeoLocationServices().calculateDistanceInMeters(route.startPointLat!, route.startPointLong!, route.startPointLat!, route.stopPointLong!).toStringAsFixed(2)} meters',
+                    '${GeoLocationServices().calculateDistanceInMeters(route.startPointLat!, route.startPointLong!, route.stopPointLat!, route.stopPointLong!).toStringAsFixed(2)} meters',
                     style: const TextStyle(
                         color: Color(0xff18243C),
                         fontSize: 14,
@@ -66,16 +67,21 @@ class _PanelWidgetState extends State<PanelWidget> {
                   width: 10,
                 ),
                 Row(
-                  children: const [
+                  children:   [
                     Icon(
                       Icons.timer,
                       color: Colors.grey,
                     ),
-                    Text('1 hr 30 mins',
+                    Text(GeoLocationServices().calculateTime(GeoLocationServices().calculateDistanceInMeters(route.startPointLat!, route.startPointLong!, route.stopPointLat!, route.stopPointLong!)),
+                        style: TextStyle(
+                            color: Color(0xff18243C),
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500))
+                   /* Text('1 hr 30 mins',
                         style: TextStyle(
                             color: Color(0xff18243C),
                             fontSize: 14,
-                            fontWeight: FontWeight.w500))
+                            fontWeight: FontWeight.w500))*/
                   ],
                 ),
                 sizedBox(0, 8),
@@ -217,13 +223,13 @@ class _PanelWidgetState extends State<PanelWidget> {
                               fontSize: 11,
                               fontWeight: FontWeight.w500)),
                       Row(
-                        children: const [
+                        children:   [
                           Icon(
                             Icons.timer,
                             color: Colors.grey,
                             size: 11,
                           ),
-                          Text('1 hr 30 mins',
+                          Text(GeoLocationServices().calculateTime(GeoLocationServices().calculateDistanceInMeters(route.startPointLat!, route.startPointLong!, route.startPointLat!, route.stopPointLong!)),
                               style: TextStyle(
                                   color: Color(0xff18243C),
                                   fontSize: 11,
@@ -341,11 +347,18 @@ class _PanelWidgetState extends State<PanelWidget> {
                 final Routes route = snapshot.data!.routeList[index];
                 return GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      /*  Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => TryRoutes(
                                     isProximity: true,
+                                    route: route,
+                                  )));*/
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MapBox(
                                     route: route,
                                   )));
                     },

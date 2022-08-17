@@ -250,9 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   if (res.toJson().isNotEmpty) {
                     isFirstTime().then((isFirstTime) {
-                      // final storage =
-                      //     SecureStorage.saveSharedPrefsValueInString(
-                      //         SecureStorage.userTokenKey,
+                      // final
                       //         isFirstTime.toString());
                       // print(storage);
                       isFirstTime

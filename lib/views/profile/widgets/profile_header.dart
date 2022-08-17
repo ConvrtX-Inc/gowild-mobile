@@ -40,7 +40,7 @@ class ProfileHeader extends StatelessWidget {
               radius: 90,
               backgroundImage: imageAsset == null || imageAsset == ''
                   ? AssetImage(profilePlaceholder)
-                  : Image.memory(base64Decode(imageAsset!)) as ImageProvider,
+                  : NetworkImage( imageAsset!) as ImageProvider,
             ),
           ),
         )

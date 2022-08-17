@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
+ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator_platform_interface/src/models/position.dart';
 import 'package:get/get.dart';
@@ -63,7 +63,7 @@ class _TryRoutesState extends State<TryRoutes> {
 
   String geofenceStatus = '';
 
-  double proximityRadiusInMeters = 1.5;
+  double proximityRadiusInMeters = 1;
 
   double proximityRadiusInMetersHistorical = 3;
 
@@ -219,13 +219,13 @@ class _TryRoutesState extends State<TryRoutes> {
 
     setState(() {
       currentPostion = LatLng(location.latitude, location.longitude);
-  /*    markers[const MarkerId('myLocation')] = Marker(
+         markers[const MarkerId('myLocation')] = Marker(
           markerId: const MarkerId('myLocation'),
           position: LatLng(location.latitude, location.longitude),
           icon: currentLocationIcon,
-          rotation: location.heading,
+
           // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
-          infoWindow: InfoWindow(title: 'My Current Location'));*/
+          infoWindow: InfoWindow(title: 'My Current Location'));
     });
 
     if (hasStarted) {
@@ -327,17 +327,25 @@ class _TryRoutesState extends State<TryRoutes> {
       }*/
 
       if (hasStarted && !isFinishPointInProximity) {
+
         _controller!.animateCamera(
           CameraUpdate.newCameraPosition(
             CameraPosition(
                 target: LatLng(l.latitude!, l.longitude!),
-                zoom: 20,
-                bearing: l.heading!,
-                tilt: 30),
+                zoom: 18.5,
+                // bearing: -90
+                ),
           ),
         );
+
+
       }
     });
+
+
+
+
+
   }
 
   // Load all of resources needed for map/routes
@@ -360,7 +368,7 @@ class _TryRoutesState extends State<TryRoutes> {
 
   void setCustomLocationMarkerIcon() {
     BitmapDescriptor.fromAssetImage(
-            ImageConfiguration.empty, "assets/images/pngs/location_point.png")
+            ImageConfiguration.empty, "assets/images/pngs/point.png")
         .then(
       (icon) {
         debugPrint("ICON ${icon}");
@@ -712,6 +720,7 @@ class _TryRoutesState extends State<TryRoutes> {
                               zoomControlsEnabled: true,
                               zoomGesturesEnabled: true,
                               tiltGesturesEnabled: true,
+                              compassEnabled: true,
                               initialCameraPosition: _initialCameraPosition,
                               onMapCreated: _onMapCreated,
                               markers: markers.values.toSet(),
@@ -749,6 +758,16 @@ class _TryRoutesState extends State<TryRoutes> {
                     setState(() {
                       hasStarted = true;
                     });
+
+                    _controller!.animateCamera(
+                      CameraUpdate.newCameraPosition(
+                        CameraPosition(
+                          target: currentPostion,
+                          zoom: 18.5,
+
+                        ),
+                      ),
+                    );
                     // _addMarker();
                   }
                 }),
@@ -785,28 +804,25 @@ class _TryRoutesState extends State<TryRoutes> {
     final Position coords = await GeoLocationServices().getCoordinates();
     setState(() {
       currentPostion = LatLng(coords.latitude, coords.longitude);
-
-      /*markers[const MarkerId('myLocation')] = Marker(
+      markers[const MarkerId('myLocation')] = Marker(
           markerId: const MarkerId('myLocation'),
           position: currentPostion,
           icon: currentLocationIcon,
           // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
           infoWindow: InfoWindow(title: 'My Current Location'),
-          rotation: heading);*/
+           );
     });
 
     // _controller?.showMarkerInfoWindow(MarkerId("myLocation"));
   }
 
   void viewCurrentLocation() {
-     _controller!.animateCamera(
+    _controller!.animateCamera(
       CameraUpdate.newCameraPosition(
-        CameraPosition(
-            target: currentPostion, zoom: 20, tilt: 60),
+        CameraPosition(target: currentPostion, zoom: 18, bearing: 90),
       ),
     );
 
-
-    _controller?.showMarkerInfoWindow(MarkerId("myLocation"));
+    // _controller?.showMarkerInfoWindow(MarkerId("myLocation"));
   }
 }

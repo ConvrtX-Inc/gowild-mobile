@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:gowild_mobile/views/maps/map_overlay_setting.dart';
+import 'package:location/location.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' show cos, sqrt, asin;
 
@@ -39,11 +43,25 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   bool isLocationLoaded = false;
   final MapTypeController _mapTypeController = Get.put(MapTypeController());
 
-  List<Marker> markers = [];
+  // List<Marker> markers = [];
+  //
+  // GoogleMapController? _mapController;
 
-  GoogleMapController? _mapController;
+  double zoomLevel = 10;
 
-  double zoomLevel = 17;
+  late MapboxMapController _mapController;
+
+  Location _location = Location();
+
+  late StreamSubscription<LocationData> locationSubscription;
+
+  double minZoomLevel = 8;
+
+  double maxZoomLevel = 19;
+
+  bool isMapCreated = false;
+
+  bool isTerrainSet = false;
 
   @override
   void initState() {
@@ -99,22 +117,22 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
       //   ),
       // ));
 
-      _mapController!.animateCamera(
+      /*  _mapController!.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
             target: currentPostion,
             zoom: 17,
           ),
         ),
-      );
+      );*/
     }
 
     print("LOCATION LAT => ${currentPostion.longitude}");
   }
 
-  void _onMapCreated(GoogleMapController _cntlr) {
+/*  void _onMapCreated(GoogleMapController _cntlr) {
     _mapController = _cntlr;
-  }
+  }*/
 
   late Future<Routes> getRoutes;
 
@@ -161,13 +179,99 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     _mapController.move(currentCenter, currentZoom);
   }*/
 
+  _onMapCreated(MapboxMapController controller) async {
+    setState(() {
+      _mapController = controller;
+      isMapCreated = true;
+    });
+
+    locationSubscription = _location.onLocationChanged.listen((l) {
+      debugPrint('current Location ${l.latitude}');
+
+      moveCamera(controller.cameraPosition!.zoom, LatLng(l.latitude!, l.longitude!));
+
+      setState(() {
+        currentPostion = LatLng(l.latitude!, l.longitude!);
+      });
+    });
+
+    debugPrint(
+        'Current Position:  ${currentPostion.latitude} ${currentPostion.longitude}');
+
+    /*_mapController.addSource('dem',  const GeojsonSourceProperties(data: {
+      'type': 'raster-dem',
+      'url': 'mapbox://mapbox.mapbox-terrain-dem-v1'
+    }));*/
+  }
+
+  void moveCamera(double zoom, LatLng target) {
+    _mapController.moveCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        target: target,
+        zoom: zoom,
+      ),
+    ));
+  }
+
+  void zoomMap() {
+    debugPrint('zoom level $zoomLevel');
+    setState(() {
+      zoomLevel = zoomLevel + 1;
+    });
+
+    _mapController.moveCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        target: currentPostion,
+        zoom: zoomLevel,
+      ),
+    ));
+  }
+
+  void zoomOutMap() {
+    setState(() {
+      zoomLevel = zoomLevel - 1;
+    });
+
+    _mapController.moveCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        target: currentPostion,
+        zoom: zoomLevel,
+      ),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
         GetBuilder<MapTypeController>(builder: (_controller) {
-          debugPrint('maptype ${_controller.mapType}');
-          return GoogleMap(
+          debugPrint('maptype ${_controller.mapStyle}');
+
+
+          return SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(16.0),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  width: MediaQuery.of(context).size.width,
+                  child: MapboxMap(
+                    tiltGesturesEnabled: true,
+                    compassEnabled: true,
+                    zoomGesturesEnabled: true,
+                    styleString: _controller.mapStyle,
+                    accessToken:
+                        "sk.eyJ1IjoiZWRuYW1hZWciLCJhIjoiY2w2N2ZicGUyMDh4ODNjbzF2OHFxaDBoZCJ9.Rbc3CvVizlE0HRMP8oPSDg",
+                    initialCameraPosition:
+                        CameraPosition(target: currentPostion, zoom: 10),
+                    myLocationEnabled: true,
+                    myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
+                    onMapCreated: _onMapCreated,
+                    // onStyleLoadedCallback: addStyles,
+                  ),
+                )),
+          );
+          /*return GoogleMap(
               onMapCreated: _onMapCreated,
               zoomControlsEnabled: false,
               zoomGesturesEnabled: true,
@@ -178,7 +282,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
               initialCameraPosition: const CameraPosition(
                 target: LatLng(0, 0),
                 zoom: 4,
-              ));
+              ));*/
         })
         /*                FlutterMap(
                   mapController: _mapController,
@@ -297,17 +401,19 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             top: 100,
             right: 45,
             child: InkWell(
-              onTap: () => zoomLevel < 21 ? zoomIn() : null,
+              onTap: () => zoomLevel < maxZoomLevel ? zoomMap() : null,
+              // onTap: zoomMap,
               child: Container(
                 width: 30,
                 height: 30,
                 decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
-                    color:
-                        zoomLevel < 21 ? Color(0xffC4C4C4) : Color(0xffD3D3D3)),
+                    color: zoomLevel < maxZoomLevel
+                        ? Color(0xffC4C4C4)
+                        : Color(0xffD3D3D3)),
                 child: Icon(
                   Icons.add,
-                  color: zoomLevel < 21 ? Colors.black : Colors.grey,
+                  color: zoomLevel < maxZoomLevel ? Colors.black : Colors.grey,
                 ),
               ),
             )),
@@ -315,16 +421,19 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             top: 150,
             right: 45,
             child: InkWell(
-              onTap: () =>zoomLevel >= 1 ? zoomOut() :null,
+              onTap: () => zoomLevel >= minZoomLevel ? zoomOutMap() : null,
+              // onTap: zoomOutMap,
               child: Container(
                 width: 30,
                 height: 30,
-                decoration:   BoxDecoration(
-                    shape: BoxShape.rectangle, color:  zoomLevel >= 1 ? Color(0xffC4C4C4) : Color(0xffD3D3D3)),
-                child:   Icon(
-                  Icons.remove,
-                  color:  zoomLevel >= 1 ? Colors.black : Colors.grey
-                ),
+                decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: zoomLevel >= minZoomLevel
+                        ? Color(0xffC4C4C4)
+                        : Color(0xffD3D3D3)),
+                child: Icon(Icons.remove,
+                    color:
+                        zoomLevel >= minZoomLevel ? Colors.black : Colors.grey),
               ),
             )),
       ]),
@@ -508,7 +617,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     );
   }
 
-  Future<void> zoomIn() async {
+/*  Future<void> zoomIn() async {
     var currentZoomLevel = await _mapController!.getZoomLevel();
 
     debugPrint('current zoom level $currentZoomLevel');
@@ -546,5 +655,22 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     setState(() {
       zoomLevel = currentZoomLevel;
     });
+  }*/
+
+  void addTerrainStyle() {
+    _mapController.addSource(
+        "dem",
+        RasterDemSourceProperties(
+            url: "mapbox://mapbox.mapbox-terrain-dem-v1"));
+
+    _mapController.addLayer(
+      "dem",
+      "hillshade",
+      HillshadeLayerProperties(
+          hillshadeExaggeration: 1,
+          hillshadeShadowColor: Colors.blue.toHexStringRGB()),
+    );
+
+
   }
 }

@@ -36,6 +36,7 @@ class FaqsExpandableContainer extends StatelessWidget {
                 color: isExpanded ? Color(0xFF00755e) : Colors.transparent,
                 border: Border.all(color: AppColorConstants.secondaryGray)),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),

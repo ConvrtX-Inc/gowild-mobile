@@ -50,6 +50,8 @@ dependencies:
   geofence_service: ^3.4.8
   flutter_launcher_icons: ^0.9.3
   get: ^4.6.5
+#  flutter_mapbox_navigation: ^0.0.26
+  mapbox_gl: ^0.16.0
 
 
 

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -10,8 +12,8 @@ class GeoLocationServices {
         desiredAccuracy: LocationAccuracy.high);
   }
 
-  double calculateDistanceInMeters(
-      double startLat, double startLng, double endLat, double endLng) {
+  double calculateDistanceInMeters(double startLat, double startLng,
+      double endLat, double endLng) {
     return Geolocator.distanceBetween(startLat, startLng, endLat, endLng);
   }
 
@@ -35,5 +37,27 @@ class GeoLocationServices {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
+  }
+
+
+  String calculateTime(double distanceInMeters) {
+    String travelTime = '';
+
+    double kms = distanceInMeters / 1000;
+
+    double kms_per_min = 0.05;
+
+    double mins_taken = kms / kms_per_min;
+
+
+    if (mins_taken < 60) {
+      travelTime = '${mins_taken.toStringAsFixed(2) } mins';
+    } else {
+      String minutes = (mins_taken % 60).toStringAsFixed(0);
+      minutes = minutes.length == 1 ? "0" + minutes : minutes;
+      travelTime = '${ (mins_taken / 60).toStringAsFixed(0)}   hour  $minutes mins';
+    }
+
+    return travelTime;
   }
 }

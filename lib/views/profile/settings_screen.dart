@@ -150,7 +150,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     backgroundImage:
                         user.profileImg == null || user.profileImg == ''
                             ? AssetImage(profilePlaceholder)
-                            : Image.memory(base64Decode(user.profileImg!))
+                            : NetworkImage(user.profileImg!)
                                 as ImageProvider,
                   ),
                 )

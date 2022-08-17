@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gowild_mobile/constants/colors.dart';
 import 'package:gowild_mobile/constants/map_types.dart';
 import 'package:gowild_mobile/utils/getx/controllers/map_type_controller.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 
 /// Map Overlay Settings Screen
 class MapOverlaySettingScreen extends StatefulWidget {
@@ -17,7 +18,9 @@ class MapOverlaySettingScreen extends StatefulWidget {
 
 class _MapOverlaySettingScreenState extends State<MapOverlaySettingScreen> {
   GoogleMapController? _mapController;
-  MapType currentMapType = MapType.normal;
+  // MapType currentMapType = MapType.normal;
+
+  String currentMapStyle = MapboxStyles.OUTDOORS;
 
   final MapTypeController _mapTypeController = Get.put(MapTypeController());
 
@@ -44,7 +47,8 @@ class _MapOverlaySettingScreenState extends State<MapOverlaySettingScreen> {
       ),
       body: GetBuilder<MapTypeController>(
         builder: (controller){
-          currentMapType = controller.mapType;
+          // currentMapType = controller.mapType;
+          currentMapStyle = controller.mapStyle;
           return buildMapOverlayUI();
         },
       ),
@@ -55,22 +59,26 @@ class _MapOverlaySettingScreenState extends State<MapOverlaySettingScreen> {
         children: [
           buildOverlayItem(
               imageUrl: 'assets/roadmap.png',
-              mapType: MapType.normal,
+              // mapType: MapType.normal,
+              mapStyle : MapboxStyles.MAPBOX_STREETS,
               label: MapTypes().roadMap),
           buildOverlayItem(
               imageUrl: 'assets/satelite.png',
-              mapType: MapType.terrain,
+              // mapType: MapType.terrain,
+              mapStyle : MapboxStyles.OUTDOORS,
               label: MapTypes().terrain),
           buildOverlayItem(
               imageUrl: 'assets/terrain.png',
-              mapType: MapType.satellite,
+              // mapType: MapType.satellite,
+              mapStyle : MapboxStyles.SATELLITE,
               label: MapTypes().satellite)
         ],
       );
 
   Widget buildOverlayItem(
           {required String imageUrl,
-          required MapType mapType,
+          // required MapType mapType,
+            required String mapStyle,
           required String label}) =>
       Container(
         margin: EdgeInsets.symmetric(horizontal: 26, vertical: 16),
@@ -97,7 +105,7 @@ class _MapOverlaySettingScreenState extends State<MapOverlaySettingScreen> {
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 14),
-                  currentMapType == mapType
+                  currentMapStyle == mapStyle
                       ? const Text(
                           'Default',
                           style: TextStyle(color: Color(0xff09110E)),
@@ -105,7 +113,9 @@ class _MapOverlaySettingScreenState extends State<MapOverlaySettingScreen> {
                       : ElevatedButton(
                           onPressed: () {
                             // pickMap(type);
-                            setDefaultMap(mapType);
+                            // setDefaultMap(mapType);
+
+                            setDefaultMap(mapStyle);
                           },
                           child: const Text(
                             'Set as default',
@@ -123,10 +133,17 @@ class _MapOverlaySettingScreenState extends State<MapOverlaySettingScreen> {
 
 
 
-  void setDefaultMap(MapType mapType) {
+ /* void setDefaultMap(MapType mapType) {
     setState(() {
       currentMapType = mapType;
     });
     _mapTypeController.setMapType(mapType);
+  }*/
+
+  void setDefaultMap(String mapStyle) {
+    setState(() {
+      currentMapStyle = mapStyle;
+    });
+    _mapTypeController.setMapStyle(currentMapStyle);
   }
 }
