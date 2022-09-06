@@ -1,60 +1,100 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:gowild_mobile/helper/authentication_helper.dart';
-import 'package:gowild_mobile/helper/map_helper.dart';
-import 'package:gowild_mobile/models/route.dart';
-import 'package:gowild_mobile/root.dart';
-import 'package:gowild_mobile/services/notifications_service.dart';
-import 'package:gowild_mobile/views/auth/login.dart';
-import 'package:gowild_mobile/views/map_navigations/map_box.dart';
+import 'package:gowild/helper/navigation.dart';
+import 'package:gowild/providers/init.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
 
-import 'package:provider/provider.dart';
-import 'package:responsive_framework/responsive_framework.dart';
-import 'package:gowild_mobile/constants/colors.dart' as AppColorConstants;
+import 'package:gowild/constants/colors.dart' as app_color_constants;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await NotificationService().init(); //
-    NotificationService().requestIOSPermissions(); //
-
-  runApp(const MyApp());
+void main() {
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
-    Key? key,
-  }) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<AuthenticationHelper>(
-            create: (_) => AuthenticationHelper()),
-        ChangeNotifierProvider<MapHelper>(create: (_) => MapHelper()),
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        // GlobalMaterialLocalizations.delegate,
+        // GlobalWidgetsLocalizations.delegate,
+        FormBuilderLocalizations.delegate,
       ],
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          builder: (context, widget) => ResponsiveWrapper.builder(
-                widget,
-                maxWidth: 1200,
-                minWidth: 480,
-                defaultScale: true,
-                breakpoints: [
-                  const ResponsiveBreakpoint.resize(480, name: MOBILE),
-                  const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-                  const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-                ],
-              ),
-          home: const Root(),
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(fontFamily: 'TheForegenRegular'),
+        ),
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: app_color_constants.scaffoldColor,
+        textTheme: GoogleFonts.sourceSansProTextTheme(),
+      ),
+      routeInformationParser: BeamerParser(),
+      routerDelegate: routerDelegate,
+      builder: (context, child) => Root(widget: child!),
+      backButtonDispatcher:
+          BeamerBackButtonDispatcher(delegate: routerDelegate),
+    );
+  }
+}
 
-          // home:   MapBox(),
-          theme: ThemeData(
-              appBarTheme: const AppBarTheme(
-                  titleTextStyle: TextStyle(fontFamily: 'TheForegenRegular')),
-              primarySwatch: Colors.blue,
-              scaffoldBackgroundColor: AppColorConstants.scaffoldColor,
-              textTheme: GoogleFonts.sourceSansProTextTheme())),
+class Root extends HookConsumerWidget {
+  final Widget widget;
+
+  const Root({super.key, required this.widget});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final init$ = ref.watch(initProvider);
+
+    return init$.when(
+      data: (data) => ResponsiveWrapper.builder(
+        widget,
+        maxWidth: 1200,
+        minWidth: 480,
+        defaultScale: true,
+        breakpoints: [
+          const ResponsiveBreakpoint.resize(480, name: MOBILE),
+          const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+          const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+        ],
+      ),
+      error: (error, stackTrace) => SplashScreenView(
+        error: error,
+      ),
+      loading: () => const SplashScreenView(),
+    );
+  }
+}
+
+class SplashScreenView extends HookWidget {
+  final Object? error;
+
+  const SplashScreenView({
+    super.key,
+    this.error,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const CircularProgressIndicator(),
+          if (error != null) Text('Has error $error'),
+        ],
+      ),
     );
   }
 }
