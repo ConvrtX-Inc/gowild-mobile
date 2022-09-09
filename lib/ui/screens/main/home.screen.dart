@@ -1,16 +1,18 @@
 import 'package:beamer/beamer.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_widget/google_maps_widget.dart';
 import 'package:gowild/constants/image_constants.dart';
-import 'package:gowild/environment_config.dart';
 import 'package:gowild/helper/location.dart';
-import 'package:gowild/providers/auth.dart';
-import 'package:gowild/ui/screens/main/main.screen.dart';
+import 'package:gowild/helper/route_extention.dart';
+import 'package:gowild/providers/current_user.dart';
+import 'package:gowild/providers/route_provider.dart';
+import 'package:gowild/services/logging.dart';
 import 'package:gowild/ui/widgets/sample_avatar.dart';
 import 'package:gowild/ui/widgets/star_rating.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 const nameList = ['ROUTES'];
@@ -95,7 +97,7 @@ class RowNameAndAvatarWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final user = ref.watch(authProvider).user;
+    final user = ref.watch(currentUserProvider);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -123,9 +125,9 @@ class RowNameAndAvatarWidget extends HookConsumerWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.amber,
-                  image: user?.imgUrl?.isNotEmpty == true
+                  image: user?.picture != null
                       ? DecorationImage(
-                          image: NetworkImage(user!.imgUrl!),
+                          image: NetworkImage(user!.picture!),
                           fit: BoxFit.cover,
                         )
                       : const DecorationImage(
@@ -376,23 +378,23 @@ class SlidingPanelWidget extends HookWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.keyboard_arrow_up),
-                      const SizedBox(
+                    children: const [
+                      Icon(Icons.keyboard_arrow_up),
+                      SizedBox(
                         width: 30,
                       )
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
+                    children: const [
+                      Text(
                         'Suggested Routes',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 12,
                       )
                     ],
@@ -474,31 +476,144 @@ class ExpandableContainer extends StatelessWidget {
   }
 }
 
-class MyGoogleMap extends HookWidget {
+class MyGoogleMap extends HookConsumerWidget {
   const MyGoogleMap({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final controller = useState<MapboxMapController?>(null);
-    final currentPosition = useState(const LatLng(4, 11));
-    final zoomLevel = useState(10.0);
-
-    final onMapCreated = useCallback((MapboxMapController c) {
+  Widget build(BuildContext context, ref) {
+    final controller = useState<GoogleMapController?>(null);
+    final onMapCreated = useCallback((GoogleMapController c) {
       controller.value = c;
     }, [controller]);
 
-    return MapboxMap(
-      tiltGesturesEnabled: true,
-      compassEnabled: true,
-      zoomGesturesEnabled: true,
-      accessToken: EnvironmentConfig.mapBoxApiKey,
-      initialCameraPosition: CameraPosition(
-        target: currentPosition.value,
-        zoom: zoomLevel.value,
+    final zoomAdd = useCallback(() {}, []);
+    final zoomMinus = useCallback(() {}, []);
+
+    final routeApi = ref.watch(routeApiProvider);
+    final findRoutes = useMemoized(
+        () => routeApi
+            .getManyBaseRouteControllerRoute()
+            .then((value) => value.data),
+        []);
+    final routes$ = useFuture(findRoutes);
+    final start = useState<LatLng?>(null);
+    final end = useState<LatLng?>(null);
+
+    useEffect(() {
+      if (routes$.hasData) {
+        logger.d('has route data');
+        final resultData = routes$.data!;
+        final data = resultData.data.first;
+
+        start.value = data.toStart();
+        end.value = data.toStop();
+
+        final polylinePoints = PolylinePoints();
+        polylinePoints
+            .getRouteBetweenCoordinates(
+          'AIzaSyCgUycdQ8C8cnGaYTPymLvIzidBENWVicU',
+          start.value.toPoint()!,
+          end.value.toPoint()!,
+        )
+            .then((result) {
+          logger.d('poins: ${result.points}');
+        });
+      } else {
+        logger.d('has no data');
+      }
+    }, [routes$.hasData]);
+
+    if (!routes$.hasData) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: Column(
+        children: [
+          Flexible(
+            child: Stack(
+              children: [
+                GoogleMapsWidget(
+                  sourceLatLng: start.value!,
+                  destinationLatLng: end.value!,
+                  tiltGesturesEnabled: true,
+                  compassEnabled: true,
+                  zoomGesturesEnabled: true,
+                  myLocationEnabled: true,
+                  mapType: MapType.hybrid,
+                  onMapCreated: onMapCreated,
+                  apiKey: '',
+                ),
+                const _MapOverlayButtonWidget(),
+                Positioned(
+                  top: 100,
+                  right: 45,
+                  child: InkWell(
+                    onTap: () => zoomAdd(),
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.rectangle, color: Color(0xffC4C4C4)),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 150,
+                  right: 45,
+                  child: InkWell(
+                    onTap: () => zoomMinus(),
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.rectangle, color: Color(0xffC4C4C4)),
+                      child: const Icon(
+                        Icons.remove,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-      myLocationEnabled: true,
-      myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
-      onMapCreated: onMapCreated,
+    );
+  }
+}
+
+class _MapOverlayButtonWidget extends HookWidget {
+  const _MapOverlayButtonWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 40,
+      right: 40,
+      child: Container(
+        width: 40,
+        height: 40,
+        decoration:
+            const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+        child: IconButton(
+          icon: const Icon(
+            Icons.map,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            context.beamToNamed('/main/map-overlay');
+          },
+        ),
+      ),
     );
   }
 }

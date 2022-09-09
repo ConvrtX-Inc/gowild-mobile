@@ -71,7 +71,12 @@ dependencies:
   flutter_form_builder: ^7.6.0
   form_builder_validators: ^8.3.0
   flutter_svg: ^1.1.4
-  mapbox_gl: ^0.16.0
+  jwt_decode: ^0.3.1
+  google_maps_flutter: ^2.2.0
+  google_maps_widget: ^1.0.4
+  google_maps_flutter_web: ^0.4.0+2
+  flutter_polyline_points: ^1.0.0
+  flutter_map_tappable_polyline: ^3.2.0
 
 dev_dependencies:
   flutter_test:

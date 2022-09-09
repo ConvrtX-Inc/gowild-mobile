@@ -8,10 +8,13 @@ import 'package:gowild_api/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **String** |  | 
+**createdDate** | [**DateTime**](DateTime.md) |  | 
+**updatedDate** | [**DateTime**](DateTime.md) |  | 
 **title** | **String** |  | 
 **description** | **String** |  | 
-**locationLong** | **num** |  | 
-**locationLat** | **num** |  | 
+**locationLong** | **double** |  | 
+**locationLat** | **double** |  | 
 **eventDate** | [**DateTime**](DateTime.md) |  | 
 **eventTime** | **String** |  | 
 **noOfParticipants** | **num** |  | 

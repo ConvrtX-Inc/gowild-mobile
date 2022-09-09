@@ -8,6 +8,12 @@ part of 'sponsor.dart';
 
 class _$Sponsor extends Sponsor {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String treasureChestId;
   @override
   final String imgUrl;
@@ -20,11 +26,15 @@ class _$Sponsor extends Sponsor {
       (new SponsorBuilder()..update(updates))._build();
 
   _$Sponsor._(
-      {required this.treasureChestId,
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.treasureChestId,
       required this.imgUrl,
       required this.img,
       required this.link})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'Sponsor', 'id');
     BuiltValueNullFieldError.checkNotNull(
         treasureChestId, r'Sponsor', 'treasureChestId');
     BuiltValueNullFieldError.checkNotNull(imgUrl, r'Sponsor', 'imgUrl');
@@ -43,6 +53,9 @@ class _$Sponsor extends Sponsor {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Sponsor &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         treasureChestId == other.treasureChestId &&
         imgUrl == other.imgUrl &&
         img == other.img &&
@@ -52,7 +65,13 @@ class _$Sponsor extends Sponsor {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, treasureChestId.hashCode), imgUrl.hashCode),
+        $jc(
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
+                        updatedDate.hashCode),
+                    treasureChestId.hashCode),
+                imgUrl.hashCode),
             img.hashCode),
         link.hashCode));
   }
@@ -60,6 +79,9 @@ class _$Sponsor extends Sponsor {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'Sponsor')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('treasureChestId', treasureChestId)
           ..add('imgUrl', imgUrl)
           ..add('img', img)
@@ -70,6 +92,18 @@ class _$Sponsor extends Sponsor {
 
 class SponsorBuilder implements Builder<Sponsor, SponsorBuilder> {
   _$Sponsor? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
 
   String? _treasureChestId;
   String? get treasureChestId => _$this._treasureChestId;
@@ -95,6 +129,9 @@ class SponsorBuilder implements Builder<Sponsor, SponsorBuilder> {
   SponsorBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _treasureChestId = $v.treasureChestId;
       _imgUrl = $v.imgUrl;
       _img = $v.img;
@@ -121,6 +158,9 @@ class SponsorBuilder implements Builder<Sponsor, SponsorBuilder> {
   _$Sponsor _build() {
     final _$result = _$v ??
         new _$Sponsor._(
+            id: BuiltValueNullFieldError.checkNotNull(id, r'Sponsor', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             treasureChestId: BuiltValueNullFieldError.checkNotNull(
                 treasureChestId, r'Sponsor', 'treasureChestId'),
             imgUrl: BuiltValueNullFieldError.checkNotNull(

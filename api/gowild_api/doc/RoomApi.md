@@ -104,7 +104,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getManyBaseRoomControllerRoom**
-> GetManyBaseRoomControllerRoom200Response getManyBaseRoomControllerRoom(fields, s, filter, or, sort, join, limit, offset, page, cache)
+> GetManyRoomResponseDto getManyBaseRoomControllerRoom(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
 Retrieve many Room
 
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyBaseRoomControllerRoom200Response**](GetManyBaseRoomControllerRoom200Response.md)
+[**GetManyRoomResponseDto**](GetManyRoomResponseDto.md)
 
 ### Authorization
 

@@ -8,6 +8,12 @@ part of 'friends.dart';
 
 class _$Friends extends Friends {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String userId;
   @override
   final String friendId;
@@ -18,8 +24,14 @@ class _$Friends extends Friends {
       (new FriendsBuilder()..update(updates))._build();
 
   _$Friends._(
-      {required this.userId, required this.friendId, required this.isApproved})
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.userId,
+      required this.friendId,
+      required this.isApproved})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'Friends', 'id');
     BuiltValueNullFieldError.checkNotNull(userId, r'Friends', 'userId');
     BuiltValueNullFieldError.checkNotNull(friendId, r'Friends', 'friendId');
     BuiltValueNullFieldError.checkNotNull(isApproved, r'Friends', 'isApproved');
@@ -36,6 +48,9 @@ class _$Friends extends Friends {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Friends &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         userId == other.userId &&
         friendId == other.friendId &&
         isApproved == other.isApproved;
@@ -44,12 +59,21 @@ class _$Friends extends Friends {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc(0, userId.hashCode), friendId.hashCode), isApproved.hashCode));
+        $jc(
+            $jc(
+                $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
+                    updatedDate.hashCode),
+                userId.hashCode),
+            friendId.hashCode),
+        isApproved.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'Friends')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('userId', userId)
           ..add('friendId', friendId)
           ..add('isApproved', isApproved))
@@ -59,6 +83,18 @@ class _$Friends extends Friends {
 
 class FriendsBuilder implements Builder<Friends, FriendsBuilder> {
   _$Friends? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
 
   String? _userId;
   String? get userId => _$this._userId;
@@ -79,6 +115,9 @@ class FriendsBuilder implements Builder<Friends, FriendsBuilder> {
   FriendsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _userId = $v.userId;
       _friendId = $v.friendId;
       _isApproved = $v.isApproved;
@@ -104,6 +143,9 @@ class FriendsBuilder implements Builder<Friends, FriendsBuilder> {
   _$Friends _build() {
     final _$result = _$v ??
         new _$Friends._(
+            id: BuiltValueNullFieldError.checkNotNull(id, r'Friends', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             userId: BuiltValueNullFieldError.checkNotNull(
                 userId, r'Friends', 'userId'),
             friendId: BuiltValueNullFieldError.checkNotNull(

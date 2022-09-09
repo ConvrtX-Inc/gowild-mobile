@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
-import 'package:gowild_api/src/model/get_many_base_notification_controller_notification200_response.dart';
+import 'package:gowild_api/src/model/get_many_notification_response_dto.dart';
 import 'package:gowild_api/src/model/notification.dart';
 
 class NotificationApi {
@@ -193,9 +193,9 @@ class NotificationApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyBaseNotificationControllerNotification200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyNotificationResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyBaseNotificationControllerNotification200Response>> getManyBaseNotificationControllerNotification({ 
+  Future<Response<GetManyNotificationResponseDto>> getManyBaseNotificationControllerNotification({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -254,14 +254,14 @@ class NotificationApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyBaseNotificationControllerNotification200Response _responseData;
+    GetManyNotificationResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyBaseNotificationControllerNotification200Response);
+      const _responseType = FullType(GetManyNotificationResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyBaseNotificationControllerNotification200Response;
+      ) as GetManyNotificationResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -272,7 +272,7 @@ class NotificationApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyBaseNotificationControllerNotification200Response>(
+    return Response<GetManyNotificationResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

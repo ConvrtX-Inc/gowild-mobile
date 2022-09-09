@@ -66,7 +66,9 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**authControllerForgotPassword**](doc/AuthApi.md#authcontrollerforgotpassword) | **POST** /api/v1/auth/forgot/password | Request forgot password
 [*AuthApi*](doc/AuthApi.md) | [**authControllerGenerateAdmin**](doc/AuthApi.md#authcontrollergenerateadmin) | **GET** /api/v1/auth/generate-admin | Generates default admin
 [*AuthApi*](doc/AuthApi.md) | [**authControllerLogin**](doc/AuthApi.md#authcontrollerlogin) | **POST** /api/v1/auth/login | Login account
+[*AuthApi*](doc/AuthApi.md) | [**authControllerLogout**](doc/AuthApi.md#authcontrollerlogout) | **GET** /api/v1/auth/logout | 
 [*AuthApi*](doc/AuthApi.md) | [**authControllerMe**](doc/AuthApi.md#authcontrollerme) | **GET** /api/v1/auth/me | 
+[*AuthApi*](doc/AuthApi.md) | [**authControllerRefreshToken**](doc/AuthApi.md#authcontrollerrefreshtoken) | **POST** /api/v1/auth/refresh-token | Refresh token using a previous RefreshToken
 [*AuthApi*](doc/AuthApi.md) | [**authControllerRegister**](doc/AuthApi.md#authcontrollerregister) | **POST** /api/v1/auth/register | Register new account
 [*AuthApi*](doc/AuthApi.md) | [**authControllerResetAdminPassword**](doc/AuthApi.md#authcontrollerresetadminpassword) | **POST** /api/v1/auth/reset-admin-password | Reset password for default admin
 [*AuthApi*](doc/AuthApi.md) | [**authControllerResetPassword**](doc/AuthApi.md#authcontrollerresetpassword) | **POST** /api/v1/auth/reset/password | Reset user password
@@ -98,6 +100,7 @@ Class | Method | HTTP request | Description
 [*GuidelinesApi*](doc/GuidelinesApi.md) | [**getOneBaseGuidelinesControllerGuideline**](doc/GuidelinesApi.md#getonebaseguidelinescontrollerguideline) | **GET** /api/v1/guidelines/{id} | Retrieve one Guideline
 [*GuidelinesApi*](doc/GuidelinesApi.md) | [**guidelinesControllerGetTermsByType**](doc/GuidelinesApi.md#guidelinescontrollergettermsbytype) | **GET** /api/v1/guidelines/{type} | Get Terms and Conditions by Type
 [*GuidelinesApi*](doc/GuidelinesApi.md) | [**updateOneBaseGuidelinesControllerGuideline**](doc/GuidelinesApi.md#updateonebaseguidelinescontrollerguideline) | **PATCH** /api/v1/guidelines/{id} | Update one Guideline
+[*HealthApi*](doc/HealthApi.md) | [**healthControllerCheck**](doc/HealthApi.md#healthcontrollercheck) | **GET** /api/health | 
 [*HomeApi*](doc/HomeApi.md) | [**homeControllerAppInfo**](doc/HomeApi.md#homecontrollerappinfo) | **GET** /api/v1/dashboard | 
 [*LikeApi*](doc/LikeApi.md) | [**createOneBaseLikeControllerLike**](doc/LikeApi.md#createonebaselikecontrollerlike) | **POST** /api/v1/like | Create one Like
 [*LikeApi*](doc/LikeApi.md) | [**deleteOneBaseLikeControllerLike**](doc/LikeApi.md#deleteonebaselikecontrollerlike) | **DELETE** /api/v1/like/{id} | Delete one Like
@@ -183,40 +186,32 @@ Class | Method | HTTP request | Description
 [*UsersApi*](doc/UsersApi.md) | [**getManyBaseUsersControllerUser**](doc/UsersApi.md#getmanybaseuserscontrolleruser) | **GET** /api/v1/users | Retrieve many User
 [*UsersApi*](doc/UsersApi.md) | [**getOneBaseUsersControllerUser**](doc/UsersApi.md#getonebaseuserscontrolleruser) | **GET** /api/v1/users/{id} | Retrieve one User
 [*UsersApi*](doc/UsersApi.md) | [**updateOneBaseUsersControllerUser**](doc/UsersApi.md#updateonebaseuserscontrolleruser) | **PATCH** /api/v1/users/{id} | Update one User
-[*UsersApi*](doc/UsersApi.md) | [**usersControllerApproveUser**](doc/UsersApi.md#userscontrollerapproveuser) | **POST** /api/v1/users/approved-user/{id} | Approved an user.
-[*UsersApi*](doc/UsersApi.md) | [**usersControllerRejectUser**](doc/UsersApi.md#userscontrollerrejectuser) | **POST** /api/v1/users/reject-user/{id} | Reject an user.
+[*UsersApi*](doc/UsersApi.md) | [**usersControllerApproveUser**](doc/UsersApi.md#userscontrollerapproveuser) | **POST** /api/v1/users/{id}/approve | Approved an user.
+[*UsersApi*](doc/UsersApi.md) | [**usersControllerRejectUser**](doc/UsersApi.md#userscontrollerrejectuser) | **POST** /api/v1/users/{id}/reject | Reject an user.
+[*UsersApi*](doc/UsersApi.md) | [**usersControllerUpdateAvatar**](doc/UsersApi.md#userscontrollerupdateavatar) | **POST** /api/v1/users/{id}/update-avatar | Update user&#39;s profile picture
 [*VerifyApi*](doc/VerifyApi.md) | [**verifyControllerCheckMobileVerificationToken**](doc/VerifyApi.md#verifycontrollercheckmobileverificationtoken) | **POST** /api/v1/verify/mobile/check | 
 [*VerifyApi*](doc/VerifyApi.md) | [**verifyControllerSendPhoneVerificationToken**](doc/VerifyApi.md#verifycontrollersendphoneverificationtoken) | **POST** /api/v1/verify/mobile/send | 
 
 
 ## Documentation For Models
 
+ - [AccessToken](doc/AccessToken.md)
  - [AuthEmailLoginDto](doc/AuthEmailLoginDto.md)
  - [AuthFacebookLoginDto](doc/AuthFacebookLoginDto.md)
  - [AuthForgotPasswordDto](doc/AuthForgotPasswordDto.md)
  - [AuthGoogleLoginDto](doc/AuthGoogleLoginDto.md)
+ - [AuthRefreshTokenDto](doc/AuthRefreshTokenDto.md)
  - [AuthRegisterLoginDto](doc/AuthRegisterLoginDto.md)
  - [AuthResetPasswordAdminDto](doc/AuthResetPasswordAdminDto.md)
  - [AuthResetPasswordDto](doc/AuthResetPasswordDto.md)
  - [CheckVerificationTokenDto](doc/CheckVerificationTokenDto.md)
  - [Comment](doc/Comment.md)
  - [Currency](doc/Currency.md)
+ - [FileEntity](doc/FileEntity.md)
+ - [FileEntityMetaData](doc/FileEntityMetaData.md)
+ - [FileMetaData](doc/FileMetaData.md)
  - [Friends](doc/Friends.md)
- - [GetManyBaseCommentControllerComment200Response](doc/GetManyBaseCommentControllerComment200Response.md)
- - [GetManyBaseCurrencyControllerCurrency200Response](doc/GetManyBaseCurrencyControllerCurrency200Response.md)
- - [GetManyBaseFriendsControllerFriends200Response](doc/GetManyBaseFriendsControllerFriends200Response.md)
- - [GetManyBaseGuidelineLogsControllerGuidelineLog200Response](doc/GetManyBaseGuidelineLogsControllerGuidelineLog200Response.md)
- - [GetManyBaseGuidelinesControllerGuideline200Response](doc/GetManyBaseGuidelinesControllerGuideline200Response.md)
- - [GetManyBaseLikeControllerLike200Response](doc/GetManyBaseLikeControllerLike200Response.md)
- - [GetManyBaseNotificationControllerNotification200Response](doc/GetManyBaseNotificationControllerNotification200Response.md)
- - [GetManyBaseParticipantControllerParticipant200Response](doc/GetManyBaseParticipantControllerParticipant200Response.md)
- - [GetManyBasePostFeedControllerPostFeed200Response](doc/GetManyBasePostFeedControllerPostFeed200Response.md)
- - [GetManyBaseRoomControllerRoom200Response](doc/GetManyBaseRoomControllerRoom200Response.md)
- - [GetManyBaseRouteCluesControllerRouteClue200Response](doc/GetManyBaseRouteCluesControllerRouteClue200Response.md)
- - [GetManyBaseRouteControllerRoute200Response](doc/GetManyBaseRouteControllerRoute200Response.md)
- - [GetManyBaseShareControllerShare200Response](doc/GetManyBaseShareControllerShare200Response.md)
- - [GetManyBaseStatusControllerStatus200Response](doc/GetManyBaseStatusControllerStatus200Response.md)
- - [GetManyBaseUsersControllerUser200Response](doc/GetManyBaseUsersControllerUser200Response.md)
+ - [GenderEnum](doc/GenderEnum.md)
  - [GetManyCommentResponseDto](doc/GetManyCommentResponseDto.md)
  - [GetManyCurrencyResponseDto](doc/GetManyCurrencyResponseDto.md)
  - [GetManyFriendsResponseDto](doc/GetManyFriendsResponseDto.md)
@@ -241,11 +236,15 @@ Class | Method | HTTP request | Description
  - [GetManyUserResponseDto](doc/GetManyUserResponseDto.md)
  - [Guideline](doc/Guideline.md)
  - [GuidelineLog](doc/GuidelineLog.md)
+ - [HealthControllerCheck200Response](doc/HealthControllerCheck200Response.md)
+ - [HealthControllerCheck200ResponseInfoValue](doc/HealthControllerCheck200ResponseInfoValue.md)
+ - [HealthControllerCheck503Response](doc/HealthControllerCheck503Response.md)
  - [Like](doc/Like.md)
- - [LoginResponse](doc/LoginResponse.md)
  - [Notification](doc/Notification.md)
  - [Participant](doc/Participant.md)
+ - [PictureUpdateDto](doc/PictureUpdateDto.md)
  - [PostFeed](doc/PostFeed.md)
+ - [RefreshToken](doc/RefreshToken.md)
  - [Room](doc/Room.md)
  - [Route](doc/Route.md)
  - [RouteClue](doc/RouteClue.md)
@@ -253,14 +252,18 @@ Class | Method | HTTP request | Description
  - [RouteHistoricalEventPhoto](doc/RouteHistoricalEventPhoto.md)
  - [SendVerificationTokenDto](doc/SendVerificationTokenDto.md)
  - [Share](doc/Share.md)
+ - [SimpleUser](doc/SimpleUser.md)
  - [SmsDto](doc/SmsDto.md)
  - [SocialAccount](doc/SocialAccount.md)
  - [Sponsor](doc/Sponsor.md)
  - [Status](doc/Status.md)
  - [Ticket](doc/Ticket.md)
  - [TicketMessage](doc/TicketMessage.md)
+ - [TokenResponse](doc/TokenResponse.md)
  - [TreasureChest](doc/TreasureChest.md)
  - [User](doc/User.md)
+ - [UserAuthResponse](doc/UserAuthResponse.md)
+ - [UserPicture](doc/UserPicture.md)
  - [UserStatus](doc/UserStatus.md)
 
 

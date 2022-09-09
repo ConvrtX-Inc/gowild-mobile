@@ -5,8 +5,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gowild/constants/colors.dart';
 import 'package:gowild/constants/social.dart';
-import 'package:gowild/helper/provider_snippets.dart';
-import 'package:gowild/providers/login.dart';
+import 'package:gowild/providers/new_in_app_provider.dart';
+import 'package:gowild/providers/login.service.dart';
 import 'package:gowild/services/logging.dart';
 import 'package:gowild/ui/widgets/auth_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -23,6 +23,15 @@ class LoginScreen extends HookConsumerWidget {
     final formKey = useMemoized(
       () => GlobalKey<FormBuilderState>(),
     );
+
+    final navigateAfter = useCallback((bool isNew) {
+      if (isNew) {
+        context.beamToNamed('/auth/e-waiver');
+      } else {
+        context.beamToNamed('/main');
+      }
+    }, []);
+
     final onLogin = useCallback(() async {
       try {
         if (!formKey.currentState!.validate()) {
@@ -30,11 +39,7 @@ class LoginScreen extends HookConsumerWidget {
         }
 
         await loginService.simpleLogin(params.value);
-        if (newInAppService.isNewInApp) {
-          Beamer.of(context).beamToNamed('/main');
-        } else {
-          Beamer.of(context).beamToNamed('/main');
-        }
+        navigateAfter(newInAppService.isNewInApp);
       } catch (e) {
         logger.e(e);
         const snackBar = SnackBar(content: Text('Error by Login'));

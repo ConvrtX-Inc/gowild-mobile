@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
-import 'package:gowild_api/src/model/get_many_base_like_controller_like200_response.dart';
+import 'package:gowild_api/src/model/get_many_like_response_dto.dart';
 import 'package:gowild_api/src/model/like.dart';
 
 class LikeApi {
@@ -193,9 +193,9 @@ class LikeApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyBaseLikeControllerLike200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyLikeResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyBaseLikeControllerLike200Response>> getManyBaseLikeControllerLike({ 
+  Future<Response<GetManyLikeResponseDto>> getManyBaseLikeControllerLike({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -254,14 +254,14 @@ class LikeApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyBaseLikeControllerLike200Response _responseData;
+    GetManyLikeResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyBaseLikeControllerLike200Response);
+      const _responseType = FullType(GetManyLikeResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyBaseLikeControllerLike200Response;
+      ) as GetManyLikeResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -272,7 +272,7 @@ class LikeApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyBaseLikeControllerLike200Response>(
+    return Response<GetManyLikeResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

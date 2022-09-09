@@ -7,6 +7,21 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(TreasureChest, () {
+    // String id
+    test('to test the property `id`', () async {
+      // TODO
+    });
+
+    // DateTime createdDate
+    test('to test the property `createdDate`', () async {
+      // TODO
+    });
+
+    // DateTime updatedDate
+    test('to test the property `updatedDate`', () async {
+      // TODO
+    });
+
     // String title
     test('to test the property `title`', () async {
       // TODO
@@ -17,12 +32,12 @@ void main() {
       // TODO
     });
 
-    // num locationLong
+    // double locationLong
     test('to test the property `locationLong`', () async {
       // TODO
     });
 
-    // num locationLat
+    // double locationLat
     test('to test the property `locationLat`', () async {
       // TODO
     });

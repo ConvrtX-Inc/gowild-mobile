@@ -10,14 +10,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **email** | **String** |  | 
 **password** | **String** |  | 
-**fullName** | **String** |  | 
 **firstName** | **String** |  | 
 **lastName** | **String** |  | 
-**gender** | **String** |  | 
-**addressLine1** | **String** |  | 
-**addressLine2** | **String** |  | 
+**gender** | [**GenderEnum**](GenderEnum.md) |  | 
 **phoneNo** | **String** |  | 
-**statusId** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

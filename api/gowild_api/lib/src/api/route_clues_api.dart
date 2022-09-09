@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
-import 'package:gowild_api/src/model/get_many_base_route_clues_controller_route_clue200_response.dart';
+import 'package:gowild_api/src/model/get_many_route_clue_response_dto.dart';
 import 'package:gowild_api/src/model/route_clue.dart';
 
 class RouteCluesApi {
@@ -193,9 +193,9 @@ class RouteCluesApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyBaseRouteCluesControllerRouteClue200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyRouteClueResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyBaseRouteCluesControllerRouteClue200Response>> getManyBaseRouteCluesControllerRouteClue({ 
+  Future<Response<GetManyRouteClueResponseDto>> getManyBaseRouteCluesControllerRouteClue({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -254,14 +254,14 @@ class RouteCluesApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyBaseRouteCluesControllerRouteClue200Response _responseData;
+    GetManyRouteClueResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyBaseRouteCluesControllerRouteClue200Response);
+      const _responseType = FullType(GetManyRouteClueResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyBaseRouteCluesControllerRouteClue200Response;
+      ) as GetManyRouteClueResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -272,7 +272,7 @@ class RouteCluesApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyBaseRouteCluesControllerRouteClue200Response>(
+    return Response<GetManyRouteClueResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

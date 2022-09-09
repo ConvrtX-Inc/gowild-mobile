@@ -14,8 +14,9 @@ Method | HTTP request | Description
 [**getManyBaseUsersControllerUser**](UsersApi.md#getmanybaseuserscontrolleruser) | **GET** /api/v1/users | Retrieve many User
 [**getOneBaseUsersControllerUser**](UsersApi.md#getonebaseuserscontrolleruser) | **GET** /api/v1/users/{id} | Retrieve one User
 [**updateOneBaseUsersControllerUser**](UsersApi.md#updateonebaseuserscontrolleruser) | **PATCH** /api/v1/users/{id} | Update one User
-[**usersControllerApproveUser**](UsersApi.md#userscontrollerapproveuser) | **POST** /api/v1/users/approved-user/{id} | Approved an user.
-[**usersControllerRejectUser**](UsersApi.md#userscontrollerrejectuser) | **POST** /api/v1/users/reject-user/{id} | Reject an user.
+[**usersControllerApproveUser**](UsersApi.md#userscontrollerapproveuser) | **POST** /api/v1/users/{id}/approve | Approved an user.
+[**usersControllerRejectUser**](UsersApi.md#userscontrollerrejectuser) | **POST** /api/v1/users/{id}/reject | Reject an user.
+[**usersControllerUpdateAvatar**](UsersApi.md#userscontrollerupdateavatar) | **POST** /api/v1/users/{id}/update-avatar | Update user&#39;s profile picture
 
 
 # **createOneBaseUsersControllerUser**
@@ -106,7 +107,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getManyBaseUsersControllerUser**
-> GetManyBaseUsersControllerUser200Response getManyBaseUsersControllerUser(fields, s, filter, or, sort, join, limit, offset, page, cache)
+> GetManyUserResponseDto getManyBaseUsersControllerUser(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
 Retrieve many User
 
@@ -154,7 +155,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyBaseUsersControllerUser200Response**](GetManyBaseUsersControllerUser200Response.md)
+[**GetManyUserResponseDto**](GetManyUserResponseDto.md)
 
 ### Authorization
 
@@ -264,7 +265,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **usersControllerApproveUser**
-> usersControllerApproveUser(id)
+> User usersControllerApproveUser(id)
 
 Approved an user.
 
@@ -279,7 +280,8 @@ final api = GowildApi().getUsersApi();
 final String id = id_example; // String | 
 
 try {
-    api.usersControllerApproveUser(id);
+    final response = api.usersControllerApproveUser(id);
+    print(response);
 } catch on DioError (e) {
     print('Exception when calling UsersApi->usersControllerApproveUser: $e\n');
 }
@@ -293,7 +295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**User**](User.md)
 
 ### Authorization
 
@@ -302,12 +304,12 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **usersControllerRejectUser**
-> usersControllerRejectUser(id)
+> User usersControllerRejectUser(id)
 
 Reject an user.
 
@@ -322,7 +324,8 @@ final api = GowildApi().getUsersApi();
 final String id = id_example; // String | 
 
 try {
-    api.usersControllerRejectUser(id);
+    final response = api.usersControllerRejectUser(id);
+    print(response);
 } catch on DioError (e) {
     print('Exception when calling UsersApi->usersControllerRejectUser: $e\n');
 }
@@ -336,7 +339,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**User**](User.md)
 
 ### Authorization
 
@@ -345,7 +348,53 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **usersControllerUpdateAvatar**
+> User usersControllerUpdateAvatar(id, pictureUpdateDto)
+
+Update user's profile picture
+
+### Example
+```dart
+import 'package:gowild_api/api.dart';
+// TODO Configure HTTP basic authorization: bearer
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearer').username = 'YOUR_USERNAME'
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearer').password = 'YOUR_PASSWORD';
+
+final api = GowildApi().getUsersApi();
+final String id = id_example; // String | 
+final PictureUpdateDto pictureUpdateDto = ; // PictureUpdateDto | 
+
+try {
+    final response = api.usersControllerUpdateAvatar(id, pictureUpdateDto);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling UsersApi->usersControllerUpdateAvatar: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **pictureUpdateDto** | [**PictureUpdateDto**](PictureUpdateDto.md)|  | 
+
+### Return type
+
+[**User**](User.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

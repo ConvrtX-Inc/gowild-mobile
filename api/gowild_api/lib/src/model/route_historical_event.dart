@@ -10,6 +10,9 @@ part 'route_historical_event.g.dart';
 /// RouteHistoricalEvent
 ///
 /// Properties:
+/// * [id] 
+/// * [createdDate] 
+/// * [updatedDate] 
 /// * [routeId] 
 /// * [closureUid] 
 /// * [eventLong] 
@@ -18,6 +21,15 @@ part 'route_historical_event.g.dart';
 /// * [eventSubtitle] 
 /// * [description] 
 abstract class RouteHistoricalEvent implements Built<RouteHistoricalEvent, RouteHistoricalEventBuilder> {
+    @BuiltValueField(wireName: r'id')
+    String get id;
+
+    @BuiltValueField(wireName: r'createdDate')
+    DateTime? get createdDate;
+
+    @BuiltValueField(wireName: r'updatedDate')
+    DateTime? get updatedDate;
+
     @BuiltValueField(wireName: r'route_id')
     String get routeId;
 
@@ -25,10 +37,10 @@ abstract class RouteHistoricalEvent implements Built<RouteHistoricalEvent, Route
     String get closureUid;
 
     @BuiltValueField(wireName: r'event_long')
-    num get eventLong;
+    double get eventLong;
 
     @BuiltValueField(wireName: r'event_lat')
-    num get eventLat;
+    double get eventLat;
 
     @BuiltValueField(wireName: r'event_title')
     String get eventTitle;
@@ -62,6 +74,18 @@ class _$RouteHistoricalEventSerializer implements StructuredSerializer<RouteHist
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object?>[];
         result
+            ..add(r'id')
+            ..add(serializers.serialize(object.id,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'createdDate')
+            ..add(object.createdDate == null ? null : serializers.serialize(object.createdDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
+            ..add(r'updatedDate')
+            ..add(object.updatedDate == null ? null : serializers.serialize(object.updatedDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
             ..add(r'route_id')
             ..add(serializers.serialize(object.routeId,
                 specifiedType: const FullType(String)));
@@ -72,11 +96,11 @@ class _$RouteHistoricalEventSerializer implements StructuredSerializer<RouteHist
         result
             ..add(r'event_long')
             ..add(serializers.serialize(object.eventLong,
-                specifiedType: const FullType(num)));
+                specifiedType: const FullType(double)));
         result
             ..add(r'event_lat')
             ..add(serializers.serialize(object.eventLat,
-                specifiedType: const FullType(num)));
+                specifiedType: const FullType(double)));
         result
             ..add(r'event_title')
             ..add(serializers.serialize(object.eventTitle,
@@ -104,6 +128,23 @@ class _$RouteHistoricalEventSerializer implements StructuredSerializer<RouteHist
             final Object? value = iterator.current;
             
             switch (key) {
+                case r'id':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.id = valueDes;
+                    break;
+                case r'createdDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.createdDate = valueDes;
+                    break;
+                case r'updatedDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.updatedDate = valueDes;
+                    break;
                 case r'route_id':
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
@@ -116,12 +157,12 @@ class _$RouteHistoricalEventSerializer implements StructuredSerializer<RouteHist
                     break;
                 case r'event_long':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(num)) as num;
+                        specifiedType: const FullType(double)) as double;
                     result.eventLong = valueDes;
                     break;
                 case r'event_lat':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(num)) as num;
+                        specifiedType: const FullType(double)) as double;
                     result.eventLat = valueDes;
                     break;
                 case r'event_title':

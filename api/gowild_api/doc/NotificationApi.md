@@ -104,7 +104,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getManyBaseNotificationControllerNotification**
-> GetManyBaseNotificationControllerNotification200Response getManyBaseNotificationControllerNotification(fields, s, filter, or, sort, join, limit, offset, page, cache)
+> GetManyNotificationResponseDto getManyBaseNotificationControllerNotification(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
 Retrieve many Notification
 
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyBaseNotificationControllerNotification200Response**](GetManyBaseNotificationControllerNotification200Response.md)
+[**GetManyNotificationResponseDto**](GetManyNotificationResponseDto.md)
 
 ### Authorization
 

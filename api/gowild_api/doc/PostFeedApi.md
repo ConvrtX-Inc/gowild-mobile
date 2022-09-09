@@ -106,7 +106,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getManyBasePostFeedControllerPostFeed**
-> GetManyBasePostFeedControllerPostFeed200Response getManyBasePostFeedControllerPostFeed(fields, s, filter, or, sort, join, limit, offset, page, cache)
+> GetManyPostFeedResponseDto getManyBasePostFeedControllerPostFeed(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
 Retrieve many PostFeed
 
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyBasePostFeedControllerPostFeed200Response**](GetManyBasePostFeedControllerPostFeed200Response.md)
+[**GetManyPostFeedResponseDto**](GetManyPostFeedResponseDto.md)
 
 ### Authorization
 

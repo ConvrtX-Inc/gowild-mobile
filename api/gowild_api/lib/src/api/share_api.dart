@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
-import 'package:gowild_api/src/model/get_many_base_share_controller_share200_response.dart';
+import 'package:gowild_api/src/model/get_many_share_response_dto.dart';
 import 'package:gowild_api/src/model/share.dart';
 
 class ShareApi {
@@ -193,9 +193,9 @@ class ShareApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyBaseShareControllerShare200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyShareResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyBaseShareControllerShare200Response>> getManyBaseShareControllerShare({ 
+  Future<Response<GetManyShareResponseDto>> getManyBaseShareControllerShare({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -254,14 +254,14 @@ class ShareApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyBaseShareControllerShare200Response _responseData;
+    GetManyShareResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyBaseShareControllerShare200Response);
+      const _responseType = FullType(GetManyShareResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyBaseShareControllerShare200Response;
+      ) as GetManyShareResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -272,7 +272,7 @@ class ShareApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyBaseShareControllerShare200Response>(
+    return Response<GetManyShareResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

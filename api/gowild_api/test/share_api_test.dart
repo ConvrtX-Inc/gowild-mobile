@@ -23,7 +23,7 @@ void main() {
 
     // Retrieve many Share
     //
-    //Future<GetManyBaseShareControllerShare200Response> getManyBaseShareControllerShare({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    //Future<GetManyShareResponseDto> getManyBaseShareControllerShare({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
     test('test getManyBaseShareControllerShare', () async {
       // TODO
     });

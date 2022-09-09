@@ -104,7 +104,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getManyBaseLikeControllerLike**
-> GetManyBaseLikeControllerLike200Response getManyBaseLikeControllerLike(fields, s, filter, or, sort, join, limit, offset, page, cache)
+> GetManyLikeResponseDto getManyBaseLikeControllerLike(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
 Retrieve many Like
 
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyBaseLikeControllerLike200Response**](GetManyBaseLikeControllerLike200Response.md)
+[**GetManyLikeResponseDto**](GetManyLikeResponseDto.md)
 
 ### Authorization
 

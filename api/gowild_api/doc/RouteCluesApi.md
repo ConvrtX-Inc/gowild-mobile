@@ -105,7 +105,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getManyBaseRouteCluesControllerRouteClue**
-> GetManyBaseRouteCluesControllerRouteClue200Response getManyBaseRouteCluesControllerRouteClue(fields, s, filter, or, sort, join, limit, offset, page, cache)
+> GetManyRouteClueResponseDto getManyBaseRouteCluesControllerRouteClue(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
 Retrieve many RouteClue
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyBaseRouteCluesControllerRouteClue200Response**](GetManyBaseRouteCluesControllerRouteClue200Response.md)
+[**GetManyRouteClueResponseDto**](GetManyRouteClueResponseDto.md)
 
 ### Authorization
 

@@ -8,6 +8,12 @@ part of 'notification.dart';
 
 class _$Notification extends Notification {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String userId;
   @override
   final String notificationMsg;
@@ -15,8 +21,14 @@ class _$Notification extends Notification {
   factory _$Notification([void Function(NotificationBuilder)? updates]) =>
       (new NotificationBuilder()..update(updates))._build();
 
-  _$Notification._({required this.userId, required this.notificationMsg})
+  _$Notification._(
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.userId,
+      required this.notificationMsg})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'Notification', 'id');
     BuiltValueNullFieldError.checkNotNull(userId, r'Notification', 'userId');
     BuiltValueNullFieldError.checkNotNull(
         notificationMsg, r'Notification', 'notificationMsg');
@@ -33,18 +45,29 @@ class _$Notification extends Notification {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Notification &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         userId == other.userId &&
         notificationMsg == other.notificationMsg;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, userId.hashCode), notificationMsg.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
+                updatedDate.hashCode),
+            userId.hashCode),
+        notificationMsg.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'Notification')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('userId', userId)
           ..add('notificationMsg', notificationMsg))
         .toString();
@@ -54,6 +77,18 @@ class _$Notification extends Notification {
 class NotificationBuilder
     implements Builder<Notification, NotificationBuilder> {
   _$Notification? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
 
   String? _userId;
   String? get userId => _$this._userId;
@@ -71,6 +106,9 @@ class NotificationBuilder
   NotificationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _userId = $v.userId;
       _notificationMsg = $v.notificationMsg;
       _$v = null;
@@ -95,6 +133,10 @@ class NotificationBuilder
   _$Notification _build() {
     final _$result = _$v ??
         new _$Notification._(
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'Notification', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             userId: BuiltValueNullFieldError.checkNotNull(
                 userId, r'Notification', 'userId'),
             notificationMsg: BuiltValueNullFieldError.checkNotNull(

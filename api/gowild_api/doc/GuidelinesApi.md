@@ -105,7 +105,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getManyBaseGuidelinesControllerGuideline**
-> GetManyBaseGuidelinesControllerGuideline200Response getManyBaseGuidelinesControllerGuideline(fields, s, filter, or, sort, join, limit, offset, page, cache)
+> GetManyGuidelineResponseDto getManyBaseGuidelinesControllerGuideline(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
 Retrieve many Guideline
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyBaseGuidelinesControllerGuideline200Response**](GetManyBaseGuidelinesControllerGuideline200Response.md)
+[**GetManyGuidelineResponseDto**](GetManyGuidelineResponseDto.md)
 
 ### Authorization
 

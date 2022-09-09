@@ -7,27 +7,42 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(RouteClue, () {
+    // String id
+    test('to test the property `id`', () async {
+      // TODO
+    });
+
+    // DateTime createdDate
+    test('to test the property `createdDate`', () async {
+      // TODO
+    });
+
+    // DateTime updatedDate
+    test('to test the property `updatedDate`', () async {
+      // TODO
+    });
+
     // String routeId
     test('to test the property `routeId`', () async {
       // TODO
     });
 
-    // num locationPointLong
+    // double locationPointLong
     test('to test the property `locationPointLong`', () async {
       // TODO
     });
 
-    // num locationPointLat
+    // double locationPointLat
     test('to test the property `locationPointLat`', () async {
       // TODO
     });
 
-    // num cluePointLong
+    // double cluePointLong
     test('to test the property `cluePointLong`', () async {
       // TODO
     });
 
-    // num cluePointLat
+    // double cluePointLat
     test('to test the property `cluePointLat`', () async {
       // TODO
     });

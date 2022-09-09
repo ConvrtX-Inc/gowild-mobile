@@ -8,6 +8,12 @@ part of 'post_feed.dart';
 
 class _$PostFeed extends PostFeed {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String userId;
   @override
   final String title;
@@ -24,13 +30,17 @@ class _$PostFeed extends PostFeed {
       (new PostFeedBuilder()..update(updates))._build();
 
   _$PostFeed._(
-      {required this.userId,
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.userId,
       required this.title,
       required this.description,
       required this.img,
       required this.isPublished,
       required this.views})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'PostFeed', 'id');
     BuiltValueNullFieldError.checkNotNull(userId, r'PostFeed', 'userId');
     BuiltValueNullFieldError.checkNotNull(title, r'PostFeed', 'title');
     BuiltValueNullFieldError.checkNotNull(
@@ -52,6 +62,9 @@ class _$PostFeed extends PostFeed {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PostFeed &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         userId == other.userId &&
         title == other.title &&
         description == other.description &&
@@ -65,7 +78,13 @@ class _$PostFeed extends PostFeed {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, userId.hashCode), title.hashCode),
+                $jc(
+                    $jc(
+                        $jc(
+                            $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
+                                updatedDate.hashCode),
+                            userId.hashCode),
+                        title.hashCode),
                     description.hashCode),
                 img.hashCode),
             isPublished.hashCode),
@@ -75,6 +94,9 @@ class _$PostFeed extends PostFeed {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'PostFeed')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('userId', userId)
           ..add('title', title)
           ..add('description', description)
@@ -87,6 +109,18 @@ class _$PostFeed extends PostFeed {
 
 class PostFeedBuilder implements Builder<PostFeed, PostFeedBuilder> {
   _$PostFeed? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
 
   String? _userId;
   String? get userId => _$this._userId;
@@ -119,6 +153,9 @@ class PostFeedBuilder implements Builder<PostFeed, PostFeedBuilder> {
   PostFeedBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _userId = $v.userId;
       _title = $v.title;
       _description = $v.description;
@@ -147,6 +184,9 @@ class PostFeedBuilder implements Builder<PostFeed, PostFeedBuilder> {
   _$PostFeed _build() {
     final _$result = _$v ??
         new _$PostFeed._(
+            id: BuiltValueNullFieldError.checkNotNull(id, r'PostFeed', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             userId: BuiltValueNullFieldError.checkNotNull(
                 userId, r'PostFeed', 'userId'),
             title: BuiltValueNullFieldError.checkNotNull(

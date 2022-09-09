@@ -23,7 +23,7 @@ void main() {
 
     // Retrieve many Like
     //
-    //Future<GetManyBaseLikeControllerLike200Response> getManyBaseLikeControllerLike({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    //Future<GetManyLikeResponseDto> getManyBaseLikeControllerLike({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
     test('test getManyBaseLikeControllerLike', () async {
       // TODO
     });

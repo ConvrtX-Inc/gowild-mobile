@@ -104,7 +104,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getManyBaseParticipantControllerParticipant**
-> GetManyBaseParticipantControllerParticipant200Response getManyBaseParticipantControllerParticipant(fields, s, filter, or, sort, join, limit, offset, page, cache)
+> GetManyParticipantResponseDto getManyBaseParticipantControllerParticipant(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
 Retrieve many Participant
 
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyBaseParticipantControllerParticipant200Response**](GetManyBaseParticipantControllerParticipant200Response.md)
+[**GetManyParticipantResponseDto**](GetManyParticipantResponseDto.md)
 
 ### Authorization
 

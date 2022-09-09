@@ -23,7 +23,7 @@ void main() {
 
     // Retrieve many Route
     //
-    //Future<GetManyBaseRouteControllerRoute200Response> getManyBaseRouteControllerRoute({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    //Future<GetManyRouteResponseDto> getManyBaseRouteControllerRoute({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
     test('test getManyBaseRouteControllerRoute', () async {
       // TODO
     });

@@ -10,7 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
 import 'package:gowild_api/src/model/currency.dart';
-import 'package:gowild_api/src/model/get_many_base_currency_controller_currency200_response.dart';
+import 'package:gowild_api/src/model/get_many_currency_response_dto.dart';
 
 class CurrenciesApi {
 
@@ -41,9 +41,9 @@ class CurrenciesApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyBaseCurrencyControllerCurrency200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyCurrencyResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyBaseCurrencyControllerCurrency200Response>> getManyBaseCurrencyControllerCurrency({ 
+  Future<Response<GetManyCurrencyResponseDto>> getManyBaseCurrencyControllerCurrency({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -96,14 +96,14 @@ class CurrenciesApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyBaseCurrencyControllerCurrency200Response _responseData;
+    GetManyCurrencyResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyBaseCurrencyControllerCurrency200Response);
+      const _responseType = FullType(GetManyCurrencyResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyBaseCurrencyControllerCurrency200Response;
+      ) as GetManyCurrencyResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -114,7 +114,7 @@ class CurrenciesApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyBaseCurrencyControllerCurrency200Response>(
+    return Response<GetManyCurrencyResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

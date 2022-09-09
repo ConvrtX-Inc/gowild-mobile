@@ -54,7 +54,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **filesControllerUploadFile**
-> filesControllerUploadFile(file)
+> FileEntity filesControllerUploadFile(file)
 
 
 
@@ -69,7 +69,8 @@ final api = GowildApi().getFilesApi();
 final MultipartFile file = BINARY_DATA_HERE; // MultipartFile | 
 
 try {
-    api.filesControllerUploadFile(file);
+    final response = api.filesControllerUploadFile(file);
+    print(response);
 } catch on DioError (e) {
     print('Exception when calling FilesApi->filesControllerUploadFile: $e\n');
 }
@@ -83,7 +84,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**FileEntity**](FileEntity.md)
 
 ### Authorization
 
@@ -92,7 +93,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

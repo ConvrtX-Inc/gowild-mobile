@@ -12,8 +12,13 @@ void main() {
       // TODO
     });
 
-    // String fullName
-    test('to test the property `fullName`', () async {
+    // DateTime createdDate
+    test('to test the property `createdDate`', () async {
+      // TODO
+    });
+
+    // DateTime updatedDate
+    test('to test the property `updatedDate`', () async {
       // TODO
     });
 
@@ -32,18 +37,8 @@ void main() {
       // TODO
     });
 
-    // String gender
+    // GenderEnum gender
     test('to test the property `gender`', () async {
-      // TODO
-    });
-
-    // String firebaseSnapshotId1Img
-    test('to test the property `firebaseSnapshotId1Img`', () async {
-      // TODO
-    });
-
-    // String firebaseSnapshotId2Img
-    test('to test the property `firebaseSnapshotId2Img`', () async {
       // TODO
     });
 
@@ -57,58 +52,13 @@ void main() {
       // TODO
     });
 
-    // String password
-    test('to test the property `password`', () async {
-      // TODO
-    });
-
     // String phoneNo
     test('to test the property `phoneNo`', () async {
       // TODO
     });
 
-    // String addressLine1
-    test('to test the property `addressLine1`', () async {
-      // TODO
-    });
-
-    // String addressLine2
-    test('to test the property `addressLine2`', () async {
-      // TODO
-    });
-
-    // JsonObject profilePhoto
-    test('to test the property `profilePhoto`', () async {
-      // TODO
-    });
-
-    // String imgUrl
-    test('to test the property `imgUrl`', () async {
-      // TODO
-    });
-
-    // String hash
-    test('to test the property `hash`', () async {
-      // TODO
-    });
-
-    // DateTime createdDate
-    test('to test the property `createdDate`', () async {
-      // TODO
-    });
-
-    // DateTime updatedDate
-    test('to test the property `updatedDate`', () async {
-      // TODO
-    });
-
-    // DateTime deletedDate
-    test('to test the property `deletedDate`', () async {
-      // TODO
-    });
-
-    // num statusId
-    test('to test the property `statusId`', () async {
+    // UserPicture picture
+    test('to test the property `picture`', () async {
       // TODO
     });
 

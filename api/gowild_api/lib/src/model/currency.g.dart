@@ -8,26 +8,38 @@ part of 'currency.dart';
 
 class _$Currency extends Currency {
   @override
-  final String currencyCode;
+  final String id;
   @override
-  final String currencyName;
+  final DateTime? createdDate;
   @override
-  final String currencySymbol;
+  final DateTime? updatedDate;
+  @override
+  final String code;
+  @override
+  final String name;
+  @override
+  final String namePlural;
+  @override
+  final String symbol;
 
   factory _$Currency([void Function(CurrencyBuilder)? updates]) =>
       (new CurrencyBuilder()..update(updates))._build();
 
   _$Currency._(
-      {required this.currencyCode,
-      required this.currencyName,
-      required this.currencySymbol})
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.code,
+      required this.name,
+      required this.namePlural,
+      required this.symbol})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'Currency', 'id');
+    BuiltValueNullFieldError.checkNotNull(code, r'Currency', 'code');
+    BuiltValueNullFieldError.checkNotNull(name, r'Currency', 'name');
     BuiltValueNullFieldError.checkNotNull(
-        currencyCode, r'Currency', 'currencyCode');
-    BuiltValueNullFieldError.checkNotNull(
-        currencyName, r'Currency', 'currencyName');
-    BuiltValueNullFieldError.checkNotNull(
-        currencySymbol, r'Currency', 'currencySymbol');
+        namePlural, r'Currency', 'namePlural');
+    BuiltValueNullFieldError.checkNotNull(symbol, r'Currency', 'symbol');
   }
 
   @override
@@ -41,23 +53,39 @@ class _$Currency extends Currency {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Currency &&
-        currencyCode == other.currencyCode &&
-        currencyName == other.currencyName &&
-        currencySymbol == other.currencySymbol;
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
+        code == other.code &&
+        name == other.name &&
+        namePlural == other.namePlural &&
+        symbol == other.symbol;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, currencyCode.hashCode), currencyName.hashCode),
-        currencySymbol.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
+                        updatedDate.hashCode),
+                    code.hashCode),
+                name.hashCode),
+            namePlural.hashCode),
+        symbol.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'Currency')
-          ..add('currencyCode', currencyCode)
-          ..add('currencyName', currencyName)
-          ..add('currencySymbol', currencySymbol))
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
+          ..add('code', code)
+          ..add('name', name)
+          ..add('namePlural', namePlural)
+          ..add('symbol', symbol))
         .toString();
   }
 }
@@ -65,18 +93,33 @@ class _$Currency extends Currency {
 class CurrencyBuilder implements Builder<Currency, CurrencyBuilder> {
   _$Currency? _$v;
 
-  String? _currencyCode;
-  String? get currencyCode => _$this._currencyCode;
-  set currencyCode(String? currencyCode) => _$this._currencyCode = currencyCode;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  String? _currencyName;
-  String? get currencyName => _$this._currencyName;
-  set currencyName(String? currencyName) => _$this._currencyName = currencyName;
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
 
-  String? _currencySymbol;
-  String? get currencySymbol => _$this._currencySymbol;
-  set currencySymbol(String? currencySymbol) =>
-      _$this._currencySymbol = currencySymbol;
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
+
+  String? _code;
+  String? get code => _$this._code;
+  set code(String? code) => _$this._code = code;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  String? _namePlural;
+  String? get namePlural => _$this._namePlural;
+  set namePlural(String? namePlural) => _$this._namePlural = namePlural;
+
+  String? _symbol;
+  String? get symbol => _$this._symbol;
+  set symbol(String? symbol) => _$this._symbol = symbol;
 
   CurrencyBuilder() {
     Currency._defaults(this);
@@ -85,9 +128,13 @@ class CurrencyBuilder implements Builder<Currency, CurrencyBuilder> {
   CurrencyBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _currencyCode = $v.currencyCode;
-      _currencyName = $v.currencyName;
-      _currencySymbol = $v.currencySymbol;
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
+      _code = $v.code;
+      _name = $v.name;
+      _namePlural = $v.namePlural;
+      _symbol = $v.symbol;
       _$v = null;
     }
     return this;
@@ -110,12 +157,17 @@ class CurrencyBuilder implements Builder<Currency, CurrencyBuilder> {
   _$Currency _build() {
     final _$result = _$v ??
         new _$Currency._(
-            currencyCode: BuiltValueNullFieldError.checkNotNull(
-                currencyCode, r'Currency', 'currencyCode'),
-            currencyName: BuiltValueNullFieldError.checkNotNull(
-                currencyName, r'Currency', 'currencyName'),
-            currencySymbol: BuiltValueNullFieldError.checkNotNull(
-                currencySymbol, r'Currency', 'currencySymbol'));
+            id: BuiltValueNullFieldError.checkNotNull(id, r'Currency', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
+            code: BuiltValueNullFieldError.checkNotNull(
+                code, r'Currency', 'code'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'Currency', 'name'),
+            namePlural: BuiltValueNullFieldError.checkNotNull(
+                namePlural, r'Currency', 'namePlural'),
+            symbol: BuiltValueNullFieldError.checkNotNull(
+                symbol, r'Currency', 'symbol'));
     replace(_$result);
     return _$result;
   }

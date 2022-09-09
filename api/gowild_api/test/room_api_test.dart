@@ -23,7 +23,7 @@ void main() {
 
     // Retrieve many Room
     //
-    //Future<GetManyBaseRoomControllerRoom200Response> getManyBaseRoomControllerRoom({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    //Future<GetManyRoomResponseDto> getManyBaseRoomControllerRoom({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
     test('test getManyBaseRoomControllerRoom', () async {
       // TODO
     });

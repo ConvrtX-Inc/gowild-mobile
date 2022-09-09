@@ -8,15 +8,21 @@ part of 'route_clue.dart';
 
 class _$RouteClue extends RouteClue {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String routeId;
   @override
-  final num locationPointLong;
+  final double locationPointLong;
   @override
-  final num locationPointLat;
+  final double locationPointLat;
   @override
-  final num cluePointLong;
+  final double cluePointLong;
   @override
-  final num cluePointLat;
+  final double cluePointLat;
   @override
   final String clueTitle;
   @override
@@ -32,7 +38,10 @@ class _$RouteClue extends RouteClue {
       (new RouteClueBuilder()..update(updates))._build();
 
   _$RouteClue._(
-      {required this.routeId,
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.routeId,
       required this.locationPointLong,
       required this.locationPointLat,
       required this.cluePointLong,
@@ -43,6 +52,7 @@ class _$RouteClue extends RouteClue {
       required this.videoUrl,
       required this.arClue})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'RouteClue', 'id');
     BuiltValueNullFieldError.checkNotNull(routeId, r'RouteClue', 'routeId');
     BuiltValueNullFieldError.checkNotNull(
         locationPointLong, r'RouteClue', 'locationPointLong');
@@ -71,6 +81,9 @@ class _$RouteClue extends RouteClue {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is RouteClue &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         routeId == other.routeId &&
         locationPointLong == other.locationPointLong &&
         locationPointLat == other.locationPointLat &&
@@ -93,7 +106,13 @@ class _$RouteClue extends RouteClue {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, routeId.hashCode),
+                                    $jc(
+                                        $jc(
+                                            $jc(
+                                                $jc($jc(0, id.hashCode),
+                                                    createdDate.hashCode),
+                                                updatedDate.hashCode),
+                                            routeId.hashCode),
                                         locationPointLong.hashCode),
                                     locationPointLat.hashCode),
                                 cluePointLong.hashCode),
@@ -108,6 +127,9 @@ class _$RouteClue extends RouteClue {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'RouteClue')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('routeId', routeId)
           ..add('locationPointLong', locationPointLong)
           ..add('locationPointLat', locationPointLat)
@@ -125,28 +147,40 @@ class _$RouteClue extends RouteClue {
 class RouteClueBuilder implements Builder<RouteClue, RouteClueBuilder> {
   _$RouteClue? _$v;
 
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
+
   String? _routeId;
   String? get routeId => _$this._routeId;
   set routeId(String? routeId) => _$this._routeId = routeId;
 
-  num? _locationPointLong;
-  num? get locationPointLong => _$this._locationPointLong;
-  set locationPointLong(num? locationPointLong) =>
+  double? _locationPointLong;
+  double? get locationPointLong => _$this._locationPointLong;
+  set locationPointLong(double? locationPointLong) =>
       _$this._locationPointLong = locationPointLong;
 
-  num? _locationPointLat;
-  num? get locationPointLat => _$this._locationPointLat;
-  set locationPointLat(num? locationPointLat) =>
+  double? _locationPointLat;
+  double? get locationPointLat => _$this._locationPointLat;
+  set locationPointLat(double? locationPointLat) =>
       _$this._locationPointLat = locationPointLat;
 
-  num? _cluePointLong;
-  num? get cluePointLong => _$this._cluePointLong;
-  set cluePointLong(num? cluePointLong) =>
+  double? _cluePointLong;
+  double? get cluePointLong => _$this._cluePointLong;
+  set cluePointLong(double? cluePointLong) =>
       _$this._cluePointLong = cluePointLong;
 
-  num? _cluePointLat;
-  num? get cluePointLat => _$this._cluePointLat;
-  set cluePointLat(num? cluePointLat) => _$this._cluePointLat = cluePointLat;
+  double? _cluePointLat;
+  double? get cluePointLat => _$this._cluePointLat;
+  set cluePointLat(double? cluePointLat) => _$this._cluePointLat = cluePointLat;
 
   String? _clueTitle;
   String? get clueTitle => _$this._clueTitle;
@@ -175,6 +209,9 @@ class RouteClueBuilder implements Builder<RouteClue, RouteClueBuilder> {
   RouteClueBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _routeId = $v.routeId;
       _locationPointLong = $v.locationPointLong;
       _locationPointLat = $v.locationPointLat;
@@ -207,6 +244,9 @@ class RouteClueBuilder implements Builder<RouteClue, RouteClueBuilder> {
   _$RouteClue _build() {
     final _$result = _$v ??
         new _$RouteClue._(
+            id: BuiltValueNullFieldError.checkNotNull(id, r'RouteClue', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             routeId: BuiltValueNullFieldError.checkNotNull(
                 routeId, r'RouteClue', 'routeId'),
             locationPointLong: BuiltValueNullFieldError.checkNotNull(

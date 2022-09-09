@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
-import 'package:gowild_api/src/model/get_many_base_guideline_logs_controller_guideline_log200_response.dart';
+import 'package:gowild_api/src/model/get_many_guideline_log_response_dto.dart';
 import 'package:gowild_api/src/model/guideline_log.dart';
 
 class GuidelineLogsApi {
@@ -193,9 +193,9 @@ class GuidelineLogsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyBaseGuidelineLogsControllerGuidelineLog200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyGuidelineLogResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyBaseGuidelineLogsControllerGuidelineLog200Response>> getManyBaseGuidelineLogsControllerGuidelineLog({ 
+  Future<Response<GetManyGuidelineLogResponseDto>> getManyBaseGuidelineLogsControllerGuidelineLog({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -254,14 +254,14 @@ class GuidelineLogsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyBaseGuidelineLogsControllerGuidelineLog200Response _responseData;
+    GetManyGuidelineLogResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyBaseGuidelineLogsControllerGuidelineLog200Response);
+      const _responseType = FullType(GetManyGuidelineLogResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyBaseGuidelineLogsControllerGuidelineLog200Response;
+      ) as GetManyGuidelineLogResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -272,7 +272,7 @@ class GuidelineLogsApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyBaseGuidelineLogsControllerGuidelineLog200Response>(
+    return Response<GetManyGuidelineLogResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

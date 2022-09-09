@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
-import 'package:gowild_api/src/model/get_many_base_route_controller_route200_response.dart';
+import 'package:gowild_api/src/model/get_many_route_response_dto.dart';
 import 'package:gowild_api/src/model/route.dart';
 
 class RouteApi {
@@ -193,9 +193,9 @@ class RouteApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyBaseRouteControllerRoute200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyRouteResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyBaseRouteControllerRoute200Response>> getManyBaseRouteControllerRoute({ 
+  Future<Response<GetManyRouteResponseDto>> getManyBaseRouteControllerRoute({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -254,14 +254,14 @@ class RouteApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyBaseRouteControllerRoute200Response _responseData;
+    GetManyRouteResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyBaseRouteControllerRoute200Response);
+      const _responseType = FullType(GetManyRouteResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyBaseRouteControllerRoute200Response;
+      ) as GetManyRouteResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -272,7 +272,7 @@ class RouteApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyBaseRouteControllerRoute200Response>(
+    return Response<GetManyRouteResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

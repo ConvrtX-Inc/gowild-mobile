@@ -8,7 +8,9 @@ import 'package:gowild_api/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **num** |  | 
+**id** | **String** |  | 
+**createdDate** | [**DateTime**](DateTime.md) |  | 
+**updatedDate** | [**DateTime**](DateTime.md) |  | 
 **statusName** | **String** |  | 
 **isActive** | **bool** |  | 
 

@@ -8,13 +8,19 @@ part of 'treasure_chest.dart';
 
 class _$TreasureChest extends TreasureChest {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String title;
   @override
   final String description;
   @override
-  final num locationLong;
+  final double locationLong;
   @override
-  final num locationLat;
+  final double locationLat;
   @override
   final DateTime eventDate;
   @override
@@ -32,7 +38,10 @@ class _$TreasureChest extends TreasureChest {
       (new TreasureChestBuilder()..update(updates))._build();
 
   _$TreasureChest._(
-      {required this.title,
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.title,
       required this.description,
       required this.locationLong,
       required this.locationLat,
@@ -43,6 +52,7 @@ class _$TreasureChest extends TreasureChest {
       required this.thumbnailImg,
       required this.aR})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'TreasureChest', 'id');
     BuiltValueNullFieldError.checkNotNull(title, r'TreasureChest', 'title');
     BuiltValueNullFieldError.checkNotNull(
         description, r'TreasureChest', 'description');
@@ -73,6 +83,9 @@ class _$TreasureChest extends TreasureChest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TreasureChest &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         title == other.title &&
         description == other.description &&
         locationLong == other.locationLong &&
@@ -95,7 +108,13 @@ class _$TreasureChest extends TreasureChest {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, title.hashCode),
+                                    $jc(
+                                        $jc(
+                                            $jc(
+                                                $jc($jc(0, id.hashCode),
+                                                    createdDate.hashCode),
+                                                updatedDate.hashCode),
+                                            title.hashCode),
                                         description.hashCode),
                                     locationLong.hashCode),
                                 locationLat.hashCode),
@@ -110,6 +129,9 @@ class _$TreasureChest extends TreasureChest {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'TreasureChest')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('title', title)
           ..add('description', description)
           ..add('locationLong', locationLong)
@@ -128,6 +150,18 @@ class TreasureChestBuilder
     implements Builder<TreasureChest, TreasureChestBuilder> {
   _$TreasureChest? _$v;
 
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
+
   String? _title;
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
@@ -136,13 +170,13 @@ class TreasureChestBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  num? _locationLong;
-  num? get locationLong => _$this._locationLong;
-  set locationLong(num? locationLong) => _$this._locationLong = locationLong;
+  double? _locationLong;
+  double? get locationLong => _$this._locationLong;
+  set locationLong(double? locationLong) => _$this._locationLong = locationLong;
 
-  num? _locationLat;
-  num? get locationLat => _$this._locationLat;
-  set locationLat(num? locationLat) => _$this._locationLat = locationLat;
+  double? _locationLat;
+  double? get locationLat => _$this._locationLat;
+  set locationLat(double? locationLat) => _$this._locationLat = locationLat;
 
   DateTime? _eventDate;
   DateTime? get eventDate => _$this._eventDate;
@@ -177,6 +211,9 @@ class TreasureChestBuilder
   TreasureChestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _title = $v.title;
       _description = $v.description;
       _locationLong = $v.locationLong;
@@ -209,6 +246,10 @@ class TreasureChestBuilder
   _$TreasureChest _build() {
     final _$result = _$v ??
         new _$TreasureChest._(
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'TreasureChest', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             title: BuiltValueNullFieldError.checkNotNull(
                 title, r'TreasureChest', 'title'),
             description: BuiltValueNullFieldError.checkNotNull(

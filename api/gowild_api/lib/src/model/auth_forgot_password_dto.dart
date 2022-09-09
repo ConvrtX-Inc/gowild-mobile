@@ -14,10 +14,10 @@ part 'auth_forgot_password_dto.g.dart';
 /// * [phone] 
 abstract class AuthForgotPasswordDto implements Built<AuthForgotPasswordDto, AuthForgotPasswordDtoBuilder> {
     @BuiltValueField(wireName: r'email')
-    String get email;
+    String? get email;
 
     @BuiltValueField(wireName: r'phone')
-    String get phone;
+    String? get phone;
 
     AuthForgotPasswordDto._();
 
@@ -43,12 +43,12 @@ class _$AuthForgotPasswordDtoSerializer implements StructuredSerializer<AuthForg
         final result = <Object?>[];
         result
             ..add(r'email')
-            ..add(serializers.serialize(object.email,
-                specifiedType: const FullType(String)));
+            ..add(object.email == null ? null : serializers.serialize(object.email,
+                specifiedType: const FullType.nullable(String)));
         result
             ..add(r'phone')
-            ..add(serializers.serialize(object.phone,
-                specifiedType: const FullType(String)));
+            ..add(object.phone == null ? null : serializers.serialize(object.phone,
+                specifiedType: const FullType.nullable(String)));
         return result;
     }
 
@@ -66,12 +66,14 @@ class _$AuthForgotPasswordDtoSerializer implements StructuredSerializer<AuthForg
             switch (key) {
                 case r'email':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
+                        specifiedType: const FullType.nullable(String)) as String?;
+                    if (valueDes == null) continue;
                     result.email = valueDes;
                     break;
                 case r'phone':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
+                        specifiedType: const FullType.nullable(String)) as String?;
+                    if (valueDes == null) continue;
                     result.phone = valueDes;
                     break;
             }

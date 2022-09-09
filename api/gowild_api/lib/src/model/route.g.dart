@@ -8,19 +8,25 @@ part of 'route.dart';
 
 class _$Route extends Route {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String userId;
   @override
   final String routeName;
   @override
   final JsonObject routePhoto;
   @override
-  final num startPointLong;
+  final double startPointLong;
   @override
-  final num startPointLat;
+  final double startPointLat;
   @override
-  final num stopPointLong;
+  final double stopPointLong;
   @override
-  final num stopPointLat;
+  final double stopPointLat;
   @override
   final String imgUrl;
   @override
@@ -30,7 +36,10 @@ class _$Route extends Route {
       (new RouteBuilder()..update(updates))._build();
 
   _$Route._(
-      {required this.userId,
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.userId,
       required this.routeName,
       required this.routePhoto,
       required this.startPointLong,
@@ -40,6 +49,7 @@ class _$Route extends Route {
       required this.imgUrl,
       required this.description})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'Route', 'id');
     BuiltValueNullFieldError.checkNotNull(userId, r'Route', 'userId');
     BuiltValueNullFieldError.checkNotNull(routeName, r'Route', 'routeName');
     BuiltValueNullFieldError.checkNotNull(routePhoto, r'Route', 'routePhoto');
@@ -66,6 +76,9 @@ class _$Route extends Route {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Route &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         userId == other.userId &&
         routeName == other.routeName &&
         routePhoto == other.routePhoto &&
@@ -86,7 +99,13 @@ class _$Route extends Route {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc(0, userId.hashCode),
+                                $jc(
+                                    $jc(
+                                        $jc(
+                                            $jc($jc(0, id.hashCode),
+                                                createdDate.hashCode),
+                                            updatedDate.hashCode),
+                                        userId.hashCode),
                                     routeName.hashCode),
                                 routePhoto.hashCode),
                             startPointLong.hashCode),
@@ -100,6 +119,9 @@ class _$Route extends Route {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'Route')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('userId', userId)
           ..add('routeName', routeName)
           ..add('routePhoto', routePhoto)
@@ -116,6 +138,18 @@ class _$Route extends Route {
 class RouteBuilder implements Builder<Route, RouteBuilder> {
   _$Route? _$v;
 
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
+
   String? _userId;
   String? get userId => _$this._userId;
   set userId(String? userId) => _$this._userId = userId;
@@ -128,24 +162,24 @@ class RouteBuilder implements Builder<Route, RouteBuilder> {
   JsonObject? get routePhoto => _$this._routePhoto;
   set routePhoto(JsonObject? routePhoto) => _$this._routePhoto = routePhoto;
 
-  num? _startPointLong;
-  num? get startPointLong => _$this._startPointLong;
-  set startPointLong(num? startPointLong) =>
+  double? _startPointLong;
+  double? get startPointLong => _$this._startPointLong;
+  set startPointLong(double? startPointLong) =>
       _$this._startPointLong = startPointLong;
 
-  num? _startPointLat;
-  num? get startPointLat => _$this._startPointLat;
-  set startPointLat(num? startPointLat) =>
+  double? _startPointLat;
+  double? get startPointLat => _$this._startPointLat;
+  set startPointLat(double? startPointLat) =>
       _$this._startPointLat = startPointLat;
 
-  num? _stopPointLong;
-  num? get stopPointLong => _$this._stopPointLong;
-  set stopPointLong(num? stopPointLong) =>
+  double? _stopPointLong;
+  double? get stopPointLong => _$this._stopPointLong;
+  set stopPointLong(double? stopPointLong) =>
       _$this._stopPointLong = stopPointLong;
 
-  num? _stopPointLat;
-  num? get stopPointLat => _$this._stopPointLat;
-  set stopPointLat(num? stopPointLat) => _$this._stopPointLat = stopPointLat;
+  double? _stopPointLat;
+  double? get stopPointLat => _$this._stopPointLat;
+  set stopPointLat(double? stopPointLat) => _$this._stopPointLat = stopPointLat;
 
   String? _imgUrl;
   String? get imgUrl => _$this._imgUrl;
@@ -162,6 +196,9 @@ class RouteBuilder implements Builder<Route, RouteBuilder> {
   RouteBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _userId = $v.userId;
       _routeName = $v.routeName;
       _routePhoto = $v.routePhoto;
@@ -193,6 +230,9 @@ class RouteBuilder implements Builder<Route, RouteBuilder> {
   _$Route _build() {
     final _$result = _$v ??
         new _$Route._(
+            id: BuiltValueNullFieldError.checkNotNull(id, r'Route', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             userId: BuiltValueNullFieldError.checkNotNull(
                 userId, r'Route', 'userId'),
             routeName: BuiltValueNullFieldError.checkNotNull(

@@ -8,6 +8,7 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:gowild_api/src/api_util.dart';
+import 'package:gowild_api/src/model/file_entity.dart';
 
 class FilesApi {
 
@@ -76,9 +77,9 @@ class FilesApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future]
+  /// Returns a [Future] containing a [Response] with a [FileEntity] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<void>> filesControllerUploadFile({ 
+  Future<Response<FileEntity>> filesControllerUploadFile({ 
     MultipartFile? file,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -134,7 +135,34 @@ class FilesApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    return _response;
+    FileEntity _responseData;
+
+    try {
+      const _responseType = FullType(FileEntity);
+      _responseData = _serializers.deserialize(
+        _response.data!,
+        specifiedType: _responseType,
+      ) as FileEntity;
+
+    } catch (error, stackTrace) {
+      throw DioError(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioErrorType.other,
+        error: error,
+      )..stackTrace = stackTrace;
+    }
+
+    return Response<FileEntity>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
   }
 
 }

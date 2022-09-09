@@ -1,6 +1,6 @@
 import 'package:gowild/providers/auth.dart';
-import 'package:gowild/providers/current_user.dart';
 import 'package:gowild/providers/dio_client.dart';
+import 'package:gowild/providers/landing_page_provider.dart';
 import 'package:gowild/providers/notification.dart';
 import 'package:gowild/services/logging.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -16,9 +16,10 @@ final initProvider = FutureProvider<void>((ref) async {
   final authProviderNotifier = ref.read(authProvider.notifier);
   final status = await authProviderNotifier.init();
   logger.i('Auth done [$status]');
-  final currentUser = ref.read(currentUserProvider.notifier);
-  currentUser.checkUser();
 
   await ref.read(dioProvider.notifier).init(authProviderNotifier);
   logger.i('Dio done');
+
+  await ref.read(hasSeenLandingPageProvider).init();
+  logger.i('Landing page init');
 });

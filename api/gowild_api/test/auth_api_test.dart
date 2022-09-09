@@ -23,13 +23,25 @@ void main() {
 
     // Login account
     //
-    //Future<LoginResponse> authControllerLogin(AuthEmailLoginDto authEmailLoginDto) async
+    //Future<TokenResponse> authControllerLogin(AuthEmailLoginDto authEmailLoginDto) async
     test('test authControllerLogin', () async {
+      // TODO
+    });
+
+    //Future authControllerLogout() async
+    test('test authControllerLogout', () async {
       // TODO
     });
 
     //Future<User> authControllerMe() async
     test('test authControllerMe', () async {
+      // TODO
+    });
+
+    // Refresh token using a previous RefreshToken
+    //
+    //Future<TokenResponse> authControllerRefreshToken(AuthRefreshTokenDto authRefreshTokenDto) async
+    test('test authControllerRefreshToken', () async {
       // TODO
     });
 
@@ -56,14 +68,14 @@ void main() {
 
     // Login using facebook
     //
-    //Future authFacebookControllerLogin(AuthFacebookLoginDto authFacebookLoginDto) async
+    //Future<UserAuthResponse> authFacebookControllerLogin(AuthFacebookLoginDto authFacebookLoginDto) async
     test('test authFacebookControllerLogin', () async {
       // TODO
     });
 
     // Login using google
     //
-    //Future authGoogleControllerLogin(AuthGoogleLoginDto authGoogleLoginDto) async
+    //Future<UserAuthResponse> authGoogleControllerLogin(AuthGoogleLoginDto authGoogleLoginDto) async
     test('test authGoogleControllerLogin', () async {
       // TODO
     });

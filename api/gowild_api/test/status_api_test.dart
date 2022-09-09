@@ -23,7 +23,7 @@ void main() {
 
     // Retrieve many Status
     //
-    //Future<GetManyBaseStatusControllerStatus200Response> getManyBaseStatusControllerStatus({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    //Future<GetManyStatusResponseDto> getManyBaseStatusControllerStatus({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
     test('test getManyBaseStatusControllerStatus', () async {
       // TODO
     });

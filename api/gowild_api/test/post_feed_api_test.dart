@@ -23,7 +23,7 @@ void main() {
 
     // Retrieve many PostFeed
     //
-    //Future<GetManyBasePostFeedControllerPostFeed200Response> getManyBasePostFeedControllerPostFeed({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    //Future<GetManyPostFeedResponseDto> getManyBasePostFeedControllerPostFeed({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
     test('test getManyBasePostFeedControllerPostFeed', () async {
       // TODO
     });

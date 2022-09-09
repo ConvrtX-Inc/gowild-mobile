@@ -8,6 +8,12 @@ part of 'ticket_message.dart';
 
 class _$TicketMessage extends TicketMessage {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String ticketId;
   @override
   final String userId;
@@ -18,8 +24,14 @@ class _$TicketMessage extends TicketMessage {
       (new TicketMessageBuilder()..update(updates))._build();
 
   _$TicketMessage._(
-      {required this.ticketId, required this.userId, required this.message})
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.ticketId,
+      required this.userId,
+      required this.message})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'TicketMessage', 'id');
     BuiltValueNullFieldError.checkNotNull(
         ticketId, r'TicketMessage', 'ticketId');
     BuiltValueNullFieldError.checkNotNull(userId, r'TicketMessage', 'userId');
@@ -37,6 +49,9 @@ class _$TicketMessage extends TicketMessage {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TicketMessage &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         ticketId == other.ticketId &&
         userId == other.userId &&
         message == other.message;
@@ -44,13 +59,22 @@ class _$TicketMessage extends TicketMessage {
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc(0, ticketId.hashCode), userId.hashCode), message.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
+                    updatedDate.hashCode),
+                ticketId.hashCode),
+            userId.hashCode),
+        message.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'TicketMessage')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('ticketId', ticketId)
           ..add('userId', userId)
           ..add('message', message))
@@ -61,6 +85,18 @@ class _$TicketMessage extends TicketMessage {
 class TicketMessageBuilder
     implements Builder<TicketMessage, TicketMessageBuilder> {
   _$TicketMessage? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
 
   String? _ticketId;
   String? get ticketId => _$this._ticketId;
@@ -81,6 +117,9 @@ class TicketMessageBuilder
   TicketMessageBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _ticketId = $v.ticketId;
       _userId = $v.userId;
       _message = $v.message;
@@ -106,6 +145,10 @@ class TicketMessageBuilder
   _$TicketMessage _build() {
     final _$result = _$v ??
         new _$TicketMessage._(
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'TicketMessage', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             ticketId: BuiltValueNullFieldError.checkNotNull(
                 ticketId, r'TicketMessage', 'ticketId'),
             userId: BuiltValueNullFieldError.checkNotNull(

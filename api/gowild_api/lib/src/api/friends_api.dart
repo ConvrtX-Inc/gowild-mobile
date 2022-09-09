@@ -10,7 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
 import 'package:gowild_api/src/model/friends.dart';
-import 'package:gowild_api/src/model/get_many_base_friends_controller_friends200_response.dart';
+import 'package:gowild_api/src/model/get_many_friends_response_dto.dart';
 
 class FriendsApi {
 
@@ -246,9 +246,9 @@ class FriendsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyBaseFriendsControllerFriends200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyFriendsResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyBaseFriendsControllerFriends200Response>> getManyBaseFriendsControllerFriends({ 
+  Future<Response<GetManyFriendsResponseDto>> getManyBaseFriendsControllerFriends({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -307,14 +307,14 @@ class FriendsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyBaseFriendsControllerFriends200Response _responseData;
+    GetManyFriendsResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyBaseFriendsControllerFriends200Response);
+      const _responseType = FullType(GetManyFriendsResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyBaseFriendsControllerFriends200Response;
+      ) as GetManyFriendsResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -325,7 +325,7 @@ class FriendsApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyBaseFriendsControllerFriends200Response>(
+    return Response<GetManyFriendsResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

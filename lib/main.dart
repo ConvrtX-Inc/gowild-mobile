@@ -1,14 +1,14 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gowild/constants/colors.dart' as app_color_constants;
 import 'package:gowild/helper/navigation.dart';
 import 'package:gowild/providers/init.dart';
+import 'package:gowild/ui/screens/app/app-error.screen.dart';
+import 'package:gowild/ui/screens/app/spash.screen.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
-
-import 'package:gowild/constants/colors.dart' as app_color_constants;
 
 void main() {
   runApp(
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         // GlobalMaterialLocalizations.delegate,
         // GlobalWidgetsLocalizations.delegate,
         FormBuilderLocalizations.delegate,
@@ -68,33 +68,10 @@ class Root extends HookConsumerWidget {
           const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
         ],
       ),
-      error: (error, stackTrace) => SplashScreenView(
+      error: (error, stackTrace) => AppErrorScreen(
         error: error,
       ),
-      loading: () => const SplashScreenView(),
-    );
-  }
-}
-
-class SplashScreenView extends HookWidget {
-  final Object? error;
-
-  const SplashScreenView({
-    super.key,
-    this.error,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const CircularProgressIndicator(),
-          if (error != null) Text('Has error $error'),
-        ],
-      ),
+      loading: () => const SplashScreen(),
     );
   }
 }

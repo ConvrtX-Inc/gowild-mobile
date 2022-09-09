@@ -8,35 +8,37 @@ part of 'social_account.dart';
 
 class _$SocialAccount extends SocialAccount {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String userId;
   @override
-  final String description;
+  final String? description;
   @override
-  final String accountEmail;
+  final String? accountEmail;
   @override
-  final String socialId;
+  final String? socialId;
   @override
-  final String provider;
+  final String? provider;
 
   factory _$SocialAccount([void Function(SocialAccountBuilder)? updates]) =>
       (new SocialAccountBuilder()..update(updates))._build();
 
   _$SocialAccount._(
-      {required this.userId,
-      required this.description,
-      required this.accountEmail,
-      required this.socialId,
-      required this.provider})
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.userId,
+      this.description,
+      this.accountEmail,
+      this.socialId,
+      this.provider})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'SocialAccount', 'id');
     BuiltValueNullFieldError.checkNotNull(userId, r'SocialAccount', 'userId');
-    BuiltValueNullFieldError.checkNotNull(
-        description, r'SocialAccount', 'description');
-    BuiltValueNullFieldError.checkNotNull(
-        accountEmail, r'SocialAccount', 'accountEmail');
-    BuiltValueNullFieldError.checkNotNull(
-        socialId, r'SocialAccount', 'socialId');
-    BuiltValueNullFieldError.checkNotNull(
-        provider, r'SocialAccount', 'provider');
   }
 
   @override
@@ -50,6 +52,9 @@ class _$SocialAccount extends SocialAccount {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SocialAccount &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         userId == other.userId &&
         description == other.description &&
         accountEmail == other.accountEmail &&
@@ -61,7 +66,13 @@ class _$SocialAccount extends SocialAccount {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, userId.hashCode), description.hashCode),
+            $jc(
+                $jc(
+                    $jc(
+                        $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
+                            updatedDate.hashCode),
+                        userId.hashCode),
+                    description.hashCode),
                 accountEmail.hashCode),
             socialId.hashCode),
         provider.hashCode));
@@ -70,6 +81,9 @@ class _$SocialAccount extends SocialAccount {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'SocialAccount')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('userId', userId)
           ..add('description', description)
           ..add('accountEmail', accountEmail)
@@ -82,6 +96,18 @@ class _$SocialAccount extends SocialAccount {
 class SocialAccountBuilder
     implements Builder<SocialAccount, SocialAccountBuilder> {
   _$SocialAccount? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
 
   String? _userId;
   String? get userId => _$this._userId;
@@ -110,6 +136,9 @@ class SocialAccountBuilder
   SocialAccountBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _userId = $v.userId;
       _description = $v.description;
       _accountEmail = $v.accountEmail;
@@ -137,16 +166,16 @@ class SocialAccountBuilder
   _$SocialAccount _build() {
     final _$result = _$v ??
         new _$SocialAccount._(
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'SocialAccount', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             userId: BuiltValueNullFieldError.checkNotNull(
                 userId, r'SocialAccount', 'userId'),
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'SocialAccount', 'description'),
-            accountEmail: BuiltValueNullFieldError.checkNotNull(
-                accountEmail, r'SocialAccount', 'accountEmail'),
-            socialId: BuiltValueNullFieldError.checkNotNull(
-                socialId, r'SocialAccount', 'socialId'),
-            provider: BuiltValueNullFieldError.checkNotNull(
-                provider, r'SocialAccount', 'provider'));
+            description: description,
+            accountEmail: accountEmail,
+            socialId: socialId,
+            provider: provider);
     replace(_$result);
     return _$result;
   }

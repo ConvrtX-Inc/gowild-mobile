@@ -10,18 +10,26 @@ part 'guideline_log.g.dart';
 /// GuidelineLog
 ///
 /// Properties:
+/// * [id] 
+/// * [createdDate] 
+/// * [updatedDate] 
 /// * [userId] 
 /// * [guidelineType] 
-/// * [lastUpdateDate] 
 abstract class GuidelineLog implements Built<GuidelineLog, GuidelineLogBuilder> {
-    @BuiltValueField(wireName: r'user_id')
+    @BuiltValueField(wireName: r'id')
+    String get id;
+
+    @BuiltValueField(wireName: r'createdDate')
+    DateTime? get createdDate;
+
+    @BuiltValueField(wireName: r'updatedDate')
+    DateTime? get updatedDate;
+
+    @BuiltValueField(wireName: r'userId')
     String get userId;
 
     @BuiltValueField(wireName: r'guideline_type')
     String get guidelineType;
-
-    @BuiltValueField(wireName: r'last_update_date')
-    DateTime get lastUpdateDate;
 
     GuidelineLog._();
 
@@ -46,17 +54,25 @@ class _$GuidelineLogSerializer implements StructuredSerializer<GuidelineLog> {
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object?>[];
         result
-            ..add(r'user_id')
+            ..add(r'id')
+            ..add(serializers.serialize(object.id,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'createdDate')
+            ..add(object.createdDate == null ? null : serializers.serialize(object.createdDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
+            ..add(r'updatedDate')
+            ..add(object.updatedDate == null ? null : serializers.serialize(object.updatedDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
+            ..add(r'userId')
             ..add(serializers.serialize(object.userId,
                 specifiedType: const FullType(String)));
         result
             ..add(r'guideline_type')
             ..add(serializers.serialize(object.guidelineType,
                 specifiedType: const FullType(String)));
-        result
-            ..add(r'last_update_date')
-            ..add(serializers.serialize(object.lastUpdateDate,
-                specifiedType: const FullType(DateTime)));
         return result;
     }
 
@@ -72,7 +88,24 @@ class _$GuidelineLogSerializer implements StructuredSerializer<GuidelineLog> {
             final Object? value = iterator.current;
             
             switch (key) {
-                case r'user_id':
+                case r'id':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.id = valueDes;
+                    break;
+                case r'createdDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.createdDate = valueDes;
+                    break;
+                case r'updatedDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.updatedDate = valueDes;
+                    break;
+                case r'userId':
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     result.userId = valueDes;
@@ -81,11 +114,6 @@ class _$GuidelineLogSerializer implements StructuredSerializer<GuidelineLog> {
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     result.guidelineType = valueDes;
-                    break;
-                case r'last_update_date':
-                    final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(DateTime)) as DateTime;
-                    result.lastUpdateDate = valueDes;
                     break;
             }
         }

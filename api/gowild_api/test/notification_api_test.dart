@@ -23,7 +23,7 @@ void main() {
 
     // Retrieve many Notification
     //
-    //Future<GetManyBaseNotificationControllerNotification200Response> getManyBaseNotificationControllerNotification({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    //Future<GetManyNotificationResponseDto> getManyBaseNotificationControllerNotification({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
     test('test getManyBaseNotificationControllerNotification', () async {
       // TODO
     });

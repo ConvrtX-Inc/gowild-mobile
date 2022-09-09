@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -28,7 +29,7 @@ class TitleTextWithAssetWidget extends StatelessWidget {
                 color: primaryYellow,
                 fontSize: 50,
                 fontWeight: FontWeight.w400,
-                fontFamily: 'assets/TheForegenRegular.ttf'),
+                fontFamily: 'TheForegenRegular'),
           ),
         ),
         Image.asset(
@@ -139,6 +140,7 @@ class AuthTextField extends HookWidget {
   final bool obscureText;
   final FormFieldValidator<String> validator;
   final ValueChanged<String?>? onChanged;
+  final EdgeInsetsGeometry? padding;
 
   const AuthTextField({
     super.key,
@@ -149,70 +151,74 @@ class AuthTextField extends HookWidget {
     this.obscureText = false,
     this.controller,
     this.onChanged,
+    this.padding,
   });
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 16),
-          child: Text(
-            titleText,
-            style: const TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
-          ),
-        ),
-        ClipRRect(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(16.0),
-          ),
-          child: Container(
-            height: 90,
-            width: size.width * 0.9,
-            padding: const EdgeInsets.all(8.0),
-            child: FormBuilderTextField(
-              onChanged: onChanged,
-              name: name,
-              validator: validator,
-              obscureText: obscureText,
-              controller: controller,
-              cursorColor: const Color(0xff6B6968),
+    return Container(
+      padding: padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Text(
+              titleText,
               style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xff6B6968), width: 2.0),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10.0),
+                  color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
+            ),
+          ),
+          ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(16.0),
+            ),
+            child: Container(
+              height: 90,
+              width: size.width * 0.9,
+              padding: const EdgeInsets.all(8.0),
+              child: FormBuilderTextField(
+                onChanged: onChanged,
+                name: name,
+                validator: validator,
+                obscureText: obscureText,
+                controller: controller,
+                cursorColor: const Color(0xff6B6968),
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400),
+                decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xff6B6968), width: 2.0),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10.0),
+                    ),
                   ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide:
-                      const BorderSide(color: Color(0xff6B6968), width: 2.0),
-                ),
-                contentPadding: // Text Field height
-                    const EdgeInsets.symmetric(
-                  vertical: 15.0,
-                  horizontal: 20.0,
-                ),
-                hintText: hintText,
-                hintStyle: const TextStyle(
-                  // height: 3,
-                  color: Color(0xff6B6968),
-                  fontWeight: FontWeight.w400,
-                  fontSize: 18,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide:
+                    const BorderSide(color: Color(0xff6B6968), width: 2.0),
+                  ),
+                  contentPadding: // Text Field height
+                  const EdgeInsets.symmetric(
+                    vertical: 15.0,
+                    horizontal: 20.0,
+                  ),
+                  hintText: hintText,
+                  hintStyle: const TextStyle(
+                    // height: 3,
+                    color: Color(0xff6B6968),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 18,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -223,14 +229,17 @@ class ForgotPasswordButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        context.beamToNamed('/auth/reset-password');
+      },
       child: const Text(
         'Forgot Password?',
         style: TextStyle(
-            decoration: TextDecoration.underline,
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-            fontSize: 18),
+          decoration: TextDecoration.underline,
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 18,
+        ),
       ),
     );
   }

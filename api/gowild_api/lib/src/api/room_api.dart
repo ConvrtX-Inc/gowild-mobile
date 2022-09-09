@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
-import 'package:gowild_api/src/model/get_many_base_room_controller_room200_response.dart';
+import 'package:gowild_api/src/model/get_many_room_response_dto.dart';
 import 'package:gowild_api/src/model/room.dart';
 
 class RoomApi {
@@ -193,9 +193,9 @@ class RoomApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyBaseRoomControllerRoom200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyRoomResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyBaseRoomControllerRoom200Response>> getManyBaseRoomControllerRoom({ 
+  Future<Response<GetManyRoomResponseDto>> getManyBaseRoomControllerRoom({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -254,14 +254,14 @@ class RoomApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyBaseRoomControllerRoom200Response _responseData;
+    GetManyRoomResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyBaseRoomControllerRoom200Response);
+      const _responseType = FullType(GetManyRoomResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyBaseRoomControllerRoom200Response;
+      ) as GetManyRoomResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -272,7 +272,7 @@ class RoomApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyBaseRoomControllerRoom200Response>(
+    return Response<GetManyRoomResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

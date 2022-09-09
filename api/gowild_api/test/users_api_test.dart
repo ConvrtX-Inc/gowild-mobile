@@ -23,7 +23,7 @@ void main() {
 
     // Retrieve many User
     //
-    //Future<GetManyBaseUsersControllerUser200Response> getManyBaseUsersControllerUser({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    //Future<GetManyUserResponseDto> getManyBaseUsersControllerUser({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
     test('test getManyBaseUsersControllerUser', () async {
       // TODO
     });
@@ -44,15 +44,22 @@ void main() {
 
     // Approved an user.
     //
-    //Future usersControllerApproveUser(String id) async
+    //Future<User> usersControllerApproveUser(String id) async
     test('test usersControllerApproveUser', () async {
       // TODO
     });
 
     // Reject an user.
     //
-    //Future usersControllerRejectUser(String id) async
+    //Future<User> usersControllerRejectUser(String id) async
     test('test usersControllerRejectUser', () async {
+      // TODO
+    });
+
+    // Update user's profile picture
+    //
+    //Future<User> usersControllerUpdateAvatar(String id, PictureUpdateDto pictureUpdateDto) async
+    test('test usersControllerUpdateAvatar', () async {
       // TODO
     });
 

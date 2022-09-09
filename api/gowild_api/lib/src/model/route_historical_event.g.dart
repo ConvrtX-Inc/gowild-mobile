@@ -8,13 +8,19 @@ part of 'route_historical_event.dart';
 
 class _$RouteHistoricalEvent extends RouteHistoricalEvent {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String routeId;
   @override
   final String closureUid;
   @override
-  final num eventLong;
+  final double eventLong;
   @override
-  final num eventLat;
+  final double eventLat;
   @override
   final String eventTitle;
   @override
@@ -27,7 +33,10 @@ class _$RouteHistoricalEvent extends RouteHistoricalEvent {
       (new RouteHistoricalEventBuilder()..update(updates))._build();
 
   _$RouteHistoricalEvent._(
-      {required this.routeId,
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.routeId,
       required this.closureUid,
       required this.eventLong,
       required this.eventLat,
@@ -35,6 +44,7 @@ class _$RouteHistoricalEvent extends RouteHistoricalEvent {
       required this.eventSubtitle,
       required this.description})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'RouteHistoricalEvent', 'id');
     BuiltValueNullFieldError.checkNotNull(
         routeId, r'RouteHistoricalEvent', 'routeId');
     BuiltValueNullFieldError.checkNotNull(
@@ -64,6 +74,9 @@ class _$RouteHistoricalEvent extends RouteHistoricalEvent {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is RouteHistoricalEvent &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         routeId == other.routeId &&
         closureUid == other.closureUid &&
         eventLong == other.eventLong &&
@@ -79,7 +92,15 @@ class _$RouteHistoricalEvent extends RouteHistoricalEvent {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, routeId.hashCode), closureUid.hashCode),
+                    $jc(
+                        $jc(
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, id.hashCode),
+                                        createdDate.hashCode),
+                                    updatedDate.hashCode),
+                                routeId.hashCode),
+                            closureUid.hashCode),
                         eventLong.hashCode),
                     eventLat.hashCode),
                 eventTitle.hashCode),
@@ -90,6 +111,9 @@ class _$RouteHistoricalEvent extends RouteHistoricalEvent {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'RouteHistoricalEvent')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('routeId', routeId)
           ..add('closureUid', closureUid)
           ..add('eventLong', eventLong)
@@ -105,6 +129,18 @@ class RouteHistoricalEventBuilder
     implements Builder<RouteHistoricalEvent, RouteHistoricalEventBuilder> {
   _$RouteHistoricalEvent? _$v;
 
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
+
   String? _routeId;
   String? get routeId => _$this._routeId;
   set routeId(String? routeId) => _$this._routeId = routeId;
@@ -113,13 +149,13 @@ class RouteHistoricalEventBuilder
   String? get closureUid => _$this._closureUid;
   set closureUid(String? closureUid) => _$this._closureUid = closureUid;
 
-  num? _eventLong;
-  num? get eventLong => _$this._eventLong;
-  set eventLong(num? eventLong) => _$this._eventLong = eventLong;
+  double? _eventLong;
+  double? get eventLong => _$this._eventLong;
+  set eventLong(double? eventLong) => _$this._eventLong = eventLong;
 
-  num? _eventLat;
-  num? get eventLat => _$this._eventLat;
-  set eventLat(num? eventLat) => _$this._eventLat = eventLat;
+  double? _eventLat;
+  double? get eventLat => _$this._eventLat;
+  set eventLat(double? eventLat) => _$this._eventLat = eventLat;
 
   String? _eventTitle;
   String? get eventTitle => _$this._eventTitle;
@@ -141,6 +177,9 @@ class RouteHistoricalEventBuilder
   RouteHistoricalEventBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _routeId = $v.routeId;
       _closureUid = $v.closureUid;
       _eventLong = $v.eventLong;
@@ -170,6 +209,10 @@ class RouteHistoricalEventBuilder
   _$RouteHistoricalEvent _build() {
     final _$result = _$v ??
         new _$RouteHistoricalEvent._(
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'RouteHistoricalEvent', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             routeId: BuiltValueNullFieldError.checkNotNull(
                 routeId, r'RouteHistoricalEvent', 'routeId'),
             closureUid: BuiltValueNullFieldError.checkNotNull(

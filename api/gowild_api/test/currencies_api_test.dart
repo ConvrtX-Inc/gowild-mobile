@@ -9,7 +9,7 @@ void main() {
   group(CurrenciesApi, () {
     // Retrieve many Currency
     //
-    //Future<GetManyBaseCurrencyControllerCurrency200Response> getManyBaseCurrencyControllerCurrency({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    //Future<GetManyCurrencyResponseDto> getManyBaseCurrencyControllerCurrency({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
     test('test getManyBaseCurrencyControllerCurrency', () async {
       // TODO
     });

@@ -9,26 +9,16 @@ import 'package:gowild_api/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
-**fullName** | **String** |  | 
+**createdDate** | [**DateTime**](DateTime.md) |  | 
+**updatedDate** | [**DateTime**](DateTime.md) |  | 
 **firstName** | **String** |  | 
 **lastName** | **String** |  | 
 **birthDate** | [**DateTime**](DateTime.md) |  | 
-**gender** | **String** |  | 
-**firebaseSnapshotId1Img** | **String** |  | 
-**firebaseSnapshotId2Img** | **String** |  | 
+**gender** | [**GenderEnum**](GenderEnum.md) |  | 
 **username** | **String** |  | 
 **email** | **String** |  | 
-**password** | **String** |  | 
 **phoneNo** | **String** |  | 
-**addressLine1** | **String** |  | 
-**addressLine2** | **String** |  | 
-**profilePhoto** | [**JsonObject**](.md) |  | 
-**imgUrl** | **String** |  | 
-**hash** | **String** |  | 
-**createdDate** | [**DateTime**](DateTime.md) |  | 
-**updatedDate** | [**DateTime**](DateTime.md) |  | 
-**deletedDate** | [**DateTime**](DateTime.md) |  | 
-**statusId** | **num** |  | 
+**picture** | [**UserPicture**](UserPicture.md) |  | 
 **status** | [**UserStatus**](UserStatus.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

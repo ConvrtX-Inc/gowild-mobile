@@ -8,13 +8,16 @@ import 'package:gowild_api/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **String** |  | 
+**createdDate** | [**DateTime**](DateTime.md) |  | 
+**updatedDate** | [**DateTime**](DateTime.md) |  | 
 **userId** | **String** |  | 
 **routeName** | **String** |  | 
 **routePhoto** | [**JsonObject**](.md) |  | 
-**startPointLong** | **num** |  | 
-**startPointLat** | **num** |  | 
-**stopPointLong** | **num** |  | 
-**stopPointLat** | **num** |  | 
+**startPointLong** | **double** |  | 
+**startPointLat** | **double** |  | 
+**stopPointLong** | **double** |  | 
+**stopPointLat** | **double** |  | 
 **imgUrl** | **String** |  | 
 **description** | **String** |  | 
 

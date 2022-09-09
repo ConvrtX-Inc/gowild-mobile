@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
-import 'package:gowild_api/src/model/get_many_base_participant_controller_participant200_response.dart';
+import 'package:gowild_api/src/model/get_many_participant_response_dto.dart';
 import 'package:gowild_api/src/model/participant.dart';
 
 class ParticipantApi {
@@ -193,9 +193,9 @@ class ParticipantApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyBaseParticipantControllerParticipant200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyParticipantResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyBaseParticipantControllerParticipant200Response>> getManyBaseParticipantControllerParticipant({ 
+  Future<Response<GetManyParticipantResponseDto>> getManyBaseParticipantControllerParticipant({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -254,14 +254,14 @@ class ParticipantApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyBaseParticipantControllerParticipant200Response _responseData;
+    GetManyParticipantResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyBaseParticipantControllerParticipant200Response);
+      const _responseType = FullType(GetManyParticipantResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyBaseParticipantControllerParticipant200Response;
+      ) as GetManyParticipantResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -272,7 +272,7 @@ class ParticipantApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyBaseParticipantControllerParticipant200Response>(
+    return Response<GetManyParticipantResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

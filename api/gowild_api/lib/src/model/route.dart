@@ -11,6 +11,9 @@ part 'route.g.dart';
 /// Route
 ///
 /// Properties:
+/// * [id] 
+/// * [createdDate] 
+/// * [updatedDate] 
 /// * [userId] 
 /// * [routeName] 
 /// * [routePhoto] 
@@ -21,6 +24,15 @@ part 'route.g.dart';
 /// * [imgUrl] 
 /// * [description] 
 abstract class Route implements Built<Route, RouteBuilder> {
+    @BuiltValueField(wireName: r'id')
+    String get id;
+
+    @BuiltValueField(wireName: r'createdDate')
+    DateTime? get createdDate;
+
+    @BuiltValueField(wireName: r'updatedDate')
+    DateTime? get updatedDate;
+
     @BuiltValueField(wireName: r'user_id')
     String get userId;
 
@@ -31,16 +43,16 @@ abstract class Route implements Built<Route, RouteBuilder> {
     JsonObject get routePhoto;
 
     @BuiltValueField(wireName: r'start_point_long')
-    num get startPointLong;
+    double get startPointLong;
 
     @BuiltValueField(wireName: r'start_point_lat')
-    num get startPointLat;
+    double get startPointLat;
 
     @BuiltValueField(wireName: r'stop_point_long')
-    num get stopPointLong;
+    double get stopPointLong;
 
     @BuiltValueField(wireName: r'stop_point_lat')
-    num get stopPointLat;
+    double get stopPointLat;
 
     @BuiltValueField(wireName: r'img_url')
     String get imgUrl;
@@ -71,6 +83,18 @@ class _$RouteSerializer implements StructuredSerializer<Route> {
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object?>[];
         result
+            ..add(r'id')
+            ..add(serializers.serialize(object.id,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'createdDate')
+            ..add(object.createdDate == null ? null : serializers.serialize(object.createdDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
+            ..add(r'updatedDate')
+            ..add(object.updatedDate == null ? null : serializers.serialize(object.updatedDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
             ..add(r'user_id')
             ..add(serializers.serialize(object.userId,
                 specifiedType: const FullType(String)));
@@ -85,19 +109,19 @@ class _$RouteSerializer implements StructuredSerializer<Route> {
         result
             ..add(r'start_point_long')
             ..add(serializers.serialize(object.startPointLong,
-                specifiedType: const FullType(num)));
+                specifiedType: const FullType(double)));
         result
             ..add(r'start_point_lat')
             ..add(serializers.serialize(object.startPointLat,
-                specifiedType: const FullType(num)));
+                specifiedType: const FullType(double)));
         result
             ..add(r'stop_point_long')
             ..add(serializers.serialize(object.stopPointLong,
-                specifiedType: const FullType(num)));
+                specifiedType: const FullType(double)));
         result
             ..add(r'stop_point_lat')
             ..add(serializers.serialize(object.stopPointLat,
-                specifiedType: const FullType(num)));
+                specifiedType: const FullType(double)));
         result
             ..add(r'img_url')
             ..add(serializers.serialize(object.imgUrl,
@@ -121,6 +145,23 @@ class _$RouteSerializer implements StructuredSerializer<Route> {
             final Object? value = iterator.current;
             
             switch (key) {
+                case r'id':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.id = valueDes;
+                    break;
+                case r'createdDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.createdDate = valueDes;
+                    break;
+                case r'updatedDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.updatedDate = valueDes;
+                    break;
                 case r'user_id':
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
@@ -138,22 +179,22 @@ class _$RouteSerializer implements StructuredSerializer<Route> {
                     break;
                 case r'start_point_long':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(num)) as num;
+                        specifiedType: const FullType(double)) as double;
                     result.startPointLong = valueDes;
                     break;
                 case r'start_point_lat':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(num)) as num;
+                        specifiedType: const FullType(double)) as double;
                     result.startPointLat = valueDes;
                     break;
                 case r'stop_point_long':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(num)) as num;
+                        specifiedType: const FullType(double)) as double;
                     result.stopPointLong = valueDes;
                     break;
                 case r'stop_point_lat':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(num)) as num;
+                        specifiedType: const FullType(double)) as double;
                     result.stopPointLat = valueDes;
                     break;
                 case r'img_url':

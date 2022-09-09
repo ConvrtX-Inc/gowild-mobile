@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **getManyBaseCurrencyControllerCurrency**
-> GetManyBaseCurrencyControllerCurrency200Response getManyBaseCurrencyControllerCurrency(fields, s, filter, or, sort, join, limit, offset, page, cache)
+> GetManyCurrencyResponseDto getManyBaseCurrencyControllerCurrency(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
 Retrieve many Currency
 
@@ -59,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyBaseCurrencyControllerCurrency200Response**](GetManyBaseCurrencyControllerCurrency200Response.md)
+[**GetManyCurrencyResponseDto**](GetManyCurrencyResponseDto.md)
 
 ### Authorization
 

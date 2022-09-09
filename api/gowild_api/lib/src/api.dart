@@ -16,6 +16,7 @@ import 'package:gowild_api/src/api/files_api.dart';
 import 'package:gowild_api/src/api/friends_api.dart';
 import 'package:gowild_api/src/api/guideline_logs_api.dart';
 import 'package:gowild_api/src/api/guidelines_api.dart';
+import 'package:gowild_api/src/api/health_api.dart';
 import 'package:gowild_api/src/api/home_api.dart';
 import 'package:gowild_api/src/api/like_api.dart';
 import 'package:gowild_api/src/api/notification_api.dart';
@@ -130,6 +131,12 @@ class GowildApi {
   /// by doing that all interceptors will not be executed
   GuidelinesApi getGuidelinesApi() {
     return GuidelinesApi(dio, serializers);
+  }
+
+  /// Get HealthApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  HealthApi getHealthApi() {
+    return HealthApi(dio, serializers);
   }
 
   /// Get HomeApi instance, base route and serializer can be overridden by a given but be careful,

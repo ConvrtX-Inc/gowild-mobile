@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
-import 'package:gowild_api/src/model/get_many_base_post_feed_controller_post_feed200_response.dart';
+import 'package:gowild_api/src/model/get_many_post_feed_response_dto.dart';
 import 'package:gowild_api/src/model/post_feed.dart';
 
 class PostFeedApi {
@@ -193,9 +193,9 @@ class PostFeedApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyBasePostFeedControllerPostFeed200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyPostFeedResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyBasePostFeedControllerPostFeed200Response>> getManyBasePostFeedControllerPostFeed({ 
+  Future<Response<GetManyPostFeedResponseDto>> getManyBasePostFeedControllerPostFeed({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -254,14 +254,14 @@ class PostFeedApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyBasePostFeedControllerPostFeed200Response _responseData;
+    GetManyPostFeedResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyBasePostFeedControllerPostFeed200Response);
+      const _responseType = FullType(GetManyPostFeedResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyBasePostFeedControllerPostFeed200Response;
+      ) as GetManyPostFeedResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -272,7 +272,7 @@ class PostFeedApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyBasePostFeedControllerPostFeed200Response>(
+    return Response<GetManyPostFeedResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

@@ -3,9 +3,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HiveProvider<T> {
   late Box<T> _box;
+  bool _initCalled = false;
 
-  void _init(String boxName) async {
+  Future<void> init(String boxName) async {
+    if (_initCalled) {
+      return;
+    }
+
     _box = await Hive.openBox(boxName);
+    _initCalled = true;
   }
 
   T? value(String key) {
@@ -24,7 +30,7 @@ class HiveProvider<T> {
 final hiveProvider = Provider.family.autoDispose(
   (ref, String boxName) {
     final p = HiveProvider<String>();
-    p._init(boxName);
+    p.init(boxName);
     return p;
   },
 );

@@ -8,6 +8,12 @@ part of 'ticket.dart';
 
 class _$Ticket extends Ticket {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String userId;
   @override
   final String subject;
@@ -16,18 +22,22 @@ class _$Ticket extends Ticket {
   @override
   final String imgUrl;
   @override
-  final num status;
+  final Status status;
 
   factory _$Ticket([void Function(TicketBuilder)? updates]) =>
       (new TicketBuilder()..update(updates))._build();
 
   _$Ticket._(
-      {required this.userId,
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.userId,
       required this.subject,
       required this.message,
       required this.imgUrl,
       required this.status})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'Ticket', 'id');
     BuiltValueNullFieldError.checkNotNull(userId, r'Ticket', 'userId');
     BuiltValueNullFieldError.checkNotNull(subject, r'Ticket', 'subject');
     BuiltValueNullFieldError.checkNotNull(message, r'Ticket', 'message');
@@ -46,6 +56,9 @@ class _$Ticket extends Ticket {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Ticket &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         userId == other.userId &&
         subject == other.subject &&
         message == other.message &&
@@ -57,7 +70,13 @@ class _$Ticket extends Ticket {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, userId.hashCode), subject.hashCode),
+            $jc(
+                $jc(
+                    $jc(
+                        $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
+                            updatedDate.hashCode),
+                        userId.hashCode),
+                    subject.hashCode),
                 message.hashCode),
             imgUrl.hashCode),
         status.hashCode));
@@ -66,6 +85,9 @@ class _$Ticket extends Ticket {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'Ticket')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('userId', userId)
           ..add('subject', subject)
           ..add('message', message)
@@ -77,6 +99,18 @@ class _$Ticket extends Ticket {
 
 class TicketBuilder implements Builder<Ticket, TicketBuilder> {
   _$Ticket? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
 
   String? _userId;
   String? get userId => _$this._userId;
@@ -94,9 +128,9 @@ class TicketBuilder implements Builder<Ticket, TicketBuilder> {
   String? get imgUrl => _$this._imgUrl;
   set imgUrl(String? imgUrl) => _$this._imgUrl = imgUrl;
 
-  num? _status;
-  num? get status => _$this._status;
-  set status(num? status) => _$this._status = status;
+  StatusBuilder? _status;
+  StatusBuilder get status => _$this._status ??= new StatusBuilder();
+  set status(StatusBuilder? status) => _$this._status = status;
 
   TicketBuilder() {
     Ticket._defaults(this);
@@ -105,11 +139,14 @@ class TicketBuilder implements Builder<Ticket, TicketBuilder> {
   TicketBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _userId = $v.userId;
       _subject = $v.subject;
       _message = $v.message;
       _imgUrl = $v.imgUrl;
-      _status = $v.status;
+      _status = $v.status.toBuilder();
       _$v = null;
     }
     return this;
@@ -130,18 +167,33 @@ class TicketBuilder implements Builder<Ticket, TicketBuilder> {
   Ticket build() => _build();
 
   _$Ticket _build() {
-    final _$result = _$v ??
-        new _$Ticket._(
-            userId: BuiltValueNullFieldError.checkNotNull(
-                userId, r'Ticket', 'userId'),
-            subject: BuiltValueNullFieldError.checkNotNull(
-                subject, r'Ticket', 'subject'),
-            message: BuiltValueNullFieldError.checkNotNull(
-                message, r'Ticket', 'message'),
-            imgUrl: BuiltValueNullFieldError.checkNotNull(
-                imgUrl, r'Ticket', 'imgUrl'),
-            status: BuiltValueNullFieldError.checkNotNull(
-                status, r'Ticket', 'status'));
+    _$Ticket _$result;
+    try {
+      _$result = _$v ??
+          new _$Ticket._(
+              id: BuiltValueNullFieldError.checkNotNull(id, r'Ticket', 'id'),
+              createdDate: createdDate,
+              updatedDate: updatedDate,
+              userId: BuiltValueNullFieldError.checkNotNull(
+                  userId, r'Ticket', 'userId'),
+              subject: BuiltValueNullFieldError.checkNotNull(
+                  subject, r'Ticket', 'subject'),
+              message: BuiltValueNullFieldError.checkNotNull(
+                  message, r'Ticket', 'message'),
+              imgUrl: BuiltValueNullFieldError.checkNotNull(
+                  imgUrl, r'Ticket', 'imgUrl'),
+              status: status.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'status';
+        status.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'Ticket', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

@@ -23,7 +23,7 @@ void main() {
 
     // Retrieve many Comment
     //
-    //Future<GetManyBaseCommentControllerComment200Response> getManyBaseCommentControllerComment({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    //Future<GetManyCommentResponseDto> getManyBaseCommentControllerComment({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
     test('test getManyBaseCommentControllerComment', () async {
       // TODO
     });

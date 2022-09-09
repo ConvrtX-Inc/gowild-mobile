@@ -8,6 +8,12 @@ part of 'guideline.dart';
 
 class _$Guideline extends Guideline {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String type;
   @override
   final String description;
@@ -18,10 +24,14 @@ class _$Guideline extends Guideline {
       (new GuidelineBuilder()..update(updates))._build();
 
   _$Guideline._(
-      {required this.type,
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.type,
       required this.description,
       required this.lastUpdatedUser})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'Guideline', 'id');
     BuiltValueNullFieldError.checkNotNull(type, r'Guideline', 'type');
     BuiltValueNullFieldError.checkNotNull(
         description, r'Guideline', 'description');
@@ -40,6 +50,9 @@ class _$Guideline extends Guideline {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Guideline &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         type == other.type &&
         description == other.description &&
         lastUpdatedUser == other.lastUpdatedUser;
@@ -47,13 +60,22 @@ class _$Guideline extends Guideline {
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, type.hashCode), description.hashCode),
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
+                    updatedDate.hashCode),
+                type.hashCode),
+            description.hashCode),
         lastUpdatedUser.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'Guideline')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('type', type)
           ..add('description', description)
           ..add('lastUpdatedUser', lastUpdatedUser))
@@ -63,6 +85,18 @@ class _$Guideline extends Guideline {
 
 class GuidelineBuilder implements Builder<Guideline, GuidelineBuilder> {
   _$Guideline? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
 
   String? _type;
   String? get type => _$this._type;
@@ -84,6 +118,9 @@ class GuidelineBuilder implements Builder<Guideline, GuidelineBuilder> {
   GuidelineBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _type = $v.type;
       _description = $v.description;
       _lastUpdatedUser = $v.lastUpdatedUser;
@@ -109,6 +146,9 @@ class GuidelineBuilder implements Builder<Guideline, GuidelineBuilder> {
   _$Guideline _build() {
     final _$result = _$v ??
         new _$Guideline._(
+            id: BuiltValueNullFieldError.checkNotNull(id, r'Guideline', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             type: BuiltValueNullFieldError.checkNotNull(
                 type, r'Guideline', 'type'),
             description: BuiltValueNullFieldError.checkNotNull(

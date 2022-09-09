@@ -23,7 +23,7 @@ void main() {
 
     // Retrieve many Guideline
     //
-    //Future<GetManyBaseGuidelinesControllerGuideline200Response> getManyBaseGuidelinesControllerGuideline({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    //Future<GetManyGuidelineResponseDto> getManyBaseGuidelinesControllerGuideline({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
     test('test getManyBaseGuidelinesControllerGuideline', () async {
       // TODO
     });

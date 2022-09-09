@@ -10,10 +10,22 @@ part 'ticket_message.g.dart';
 /// TicketMessage
 ///
 /// Properties:
+/// * [id] 
+/// * [createdDate] 
+/// * [updatedDate] 
 /// * [ticketId] 
 /// * [userId] 
 /// * [message] 
 abstract class TicketMessage implements Built<TicketMessage, TicketMessageBuilder> {
+    @BuiltValueField(wireName: r'id')
+    String get id;
+
+    @BuiltValueField(wireName: r'createdDate')
+    DateTime? get createdDate;
+
+    @BuiltValueField(wireName: r'updatedDate')
+    DateTime? get updatedDate;
+
     @BuiltValueField(wireName: r'ticket_id')
     String get ticketId;
 
@@ -46,6 +58,18 @@ class _$TicketMessageSerializer implements StructuredSerializer<TicketMessage> {
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object?>[];
         result
+            ..add(r'id')
+            ..add(serializers.serialize(object.id,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'createdDate')
+            ..add(object.createdDate == null ? null : serializers.serialize(object.createdDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
+            ..add(r'updatedDate')
+            ..add(object.updatedDate == null ? null : serializers.serialize(object.updatedDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
             ..add(r'ticket_id')
             ..add(serializers.serialize(object.ticketId,
                 specifiedType: const FullType(String)));
@@ -72,6 +96,23 @@ class _$TicketMessageSerializer implements StructuredSerializer<TicketMessage> {
             final Object? value = iterator.current;
             
             switch (key) {
+                case r'id':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.id = valueDes;
+                    break;
+                case r'createdDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.createdDate = valueDes;
+                    break;
+                case r'updatedDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.updatedDate = valueDes;
+                    break;
                 case r'ticket_id':
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;

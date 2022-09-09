@@ -8,21 +8,15 @@ part of 'auth_forgot_password_dto.dart';
 
 class _$AuthForgotPasswordDto extends AuthForgotPasswordDto {
   @override
-  final String email;
+  final String? email;
   @override
-  final String phone;
+  final String? phone;
 
   factory _$AuthForgotPasswordDto(
           [void Function(AuthForgotPasswordDtoBuilder)? updates]) =>
       (new AuthForgotPasswordDtoBuilder()..update(updates))._build();
 
-  _$AuthForgotPasswordDto._({required this.email, required this.phone})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        email, r'AuthForgotPasswordDto', 'email');
-    BuiltValueNullFieldError.checkNotNull(
-        phone, r'AuthForgotPasswordDto', 'phone');
-  }
+  _$AuthForgotPasswordDto._({this.email, this.phone}) : super._();
 
   @override
   AuthForgotPasswordDto rebuild(
@@ -96,12 +90,8 @@ class AuthForgotPasswordDtoBuilder
   AuthForgotPasswordDto build() => _build();
 
   _$AuthForgotPasswordDto _build() {
-    final _$result = _$v ??
-        new _$AuthForgotPasswordDto._(
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'AuthForgotPasswordDto', 'email'),
-            phone: BuiltValueNullFieldError.checkNotNull(
-                phone, r'AuthForgotPasswordDto', 'phone'));
+    final _$result =
+        _$v ?? new _$AuthForgotPasswordDto._(email: email, phone: phone);
     replace(_$result);
     return _$result;
   }

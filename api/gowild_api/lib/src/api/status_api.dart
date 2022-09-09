@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
-import 'package:gowild_api/src/model/get_many_base_status_controller_status200_response.dart';
+import 'package:gowild_api/src/model/get_many_status_response_dto.dart';
 import 'package:gowild_api/src/model/status.dart';
 
 class StatusApi {
@@ -181,9 +181,9 @@ class StatusApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyBaseStatusControllerStatus200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyStatusResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyBaseStatusControllerStatus200Response>> getManyBaseStatusControllerStatus({ 
+  Future<Response<GetManyStatusResponseDto>> getManyBaseStatusControllerStatus({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -236,14 +236,14 @@ class StatusApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyBaseStatusControllerStatus200Response _responseData;
+    GetManyStatusResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyBaseStatusControllerStatus200Response);
+      const _responseType = FullType(GetManyStatusResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyBaseStatusControllerStatus200Response;
+      ) as GetManyStatusResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -254,7 +254,7 @@ class StatusApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyBaseStatusControllerStatus200Response>(
+    return Response<GetManyStatusResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

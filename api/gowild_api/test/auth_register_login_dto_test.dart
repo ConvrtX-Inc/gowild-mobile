@@ -17,11 +17,6 @@ void main() {
       // TODO
     });
 
-    // String fullName
-    test('to test the property `fullName`', () async {
-      // TODO
-    });
-
     // String firstName
     test('to test the property `firstName`', () async {
       // TODO
@@ -32,28 +27,13 @@ void main() {
       // TODO
     });
 
-    // String gender
+    // GenderEnum gender
     test('to test the property `gender`', () async {
-      // TODO
-    });
-
-    // String addressLine1
-    test('to test the property `addressLine1`', () async {
-      // TODO
-    });
-
-    // String addressLine2
-    test('to test the property `addressLine2`', () async {
       // TODO
     });
 
     // String phoneNo
     test('to test the property `phoneNo`', () async {
-      // TODO
-    });
-
-    // String statusId
-    test('to test the property `statusId`', () async {
       // TODO
     });
 

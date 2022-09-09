@@ -11,6 +11,9 @@ part 'treasure_chest.g.dart';
 /// TreasureChest
 ///
 /// Properties:
+/// * [id] 
+/// * [createdDate] 
+/// * [updatedDate] 
 /// * [title] 
 /// * [description] 
 /// * [locationLong] 
@@ -22,6 +25,15 @@ part 'treasure_chest.g.dart';
 /// * [thumbnailImg] 
 /// * [aR] 
 abstract class TreasureChest implements Built<TreasureChest, TreasureChestBuilder> {
+    @BuiltValueField(wireName: r'id')
+    String get id;
+
+    @BuiltValueField(wireName: r'createdDate')
+    DateTime? get createdDate;
+
+    @BuiltValueField(wireName: r'updatedDate')
+    DateTime? get updatedDate;
+
     @BuiltValueField(wireName: r'title')
     String get title;
 
@@ -29,12 +41,12 @@ abstract class TreasureChest implements Built<TreasureChest, TreasureChestBuilde
     String get description;
 
     @BuiltValueField(wireName: r'location_long')
-    num get locationLong;
+    double get locationLong;
 
     @BuiltValueField(wireName: r'location_lat')
-    num get locationLat;
+    double get locationLat;
 
-    @BuiltValueField(wireName: r'event_date')
+    @BuiltValueField(wireName: r'eventDate')
     DateTime get eventDate;
 
     @BuiltValueField(wireName: r'event_time')
@@ -75,6 +87,18 @@ class _$TreasureChestSerializer implements StructuredSerializer<TreasureChest> {
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object?>[];
         result
+            ..add(r'id')
+            ..add(serializers.serialize(object.id,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'createdDate')
+            ..add(object.createdDate == null ? null : serializers.serialize(object.createdDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
+            ..add(r'updatedDate')
+            ..add(object.updatedDate == null ? null : serializers.serialize(object.updatedDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
             ..add(r'title')
             ..add(serializers.serialize(object.title,
                 specifiedType: const FullType(String)));
@@ -85,13 +109,13 @@ class _$TreasureChestSerializer implements StructuredSerializer<TreasureChest> {
         result
             ..add(r'location_long')
             ..add(serializers.serialize(object.locationLong,
-                specifiedType: const FullType(num)));
+                specifiedType: const FullType(double)));
         result
             ..add(r'location_lat')
             ..add(serializers.serialize(object.locationLat,
-                specifiedType: const FullType(num)));
+                specifiedType: const FullType(double)));
         result
-            ..add(r'event_date')
+            ..add(r'eventDate')
             ..add(serializers.serialize(object.eventDate,
                 specifiedType: const FullType(DateTime)));
         result
@@ -129,6 +153,23 @@ class _$TreasureChestSerializer implements StructuredSerializer<TreasureChest> {
             final Object? value = iterator.current;
             
             switch (key) {
+                case r'id':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.id = valueDes;
+                    break;
+                case r'createdDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.createdDate = valueDes;
+                    break;
+                case r'updatedDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.updatedDate = valueDes;
+                    break;
                 case r'title':
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
@@ -141,15 +182,15 @@ class _$TreasureChestSerializer implements StructuredSerializer<TreasureChest> {
                     break;
                 case r'location_long':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(num)) as num;
+                        specifiedType: const FullType(double)) as double;
                     result.locationLong = valueDes;
                     break;
                 case r'location_lat':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(num)) as num;
+                        specifiedType: const FullType(double)) as double;
                     result.locationLat = valueDes;
                     break;
-                case r'event_date':
+                case r'eventDate':
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(DateTime)) as DateTime;
                     result.eventDate = valueDes;

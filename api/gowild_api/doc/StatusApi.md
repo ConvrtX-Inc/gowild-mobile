@@ -98,7 +98,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getManyBaseStatusControllerStatus**
-> GetManyBaseStatusControllerStatus200Response getManyBaseStatusControllerStatus(fields, s, filter, or, sort, join, limit, offset, page, cache)
+> GetManyStatusResponseDto getManyBaseStatusControllerStatus(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
 Retrieve many Status
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyBaseStatusControllerStatus200Response**](GetManyBaseStatusControllerStatus200Response.md)
+[**GetManyStatusResponseDto**](GetManyStatusResponseDto.md)
 
 ### Authorization
 

@@ -104,7 +104,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getManyBaseCommentControllerComment**
-> GetManyBaseCommentControllerComment200Response getManyBaseCommentControllerComment(fields, s, filter, or, sort, join, limit, offset, page, cache)
+> GetManyCommentResponseDto getManyBaseCommentControllerComment(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
 Retrieve many Comment
 
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyBaseCommentControllerComment200Response**](GetManyBaseCommentControllerComment200Response.md)
+[**GetManyCommentResponseDto**](GetManyCommentResponseDto.md)
 
 ### Authorization
 

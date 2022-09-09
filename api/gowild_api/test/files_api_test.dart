@@ -12,7 +12,7 @@ void main() {
       // TODO
     });
 
-    //Future filesControllerUploadFile({ MultipartFile file }) async
+    //Future<FileEntity> filesControllerUploadFile({ MultipartFile file }) async
     test('test filesControllerUploadFile', () async {
       // TODO
     });

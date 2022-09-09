@@ -11,6 +11,9 @@ part 'post_feed.g.dart';
 /// PostFeed
 ///
 /// Properties:
+/// * [id] 
+/// * [createdDate] 
+/// * [updatedDate] 
 /// * [userId] 
 /// * [title] 
 /// * [description] 
@@ -18,6 +21,15 @@ part 'post_feed.g.dart';
 /// * [isPublished] 
 /// * [views] 
 abstract class PostFeed implements Built<PostFeed, PostFeedBuilder> {
+    @BuiltValueField(wireName: r'id')
+    String get id;
+
+    @BuiltValueField(wireName: r'createdDate')
+    DateTime? get createdDate;
+
+    @BuiltValueField(wireName: r'updatedDate')
+    DateTime? get updatedDate;
+
     @BuiltValueField(wireName: r'user_id')
     String get userId;
 
@@ -59,6 +71,18 @@ class _$PostFeedSerializer implements StructuredSerializer<PostFeed> {
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object?>[];
         result
+            ..add(r'id')
+            ..add(serializers.serialize(object.id,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'createdDate')
+            ..add(object.createdDate == null ? null : serializers.serialize(object.createdDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
+            ..add(r'updatedDate')
+            ..add(object.updatedDate == null ? null : serializers.serialize(object.updatedDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
             ..add(r'user_id')
             ..add(serializers.serialize(object.userId,
                 specifiedType: const FullType(String)));
@@ -97,6 +121,23 @@ class _$PostFeedSerializer implements StructuredSerializer<PostFeed> {
             final Object? value = iterator.current;
             
             switch (key) {
+                case r'id':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.id = valueDes;
+                    break;
+                case r'createdDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.createdDate = valueDes;
+                    break;
+                case r'updatedDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.updatedDate = valueDes;
+                    break;
                 case r'user_id':
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;

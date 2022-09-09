@@ -6,11 +6,118 @@ part of 'user_status.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+const UserStatusStatusNameEnum _$userStatusStatusNameEnum_cancelled =
+    const UserStatusStatusNameEnum._('cancelled');
+const UserStatusStatusNameEnum _$userStatusStatusNameEnum_active =
+    const UserStatusStatusNameEnum._('active');
+const UserStatusStatusNameEnum _$userStatusStatusNameEnum_disabled =
+    const UserStatusStatusNameEnum._('disabled');
+const UserStatusStatusNameEnum _$userStatusStatusNameEnum_approved =
+    const UserStatusStatusNameEnum._('approved');
+const UserStatusStatusNameEnum _$userStatusStatusNameEnum_refunded =
+    const UserStatusStatusNameEnum._('refunded');
+const UserStatusStatusNameEnum _$userStatusStatusNameEnum_rejected =
+    const UserStatusStatusNameEnum._('rejected');
+const UserStatusStatusNameEnum _$userStatusStatusNameEnum_completed =
+    const UserStatusStatusNameEnum._('completed');
+const UserStatusStatusNameEnum _$userStatusStatusNameEnum_pending =
+    const UserStatusStatusNameEnum._('pending');
+const UserStatusStatusNameEnum _$userStatusStatusNameEnum_inactive =
+    const UserStatusStatusNameEnum._('inactive');
+
+UserStatusStatusNameEnum _$userStatusStatusNameEnumValueOf(String name) {
+  switch (name) {
+    case 'cancelled':
+      return _$userStatusStatusNameEnum_cancelled;
+    case 'active':
+      return _$userStatusStatusNameEnum_active;
+    case 'disabled':
+      return _$userStatusStatusNameEnum_disabled;
+    case 'approved':
+      return _$userStatusStatusNameEnum_approved;
+    case 'refunded':
+      return _$userStatusStatusNameEnum_refunded;
+    case 'rejected':
+      return _$userStatusStatusNameEnum_rejected;
+    case 'completed':
+      return _$userStatusStatusNameEnum_completed;
+    case 'pending':
+      return _$userStatusStatusNameEnum_pending;
+    case 'inactive':
+      return _$userStatusStatusNameEnum_inactive;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<UserStatusStatusNameEnum> _$userStatusStatusNameEnumValues =
+    new BuiltSet<UserStatusStatusNameEnum>(const <UserStatusStatusNameEnum>[
+  _$userStatusStatusNameEnum_cancelled,
+  _$userStatusStatusNameEnum_active,
+  _$userStatusStatusNameEnum_disabled,
+  _$userStatusStatusNameEnum_approved,
+  _$userStatusStatusNameEnum_refunded,
+  _$userStatusStatusNameEnum_rejected,
+  _$userStatusStatusNameEnum_completed,
+  _$userStatusStatusNameEnum_pending,
+  _$userStatusStatusNameEnum_inactive,
+]);
+
+Serializer<UserStatusStatusNameEnum> _$userStatusStatusNameEnumSerializer =
+    new _$UserStatusStatusNameEnumSerializer();
+
+class _$UserStatusStatusNameEnumSerializer
+    implements PrimitiveSerializer<UserStatusStatusNameEnum> {
+  static const Map<String, Object> _toWire = const <String, Object>{
+    'cancelled': 'cancelled',
+    'active': 'active',
+    'disabled': 'disabled',
+    'approved': 'approved',
+    'refunded': 'refunded',
+    'rejected': 'rejected',
+    'completed': 'completed',
+    'pending': 'pending',
+    'inactive': 'inactive',
+  };
+  static const Map<Object, String> _fromWire = const <Object, String>{
+    'cancelled': 'cancelled',
+    'active': 'active',
+    'disabled': 'disabled',
+    'approved': 'approved',
+    'refunded': 'refunded',
+    'rejected': 'rejected',
+    'completed': 'completed',
+    'pending': 'pending',
+    'inactive': 'inactive',
+  };
+
+  @override
+  final Iterable<Type> types = const <Type>[UserStatusStatusNameEnum];
+  @override
+  final String wireName = 'UserStatusStatusNameEnum';
+
+  @override
+  Object serialize(Serializers serializers, UserStatusStatusNameEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
+
+  @override
+  UserStatusStatusNameEnum deserialize(
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      UserStatusStatusNameEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+}
+
 class _$UserStatus extends UserStatus {
   @override
-  final num id;
+  final String id;
   @override
-  final String statusName;
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
+  final UserStatusStatusNameEnum statusName;
   @override
   final bool isActive;
 
@@ -18,7 +125,11 @@ class _$UserStatus extends UserStatus {
       (new UserStatusBuilder()..update(updates))._build();
 
   _$UserStatus._(
-      {required this.id, required this.statusName, required this.isActive})
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.statusName,
+      required this.isActive})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'UserStatus', 'id');
     BuiltValueNullFieldError.checkNotNull(
@@ -38,20 +149,28 @@ class _$UserStatus extends UserStatus {
     if (identical(other, this)) return true;
     return other is UserStatus &&
         id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         statusName == other.statusName &&
         isActive == other.isActive;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc(0, id.hashCode), statusName.hashCode), isActive.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
+                updatedDate.hashCode),
+            statusName.hashCode),
+        isActive.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'UserStatus')
           ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('statusName', statusName)
           ..add('isActive', isActive))
         .toString();
@@ -61,13 +180,22 @@ class _$UserStatus extends UserStatus {
 class UserStatusBuilder implements Builder<UserStatus, UserStatusBuilder> {
   _$UserStatus? _$v;
 
-  num? _id;
-  num? get id => _$this._id;
-  set id(num? id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  String? _statusName;
-  String? get statusName => _$this._statusName;
-  set statusName(String? statusName) => _$this._statusName = statusName;
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
+
+  UserStatusStatusNameEnum? _statusName;
+  UserStatusStatusNameEnum? get statusName => _$this._statusName;
+  set statusName(UserStatusStatusNameEnum? statusName) =>
+      _$this._statusName = statusName;
 
   bool? _isActive;
   bool? get isActive => _$this._isActive;
@@ -81,6 +209,8 @@ class UserStatusBuilder implements Builder<UserStatus, UserStatusBuilder> {
     final $v = _$v;
     if ($v != null) {
       _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _statusName = $v.statusName;
       _isActive = $v.isActive;
       _$v = null;
@@ -106,6 +236,8 @@ class UserStatusBuilder implements Builder<UserStatus, UserStatusBuilder> {
     final _$result = _$v ??
         new _$UserStatus._(
             id: BuiltValueNullFieldError.checkNotNull(id, r'UserStatus', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             statusName: BuiltValueNullFieldError.checkNotNull(
                 statusName, r'UserStatus', 'statusName'),
             isActive: BuiltValueNullFieldError.checkNotNull(

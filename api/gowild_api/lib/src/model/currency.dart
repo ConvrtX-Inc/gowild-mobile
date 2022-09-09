@@ -10,18 +10,34 @@ part 'currency.g.dart';
 /// Currency
 ///
 /// Properties:
-/// * [currencyCode] 
-/// * [currencyName] 
-/// * [currencySymbol] 
+/// * [id] 
+/// * [createdDate] 
+/// * [updatedDate] 
+/// * [code] 
+/// * [name] 
+/// * [namePlural] 
+/// * [symbol] 
 abstract class Currency implements Built<Currency, CurrencyBuilder> {
-    @BuiltValueField(wireName: r'currency_code')
-    String get currencyCode;
+    @BuiltValueField(wireName: r'id')
+    String get id;
 
-    @BuiltValueField(wireName: r'currency_name')
-    String get currencyName;
+    @BuiltValueField(wireName: r'createdDate')
+    DateTime? get createdDate;
 
-    @BuiltValueField(wireName: r'currency_symbol')
-    String get currencySymbol;
+    @BuiltValueField(wireName: r'updatedDate')
+    DateTime? get updatedDate;
+
+    @BuiltValueField(wireName: r'code')
+    String get code;
+
+    @BuiltValueField(wireName: r'name')
+    String get name;
+
+    @BuiltValueField(wireName: r'namePlural')
+    String get namePlural;
+
+    @BuiltValueField(wireName: r'symbol')
+    String get symbol;
 
     Currency._();
 
@@ -46,16 +62,32 @@ class _$CurrencySerializer implements StructuredSerializer<Currency> {
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object?>[];
         result
-            ..add(r'currency_code')
-            ..add(serializers.serialize(object.currencyCode,
+            ..add(r'id')
+            ..add(serializers.serialize(object.id,
                 specifiedType: const FullType(String)));
         result
-            ..add(r'currency_name')
-            ..add(serializers.serialize(object.currencyName,
+            ..add(r'createdDate')
+            ..add(object.createdDate == null ? null : serializers.serialize(object.createdDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
+            ..add(r'updatedDate')
+            ..add(object.updatedDate == null ? null : serializers.serialize(object.updatedDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
+            ..add(r'code')
+            ..add(serializers.serialize(object.code,
                 specifiedType: const FullType(String)));
         result
-            ..add(r'currency_symbol')
-            ..add(serializers.serialize(object.currencySymbol,
+            ..add(r'name')
+            ..add(serializers.serialize(object.name,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'namePlural')
+            ..add(serializers.serialize(object.namePlural,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'symbol')
+            ..add(serializers.serialize(object.symbol,
                 specifiedType: const FullType(String)));
         return result;
     }
@@ -72,20 +104,42 @@ class _$CurrencySerializer implements StructuredSerializer<Currency> {
             final Object? value = iterator.current;
             
             switch (key) {
-                case r'currency_code':
+                case r'id':
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
-                    result.currencyCode = valueDes;
+                    result.id = valueDes;
                     break;
-                case r'currency_name':
+                case r'createdDate':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
-                    result.currencyName = valueDes;
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.createdDate = valueDes;
                     break;
-                case r'currency_symbol':
+                case r'updatedDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.updatedDate = valueDes;
+                    break;
+                case r'code':
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
-                    result.currencySymbol = valueDes;
+                    result.code = valueDes;
+                    break;
+                case r'name':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.name = valueDes;
+                    break;
+                case r'namePlural':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.namePlural = valueDes;
+                    break;
+                case r'symbol':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.symbol = valueDes;
                     break;
             }
         }

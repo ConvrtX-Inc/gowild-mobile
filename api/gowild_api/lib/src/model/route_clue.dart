@@ -11,6 +11,9 @@ part 'route_clue.g.dart';
 /// RouteClue
 ///
 /// Properties:
+/// * [id] 
+/// * [createdDate] 
+/// * [updatedDate] 
 /// * [routeId] 
 /// * [locationPointLong] 
 /// * [locationPointLat] 
@@ -22,20 +25,29 @@ part 'route_clue.g.dart';
 /// * [videoUrl] 
 /// * [arClue] 
 abstract class RouteClue implements Built<RouteClue, RouteClueBuilder> {
+    @BuiltValueField(wireName: r'id')
+    String get id;
+
+    @BuiltValueField(wireName: r'createdDate')
+    DateTime? get createdDate;
+
+    @BuiltValueField(wireName: r'updatedDate')
+    DateTime? get updatedDate;
+
     @BuiltValueField(wireName: r'route_id')
     String get routeId;
 
     @BuiltValueField(wireName: r'location_point_long')
-    num get locationPointLong;
+    double get locationPointLong;
 
     @BuiltValueField(wireName: r'location_point_lat')
-    num get locationPointLat;
+    double get locationPointLat;
 
     @BuiltValueField(wireName: r'clue_point_long')
-    num get cluePointLong;
+    double get cluePointLong;
 
     @BuiltValueField(wireName: r'clue_point_lat')
-    num get cluePointLat;
+    double get cluePointLat;
 
     @BuiltValueField(wireName: r'clue_title')
     String get clueTitle;
@@ -75,25 +87,37 @@ class _$RouteClueSerializer implements StructuredSerializer<RouteClue> {
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object?>[];
         result
+            ..add(r'id')
+            ..add(serializers.serialize(object.id,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'createdDate')
+            ..add(object.createdDate == null ? null : serializers.serialize(object.createdDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
+            ..add(r'updatedDate')
+            ..add(object.updatedDate == null ? null : serializers.serialize(object.updatedDate,
+                specifiedType: const FullType.nullable(DateTime)));
+        result
             ..add(r'route_id')
             ..add(serializers.serialize(object.routeId,
                 specifiedType: const FullType(String)));
         result
             ..add(r'location_point_long')
             ..add(serializers.serialize(object.locationPointLong,
-                specifiedType: const FullType(num)));
+                specifiedType: const FullType(double)));
         result
             ..add(r'location_point_lat')
             ..add(serializers.serialize(object.locationPointLat,
-                specifiedType: const FullType(num)));
+                specifiedType: const FullType(double)));
         result
             ..add(r'clue_point_long')
             ..add(serializers.serialize(object.cluePointLong,
-                specifiedType: const FullType(num)));
+                specifiedType: const FullType(double)));
         result
             ..add(r'clue_point_lat')
             ..add(serializers.serialize(object.cluePointLat,
-                specifiedType: const FullType(num)));
+                specifiedType: const FullType(double)));
         result
             ..add(r'clue_title')
             ..add(serializers.serialize(object.clueTitle,
@@ -129,6 +153,23 @@ class _$RouteClueSerializer implements StructuredSerializer<RouteClue> {
             final Object? value = iterator.current;
             
             switch (key) {
+                case r'id':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.id = valueDes;
+                    break;
+                case r'createdDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.createdDate = valueDes;
+                    break;
+                case r'updatedDate':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType.nullable(DateTime)) as DateTime?;
+                    if (valueDes == null) continue;
+                    result.updatedDate = valueDes;
+                    break;
                 case r'route_id':
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
@@ -136,22 +177,22 @@ class _$RouteClueSerializer implements StructuredSerializer<RouteClue> {
                     break;
                 case r'location_point_long':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(num)) as num;
+                        specifiedType: const FullType(double)) as double;
                     result.locationPointLong = valueDes;
                     break;
                 case r'location_point_lat':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(num)) as num;
+                        specifiedType: const FullType(double)) as double;
                     result.locationPointLat = valueDes;
                     break;
                 case r'clue_point_long':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(num)) as num;
+                        specifiedType: const FullType(double)) as double;
                     result.cluePointLong = valueDes;
                     break;
                 case r'clue_point_lat':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(num)) as num;
+                        specifiedType: const FullType(double)) as double;
                     result.cluePointLat = valueDes;
                     break;
                 case r'clue_title':

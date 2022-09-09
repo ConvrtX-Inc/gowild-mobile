@@ -12,7 +12,9 @@ Method | HTTP request | Description
 [**authControllerForgotPassword**](AuthApi.md#authcontrollerforgotpassword) | **POST** /api/v1/auth/forgot/password | Request forgot password
 [**authControllerGenerateAdmin**](AuthApi.md#authcontrollergenerateadmin) | **GET** /api/v1/auth/generate-admin | Generates default admin
 [**authControllerLogin**](AuthApi.md#authcontrollerlogin) | **POST** /api/v1/auth/login | Login account
+[**authControllerLogout**](AuthApi.md#authcontrollerlogout) | **GET** /api/v1/auth/logout | 
 [**authControllerMe**](AuthApi.md#authcontrollerme) | **GET** /api/v1/auth/me | 
+[**authControllerRefreshToken**](AuthApi.md#authcontrollerrefreshtoken) | **POST** /api/v1/auth/refresh-token | Refresh token using a previous RefreshToken
 [**authControllerRegister**](AuthApi.md#authcontrollerregister) | **POST** /api/v1/auth/register | Register new account
 [**authControllerResetAdminPassword**](AuthApi.md#authcontrollerresetadminpassword) | **POST** /api/v1/auth/reset-admin-password | Reset password for default admin
 [**authControllerResetPassword**](AuthApi.md#authcontrollerresetpassword) | **POST** /api/v1/auth/reset/password | Reset user password
@@ -98,7 +100,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authControllerLogin**
-> LoginResponse authControllerLogin(authEmailLoginDto)
+> TokenResponse authControllerLogin(authEmailLoginDto)
 
 Login account
 
@@ -125,7 +127,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**LoginResponse**](LoginResponse.md)
+[**TokenResponse**](TokenResponse.md)
 
 ### Authorization
 
@@ -135,6 +137,42 @@ No authorization required
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authControllerLogout**
+> authControllerLogout()
+
+
+
+### Example
+```dart
+import 'package:gowild_api/api.dart';
+
+final api = GowildApi().getAuthApi();
+
+try {
+    api.authControllerLogout();
+} catch on DioError (e) {
+    print('Exception when calling AuthApi->authControllerLogout: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -174,6 +212,47 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authControllerRefreshToken**
+> TokenResponse authControllerRefreshToken(authRefreshTokenDto)
+
+Refresh token using a previous RefreshToken
+
+### Example
+```dart
+import 'package:gowild_api/api.dart';
+
+final api = GowildApi().getAuthApi();
+final AuthRefreshTokenDto authRefreshTokenDto = ; // AuthRefreshTokenDto | 
+
+try {
+    final response = api.authControllerRefreshToken(authRefreshTokenDto);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling AuthApi->authControllerRefreshToken: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authRefreshTokenDto** | [**AuthRefreshTokenDto**](AuthRefreshTokenDto.md)|  | 
+
+### Return type
+
+[**TokenResponse**](TokenResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -301,7 +380,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authFacebookControllerLogin**
-> authFacebookControllerLogin(authFacebookLoginDto)
+> UserAuthResponse authFacebookControllerLogin(authFacebookLoginDto)
 
 Login using facebook
 
@@ -313,7 +392,8 @@ final api = GowildApi().getAuthApi();
 final AuthFacebookLoginDto authFacebookLoginDto = ; // AuthFacebookLoginDto | 
 
 try {
-    api.authFacebookControllerLogin(authFacebookLoginDto);
+    final response = api.authFacebookControllerLogin(authFacebookLoginDto);
+    print(response);
 } catch on DioError (e) {
     print('Exception when calling AuthApi->authFacebookControllerLogin: $e\n');
 }
@@ -327,7 +407,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**UserAuthResponse**](UserAuthResponse.md)
 
 ### Authorization
 
@@ -336,12 +416,12 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authGoogleControllerLogin**
-> authGoogleControllerLogin(authGoogleLoginDto)
+> UserAuthResponse authGoogleControllerLogin(authGoogleLoginDto)
 
 Login using google
 
@@ -353,7 +433,8 @@ final api = GowildApi().getAuthApi();
 final AuthGoogleLoginDto authGoogleLoginDto = ; // AuthGoogleLoginDto | 
 
 try {
-    api.authGoogleControllerLogin(authGoogleLoginDto);
+    final response = api.authGoogleControllerLogin(authGoogleLoginDto);
+    print(response);
 } catch on DioError (e) {
     print('Exception when calling AuthApi->authGoogleControllerLogin: $e\n');
 }
@@ -367,7 +448,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**UserAuthResponse**](UserAuthResponse.md)
 
 ### Authorization
 
@@ -376,7 +457,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

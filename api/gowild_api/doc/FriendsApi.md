@@ -148,7 +148,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getManyBaseFriendsControllerFriends**
-> GetManyBaseFriendsControllerFriends200Response getManyBaseFriendsControllerFriends(fields, s, filter, or, sort, join, limit, offset, page, cache)
+> GetManyFriendsResponseDto getManyBaseFriendsControllerFriends(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
 Retrieve many Friends
 
@@ -196,7 +196,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyBaseFriendsControllerFriends200Response**](GetManyBaseFriendsControllerFriends200Response.md)
+[**GetManyFriendsResponseDto**](GetManyFriendsResponseDto.md)
 
 ### Authorization
 

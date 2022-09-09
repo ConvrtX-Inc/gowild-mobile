@@ -30,7 +30,7 @@ void main() {
 
     // Retrieve many Friends
     //
-    //Future<GetManyBaseFriendsControllerFriends200Response> getManyBaseFriendsControllerFriends({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    //Future<GetManyFriendsResponseDto> getManyBaseFriendsControllerFriends({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
     test('test getManyBaseFriendsControllerFriends', () async {
       // TODO
     });

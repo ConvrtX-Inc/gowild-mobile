@@ -8,6 +8,12 @@ part of 'route_historical_event_photo.dart';
 
 class _$RouteHistoricalEventPhoto extends RouteHistoricalEventPhoto {
   @override
+  final String id;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? updatedDate;
+  @override
   final String routeHistoricalEventId;
   @override
   final String eventPhotoUrl;
@@ -17,8 +23,14 @@ class _$RouteHistoricalEventPhoto extends RouteHistoricalEventPhoto {
       (new RouteHistoricalEventPhotoBuilder()..update(updates))._build();
 
   _$RouteHistoricalEventPhoto._(
-      {required this.routeHistoricalEventId, required this.eventPhotoUrl})
+      {required this.id,
+      this.createdDate,
+      this.updatedDate,
+      required this.routeHistoricalEventId,
+      required this.eventPhotoUrl})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'RouteHistoricalEventPhoto', 'id');
     BuiltValueNullFieldError.checkNotNull(routeHistoricalEventId,
         r'RouteHistoricalEventPhoto', 'routeHistoricalEventId');
     BuiltValueNullFieldError.checkNotNull(
@@ -38,19 +50,29 @@ class _$RouteHistoricalEventPhoto extends RouteHistoricalEventPhoto {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is RouteHistoricalEventPhoto &&
+        id == other.id &&
+        createdDate == other.createdDate &&
+        updatedDate == other.updatedDate &&
         routeHistoricalEventId == other.routeHistoricalEventId &&
         eventPhotoUrl == other.eventPhotoUrl;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc(0, routeHistoricalEventId.hashCode), eventPhotoUrl.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
+                updatedDate.hashCode),
+            routeHistoricalEventId.hashCode),
+        eventPhotoUrl.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'RouteHistoricalEventPhoto')
+          ..add('id', id)
+          ..add('createdDate', createdDate)
+          ..add('updatedDate', updatedDate)
           ..add('routeHistoricalEventId', routeHistoricalEventId)
           ..add('eventPhotoUrl', eventPhotoUrl))
         .toString();
@@ -61,6 +83,18 @@ class RouteHistoricalEventPhotoBuilder
     implements
         Builder<RouteHistoricalEventPhoto, RouteHistoricalEventPhotoBuilder> {
   _$RouteHistoricalEventPhoto? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _updatedDate;
+  DateTime? get updatedDate => _$this._updatedDate;
+  set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
 
   String? _routeHistoricalEventId;
   String? get routeHistoricalEventId => _$this._routeHistoricalEventId;
@@ -79,6 +113,9 @@ class RouteHistoricalEventPhotoBuilder
   RouteHistoricalEventPhotoBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _createdDate = $v.createdDate;
+      _updatedDate = $v.updatedDate;
       _routeHistoricalEventId = $v.routeHistoricalEventId;
       _eventPhotoUrl = $v.eventPhotoUrl;
       _$v = null;
@@ -103,6 +140,10 @@ class RouteHistoricalEventPhotoBuilder
   _$RouteHistoricalEventPhoto _build() {
     final _$result = _$v ??
         new _$RouteHistoricalEventPhoto._(
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'RouteHistoricalEventPhoto', 'id'),
+            createdDate: createdDate,
+            updatedDate: updatedDate,
             routeHistoricalEventId: BuiltValueNullFieldError.checkNotNull(
                 routeHistoricalEventId,
                 r'RouteHistoricalEventPhoto',
