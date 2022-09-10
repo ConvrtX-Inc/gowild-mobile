@@ -77,6 +77,8 @@ dependencies:
   google_maps_flutter_web: ^0.4.0+2
   flutter_polyline_points: ^1.0.0
   flutter_map_tappable_polyline: ^3.2.0
+  cookie_jar: ^3.0.1
+  built_value: ^8.4.1
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:gowild/environment_config.dart';
 import 'package:gowild/services/logging.dart';
 import 'package:gowild/services/secure_storage.dart';
+import 'package:gowild_api/gowild_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
@@ -16,6 +19,9 @@ final authProvider = StateNotifierProvider<AuthProvider, AuthState>((ref) {
 
 class AuthProvider extends StateNotifier<AuthState> {
   bool _init = false;
+  final api =
+      GowildApi(dio: Dio(BaseOptions(baseUrl: EnvironmentConfig.apiBaseUrl)))
+          .getAuthApi();
   final SecureStorage _storage = SecureStorage(SecureStorage.userTokenKey);
 
   AuthProvider()
@@ -56,7 +62,7 @@ class AuthProvider extends StateNotifier<AuthState> {
           final authToken = AuthToken.fromJson(parsed);
           final decoded = Jwt.parseJwt(authToken.accessToken);
           state = state.copyWith(token: authToken, decoded: decoded);
-        } catch(err) {
+        } catch (err) {
           logger.e(err);
         }
       } else {
@@ -65,6 +71,20 @@ class AuthProvider extends StateNotifier<AuthState> {
       _init = true;
     }
     return state.status;
+  }
+
+  Future<void> refresh() async {
+    if (state.token != null) {
+      final builder = AuthRefreshTokenDtoBuilder();
+      builder.refreshToken = state.token!.refreshToken;
+      final result = await api.authControllerRefreshToken(
+          authRefreshTokenDto: builder.build());
+      final data = result.data;
+      if (data != null) {
+        setToken(
+            accessToken: data.accessToken, refreshToken: data.refreshToken);
+      }
+    }
   }
 }
 

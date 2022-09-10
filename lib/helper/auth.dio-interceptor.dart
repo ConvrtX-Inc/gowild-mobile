@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:gowild/providers/auth.dart';
+import 'package:gowild/services/logging.dart';
 
 // TODO
 class AuthenticatorInterceptor extends Interceptor {
@@ -22,7 +23,8 @@ class AuthenticatorInterceptor extends Interceptor {
   void onError(DioError error, ErrorInterceptorHandler handler) async {
     if (error.type == DioErrorType.response &&
         error.response!.statusCode == 401) {
-      // If you still receive 401 then maybe you should logout and report the user that the refresh token is invalid (maybe the server removed it)
+      logger.d('Should refresh the token');
+      await authProvider.refresh();
     }
     return super.onError(error, handler);
   }

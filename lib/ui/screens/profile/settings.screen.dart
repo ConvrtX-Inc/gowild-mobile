@@ -59,7 +59,7 @@ class SettingsScreen extends HookConsumerWidget {
                   icon: logoutIcon,
                   title: 'Logout',
                   onTap: () async {
-                    ref.read(loginProvider).logout();
+                    await ref.read(loginProvider).logout();
                     context.beamToNamed('/');
                   },
                 ),

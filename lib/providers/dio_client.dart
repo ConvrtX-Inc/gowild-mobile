@@ -70,7 +70,7 @@ Future<Dio> buildDio(AuthProvider authProvider,
   if (options.withRetry) {
     dio.interceptors.add(RetryInterceptor(
       dio: dio,
-      logPrint: print, // specify log function (optional)
+      logPrint: (msg) => logger.d('Retry: $msg'), // specify log function (optional)
       retries: 3, // retry count (optional)
       retryDelays: const [
         // set delays between retries (optional)

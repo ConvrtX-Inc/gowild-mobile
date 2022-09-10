@@ -1,5 +1,5 @@
 import 'package:beamer/beamer.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Route;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,6 +12,7 @@ import 'package:gowild/providers/route_provider.dart';
 import 'package:gowild/services/logging.dart';
 import 'package:gowild/ui/widgets/sample_avatar.dart';
 import 'package:gowild/ui/widgets/star_rating.dart';
+import 'package:gowild_api/gowild_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -60,7 +61,7 @@ class HomeScreen extends HookWidget {
                           ),
                         ],
                       ),
-                      const RowNameAndAvatarWidget(),
+                      // const _RowNameAndAvatarWidget(),
                       const SizedBox(
                         height: 20,
                       ),
@@ -90,8 +91,8 @@ class HomeScreen extends HookWidget {
   }
 }
 
-class RowNameAndAvatarWidget extends HookConsumerWidget {
-  const RowNameAndAvatarWidget({
+class _RowNameAndAvatarWidget extends HookConsumerWidget {
+  const _RowNameAndAvatarWidget({
     super.key,
   });
 
@@ -361,16 +362,19 @@ class SlidingPanelWidget extends HookWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30.0),
       child: SizedBox(
-        // width: 418,
         child: SlidingUpPanel(
           minHeight: 80,
           isDraggable: false,
-          panelBuilder: (sc) => Container(),
+          panelBuilder: (sc) => PanelWidget(
+            scrollController: sc,
+          ),
           collapsed: Container(
             // padding: EdgeInsets.all(14),
             decoration: const BoxDecoration(color: Colors.white),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                print('###---###');
+              },
               child: Column(
                 children: <Widget>[
                   const SizedBox(
@@ -481,6 +485,8 @@ class MyGoogleMap extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final routeApi = ref.watch(routeApiProvider);
+
     final controller = useState<GoogleMapController?>(null);
     final onMapCreated = useCallback((GoogleMapController c) {
       controller.value = c;
@@ -489,7 +495,6 @@ class MyGoogleMap extends HookConsumerWidget {
     final zoomAdd = useCallback(() {}, []);
     final zoomMinus = useCallback(() {}, []);
 
-    final routeApi = ref.watch(routeApiProvider);
     final findRoutes = useMemoized(
         () => routeApi
             .getManyBaseRouteControllerRoute()
@@ -501,7 +506,7 @@ class MyGoogleMap extends HookConsumerWidget {
 
     useEffect(() {
       if (routes$.hasData) {
-        logger.d('has route data');
+        logger.d('now has data');
         final resultData = routes$.data!;
         final data = resultData.data.first;
 
@@ -521,6 +526,7 @@ class MyGoogleMap extends HookConsumerWidget {
       } else {
         logger.d('has no data');
       }
+      return null;
     }, [routes$.hasData]);
 
     if (!routes$.hasData) {
@@ -613,6 +619,232 @@ class _MapOverlayButtonWidget extends HookWidget {
             context.beamToNamed('/main/map-overlay');
           },
         ),
+      ),
+    );
+  }
+}
+
+class PanelWidget extends HookConsumerWidget {
+  final ScrollController scrollController;
+
+  const PanelWidget({super.key, required this.scrollController});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final routeApi = ref.watch(routeApiProvider);
+    final findRoutes = useMemoized(
+        () => routeApi
+            .getManyBaseRouteControllerRoute()
+            .then((value) => value.data),
+        []);
+    final routes$ = useFuture(findRoutes);
+
+    if (!routes$.hasData) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    final resultData = routes$.data!;
+    final data = resultData.data;
+
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const <Widget>[
+                Icon(Icons.arrow_upward_rounded),
+                Text('Suggested Routes'),
+              ],
+            ),
+          ),
+          ListView.builder(
+            itemCount: data.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              final route = data[index];
+              return GestureDetector(
+                onTap: () {
+                  context.beamToNamed('/main/try-routes/${route.id}');
+                },
+                child:
+                    FoundRouteRow(isFirstContainer: index == 0, route: route),
+              );
+
+              // return Column(
+              //   children: [
+              //     Padding(
+              //       padding: const EdgeInsets.only(right: 40),
+              //       child: Column(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: const <Widget>[
+              //             Icon(Icons.arrow_upward_rounded),
+              //             Text('Suggested Routes'),
+              //           ]),
+              //     ),
+              //     sizedBox(46, 0),
+              //     Row(
+              //       children: [
+              //         buildAvatar(),
+              //         build1stContainer(context, route)
+              //       ],
+              //     ),
+              //     sizedBox(24, 0),
+
+              //     buildMapRow(index == 1, route),
+              //     sizedBox(10, 0),
+              //     buildMapRow(false, route),
+              //   ],
+              // );
+            },
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            controller: scrollController,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class FoundRouteRow extends HookWidget {
+  final Route route;
+  final bool isFirstContainer;
+
+  const FoundRouteRow({
+    super.key,
+    required this.route,
+    this.isFirstContainer = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 5, right: isFirstContainer ? 50 : 65),
+      // padding: const EdgeInsets.only(left: 10, right: 30),
+      width: isFirstContainer ? 190 : 300,
+      // height: isFirstContainer ? 300 : 10,
+      decoration: BoxDecoration(
+        color: isFirstContainer ? Colors.orange : Colors.transparent,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(12.0),
+        ),
+        border: Border.all(
+          color: const Color(0xffDFDFDF),
+          width: 1,
+        ),
+      ),
+      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+        const SizedBox(
+          height: 5,
+        ),
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(12.0),
+            ),
+          ),
+          height: 90,
+          child: _SmallMapWidget(
+            height: isFirstContainer ? 320 : 90,
+            route: route,
+          ),
+        ),
+        _RouteContainer(route: route),
+      ]),
+    );
+  }
+}
+
+class _SmallMapWidget extends HookWidget {
+  final double height;
+  final Route route;
+
+  const _SmallMapWidget({
+    required this.height,
+    required this.route,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height,
+      child: Image.network(route.imgUrl),
+    );
+  }
+}
+
+class _RouteContainer extends HookWidget {
+  final Route route;
+
+  const _RouteContainer({
+    required this.route,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 120),
+            child: Text(route.routeName,
+                style: const TextStyle(
+                    color: Color(0xff18243C),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500)),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.location_on_outlined,
+                color: Colors.grey,
+              ),
+              const Text('1.7 Miles',
+                  style: TextStyle(
+                      color: Color(0xff18243C),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500)),
+              const SizedBox(
+                width: 10,
+              ),
+              Row(
+                children: const [
+                  Icon(
+                    Icons.timer,
+                    color: Colors.grey,
+                  ),
+                  Text('1 hr 30 mins',
+                      style: TextStyle(
+                          color: Color(0xff18243C),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500))
+                ],
+              ),
+              const SizedBox(height: 0, width: 8),
+              Row(
+                children: const [
+                  Text('500m',
+                      style: TextStyle(
+                          color: Color(0xff18243C),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500))
+                ],
+              )
+            ],
+          )
+        ],
       ),
     );
   }

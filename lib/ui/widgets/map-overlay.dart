@@ -6,65 +6,33 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gowild/constants/colors.dart';
 import 'package:gowild/providers/map_settings_provider.dart';
 import 'package:gowild/ui/screens/main/main.screen.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MapOverlayWidget extends HookWidget {
+class MapOverlayWidget extends HookConsumerWidget {
   const MapOverlayWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final pickMap = useCallback((MapPicked? type) async {
+  Widget build(BuildContext context, ref) {
+    final settings = ref.watch(mapSettingsProvider);
+    final pickMap = useCallback((MapPicked? type) {
       switch (type) {
         case MapPicked.roadMap:
-          setState(() {
-            setAsDefaultTerrain = false;
-            setAsDefaultSatellite = false;
-            setAsDefaultRoadMap = true;
-          });
-          final newSettings = Settings(
-            roadMap: setAsDefaultRoadMap,
-            terrain: setAsDefaultTerrain,
-            satellite: setAsDefaultSatellite,
-            roadMapString: MapPicked.roadMap.toString(),
-          );
-
-          _preferenceService.setMapType(newSettings);
-
+          ref.watch(mapSettingsProvider.notifier).setRoadMap();
           break;
+
         case MapPicked.terrain:
-          setState(() {
-            setAsDefaultTerrain = true;
-            setAsDefaultRoadMap = false;
-            setAsDefaultSatellite = false;
-          });
-          final newSettings = Settings(
-            roadMap: setAsDefaultRoadMap,
-            terrain: setAsDefaultTerrain,
-            satellite: setAsDefaultSatellite,
-            terrainString: MapPicked.terrain.toString(),
-          );
-
-          _preferenceService.setMapType(newSettings);
-
+          ref.watch(mapSettingsProvider.notifier).setTerrain();
           break;
+
         case MapPicked.satellite:
-          setState(() {
-            setAsDefaultTerrain = false;
-            setAsDefaultRoadMap = false;
-            setAsDefaultSatellite = true;
-          });
-          final newSettings = Settings(
-            roadMap: setAsDefaultRoadMap,
-            terrain: setAsDefaultTerrain,
-            satellite: setAsDefaultSatellite,
-            satelliteString: MapPicked.satellite.toString(),
-          );
-
-          _preferenceService.setMapType(newSettings);
-
+          ref.watch(mapSettingsProvider.notifier).setTerrain();
           break;
+
         default:
+          break;
       }
     }, []);
+
     return Scaffold(
       backgroundColor: primaryBlack,
       extendBodyBehindAppBar: true,
@@ -78,7 +46,7 @@ class MapOverlayWidget extends HookWidget {
         // iconTheme: const IconThemeData(color: primaryYellow, size: 28),
         leading: IconButton(
           onPressed: () {
-            context.popBeamLocation();
+            context.beamBack();
           },
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -103,8 +71,8 @@ class MapOverlayWidget extends HookWidget {
               image: 'assets/satelite.png',
               text: 'Road Map',
               dafault: 'DEFAULT',
-              isPicked: setAsDefaultRoadMap,
-              type: MapPicked.roadMap,
+              isPicked: settings.satellite == true,
+              type: MapPicked.satellite,
               pickThis: pickMap,
             ),
             const SizedBox(height: 30, width: 0),
@@ -112,8 +80,8 @@ class MapOverlayWidget extends HookWidget {
               image: 'assets/roadmap.png',
               text: 'Terrain',
               dafault: 'DEFAULT',
-              isPicked: setAsDefaultTerrain,
-              type: MapPicked.terrain,
+              isPicked: settings.roadMap == true,
+              type: MapPicked.roadMap,
               pickThis: pickMap,
             ),
             const SizedBox(height: 30, width: 0),
@@ -121,8 +89,8 @@ class MapOverlayWidget extends HookWidget {
               image: 'assets/terrain.png',
               text: 'Satellite',
               dafault: 'DEFAULT',
-              isPicked: setAsDefaultSatellite,
-              type: MapPicked.satellite,
+              isPicked: settings.terrain == true,
+              type: MapPicked.terrain,
               pickThis: pickMap,
             )
           ],

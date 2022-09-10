@@ -105,7 +105,8 @@ class EWaiverScreen extends HookConsumerWidget {
                         fillColor:
                             MaterialStateProperty.all<Color>(Colors.white),
                         value: checked.value,
-                        activeColor: Colors.white,
+                        activeColor: primaryBlack,
+                        checkColor: primaryBlack,
                         onChanged: (status) {
                           checked.value = status == true;
                         },
