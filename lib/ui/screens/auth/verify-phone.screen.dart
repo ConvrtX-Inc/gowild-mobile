@@ -71,7 +71,7 @@ class VerifyPhoneScreen extends HookConsumerWidget {
           MainAuthButtonWidget(
             text: 'Verify account',
             onTap: () {
-              Beamer.of(context).beamToNamed('/auth/reset-password');
+              Beamer.of(context).beamToNamed('/main');
             },
           ),
         ],

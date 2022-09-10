@@ -9,6 +9,7 @@ import 'package:gowild/constants/colors.dart';
 import 'package:gowild/helper/latlng_position.extensions.dart';
 import 'package:gowild/helper/route.extention.dart';
 import 'package:gowild/providers/current_location_provider.dart';
+import 'package:gowild/providers/notification.dart';
 import 'package:gowild/providers/route_provider.dart';
 import 'package:gowild/services/logging.dart';
 import 'package:gowild/ui/widgets/auth_widgets.dart';
@@ -57,6 +58,7 @@ class _TryRouteContentWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final position$ = useStream(Geolocator.getPositionStream());
+    final notif = ref.read(notificationProvider);
     final currentLocation = ref.watch(currentLocationProvider);
     final cameraPosition = useState<CameraPosition>(CameraPosition(
       target: currentLocation,
@@ -110,7 +112,10 @@ class _TryRouteContentWidget extends HookConsumerWidget {
     }, [controller]);
 
     final addMarker = useCallback(() {}, []);
-    final showInAppNotification = useCallback(() {}, []);
+    final showInAppNotification = useCallback(() {
+      notif.showAndroidNotification('route-${route.id}'.hashCode, 'Go Wild Historiy',
+          'You are not in the proxmity ot the starting point');
+    }, []);
 
     final showResults = useCallback(() {
       addMarker();

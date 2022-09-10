@@ -14,9 +14,6 @@ _$_MapsSettings _$$_MapsSettingsFromJson(Map<String, dynamic> json) =>
       roadMap: json['roadMap'] as bool?,
       terrain: json['terrain'] as bool?,
       satellite: json['satellite'] as bool?,
-      roadMapString: json['roadMapString'] as String?,
-      terrainString: json['terrainString'] as String?,
-      satelliteString: json['satelliteString'] as String?,
     );
 
 Map<String, dynamic> _$$_MapsSettingsToJson(_$_MapsSettings instance) =>
@@ -26,9 +23,6 @@ Map<String, dynamic> _$$_MapsSettingsToJson(_$_MapsSettings instance) =>
       'roadMap': instance.roadMap,
       'terrain': instance.terrain,
       'satellite': instance.satellite,
-      'roadMapString': instance.roadMapString,
-      'terrainString': instance.terrainString,
-      'satelliteString': instance.satelliteString,
     };
 
 const _$MapPickedEnumMap = {

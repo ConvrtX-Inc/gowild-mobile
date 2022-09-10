@@ -20,6 +20,7 @@ mixin _$BuildDioOptions {
   bool get withLogger => throw _privateConstructorUsedError;
   bool get withCache => throw _privateConstructorUsedError;
   bool get withRetry => throw _privateConstructorUsedError;
+  bool get withHttp2 => throw _privateConstructorUsedError;
   String get baseUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -37,6 +38,7 @@ abstract class $BuildDioOptionsCopyWith<$Res> {
       bool withLogger,
       bool withCache,
       bool withRetry,
+      bool withHttp2,
       String baseUrl});
 }
 
@@ -55,6 +57,7 @@ class _$BuildDioOptionsCopyWithImpl<$Res>
     Object? withLogger = freezed,
     Object? withCache = freezed,
     Object? withRetry = freezed,
+    Object? withHttp2 = freezed,
     Object? baseUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -73,6 +76,10 @@ class _$BuildDioOptionsCopyWithImpl<$Res>
       withRetry: withRetry == freezed
           ? _value.withRetry
           : withRetry // ignore: cast_nullable_to_non_nullable
+              as bool,
+      withHttp2: withHttp2 == freezed
+          ? _value.withHttp2
+          : withHttp2 // ignore: cast_nullable_to_non_nullable
               as bool,
       baseUrl: baseUrl == freezed
           ? _value.baseUrl
@@ -94,6 +101,7 @@ abstract class _$$_BuildDioOptionsCopyWith<$Res>
       bool withLogger,
       bool withCache,
       bool withRetry,
+      bool withHttp2,
       String baseUrl});
 }
 
@@ -114,6 +122,7 @@ class __$$_BuildDioOptionsCopyWithImpl<$Res>
     Object? withLogger = freezed,
     Object? withCache = freezed,
     Object? withRetry = freezed,
+    Object? withHttp2 = freezed,
     Object? baseUrl = freezed,
   }) {
     return _then(_$_BuildDioOptions(
@@ -133,6 +142,10 @@ class __$$_BuildDioOptionsCopyWithImpl<$Res>
           ? _value.withRetry
           : withRetry // ignore: cast_nullable_to_non_nullable
               as bool,
+      withHttp2: withHttp2 == freezed
+          ? _value.withHttp2
+          : withHttp2 // ignore: cast_nullable_to_non_nullable
+              as bool,
       baseUrl: baseUrl == freezed
           ? _value.baseUrl
           : baseUrl // ignore: cast_nullable_to_non_nullable
@@ -149,6 +162,7 @@ class _$_BuildDioOptions implements _BuildDioOptions {
       required this.withLogger,
       required this.withCache,
       required this.withRetry,
+      required this.withHttp2,
       required this.baseUrl});
 
   @override
@@ -160,11 +174,13 @@ class _$_BuildDioOptions implements _BuildDioOptions {
   @override
   final bool withRetry;
   @override
+  final bool withHttp2;
+  @override
   final String baseUrl;
 
   @override
   String toString() {
-    return 'BuildDioOptions(withCookies: $withCookies, withLogger: $withLogger, withCache: $withCache, withRetry: $withRetry, baseUrl: $baseUrl)';
+    return 'BuildDioOptions(withCookies: $withCookies, withLogger: $withLogger, withCache: $withCache, withRetry: $withRetry, withHttp2: $withHttp2, baseUrl: $baseUrl)';
   }
 
   @override
@@ -178,6 +194,7 @@ class _$_BuildDioOptions implements _BuildDioOptions {
                 .equals(other.withLogger, withLogger) &&
             const DeepCollectionEquality().equals(other.withCache, withCache) &&
             const DeepCollectionEquality().equals(other.withRetry, withRetry) &&
+            const DeepCollectionEquality().equals(other.withHttp2, withHttp2) &&
             const DeepCollectionEquality().equals(other.baseUrl, baseUrl));
   }
 
@@ -188,6 +205,7 @@ class _$_BuildDioOptions implements _BuildDioOptions {
       const DeepCollectionEquality().hash(withLogger),
       const DeepCollectionEquality().hash(withCache),
       const DeepCollectionEquality().hash(withRetry),
+      const DeepCollectionEquality().hash(withHttp2),
       const DeepCollectionEquality().hash(baseUrl));
 
   @JsonKey(ignore: true)
@@ -202,6 +220,7 @@ abstract class _BuildDioOptions implements BuildDioOptions {
       required final bool withLogger,
       required final bool withCache,
       required final bool withRetry,
+      required final bool withHttp2,
       required final String baseUrl}) = _$_BuildDioOptions;
 
   @override
@@ -212,6 +231,8 @@ abstract class _BuildDioOptions implements BuildDioOptions {
   bool get withCache;
   @override
   bool get withRetry;
+  @override
+  bool get withHttp2;
   @override
   String get baseUrl;
   @override

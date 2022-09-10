@@ -26,6 +26,7 @@ class BuildDioOptions with _$BuildDioOptions {
     required bool withLogger,
     required bool withCache,
     required bool withRetry,
+    required bool withHttp2,
     required String baseUrl,
   }) = _BuildDioOptions;
 
@@ -34,6 +35,7 @@ class BuildDioOptions with _$BuildDioOptions {
     withLogger: true,
     withCache: true,
     withRetry: true,
+    withHttp2: false,
     baseUrl: EnvironmentConfig.apiBaseUrl,
   );
 }
@@ -43,7 +45,7 @@ Future<Dio> buildDio(AuthProvider authProvider,
   options = options ?? BuildDioOptions.kDefault;
   final dio = Dio(BaseOptions(baseUrl: options.baseUrl));
 
-  if (!kIsWeb) {
+  if (!kIsWeb && options.withHttp2) {
     dio.httpClientAdapter = Http2Adapter(
       ConnectionManager(
         idleTimeout: 10000,

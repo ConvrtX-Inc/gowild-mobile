@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       ),
       routeInformationParser: BeamerParser(),
       routerDelegate: routerDelegate,
-      builder: (context, child) => Root(widget: child!),
+      builder: (context, child) => Root(widget: child ?? const SplashScreen()),
       backButtonDispatcher: BeamerBackButtonDispatcher(
         delegate: routerDelegate,
       ),

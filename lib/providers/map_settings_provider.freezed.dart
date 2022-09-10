@@ -24,9 +24,6 @@ mixin _$MapsSettings {
   bool? get roadMap => throw _privateConstructorUsedError;
   bool? get terrain => throw _privateConstructorUsedError;
   bool? get satellite => throw _privateConstructorUsedError;
-  String? get roadMapString => throw _privateConstructorUsedError;
-  String? get terrainString => throw _privateConstructorUsedError;
-  String? get satelliteString => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,10 +40,7 @@ abstract class $MapsSettingsCopyWith<$Res> {
       {Set<MapPicked>? mapTypePicked,
       bool? roadMap,
       bool? terrain,
-      bool? satellite,
-      String? roadMapString,
-      String? terrainString,
-      String? satelliteString});
+      bool? satellite});
 }
 
 /// @nodoc
@@ -63,9 +57,6 @@ class _$MapsSettingsCopyWithImpl<$Res> implements $MapsSettingsCopyWith<$Res> {
     Object? roadMap = freezed,
     Object? terrain = freezed,
     Object? satellite = freezed,
-    Object? roadMapString = freezed,
-    Object? terrainString = freezed,
-    Object? satelliteString = freezed,
   }) {
     return _then(_value.copyWith(
       mapTypePicked: mapTypePicked == freezed
@@ -84,18 +75,6 @@ class _$MapsSettingsCopyWithImpl<$Res> implements $MapsSettingsCopyWith<$Res> {
           ? _value.satellite
           : satellite // ignore: cast_nullable_to_non_nullable
               as bool?,
-      roadMapString: roadMapString == freezed
-          ? _value.roadMapString
-          : roadMapString // ignore: cast_nullable_to_non_nullable
-              as String?,
-      terrainString: terrainString == freezed
-          ? _value.terrainString
-          : terrainString // ignore: cast_nullable_to_non_nullable
-              as String?,
-      satelliteString: satelliteString == freezed
-          ? _value.satelliteString
-          : satelliteString // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -111,10 +90,7 @@ abstract class _$$_MapsSettingsCopyWith<$Res>
       {Set<MapPicked>? mapTypePicked,
       bool? roadMap,
       bool? terrain,
-      bool? satellite,
-      String? roadMapString,
-      String? terrainString,
-      String? satelliteString});
+      bool? satellite});
 }
 
 /// @nodoc
@@ -134,9 +110,6 @@ class __$$_MapsSettingsCopyWithImpl<$Res>
     Object? roadMap = freezed,
     Object? terrain = freezed,
     Object? satellite = freezed,
-    Object? roadMapString = freezed,
-    Object? terrainString = freezed,
-    Object? satelliteString = freezed,
   }) {
     return _then(_$_MapsSettings(
       mapTypePicked: mapTypePicked == freezed
@@ -155,18 +128,6 @@ class __$$_MapsSettingsCopyWithImpl<$Res>
           ? _value.satellite
           : satellite // ignore: cast_nullable_to_non_nullable
               as bool?,
-      roadMapString: roadMapString == freezed
-          ? _value.roadMapString
-          : roadMapString // ignore: cast_nullable_to_non_nullable
-              as String?,
-      terrainString: terrainString == freezed
-          ? _value.terrainString
-          : terrainString // ignore: cast_nullable_to_non_nullable
-              as String?,
-      satelliteString: satelliteString == freezed
-          ? _value.satelliteString
-          : satelliteString // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -178,10 +139,7 @@ class _$_MapsSettings extends _MapsSettings {
       {final Set<MapPicked>? mapTypePicked,
       this.roadMap,
       this.terrain,
-      this.satellite,
-      this.roadMapString,
-      this.terrainString,
-      this.satelliteString})
+      this.satellite})
       : _mapTypePicked = mapTypePicked,
         super._();
 
@@ -203,16 +161,10 @@ class _$_MapsSettings extends _MapsSettings {
   final bool? terrain;
   @override
   final bool? satellite;
-  @override
-  final String? roadMapString;
-  @override
-  final String? terrainString;
-  @override
-  final String? satelliteString;
 
   @override
   String toString() {
-    return 'MapsSettings(mapTypePicked: $mapTypePicked, roadMap: $roadMap, terrain: $terrain, satellite: $satellite, roadMapString: $roadMapString, terrainString: $terrainString, satelliteString: $satelliteString)';
+    return 'MapsSettings(mapTypePicked: $mapTypePicked, roadMap: $roadMap, terrain: $terrain, satellite: $satellite)';
   }
 
   @override
@@ -224,13 +176,7 @@ class _$_MapsSettings extends _MapsSettings {
                 .equals(other._mapTypePicked, _mapTypePicked) &&
             const DeepCollectionEquality().equals(other.roadMap, roadMap) &&
             const DeepCollectionEquality().equals(other.terrain, terrain) &&
-            const DeepCollectionEquality().equals(other.satellite, satellite) &&
-            const DeepCollectionEquality()
-                .equals(other.roadMapString, roadMapString) &&
-            const DeepCollectionEquality()
-                .equals(other.terrainString, terrainString) &&
-            const DeepCollectionEquality()
-                .equals(other.satelliteString, satelliteString));
+            const DeepCollectionEquality().equals(other.satellite, satellite));
   }
 
   @JsonKey(ignore: true)
@@ -240,10 +186,7 @@ class _$_MapsSettings extends _MapsSettings {
       const DeepCollectionEquality().hash(_mapTypePicked),
       const DeepCollectionEquality().hash(roadMap),
       const DeepCollectionEquality().hash(terrain),
-      const DeepCollectionEquality().hash(satellite),
-      const DeepCollectionEquality().hash(roadMapString),
-      const DeepCollectionEquality().hash(terrainString),
-      const DeepCollectionEquality().hash(satelliteString));
+      const DeepCollectionEquality().hash(satellite));
 
   @JsonKey(ignore: true)
   @override
@@ -263,10 +206,7 @@ abstract class _MapsSettings extends MapsSettings {
       {final Set<MapPicked>? mapTypePicked,
       final bool? roadMap,
       final bool? terrain,
-      final bool? satellite,
-      final String? roadMapString,
-      final String? terrainString,
-      final String? satelliteString}) = _$_MapsSettings;
+      final bool? satellite}) = _$_MapsSettings;
   _MapsSettings._() : super._();
 
   factory _MapsSettings.fromJson(Map<String, dynamic> json) =
@@ -280,12 +220,6 @@ abstract class _MapsSettings extends MapsSettings {
   bool? get terrain;
   @override
   bool? get satellite;
-  @override
-  String? get roadMapString;
-  @override
-  String? get terrainString;
-  @override
-  String? get satelliteString;
   @override
   @JsonKey(ignore: true)
   _$$_MapsSettingsCopyWith<_$_MapsSettings> get copyWith =>
