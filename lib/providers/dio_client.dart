@@ -43,8 +43,6 @@ Future<Dio> buildDio(AuthProvider authProvider,
   options = options ?? BuildDioOptions.kDefault;
   final dio = Dio(BaseOptions(baseUrl: options.baseUrl));
 
-  dio.interceptors.add(AuthenticatorInterceptor(authProvider));
-
   if (!kIsWeb) {
     dio.httpClientAdapter = Http2Adapter(
       ConnectionManager(
@@ -87,6 +85,8 @@ Future<Dio> buildDio(AuthProvider authProvider,
     );
     dio.interceptors.add(DioCacheInterceptor(options: options));
   }
+
+  dio.interceptors.add(AuthenticatorInterceptor(authProvider));
 
   return dio;
 }

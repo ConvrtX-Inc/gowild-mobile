@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gowild/constants/colors.dart' as app_color_constants;
-import 'package:gowild/helper/navigation.dart';
+import 'package:gowild/navigation.dart';
 import 'package:gowild/providers/init.dart';
 import 'package:gowild/ui/screens/app/app-error.screen.dart';
 import 'package:gowild/ui/screens/app/spash.screen.dart';
@@ -41,8 +41,9 @@ class MyApp extends StatelessWidget {
       routeInformationParser: BeamerParser(),
       routerDelegate: routerDelegate,
       builder: (context, child) => Root(widget: child!),
-      backButtonDispatcher:
-          BeamerBackButtonDispatcher(delegate: routerDelegate),
+      backButtonDispatcher: BeamerBackButtonDispatcher(
+        delegate: routerDelegate,
+      ),
     );
   }
 }

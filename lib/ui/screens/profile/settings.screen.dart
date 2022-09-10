@@ -43,6 +43,11 @@ class SettingsScreen extends HookConsumerWidget {
                 const _SettingsMenu(
                   icon: gearIcon,
                   title: 'General',
+                  path: 'general-profile',
+                ),
+                const _SettingsMenu(
+                  icon: gearIcon,
+                  title: 'FAQs',
                   path: '/main/faqs',
                 ),
                 const _SettingsMenu(

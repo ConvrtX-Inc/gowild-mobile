@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gowild/constants/colors.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends HookWidget implements PreferredSizeWidget {
   const CustomAppBar({
     required this.titleText,
     super.key,

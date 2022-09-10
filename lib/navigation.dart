@@ -12,6 +12,7 @@ import 'package:gowild/ui/screens/auth/verify-phone.screen.dart';
 import 'package:gowild/ui/screens/main/main.screen.dart';
 import 'package:gowild/ui/screens/profile/faqs.screen.dart';
 import 'package:gowild/ui/screens/profile/notification.screen.dart';
+import 'package:gowild/ui/screens/profile/profile.screen.dart';
 import 'package:gowild/ui/screens/profile/tickets.screen.dart';
 import 'package:gowild/ui/widgets/map-overlay.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,6 +26,7 @@ final routerDelegate = BeamerDelegate(
             child: MapOverlayWidget(),
             fullScreenDialog: true,
           ),
+      '/main/general-profile': (context, state, data) => const ProfileScreen(),
       '/main/faqs': (context, state, data) => const FaqsScreen(),
       '/main/tickets': (context, state, data) => const TicketsScreen(),
       '/main/notifications': (context, state, data) =>

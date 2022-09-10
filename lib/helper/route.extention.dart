@@ -12,10 +12,8 @@ extension RouteLatLng on Route {
   }
 }
 
-extension LatLngToPoint on LatLng? {
-  PointLatLng? toPoint() {
-    final that = this;
-    if (that == null) return null;
-    return PointLatLng(that.latitude, that.longitude);
+extension LatLngToPoint on LatLng {
+  PointLatLng toPoint() {
+    return PointLatLng(latitude, longitude);
   }
 }

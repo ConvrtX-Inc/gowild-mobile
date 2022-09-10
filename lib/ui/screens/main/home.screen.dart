@@ -6,7 +6,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_widget/google_maps_widget.dart';
 import 'package:gowild/constants/image_constants.dart';
 import 'package:gowild/helper/location.dart';
-import 'package:gowild/helper/route_extention.dart';
+import 'package:gowild/helper/route.extention.dart';
+import 'package:gowild/providers/current_location_provider.dart';
 import 'package:gowild/providers/current_user.dart';
 import 'package:gowild/providers/route_provider.dart';
 import 'package:gowild/services/logging.dart';
@@ -61,11 +62,11 @@ class HomeScreen extends HookWidget {
                           ),
                         ],
                       ),
-                      // const _RowNameAndAvatarWidget(),
+                      const _RowNameAndAvatarWidget(),
                       const SizedBox(
                         height: 20,
                       ),
-                      // buildSearchTextField(),
+                      const _SearchTextFieldWidget(),
                       const SizedBox(
                         height: 20,
                       ),
@@ -86,6 +87,46 @@ class HomeScreen extends HookWidget {
             ),
           ),
         ]),
+      ),
+    );
+  }
+}
+
+class _SearchTextFieldWidget extends HookConsumerWidget {
+  const _SearchTextFieldWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return TextField(
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: const Color(0xff3B352F),
+        hintText: 'Search for trail or activity',
+        hintStyle: const TextStyle(
+          color: Colors.white30,
+        ),
+        prefixIcon: const Icon(
+          Icons.search,
+          color: Colors.white,
+          size: 34,
+        ),
+        contentPadding:
+            const EdgeInsets.only(left: 14.0, bottom: 20.0, top: 20.0),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: Color(0xff3B352F),
+          ),
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: const BorderSide(
+            color: Color(0xff3B352F),
+          ),
+          borderRadius: BorderRadius.circular(25.7),
+        ),
       ),
     );
   }
@@ -120,7 +161,7 @@ class _RowNameAndAvatarWidget extends HookConsumerWidget {
             padding: const EdgeInsets.all(2), // border width
             child: GestureDetector(
               onTap: () {
-                Beamer.of(context).beamToNamed('/main/profile');
+                Beamer.of(context).beamToNamed('/main/general-profile');
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -145,8 +186,8 @@ class _RowNameAndAvatarWidget extends HookConsumerWidget {
   }
 }
 
-class AdventureCard extends HookWidget {
-  const AdventureCard({super.key});
+class _AdventureCardWidget extends HookWidget {
+  const _AdventureCardWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -343,9 +384,7 @@ class ExpandableListViewWidget extends HookWidget {
             expanded: expandFlag.value,
             expandedHeight: MediaQuery.of(context).size.height / 1.65,
             child: const SizedBox(
-              child: MapWidget(
-                child: SlidingPanelWidget(),
-              ),
+              child: MapWidget(),
             ),
           )
         ],
@@ -361,61 +400,32 @@ class SlidingPanelWidget extends HookWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30.0),
-      child: SizedBox(
+      child: Container(
+        // width: 200,
         child: SlidingUpPanel(
-          minHeight: 80,
-          isDraggable: false,
+          minHeight: MediaQuery.of(context).size.height * 0.05,
           panelBuilder: (sc) => PanelWidget(
             scrollController: sc,
           ),
-          collapsed: Container(
-            // padding: EdgeInsets.all(14),
-            decoration: const BoxDecoration(color: Colors.white),
-            child: GestureDetector(
-              onTap: () {
-                print('###---###');
-              },
-              child: Column(
-                children: <Widget>[
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.keyboard_arrow_up),
-                      SizedBox(
-                        width: 30,
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'Suggested Routes',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      SizedBox(
-                        width: 12,
-                      )
-                    ],
-                  )
-                ],
+          body: Container(
+            height: 550,
+            // width: 200,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(12.0),
               ),
             ),
+            child: const SizedBox(
+              // width: 200,
+              child: MyGoogleMap(),
+            ),
           ),
-          body: const SizedBox(
-            width: 200,
-            child: MyGoogleMap(),
-          ),
-          maxHeight: MediaQuery.of(context).size.height / 3,
+          maxHeight: MediaQuery.of(context).size.height / 2,
           backdropEnabled: true,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
-          parallaxEnabled: false,
-          parallaxOffset: 0.0,
+          parallaxEnabled: true,
+          parallaxOffset: .5,
           color: Colors.white,
         ),
       ),
@@ -424,28 +434,32 @@ class SlidingPanelWidget extends HookWidget {
 }
 
 class MapWidget extends HookWidget {
-  final Widget child;
-
   const MapWidget({
-    required this.child,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(30.0),
-      child: Container(
-        // height: MediaQuery.of(context).size.height / 2,
-
-        width: 420,
-        decoration: const BoxDecoration(
-          // color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(12.0),
+    final size = MediaQuery.of(context).size;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(30.0),
+            child: Container(
+              height: 650,
+              width: size.width - 64,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(12.0),
+                ),
+              ),
+              child: const SlidingPanelWidget(),
+            ),
           ),
-        ),
-        child: child,
+        ],
       ),
     );
   }
@@ -486,43 +500,68 @@ class MyGoogleMap extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final routeApi = ref.watch(routeApiProvider);
+    final currentLocation = ref.read(currentLocationProvider);
+
+    final zoomLevel = useState(10.0);
+    final cameraPosition = useState<CameraPosition>(CameraPosition(
+      target: currentLocation,
+      zoom: zoomLevel.value,
+    ));
 
     final controller = useState<GoogleMapController?>(null);
     final onMapCreated = useCallback((GoogleMapController c) {
       controller.value = c;
     }, [controller]);
 
-    final zoomAdd = useCallback(() {}, []);
-    final zoomMinus = useCallback(() {}, []);
+    final zoomIn = useCallback(() {
+      final ct = controller.value;
+      if (ct != null) {
+        ct.moveCamera(CameraUpdate.zoomIn());
+      }
+    }, [controller]);
+
+    final zoomMinus = useCallback(() {
+      final ct = controller.value;
+      if (ct != null) {
+        ct.moveCamera(CameraUpdate.zoomOut());
+      }
+    }, [controller]);
 
     final findRoutes = useMemoized(
         () => routeApi
             .getManyBaseRouteControllerRoute()
             .then((value) => value.data),
         []);
+
     final routes$ = useFuture(findRoutes);
-    final start = useState<LatLng?>(null);
-    final end = useState<LatLng?>(null);
+
+    final polyLines = useState<Set<Polyline>>({});
+    final markers = useState<Set<Marker>>({});
 
     useEffect(() {
       if (routes$.hasData) {
         logger.d('now has data');
         final resultData = routes$.data!;
-        final data = resultData.data.first;
+        if (resultData.data.isEmpty) {
+          return null;
+        }
 
-        start.value = data.toStart();
-        end.value = data.toStop();
+        for (final route in resultData.data) {
+          final start = route.toStart();
+          final end = route.toStop();
 
-        final polylinePoints = PolylinePoints();
-        polylinePoints
-            .getRouteBetweenCoordinates(
-          'AIzaSyCgUycdQ8C8cnGaYTPymLvIzidBENWVicU',
-          start.value.toPoint()!,
-          end.value.toPoint()!,
-        )
-            .then((result) {
-          logger.d('poins: ${result.points}');
-        });
+          final polylinePoints = PolylinePoints();
+          polylinePoints
+              .getRouteBetweenCoordinates(
+            'AIzaSyCgUycdQ8C8cnGaYTPymLvIzidBENWVicU',
+            start.toPoint(),
+            end.toPoint(),
+          )
+              .then((value) {
+            // polylines.value = polylines.value..add(value.points)
+            logger.i('Coords: $value');
+          });
+        }
       } else {
         logger.d('has no data');
       }
@@ -542,23 +581,24 @@ class MyGoogleMap extends HookConsumerWidget {
           Flexible(
             child: Stack(
               children: [
-                GoogleMapsWidget(
-                  sourceLatLng: start.value!,
-                  destinationLatLng: end.value!,
-                  tiltGesturesEnabled: true,
-                  compassEnabled: true,
+                GoogleMap(
+                  myLocationButtonEnabled: true,
+                  zoomControlsEnabled: true,
                   zoomGesturesEnabled: true,
-                  myLocationEnabled: true,
-                  mapType: MapType.hybrid,
+                  tiltGesturesEnabled: false,
+                  initialCameraPosition: cameraPosition.value,
                   onMapCreated: onMapCreated,
-                  apiKey: '',
+                  markers: markers.value,
+                  polylines: polyLines.value,
+                  mapType: MapType.normal,
+                  myLocationEnabled: true,
                 ),
                 const _MapOverlayButtonWidget(),
                 Positioned(
                   top: 100,
                   right: 45,
                   child: InkWell(
-                    onTap: () => zoomAdd(),
+                    onTap: zoomIn,
                     child: Container(
                       width: 30,
                       height: 30,
@@ -575,7 +615,7 @@ class MyGoogleMap extends HookConsumerWidget {
                   top: 150,
                   right: 45,
                   child: InkWell(
-                    onTap: () => zoomMinus(),
+                    onTap: zoomMinus,
                     child: Container(
                       width: 30,
                       height: 30,
@@ -650,16 +690,15 @@ class PanelWidget extends HookConsumerWidget {
 
     return SingleChildScrollView(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 40),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
-                Icon(Icons.arrow_upward_rounded),
-                Text('Suggested Routes'),
-              ],
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: const <Widget>[
+              Icon(Icons.arrow_upward_rounded),
+              Text('Suggested Routes'),
+            ],
           ),
           ListView.builder(
             itemCount: data.length,
@@ -673,32 +712,6 @@ class PanelWidget extends HookConsumerWidget {
                 child:
                     FoundRouteRow(isFirstContainer: index == 0, route: route),
               );
-
-              // return Column(
-              //   children: [
-              //     Padding(
-              //       padding: const EdgeInsets.only(right: 40),
-              //       child: Column(
-              //           mainAxisAlignment: MainAxisAlignment.center,
-              //           children: const <Widget>[
-              //             Icon(Icons.arrow_upward_rounded),
-              //             Text('Suggested Routes'),
-              //           ]),
-              //     ),
-              //     sizedBox(46, 0),
-              //     Row(
-              //       children: [
-              //         buildAvatar(),
-              //         build1stContainer(context, route)
-              //       ],
-              //     ),
-              //     sizedBox(24, 0),
-
-              //     buildMapRow(index == 1, route),
-              //     sizedBox(10, 0),
-              //     buildMapRow(false, route),
-              //   ],
-              // );
             },
             physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
