@@ -43,7 +43,6 @@ dependencies:
   flutter_verification_code: ^1.1.3+1
   intl_phone_field: ^3.1.0
   sliding_up_panel: ^2.0.0+1
-  geolocator: ^9.0.1
   fluttertoast: ^8.0.9
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -78,6 +77,8 @@ dependencies:
   flutter_map_tappable_polyline: ^3.2.0
   cookie_jar: ^3.0.1
   built_value: ^8.4.1
+  easy_geofencing: ^0.2.0
+  geolocator: ^7.7.1
 
 dev_dependencies:
   flutter_test:

@@ -10,6 +10,7 @@ import 'package:gowild/ui/screens/auth/register.screen.dart';
 import 'package:gowild/ui/screens/auth/reset-password.screen.dart';
 import 'package:gowild/ui/screens/auth/verify-phone.screen.dart';
 import 'package:gowild/ui/screens/main/main.screen.dart';
+import 'package:gowild/ui/screens/main/try_route.screen.dart';
 import 'package:gowild/ui/screens/profile/faqs.screen.dart';
 import 'package:gowild/ui/screens/profile/notification.screen.dart';
 import 'package:gowild/ui/screens/profile/profile.screen.dart';
@@ -29,6 +30,10 @@ final routerDelegate = BeamerDelegate(
       '/main/general-profile': (context, state, data) => const ProfileScreen(),
       '/main/faqs': (context, state, data) => const FaqsScreen(),
       '/main/tickets': (context, state, data) => const TicketsScreen(),
+      '/main/try-routes/:routeId': (context, state, data) {
+        final routeId = state.pathParameters['routeId']!;
+        return TryRouteScreen(routeId: routeId);
+      },
       '/main/notifications': (context, state, data) =>
           const NotificationScreen(),
       '/auth': (context, state, data) => const LoginScreen(),
@@ -53,7 +58,7 @@ final routerDelegate = BeamerDelegate(
       pathPatterns: ['/main', '/main/**'],
       guardNonMatching: false,
       check: (context, location) =>
-          ProviderScope.containerOf(context, listen: false)
+          ProviderScope.containerOf(context)
               .read(authProvider)
               .status,
       beamToNamed: (origin, target) => '/auth',
@@ -62,7 +67,7 @@ final routerDelegate = BeamerDelegate(
       pathPatterns: ['/landing-page'],
       guardNonMatching: true,
       check: (context, location) {
-        final result = ProviderScope.containerOf(context, listen: false)
+        final result = ProviderScope.containerOf(context)
             .read(hasSeenLandingPageProvider)
             .hasSeenLandingPage;
         logger.d('Has seen landing page check: $result');

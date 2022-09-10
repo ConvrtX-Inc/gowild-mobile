@@ -7,7 +7,7 @@ extension RouteLatLng on Route {
     return LatLng(startPointLat, startPointLong);
   }
 
-  LatLng toStop() {
+  LatLng toEnd() {
     return LatLng(stopPointLat, stopPointLat);
   }
 }

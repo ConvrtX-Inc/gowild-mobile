@@ -29,6 +29,10 @@ class SettingsScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    goToMain() {
+      context.beamToNamed('/auth');
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -65,7 +69,7 @@ class SettingsScreen extends HookConsumerWidget {
                   title: 'Logout',
                   onTap: () async {
                     await ref.read(loginProvider).logout();
-                    context.beamToNamed('/');
+                    goToMain();
                   },
                 ),
               ],
@@ -147,7 +151,7 @@ class _SettingsHeader extends HookConsumerWidget {
             radius: 22,
             backgroundImage: user.picture == null || user.picture == ''
                 ? const AssetImage(profilePlaceholder)
-                : Image.network(user.picture!) as ImageProvider,
+                : NetworkImage(user.picture!) as ImageProvider,
           ),
         )
       ],

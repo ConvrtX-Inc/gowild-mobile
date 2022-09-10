@@ -29,6 +29,7 @@ class HomeScreen extends HookWidget {
   Widget build(BuildContext context) {
     useEffect(() {
       determinePosition();
+      return null;
     }, []);
 
     return Container(
@@ -140,11 +141,12 @@ class _RowNameAndAvatarWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final user = ref.watch(currentUserProvider);
+    logger.d('user is $user');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          user?.username ?? '',
+          user?.firstName ?? user?.lastName ?? user?.username ?? '',
           style: const TextStyle(
             color: Colors.white,
             fontSize: 22,
@@ -494,19 +496,28 @@ class ExpandableContainer extends StatelessWidget {
   }
 }
 
+final polylinePoints = PolylinePoints();
+
 class MyGoogleMap extends HookConsumerWidget {
   const MyGoogleMap({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
     final routeApi = ref.watch(routeApiProvider);
-    final currentLocation = ref.read(currentLocationProvider);
+    final currentLocation = ref.watch(currentLocationProvider);
 
-    final zoomLevel = useState(10.0);
     final cameraPosition = useState<CameraPosition>(CameraPosition(
       target: currentLocation,
-      zoom: zoomLevel.value,
+        zoom: 12
     ));
+    useEffect(() {
+      logger.d('currentLocation changed: $currentLocation');
+      cameraPosition.value = CameraPosition(
+        target: currentLocation,
+          zoom: 12
+      );
+      return () {};
+    }, [currentLocation]);
 
     final controller = useState<GoogleMapController?>(null);
     final onMapCreated = useCallback((GoogleMapController c) {
@@ -538,6 +549,35 @@ class MyGoogleMap extends HookConsumerWidget {
     final polyLines = useState<Set<Polyline>>({});
     final markers = useState<Set<Marker>>({});
 
+    final findDirection = useCallback((Route route) async {
+      final start = route.toStart();
+      final end = route.toEnd();
+
+      try {
+        final value = await polylinePoints.getRouteBetweenCoordinates(
+          'AIzaSyCgUycdQ8C8cnGaYTPymLvIzidBENWVicU',
+          start.toPoint(),
+          end.toPoint(),
+        );
+
+        logger.d('Polylines from route#${route.id} : $value');
+        if (value.errorMessage != null) {
+          logger.e(
+              'Could not find direction for ${route.id}: ${value.errorMessage}');
+          return;
+        }
+
+        final points = value.points;
+        final polyline = Polyline(
+          polylineId: PolylineId('poly-line-${route.id}'),
+          points: points.map((e) => LatLng(e.latitude, e.longitude)).toList(),
+        );
+        polyLines.value = polyLines.value..add(polyline);
+      } catch (e) {
+        logger.e('Could not find direction for route#${route.id}: $e');
+      }
+    }, [polyLines]);
+
     useEffect(() {
       if (routes$.hasData) {
         logger.d('now has data');
@@ -546,22 +586,7 @@ class MyGoogleMap extends HookConsumerWidget {
           return null;
         }
 
-        for (final route in resultData.data) {
-          final start = route.toStart();
-          final end = route.toStop();
-
-          final polylinePoints = PolylinePoints();
-          polylinePoints
-              .getRouteBetweenCoordinates(
-            'AIzaSyCgUycdQ8C8cnGaYTPymLvIzidBENWVicU',
-            start.toPoint(),
-            end.toPoint(),
-          )
-              .then((value) {
-            // polylines.value = polylines.value..add(value.points)
-            logger.i('Coords: $value');
-          });
-        }
+        resultData.data.forEach(findDirection);
       } else {
         logger.d('has no data');
       }
@@ -689,8 +714,8 @@ class PanelWidget extends HookConsumerWidget {
     final data = resultData.data;
 
     return SingleChildScrollView(
+      padding: const EdgeInsets.only(right: 40),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -707,7 +732,7 @@ class PanelWidget extends HookConsumerWidget {
               final route = data[index];
               return GestureDetector(
                 onTap: () {
-                  context.beamToNamed('/main/try-routes/${route.id}');
+                  context.beamToNamed('/main/try-routes/${route.id}', popToNamed: '/main');
                 },
                 child:
                     FoundRouteRow(isFirstContainer: index == 0, route: route),

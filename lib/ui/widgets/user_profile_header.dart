@@ -39,7 +39,7 @@ class ProfileHeader extends HookWidget {
               radius: 90,
               backgroundImage: imageAsset == null || imageAsset == ''
                   ? const AssetImage(profilePlaceholder)
-                  : Image.network(imageAsset!) as ImageProvider,
+                  : NetworkImage(imageAsset!) as ImageProvider,
             ),
           ),
         )

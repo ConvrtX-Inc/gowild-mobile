@@ -54,7 +54,8 @@ Future<Dio> buildDio(AuthProvider authProvider,
   }
 
   if (!kIsWeb && options.withCookies) {
-    var cookieJar = PersistCookieJar();
+    final app = await getApplicationDocumentsDirectory();
+    var cookieJar = PersistCookieJar(storage: FileStorage('${app.path}/dio'));
     dio.interceptors.add(CookieManager(cookieJar));
   }
   if (options.withLogger) {
