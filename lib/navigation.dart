@@ -1,7 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:gowild/providers/auth.dart';
 import 'package:gowild/providers/landing_page_provider.dart';
-import 'package:gowild/services/logging.dart';
+import 'package:gowild/helper/logging.dart';
 import 'package:gowild/ui/screens/app/landing-page.screen.dart';
 import 'package:gowild/ui/screens/auth/create-new-password.screen.dart';
 import 'package:gowild/ui/screens/auth/e-waiver.screen.dart';

@@ -80,13 +80,13 @@ class MainBottomNavigationWidget extends StatelessWidget {
           enableFeedback: false,
           items: [
             _CustomBottomNavigationBarItem(
-              icon: BottonNavIconWidget(
+              icon: BottomNavIconWidget(
                 iconPath: homeIcon,
                 isFocus: selectedIndex == 0,
               ),
             ),
             _CustomBottomNavigationBarItem(
-              icon: BottonNavIconWidget(
+              icon: BottomNavIconWidget(
                 iconPath: treasureMapIcon,
                 isFocus: selectedIndex == 1,
               ),
@@ -96,14 +96,14 @@ class MainBottomNavigationWidget extends StatelessWidget {
               label: '',
             ),
             _CustomBottomNavigationBarItem(
-              icon: BottonNavIconWidget(
+              icon: BottomNavIconWidget(
                 iconPath: directionSignIcon,
                 isFocus: selectedIndex == 3,
               ),
             ),
             _CustomBottomNavigationBarItem(
-              icon: BottonNavIconWidget(
-                iconPath: profileIcon,
+              icon: BottomNavIconWidget(
+                iconPath: directionSignIcon,
                 isFocus: selectedIndex == 4,
               ),
             ),
@@ -118,11 +118,11 @@ class _CustomBottomNavigationBarItem extends BottomNavigationBarItem {
   _CustomBottomNavigationBarItem({required super.icon, super.label = ''});
 }
 
-class BottonNavIconWidget extends StatelessWidget {
+class BottomNavIconWidget extends StatelessWidget {
   final String iconPath;
   final bool isFocus;
 
-  const BottonNavIconWidget({
+  const BottomNavIconWidget({
     super.key,
     required this.iconPath,
     required this.isFocus,

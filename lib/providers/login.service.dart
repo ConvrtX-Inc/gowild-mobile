@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:gowild/providers/auth.dart';
 import 'package:gowild/providers/gowild.api-client.dart';
-import 'package:gowild/services/logging.dart';
+import 'package:gowild/helper/logging.dart';
 import 'package:gowild_api/gowild_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

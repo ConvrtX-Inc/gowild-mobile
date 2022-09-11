@@ -6,7 +6,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gowild/constants/colors.dart';
 import 'package:gowild/constants/social.dart';
 import 'package:gowild/providers/login.service.dart';
-import 'package:gowild/services/logging.dart';
+import 'package:gowild/helper/logging.dart';
 import 'package:gowild/ui/widgets/auth_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

@@ -12,7 +12,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gowild/environment_config.dart';
 import 'package:gowild/helper/auth.dio-interceptor.dart';
 import 'package:gowild/providers/auth.dart';
-import 'package:gowild/services/logging.dart';
+import 'package:gowild/helper/logging.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';

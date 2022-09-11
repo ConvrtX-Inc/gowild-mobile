@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gowild/helper/latlng_position.extensions.dart';
 import 'package:gowild/helper/location.dart';
 import 'package:gowild/providers/hive.dart';
-import 'package:gowild/services/logging.dart';
+import 'package:gowild/helper/logging.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 const kLocationHive = 'location';

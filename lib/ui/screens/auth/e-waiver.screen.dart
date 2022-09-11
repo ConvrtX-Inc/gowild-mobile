@@ -11,7 +11,7 @@ class EWaiverScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final size = useMemoized(() => MediaQuery.of(context).size, [context]);
+    final size = MediaQuery.of(context).size;
     final checked = useState(false);
 
     return Scaffold(

@@ -1,21 +1,27 @@
+import 'dart:math' as math;
+
 import 'package:beamer/beamer.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' hide Route;
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_widget/google_maps_widget.dart';
 import 'package:gowild/constants/image_constants.dart';
 import 'package:gowild/helper/location.dart';
+import 'package:gowild/helper/logging.dart';
+import 'package:gowild/helper/maps_utils.dart';
+import 'package:gowild/helper/poly_lines.dart';
 import 'package:gowild/helper/route.extention.dart';
 import 'package:gowild/providers/current_location_provider.dart';
 import 'package:gowild/providers/current_user.dart';
 import 'package:gowild/providers/route_provider.dart';
-import 'package:gowild/services/logging.dart';
 import 'package:gowild/ui/widgets/sample_avatar.dart';
 import 'package:gowild/ui/widgets/star_rating.dart';
 import 'package:gowild_api/gowild_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:uuid/uuid.dart';
 
 const nameList = ['ROUTES'];
 
@@ -41,54 +47,55 @@ class HomeScreen extends HookWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Stack(children: [
-          Positioned(
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: ListView(
+        body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          // physics: const NeverScrollableScrollPhysics(),
+          children: [
+            const SizedBox(
+              height: 24,
+            ),
+            const Text(
+              'GOOD AFTERNOON,',
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            ),
+            const _RowNameAndAvatarWidget(),
+            const SizedBox(
+              height: 24,
+            ),
+            const _SearchTextFieldWidget(),
+            ListView(
               physics: const NeverScrollableScrollPhysics(),
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Text(
-                            'GOOD AFTERNOON,',
-                            style: TextStyle(color: Colors.white, fontSize: 22),
-                          ),
-                        ],
-                      ),
-                      const _RowNameAndAvatarWidget(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const _SearchTextFieldWidget(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ExpandableListViewWidget(
-                            title: nameList[index],
-                          );
-                        },
-                        itemCount: nameList.length,
-                      ),
-                    ],
-                  ),
+              shrinkWrap: true,
+              children: const [
+                ExpandableListViewWidget(
+                  title: 'ROUTES',
+                  child: _RoutesWidget(),
                 ),
               ],
             ),
-          ),
-        ]),
+            const SizedBox(
+              height: 24,
+            ),
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class _RoutesWidget extends HookConsumerWidget {
+  const _RoutesWidget({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(24.0),
+        ),
+      ),
+      child: const SlidingPanelWidget(),
     );
   }
 }
@@ -114,8 +121,7 @@ class _SearchTextFieldWidget extends HookConsumerWidget {
           color: Colors.white,
           size: 34,
         ),
-        contentPadding:
-            const EdgeInsets.only(left: 14.0, bottom: 20.0, top: 20.0),
+        contentPadding: const EdgeInsets.all(16.0),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xff3B352F),
@@ -141,7 +147,6 @@ class _RowNameAndAvatarWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final user = ref.watch(currentUserProvider);
-    logger.d('user is $user');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -149,37 +154,34 @@ class _RowNameAndAvatarWidget extends HookConsumerWidget {
           user?.firstName ?? user?.lastName ?? user?.username ?? '',
           style: const TextStyle(
             color: Colors.white,
-            fontSize: 22,
+            fontSize: 24,
           ),
         ),
         Container(
-          width: 70,
-          height: 70,
+          width: 64,
+          height: 64,
           decoration: const BoxDecoration(
             color: Colors.white, // border color
             shape: BoxShape.circle,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(2), // border width
-            child: GestureDetector(
-              onTap: () {
-                Beamer.of(context).beamToNamed('/main/general-profile');
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.amber,
-                  image: user?.picture != null
-                      ? DecorationImage(
-                          image: NetworkImage(user!.picture!),
-                          fit: BoxFit.cover,
-                        )
-                      : const DecorationImage(
-                          image: AssetImage(profileImagePlaceholder),
-                        ),
-                ),
-                child: Container(), // inner content
+          child: GestureDetector(
+            onTap: () {
+              Beamer.of(context).beamToNamed('/main/general-profile');
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.amber,
+                image: user?.picture != null
+                    ? DecorationImage(
+                        image: NetworkImage(user!.picture!),
+                        fit: BoxFit.cover,
+                      )
+                    : const DecorationImage(
+                        image: AssetImage(profileImagePlaceholder),
+                      ),
               ),
+              child: Container(), // inner content
             ),
           ),
         ),
@@ -335,8 +337,13 @@ class _AdventureCardWidget extends HookWidget {
 
 class ExpandableListViewWidget extends HookWidget {
   final String title;
+  final Widget child;
 
-  const ExpandableListViewWidget({required this.title, super.key});
+  const ExpandableListViewWidget({
+    required this.title,
+    required this.child,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -355,39 +362,39 @@ class ExpandableListViewWidget extends HookWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                      fontSize: 14),
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
                 ),
                 IconButton(
-                    icon: Container(
-                      height: 50.0,
-                      width: 50.0,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Icon(
-                          expandFlag.value
-                              ? Icons.keyboard_arrow_right
-                              : Icons.keyboard_arrow_down,
-                          color: Colors.white,
-                          size: 30.0,
-                        ),
+                  icon: Container(
+                    height: 50.0,
+                    width: 50.0,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        expandFlag.value
+                            ? Icons.keyboard_arrow_right
+                            : Icons.keyboard_arrow_down,
+                        color: Colors.white,
+                        size: 30.0,
                       ),
                     ),
-                    onPressed: () {
-                      expandFlag.value = !expandFlag.value;
-                    }),
+                  ),
+                  onPressed: () {
+                    expandFlag.value = !expandFlag.value;
+                  },
+                ),
               ],
             ),
           ),
           ExpandableContainer(
             expanded: expandFlag.value,
-            expandedHeight: MediaQuery.of(context).size.height / 1.65,
-            child: const SizedBox(
-              child: MapWidget(),
-            ),
+            expandedHeight: MediaQuery.of(context).size.height * .7,
+            child: child,
           )
         ],
       ),
@@ -400,68 +407,26 @@ class SlidingPanelWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return ClipRRect(
-      borderRadius: BorderRadius.circular(30.0),
-      child: Container(
-        // width: 200,
+      borderRadius: BorderRadius.circular(24.0),
+      child: SizedBox(
         child: SlidingUpPanel(
           minHeight: MediaQuery.of(context).size.height * 0.05,
+          maxHeight: MediaQuery.of(context).size.height / 2,
           panelBuilder: (sc) => PanelWidget(
             scrollController: sc,
           ),
-          body: Container(
-            height: 550,
-            // width: 200,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(12.0),
-              ),
-            ),
-            child: const SizedBox(
-              // width: 200,
-              child: MyGoogleMap(),
-            ),
+          body: SizedBox(
+            height: size.height * .72,
+            child: const MyGoogleMap(),
           ),
-          maxHeight: MediaQuery.of(context).size.height / 2,
           backdropEnabled: true,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
           parallaxEnabled: true,
           parallaxOffset: .5,
           color: Colors.white,
         ),
-      ),
-    );
-  }
-}
-
-class MapWidget extends HookWidget {
-  const MapWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(30.0),
-            child: Container(
-              height: 650,
-              width: size.width - 64,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(12.0),
-                ),
-              ),
-              child: const SlidingPanelWidget(),
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -496,8 +461,6 @@ class ExpandableContainer extends StatelessWidget {
   }
 }
 
-final polylinePoints = PolylinePoints();
-
 class MyGoogleMap extends HookConsumerWidget {
   const MyGoogleMap({super.key});
 
@@ -506,31 +469,25 @@ class MyGoogleMap extends HookConsumerWidget {
     final routeApi = ref.watch(routeApiProvider);
     final currentLocation = ref.watch(currentLocationProvider);
 
-    final cameraPosition = useState<CameraPosition>(CameraPosition(
-      target: currentLocation,
-        zoom: 12
-    ));
+    final cameraPosition = useState<CameraPosition>(
+        CameraPosition(target: currentLocation, zoom: 12));
     useEffect(() {
       logger.d('currentLocation changed: $currentLocation');
-      cameraPosition.value = CameraPosition(
-        target: currentLocation,
-          zoom: 12
-      );
+      cameraPosition.value = CameraPosition(target: currentLocation, zoom: 12);
       return () {};
     }, [currentLocation]);
 
+    // Maps controllers
     final controller = useState<GoogleMapController?>(null);
     final onMapCreated = useCallback((GoogleMapController c) {
       controller.value = c;
     }, [controller]);
-
     final zoomIn = useCallback(() {
       final ct = controller.value;
       if (ct != null) {
         ct.moveCamera(CameraUpdate.zoomIn());
       }
     }, [controller]);
-
     final zoomMinus = useCallback(() {
       final ct = controller.value;
       if (ct != null) {
@@ -538,45 +495,68 @@ class MyGoogleMap extends HookConsumerWidget {
       }
     }, [controller]);
 
+    // Get routes
     final findRoutes = useMemoized(
         () => routeApi
             .getManyBaseRouteControllerRoute()
             .then((value) => value.data),
         []);
-
     final routes$ = useFuture(findRoutes);
 
-    final polyLines = useState<Set<Polyline>>({});
-    final markers = useState<Set<Marker>>({});
+    final polyLinesMap = useState<Map<PolylineId, Polyline>>({});
+    final markersMap = useState<Map<MarkerId, Marker>>({});
 
-    final findDirection = useCallback((Route route) async {
-      final start = route.toStart();
-      final end = route.toEnd();
-
+    // Plot route
+    void findDirection(Route route) async {
       try {
-        final value = await polylinePoints.getRouteBetweenCoordinates(
-          'AIzaSyCgUycdQ8C8cnGaYTPymLvIzidBENWVicU',
-          start.toPoint(),
-          end.toPoint(),
-        );
-
-        logger.d('Polylines from route#${route.id} : $value');
-        if (value.errorMessage != null) {
-          logger.e(
-              'Could not find direction for ${route.id}: ${value.errorMessage}');
-          return;
-        }
-
-        final points = value.points;
+        final points = await findPolyLines(route);
+        final id = PolylineId('poly-line-${route.id}');
         final polyline = Polyline(
-          polylineId: PolylineId('poly-line-${route.id}'),
-          points: points.map((e) => LatLng(e.latitude, e.longitude)).toList(),
+          polylineId: id,
+          points: [route.toStart(), ...points, route.toEnd()],
+          color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+              .withOpacity(1.0),
         );
-        polyLines.value = polyLines.value..add(polyline);
+        polyLinesMap.value = {...polyLinesMap.value, id: polyline};
       } catch (e) {
         logger.e('Could not find direction for route#${route.id}: $e');
       }
-    }, [polyLines]);
+    }
+
+    void addMarker(Route route) async {
+      final bytes = await getBytesFromAsset(
+        'assets/images/pngs/location_point.png',
+        128,
+      );
+      final startPoint = Marker(
+        markerId: MarkerId(
+            '${route.id}-${route.toStart().toString()}-${const Uuid().v4()}'),
+        position: route.toStart(),
+        icon: BitmapDescriptor.fromBytes(bytes),
+        infoWindow: InfoWindow(
+          title: route.routeName,
+        ),
+      );
+      final endPoint = Marker(
+        markerId: MarkerId(
+            '${route.id}-${route.toEnd().toString()}-${const Uuid().v4()}'),
+        position: route.toEnd(),
+        icon: BitmapDescriptor.fromBytes(bytes),
+        infoWindow: InfoWindow(
+          title: route.routeName,
+        ),
+      );
+      markersMap.value = {
+        ...markersMap.value,
+        endPoint.markerId: endPoint,
+        startPoint.markerId: startPoint,
+      };
+    }
+
+    void plotRoute(Route route) {
+      findDirection(route);
+      addMarker(route);
+    }
 
     useEffect(() {
       if (routes$.hasData) {
@@ -586,74 +566,65 @@ class MyGoogleMap extends HookConsumerWidget {
           return null;
         }
 
-        resultData.data.forEach(findDirection);
+        resultData.data.forEach(plotRoute);
       } else {
         logger.d('has no data');
       }
       return null;
     }, [routes$.hasData]);
 
-    if (!routes$.hasData) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: Column(
+      body: Stack(
         children: [
-          Flexible(
-            child: Stack(
-              children: [
-                GoogleMap(
-                  myLocationButtonEnabled: true,
-                  zoomControlsEnabled: true,
-                  zoomGesturesEnabled: true,
-                  tiltGesturesEnabled: false,
-                  initialCameraPosition: cameraPosition.value,
-                  onMapCreated: onMapCreated,
-                  markers: markers.value,
-                  polylines: polyLines.value,
-                  mapType: MapType.normal,
-                  myLocationEnabled: true,
+          GoogleMap(
+            myLocationButtonEnabled: true,
+            zoomControlsEnabled: true,
+            zoomGesturesEnabled: true,
+            tiltGesturesEnabled: false,
+            initialCameraPosition: cameraPosition.value,
+            onMapCreated: onMapCreated,
+            markers: markersMap.value.values.toSet(),
+            polylines: polyLinesMap.value.values.toSet(),
+            mapType: MapType.normal,
+            myLocationEnabled: true,
+            // https://stackoverflow.com/questions/60054311/googlemap-and-listview-on-the-same-sreen
+            gestureRecognizers: {}..add(Factory<EagerGestureRecognizer>(
+                () => EagerGestureRecognizer())),
+          ),
+          const _MapOverlayButtonWidget(),
+          Positioned(
+            top: 100,
+            right: 45,
+            child: InkWell(
+              onTap: zoomIn,
+              child: Container(
+                width: 30,
+                height: 30,
+                decoration: const BoxDecoration(
+                    shape: BoxShape.rectangle, color: Color(0xffC4C4C4)),
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.black,
                 ),
-                const _MapOverlayButtonWidget(),
-                Positioned(
-                  top: 100,
-                  right: 45,
-                  child: InkWell(
-                    onTap: zoomIn,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.rectangle, color: Color(0xffC4C4C4)),
-                      child: const Icon(
-                        Icons.add,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 150,
+            right: 45,
+            child: InkWell(
+              onTap: zoomMinus,
+              child: Container(
+                width: 30,
+                height: 30,
+                decoration: const BoxDecoration(
+                    shape: BoxShape.rectangle, color: Color(0xffC4C4C4)),
+                child: const Icon(
+                  Icons.remove,
+                  color: Colors.black,
                 ),
-                Positioned(
-                  top: 150,
-                  right: 45,
-                  child: InkWell(
-                    onTap: zoomMinus,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.rectangle, color: Color(0xffC4C4C4)),
-                      child: const Icon(
-                        Icons.remove,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ],
@@ -698,24 +669,19 @@ class PanelWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final routeApi = ref.watch(routeApiProvider);
     final findRoutes = useMemoized(
-        () => routeApi
-            .getManyBaseRouteControllerRoute()
-            .then((value) => value.data),
-        []);
+      () => routeApi
+          .getManyBaseRouteControllerRoute()
+          .then((value) => value.data),
+      [],
+    );
     final routes$ = useFuture(findRoutes);
-
-    if (!routes$.hasData) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-
-    final resultData = routes$.data!;
-    final data = resultData.data;
+    final data = routes$.data?.data.toList() ?? [];
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(right: 40),
-      child: Column(
+      child: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -725,23 +691,11 @@ class PanelWidget extends HookConsumerWidget {
               Text('Suggested Routes'),
             ],
           ),
-          ListView.builder(
-            itemCount: data.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final route = data[index];
-              return GestureDetector(
-                onTap: () {
-                  context.beamToNamed('/main/try-routes/${route.id}', popToNamed: '/main');
-                },
-                child:
-                    FoundRouteRow(isFirstContainer: index == 0, route: route),
-              );
-            },
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            controller: scrollController,
-          ),
+          if (!routes$.hasData)
+            const Center(
+              child: CircularProgressIndicator(),
+            ),
+          for (final route in data) FoundRouteRow(route: route),
         ],
       ),
     );
@@ -750,139 +704,137 @@ class PanelWidget extends HookConsumerWidget {
 
 class FoundRouteRow extends HookWidget {
   final Route route;
-  final bool isFirstContainer;
 
   const FoundRouteRow({
     super.key,
     required this.route,
-    this.isFirstContainer = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 5, right: isFirstContainer ? 50 : 65),
-      // padding: const EdgeInsets.only(left: 10, right: 30),
-      width: isFirstContainer ? 190 : 300,
-      // height: isFirstContainer ? 300 : 10,
-      decoration: BoxDecoration(
-        color: isFirstContainer ? Colors.orange : Colors.transparent,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(12.0),
+    return GestureDetector(
+      onTap: () {
+        context.beamToNamed(
+          '/main/try-routes/${route.id}',
+          popToNamed: '/main',
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 4.0),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(12.0),
+          ),
+          border: Border.all(
+            color: const Color(0xffDFDFDF),
+            width: 1,
+          ),
         ),
-        border: Border.all(
-          color: const Color(0xffDFDFDF),
-          width: 1,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(4),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(12.0),
+                ),
+              ),
+              height: 90,
+              child: _SmallMapWidget(
+                route: route,
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Text(
+                    route.routeName,
+                    style: const TextStyle(
+                      color: Color(0xff18243C),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.location_on_outlined,
+                        color: Colors.grey,
+                      ),
+                      const Text(
+                        '1.7 Miles',
+                        style: TextStyle(
+                            color: Color(0xff18243C),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Row(
+                        children: const [
+                          Icon(
+                            Icons.timer,
+                            color: Colors.grey,
+                          ),
+                          Text(
+                            '1 hr 30 mins',
+                            style: TextStyle(
+                                color: Color(0xff18243C),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 0, width: 8),
+                      Row(
+                        children: const [
+                          Text(
+                            '500m',
+                            style: TextStyle(
+                                color: Color(0xff18243C),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
       ),
-      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-        const SizedBox(
-          height: 5,
-        ),
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(12.0),
-            ),
-          ),
-          height: 90,
-          child: _SmallMapWidget(
-            height: isFirstContainer ? 320 : 90,
-            route: route,
-          ),
-        ),
-        _RouteContainer(route: route),
-      ]),
     );
   }
 }
 
 class _SmallMapWidget extends HookWidget {
-  final double height;
   final Route route;
 
   const _SmallMapWidget({
-    required this.height,
     required this.route,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      child: Image.network(route.imgUrl),
-    );
-  }
-}
-
-class _RouteContainer extends HookWidget {
-  final Route route;
-
-  const _RouteContainer({
-    required this.route,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 120),
-            child: Text(route.routeName,
-                style: const TextStyle(
-                    color: Color(0xff18243C),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500)),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.location_on_outlined,
-                color: Colors.grey,
-              ),
-              const Text('1.7 Miles',
-                  style: TextStyle(
-                      color: Color(0xff18243C),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500)),
-              const SizedBox(
-                width: 10,
-              ),
-              Row(
-                children: const [
-                  Icon(
-                    Icons.timer,
-                    color: Colors.grey,
-                  ),
-                  Text('1 hr 30 mins',
-                      style: TextStyle(
-                          color: Color(0xff18243C),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500))
-                ],
-              ),
-              const SizedBox(height: 0, width: 8),
-              Row(
-                children: const [
-                  Text('500m',
-                      style: TextStyle(
-                          color: Color(0xff18243C),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500))
-                ],
-              )
-            ],
-          )
-        ],
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(12.0),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey.withAlpha(50),
+        ),
+        child: Image.network(route.imgUrl),
       ),
     );
   }

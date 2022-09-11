@@ -79,6 +79,8 @@ dependencies:
   built_value: ^8.4.1
   easy_geofencing: ^0.2.0
   geolocator: ^7.7.1
+  uuid: ^3.0.6
+  synchronized: ^3.0.0+3
 
 dev_dependencies:
   flutter_test:

@@ -9,7 +9,7 @@ class LandingPageScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final size = useMemoized(() => MediaQuery.of(context).size, []);
+    final size = MediaQuery.of(context).size;
     final onNext = useCallback(() {
       final provider = ref.read(hasSeenLandingPageProvider);
       provider.hasSeenLandingPage = true;
@@ -74,9 +74,9 @@ class LandingPageScreen extends HookConsumerWidget {
                     height: 71,
                     width: 71,
                     decoration: BoxDecoration(
-                        color: Colors.black,
-                        shape: BoxShape.circle,
-                        border: Border.all(width: 2, color: Colors.white),
+                      color: Colors.black,
+                      shape: BoxShape.circle,
+                      border: Border.all(width: 2, color: Colors.white),
                     ),
                     child: const Icon(
                       Icons.arrow_forward,

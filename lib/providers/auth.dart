@@ -1,13 +1,14 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' hide Lock;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gowild/environment_config.dart';
-import 'package:gowild/services/logging.dart';
-import 'package:gowild/services/secure_storage.dart';
+import 'package:gowild/helper/logging.dart';
+import 'package:gowild/providers/secure_storage.dart';
 import 'package:gowild_api/gowild_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:jwt_decode/jwt_decode.dart';
+import 'package:synchronized/synchronized.dart';
 
 part 'auth.freezed.dart';
 
@@ -18,6 +19,7 @@ final authProvider = StateNotifierProvider<AuthProvider, AuthState>((ref) {
 });
 
 class AuthProvider extends StateNotifier<AuthState> {
+  final _lock = Lock();
   bool _init = false;
   final api =
       GowildApi(dio: Dio(BaseOptions(baseUrl: EnvironmentConfig.apiBaseUrl)))
@@ -73,17 +75,49 @@ class AuthProvider extends StateNotifier<AuthState> {
     return state.status;
   }
 
+  Future<bool> _needRefresh() async {
+    final int? exp = state.decoded?['exp'];
+    final nowTime = DateTime.now().millisecondsSinceEpoch + 100;
+    if (exp == null) {
+      return false;
+    }
+
+    return nowTime > exp;
+  }
+
   Future<void> refresh() async {
-    if (state.token != null) {
-      final builder = AuthRefreshTokenDtoBuilder();
-      builder.refreshToken = state.token!.refreshToken;
-      final result = await api.authControllerRefreshToken(
-          authRefreshTokenDto: builder.build());
-      final data = result.data;
-      if (data != null) {
-        setToken(
-            accessToken: data.accessToken, refreshToken: data.refreshToken);
+    try {
+      logger.d('Should refresh token');
+      if (!await _needRefresh()) {
+        logger.d('No need to refresh');
+        return;
       }
+
+      logger.d('Will refresh token');
+      await _lock.synchronized(() async {
+        if (!await _needRefresh()) {
+          logger.d('No need to refresh again');
+          return;
+        }
+
+        logger.d('Will refresh the token now');
+        if (state.token != null) {
+          final builder = AuthRefreshTokenDtoBuilder();
+          builder.refreshToken = state.token!.refreshToken;
+          final result = await api.authControllerRefreshToken(
+              authRefreshTokenDto: builder.build());
+          final data = result.data;
+          if (data != null) {
+            setToken(
+              accessToken: data.accessToken,
+              refreshToken: data.refreshToken,
+            );
+            logger.d('Token refreshed and set');
+          }
+        }
+      });
+    } catch(e) {
+      logger.e('Could not refresh token :', e);
     }
   }
 }

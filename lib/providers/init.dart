@@ -3,7 +3,7 @@ import 'package:gowild/providers/dio_client.dart';
 import 'package:gowild/providers/landing_page_provider.dart';
 import 'package:gowild/providers/map_settings_provider.dart';
 import 'package:gowild/providers/notification.dart';
-import 'package:gowild/services/logging.dart';
+import 'package:gowild/helper/logging.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

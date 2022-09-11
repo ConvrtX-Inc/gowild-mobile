@@ -1,21 +1,29 @@
+import 'dart:ui';
+
 import 'package:beamer/beamer.dart';
 import 'package:easy_geofencing/easy_geofencing.dart';
 import 'package:flutter/cupertino.dart' show CupertinoSwitch;
 import 'package:flutter/material.dart' hide Route;
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gowild/constants/colors.dart';
 import 'package:gowild/helper/latlng_position.extensions.dart';
+import 'package:gowild/helper/logging.dart';
+import 'package:gowild/helper/maps_utils.dart';
+import 'package:gowild/helper/poly_lines.dart';
 import 'package:gowild/helper/route.extention.dart';
 import 'package:gowild/providers/current_location_provider.dart';
 import 'package:gowild/providers/notification.dart';
 import 'package:gowild/providers/route_provider.dart';
-import 'package:gowild/services/logging.dart';
 import 'package:gowild/ui/widgets/auth_widgets.dart';
 import 'package:gowild/ui/widgets/custom_app_bar.dart';
 import 'package:gowild_api/gowild_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:uuid/uuid.dart';
+
+enum MarkerType { start, end, middle }
 
 class TryRouteScreen extends HookConsumerWidget {
   final String routeId;
@@ -57,84 +65,155 @@ class _TryRouteContentWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final position$ = useStream(Geolocator.getPositionStream());
-    final notif = ref.read(notificationProvider);
-    final currentLocation = ref.watch(currentLocationProvider);
-    final cameraPosition = useState<CameraPosition>(CameraPosition(
-      target: currentLocation,
-      zoom: 12,
-    ));
-    final polyLines = useState<Set<Polyline>>({});
-    final markers = useMemoized<Set<Marker>>(
-        () => ({
-              Marker(
-                markerId: MarkerId('${route.id}-end-point'),
-                position: route.toEnd(),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueViolet),
-                infoWindow: InfoWindow(
-                  title: 'End here',
-                  snippet: route.routeName,
-                ),
-              ),
-              Marker(
-                markerId: MarkerId('${route.id}-start-point'),
-                position: route.toStart(),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueGreen),
-                infoWindow: InfoWindow(
-                  title: 'Start here',
-                  snippet: route.routeName,
-                ),
-              ),
-            }),
-        []);
-
+    // Basic State
     final atFinishLine = useState(false);
     final controller = useState<GoogleMapController?>(null);
     final routeText = useState<String?>(null);
+    final state = useState(false);
+    final started = useState(false);
 
-    useEffect(() {
-      final ctr = controller.value;
-      final pos = position$.data;
-      if (ctr != null && pos != null) {
-        ctr.animateCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(target: pos.toLatLng(), zoom: 15),
-          ),
-        );
-      }
-      return () {};
-    }, [position$, controller]);
+    // Current location state
+    final currentLocationRef = ref.watch(currentLocationProvider);
+    final locationStream = useMemoized(
+        () => Geolocator.getPositionStream().map((event) => event.toLatLng()),
+        []);
+    final currentLocation =
+        useStream(locationStream, initialData: currentLocationRef);
 
-    final onMapCreated = useCallback((GoogleMapController c) {
-      controller.value = c;
-    }, [controller]);
+    // Notification service
+    final notif = ref.read(notificationProvider);
 
-    final addMarker = useCallback(() {}, []);
+    // Fixed camera
+    final initialCameraPosition = useMemoized(
+      () => CameraPosition(
+        target: route.toStart(),
+        zoom: 17,
+      ),
+      [],
+    );
+
+    // Bound for camera
+    final bounds = useMemoized(() => route.toBounds(), []);
+
+    // Maps
+    final onMapCreated = useCallback((GoogleMapController ctr) {
+      controller.value = ctr;
+      // TODO This causes an error
+      ctr.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50.0));
+      logger.d('Centered using bound ${bounds.toJson()}');
+    }, [controller, bounds]);
+
+    // Notifications
     final showInAppNotification = useCallback(() {
-      notif.showAndroidNotification('route-${route.id}'.hashCode, 'Go Wild Historiy',
-          'You are not in the proxmity ot the starting point');
-    }, []);
+      notif.showAndroidNotification(
+        'route-${route.id}'.hashCode,
+        'Go Wild Historiy',
+        'You are not in the proxmity ot the starting point',
+      );
+    }, [notif]);
 
+    // Markers
+    final markers = useState<Set<Marker>>({});
+    void addMarker({
+      required MarkerType type,
+      required LatLng latLng,
+      required String title,
+    }) async {
+      late Uint8List bytes;
+      switch (type) {
+        case MarkerType.start:
+          bytes = await getBytesFromAsset(
+            'assets/images/pngs/start_point_icon.png',
+            128,
+          );
+          break;
+        case MarkerType.end:
+          bytes = await getBytesFromAsset(
+            'assets/images/pngs/finish_point_icon.png',
+            128,
+          );
+          break;
+        case MarkerType.middle:
+          bytes = await getBytesFromAsset(
+            'assets/images/pngs/location_point.png',
+            128,
+          );
+          break;
+        default:
+          logger.e('Cannot handle this type $type');
+          return;
+      }
+
+      final marker = Marker(
+        markerId:
+        MarkerId('${route.id}-${latLng.toString()}-${const Uuid().v4()}'),
+        position: latLng,
+        icon: BitmapDescriptor.fromBytes(bytes),
+        infoWindow: InfoWindow(
+          title: title,
+          snippet: route.routeName,
+        ),
+      );
+      markers.value = {...markers.value, marker};
+      logger.d('Marker added ${marker.markerId}');
+    }
     final showResults = useCallback(() {
-      addMarker();
+      final pos = currentLocation.data;
+      if (pos != null) {
+        addMarker(type: MarkerType.middle, latLng: pos, title: "You're here");
+      }
     }, [currentLocation, addMarker]);
-
     final showStats = useCallback(() {
-      addMarker();
-      showInAppNotification();
+      final pos = currentLocation.data;
+      if (pos != null) {
+        addMarker(type: MarkerType.middle, latLng: pos, title: "You're here");
+        showInAppNotification();
+      }
     }, [addMarker]);
 
+    // Poly lines
+    final polyLinesFuture = useMemoized<Future<Set<Polyline>>>(() async {
+      try {
+        final points = await findPolyLines(route);
+        final polyline = Polyline(
+          polylineId: PolylineId('poly-line-${route.id}'),
+          points: [route.toStart(), ...points, route.toEnd()],
+          visible: true,
+        );
+        logger.d('Got poly lines for route ${points.length}');
+        return {polyline};
+      } catch (e) {
+        logger.e('Could not find direction for route#${route.id}: $e');
+        return {};
+      }
+    }, []);
+    final polyLines$ =
+        useFuture<Set<Polyline>>(polyLinesFuture, initialData: {});
+
     useEffect(() {
-      logger.d('CurrentLocation changed: $currentLocation');
-      cameraPosition.value = CameraPosition(target: currentLocation, zoom: 12);
+      if (started.value) {
+        final ctr = controller.value;
+        final pos = currentLocation.data;
+        if (ctr != null && pos != null) {
+          ctr.animateCamera(
+            CameraUpdate.newLatLngZoom(pos, 17),
+          );
+        }
+      }
       return () {};
-    }, [currentLocation]);
-
-    final state = useState(false);
+    }, [currentLocation, controller, started]);
 
     useEffect(() {
+      addMarker(
+        type: MarkerType.end,
+        title: 'Ending point',
+        latLng: route.toEnd(),
+      );
+      addMarker(
+        type: MarkerType.start,
+        title: 'Starting point',
+        latLng: route.toStart(),
+      );
       return () {
         EasyGeofencing.stopGeofenceService();
       };
@@ -222,23 +301,23 @@ class _TryRouteContentWidget extends HookConsumerWidget {
                   Column(
                     children: [
                       const SizedBox(height: 20, width: 0),
-                      const SizedBox(height: 10, width: 0),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30.0),
                         child: SizedBox(
-                          height: 600,
-                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * .64,
+                          width: MediaQuery.of(context).size.width - 32,
                           child: GoogleMap(
                             myLocationButtonEnabled: true,
                             zoomControlsEnabled: true,
                             zoomGesturesEnabled: true,
                             tiltGesturesEnabled: true,
-                            initialCameraPosition: cameraPosition.value,
+                            initialCameraPosition: initialCameraPosition,
                             onMapCreated: onMapCreated,
-                            markers: markers,
-                            polylines: polyLines.value,
+                            markers: markers.value,
+                            polylines: polyLines$.requireData,
                             mapType: MapType.normal,
                             myLocationEnabled: true,
+                            cameraTargetBounds: CameraTargetBounds(bounds),
                           ),
                         ),
                       ),
