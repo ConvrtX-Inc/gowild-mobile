@@ -10,7 +10,7 @@ class _$UserAuthResponse extends UserAuthResponse {
   @override
   final TokenResponse token;
   @override
-  final User user;
+  final UserEntity user;
 
   factory _$UserAuthResponse(
           [void Function(UserAuthResponseBuilder)? updates]) =>
@@ -60,9 +60,9 @@ class UserAuthResponseBuilder
       _$this._token ??= new TokenResponseBuilder();
   set token(TokenResponseBuilder? token) => _$this._token = token;
 
-  UserBuilder? _user;
-  UserBuilder get user => _$this._user ??= new UserBuilder();
-  set user(UserBuilder? user) => _$this._user = user;
+  UserEntityBuilder? _user;
+  UserEntityBuilder get user => _$this._user ??= new UserEntityBuilder();
+  set user(UserEntityBuilder? user) => _$this._user = user;
 
   UserAuthResponseBuilder() {
     UserAuthResponse._defaults(this);

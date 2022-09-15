@@ -26,7 +26,6 @@ import 'package:gowild_api/src/api/room_api.dart';
 import 'package:gowild_api/src/api/route_api.dart';
 import 'package:gowild_api/src/api/route_clues_api.dart';
 import 'package:gowild_api/src/api/route_historical_event_api.dart';
-import 'package:gowild_api/src/api/route_historical_event_photo_api.dart';
 import 'package:gowild_api/src/api/share_api.dart';
 import 'package:gowild_api/src/api/sms_api.dart';
 import 'package:gowild_api/src/api/sponsor_api.dart';
@@ -191,12 +190,6 @@ class GowildApi {
   /// by doing that all interceptors will not be executed
   RouteHistoricalEventApi getRouteHistoricalEventApi() {
     return RouteHistoricalEventApi(dio, serializers);
-  }
-
-  /// Get RouteHistoricalEventPhotoApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  RouteHistoricalEventPhotoApi getRouteHistoricalEventPhotoApi() {
-    return RouteHistoricalEventPhotoApi(dio, serializers);
   }
 
   /// Get ShareApi instance, base route and serializer can be overridden by a given but be careful,

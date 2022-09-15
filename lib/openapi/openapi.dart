@@ -5,7 +5,7 @@ import 'package:openapi_generator_annotations/openapi_generator_annotations.dart
     pubName: 'gowild_api',
     pubAuthor: 'Convrtx',
   ),
-  inputSpecFile: 'http://localhost:3001/docs-json',
+  inputSpecFile: 'https://gowild-api-dev.herokuapp.com/docs-json',
   generatorName: Generator.dio,
   outputDirectory: 'api/gowild_api',
   overwriteExistingFiles: true,

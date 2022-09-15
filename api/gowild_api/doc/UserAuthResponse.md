@@ -9,7 +9,7 @@ import 'package:gowild_api/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **token** | [**TokenResponse**](TokenResponse.md) |  | 
-**user** | [**User**](User.md) |  | 
+**user** | [**UserEntity**](UserEntity.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -22,43 +22,33 @@ void main() {
       // TODO
     });
 
-    // String userId
-    test('to test the property `userId`', () async {
+    // RouteUser user
+    test('to test the property `user`', () async {
       // TODO
     });
 
-    // String routeName
-    test('to test the property `routeName`', () async {
+    // String title
+    test('to test the property `title`', () async {
       // TODO
     });
 
-    // JsonObject routePhoto
-    test('to test the property `routePhoto`', () async {
+    // RouteHistoricalEventPoint start
+    test('to test the property `start`', () async {
       // TODO
     });
 
-    // double startPointLong
-    test('to test the property `startPointLong`', () async {
+    // RouteHistoricalEventPoint end
+    test('to test the property `end`', () async {
       // TODO
     });
 
-    // double startPointLat
-    test('to test the property `startPointLat`', () async {
+    // BuiltList<RouteHistoricalEvent> historicalEvents
+    test('to test the property `historicalEvents`', () async {
       // TODO
     });
 
-    // double stopPointLong
-    test('to test the property `stopPointLong`', () async {
-      // TODO
-    });
-
-    // double stopPointLat
-    test('to test the property `stopPointLat`', () async {
-      // TODO
-    });
-
-    // String imgUrl
-    test('to test the property `imgUrl`', () async {
+    // UserEntityPicture picture
+    test('to test the property `picture`', () async {
       // TODO
     });
 

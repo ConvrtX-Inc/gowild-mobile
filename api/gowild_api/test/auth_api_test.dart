@@ -16,7 +16,7 @@ void main() {
 
     // Generates default admin
     //
-    //Future<User> authControllerGenerateAdmin() async
+    //Future<UserEntity> authControllerGenerateAdmin() async
     test('test authControllerGenerateAdmin', () async {
       // TODO
     });
@@ -33,7 +33,7 @@ void main() {
       // TODO
     });
 
-    //Future<User> authControllerMe() async
+    //Future<UserEntity> authControllerMe() async
     test('test authControllerMe', () async {
       // TODO
     });
@@ -47,14 +47,14 @@ void main() {
 
     // Register new account
     //
-    //Future<User> authControllerRegister(AuthRegisterLoginDto authRegisterLoginDto) async
+    //Future<UserEntity> authControllerRegister(AuthRegisterLoginDto authRegisterLoginDto) async
     test('test authControllerRegister', () async {
       // TODO
     });
 
     // Reset password for default admin
     //
-    //Future<User> authControllerResetAdminPassword(AuthResetPasswordAdminDto authResetPasswordAdminDto) async
+    //Future<UserEntity> authControllerResetAdminPassword(AuthResetPasswordAdminDto authResetPasswordAdminDto) async
     test('test authControllerResetAdminPassword', () async {
       // TODO
     });

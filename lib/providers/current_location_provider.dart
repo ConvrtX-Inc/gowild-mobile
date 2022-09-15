@@ -2,8 +2,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gowild/helper/latlng_position.extensions.dart';
 import 'package:gowild/helper/location.dart';
-import 'package:gowild/providers/hive.dart';
 import 'package:gowild/helper/logging.dart';
+import 'package:gowild/providers/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 const kLocationHive = 'location';
@@ -18,7 +18,7 @@ final currentLocationProvider =
 class CurrentLocation extends StateNotifier<LatLng> {
   final HiveProvider<String> hiveProvider;
 
-  CurrentLocation(this.hiveProvider) : super(const LatLng(49.597415, 10.945955)) {
+  CurrentLocation(this.hiveProvider) : super(const LatLng(0, 0)) {
     _init();
   }
 
@@ -47,10 +47,12 @@ class CurrentLocation extends StateNotifier<LatLng> {
 
   void _init() async {
     await hiveProvider.init(kLocationHive);
-    final position = _retrieveSave() ?? (await determinePosition()).toLatLng();
+    final position = (await determinePosition())?.toLatLng() ?? _retrieveSave();
     logger.d('Current location provider init : $position');
-    state = position;
-    _saveLocation();
+    if (position != null) {
+      state = position;
+      _saveLocation();
+    }
   }
 
   Future<void> refreshLocation() async {

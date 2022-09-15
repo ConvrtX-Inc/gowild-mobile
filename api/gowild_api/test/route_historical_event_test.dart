@@ -22,8 +22,8 @@ void main() {
       // TODO
     });
 
-    // String routeId
-    test('to test the property `routeId`', () async {
+    // RouteHistoricalEventRoute route
+    test('to test the property `route`', () async {
       // TODO
     });
 
@@ -32,28 +32,33 @@ void main() {
       // TODO
     });
 
-    // double eventLong
-    test('to test the property `eventLong`', () async {
+    // RouteHistoricalEventPoint point
+    test('to test the property `point`', () async {
       // TODO
     });
 
-    // double eventLat
-    test('to test the property `eventLat`', () async {
+    // String title
+    test('to test the property `title`', () async {
       // TODO
     });
 
-    // String eventTitle
-    test('to test the property `eventTitle`', () async {
-      // TODO
-    });
-
-    // String eventSubtitle
-    test('to test the property `eventSubtitle`', () async {
+    // String subtitle
+    test('to test the property `subtitle`', () async {
       // TODO
     });
 
     // String description
     test('to test the property `description`', () async {
+      // TODO
+    });
+
+    // UserEntityPicture image
+    test('to test the property `image`', () async {
+      // TODO
+    });
+
+    // BuiltList<FileEntity> medias
+    test('to test the property `medias`', () async {
       // TODO
     });
 

@@ -7,58 +7,58 @@ void main() {
   final instance = GowildApi().getUsersApi();
 
   group(UsersApi, () {
-    // Create one User
+    // Create one UserEntity
     //
-    //Future<User> createOneBaseUsersControllerUser(User user) async
-    test('test createOneBaseUsersControllerUser', () async {
+    //Future<UserEntity> createOneBaseUsersControllerUserEntity(UserEntity userEntity) async
+    test('test createOneBaseUsersControllerUserEntity', () async {
       // TODO
     });
 
-    // Delete one User
+    // Delete one UserEntity
     //
-    //Future deleteOneBaseUsersControllerUser(String id) async
-    test('test deleteOneBaseUsersControllerUser', () async {
+    //Future deleteOneBaseUsersControllerUserEntity(String id) async
+    test('test deleteOneBaseUsersControllerUserEntity', () async {
       // TODO
     });
 
-    // Retrieve many User
+    // Retrieve many UserEntity
     //
-    //Future<GetManyUserResponseDto> getManyBaseUsersControllerUser({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
-    test('test getManyBaseUsersControllerUser', () async {
+    //Future<GetManyUserEntityResponseDto> getManyBaseUsersControllerUserEntity({ BuiltList<String> fields, String s, BuiltList<String> filter, BuiltList<String> or, BuiltList<String> sort, BuiltList<String> join, int limit, int offset, int page, int cache }) async
+    test('test getManyBaseUsersControllerUserEntity', () async {
       // TODO
     });
 
-    // Retrieve one User
+    // Retrieve one UserEntity
     //
-    //Future<User> getOneBaseUsersControllerUser(String id, { BuiltList<String> fields, BuiltList<String> join, int cache }) async
-    test('test getOneBaseUsersControllerUser', () async {
+    //Future<UserEntity> getOneBaseUsersControllerUserEntity(String id, { BuiltList<String> fields, BuiltList<String> join, int cache }) async
+    test('test getOneBaseUsersControllerUserEntity', () async {
       // TODO
     });
 
-    // Update one User
+    // Update one UserEntity
     //
-    //Future<User> updateOneBaseUsersControllerUser(String id, User user) async
-    test('test updateOneBaseUsersControllerUser', () async {
+    //Future<UserEntity> updateOneBaseUsersControllerUserEntity(String id, UserEntity userEntity) async
+    test('test updateOneBaseUsersControllerUserEntity', () async {
       // TODO
     });
 
     // Approved an user.
     //
-    //Future<User> usersControllerApproveUser(String id) async
+    //Future<UserEntity> usersControllerApproveUser(String id) async
     test('test usersControllerApproveUser', () async {
       // TODO
     });
 
     // Reject an user.
     //
-    //Future<User> usersControllerRejectUser(String id) async
+    //Future<UserEntity> usersControllerRejectUser(String id) async
     test('test usersControllerRejectUser', () async {
       // TODO
     });
 
     // Update user's profile picture
     //
-    //Future<User> usersControllerUpdateAvatar(String id, PictureUpdateDto pictureUpdateDto) async
+    //Future<UserEntity> usersControllerUpdateAvatar(String id, ImageUpdateDto imageUpdateDto) async
     test('test usersControllerUpdateAvatar', () async {
       // TODO
     });

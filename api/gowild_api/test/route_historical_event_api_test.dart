@@ -35,6 +35,16 @@ void main() {
       // TODO
     });
 
+    //Future<RouteHistoricalEvent> routeHistoricalEventsControllerUpdateMedias(String id, BuiltList<ImageUpdateDto> imageUpdateDto) async
+    test('test routeHistoricalEventsControllerUpdateMedias', () async {
+      // TODO
+    });
+
+    //Future<RouteHistoricalEvent> routeHistoricalEventsControllerUpdatePicture(String id, ImageUpdateDto imageUpdateDto) async
+    test('test routeHistoricalEventsControllerUpdatePicture', () async {
+      // TODO
+    });
+
     // Update one RouteHistoricalEvent
     //
     //Future<RouteHistoricalEvent> updateOneBaseRouteHistoricalEventsControllerRouteHistoricalEvent(String id, RouteHistoricalEvent routeHistoricalEvent) async

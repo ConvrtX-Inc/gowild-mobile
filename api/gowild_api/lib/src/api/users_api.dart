@@ -9,9 +9,9 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:gowild_api/src/api_util.dart';
-import 'package:gowild_api/src/model/get_many_user_response_dto.dart';
-import 'package:gowild_api/src/model/picture_update_dto.dart';
-import 'package:gowild_api/src/model/user.dart';
+import 'package:gowild_api/src/model/get_many_user_entity_response_dto.dart';
+import 'package:gowild_api/src/model/image_update_dto.dart';
+import 'package:gowild_api/src/model/user_entity.dart';
 
 class UsersApi {
 
@@ -21,11 +21,11 @@ class UsersApi {
 
   const UsersApi(this._dio, this._serializers);
 
-  /// Create one User
+  /// Create one UserEntity
   /// 
   ///
   /// Parameters:
-  /// * [user] 
+  /// * [userEntity] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -33,10 +33,10 @@ class UsersApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [User] as data
+  /// Returns a [Future] containing a [Response] with a [UserEntity] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<User>> createOneBaseUsersControllerUser({ 
-    required User user,
+  Future<Response<UserEntity>> createOneBaseUsersControllerUserEntity({ 
+    required UserEntity userEntity,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -67,8 +67,8 @@ class UsersApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(User);
-      _bodyData = _serializers.serialize(user, specifiedType: _type);
+      const _type = FullType(UserEntity);
+      _bodyData = _serializers.serialize(userEntity, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioError(
@@ -90,14 +90,14 @@ class UsersApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    User _responseData;
+    UserEntity _responseData;
 
     try {
-      const _responseType = FullType(User);
+      const _responseType = FullType(UserEntity);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as User;
+      ) as UserEntity;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -108,7 +108,7 @@ class UsersApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<User>(
+    return Response<UserEntity>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -120,7 +120,7 @@ class UsersApi {
     );
   }
 
-  /// Delete one User
+  /// Delete one UserEntity
   /// 
   ///
   /// Parameters:
@@ -134,7 +134,7 @@ class UsersApi {
   ///
   /// Returns a [Future]
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<void>> deleteOneBaseUsersControllerUser({ 
+  Future<Response<void>> deleteOneBaseUsersControllerUserEntity({ 
     required String id,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -173,7 +173,7 @@ class UsersApi {
     return _response;
   }
 
-  /// Retrieve many User
+  /// Retrieve many UserEntity
   /// 
   ///
   /// Parameters:
@@ -194,9 +194,9 @@ class UsersApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetManyUserResponseDto] as data
+  /// Returns a [Future] containing a [Response] with a [GetManyUserEntityResponseDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<GetManyUserResponseDto>> getManyBaseUsersControllerUser({ 
+  Future<Response<GetManyUserEntityResponseDto>> getManyBaseUsersControllerUserEntity({ 
     BuiltList<String>? fields,
     String? s,
     BuiltList<String>? filter,
@@ -255,14 +255,14 @@ class UsersApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetManyUserResponseDto _responseData;
+    GetManyUserEntityResponseDto _responseData;
 
     try {
-      const _responseType = FullType(GetManyUserResponseDto);
+      const _responseType = FullType(GetManyUserEntityResponseDto);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as GetManyUserResponseDto;
+      ) as GetManyUserEntityResponseDto;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -273,7 +273,7 @@ class UsersApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<GetManyUserResponseDto>(
+    return Response<GetManyUserEntityResponseDto>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -285,7 +285,7 @@ class UsersApi {
     );
   }
 
-  /// Retrieve one User
+  /// Retrieve one UserEntity
   /// 
   ///
   /// Parameters:
@@ -300,9 +300,9 @@ class UsersApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [User] as data
+  /// Returns a [Future] containing a [Response] with a [UserEntity] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<User>> getOneBaseUsersControllerUser({ 
+  Future<Response<UserEntity>> getOneBaseUsersControllerUserEntity({ 
     required String id,
     BuiltList<String>? fields,
     BuiltList<String>? join,
@@ -348,14 +348,14 @@ class UsersApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    User _responseData;
+    UserEntity _responseData;
 
     try {
-      const _responseType = FullType(User);
+      const _responseType = FullType(UserEntity);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as User;
+      ) as UserEntity;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -366,7 +366,7 @@ class UsersApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<User>(
+    return Response<UserEntity>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -378,12 +378,12 @@ class UsersApi {
     );
   }
 
-  /// Update one User
+  /// Update one UserEntity
   /// 
   ///
   /// Parameters:
   /// * [id] 
-  /// * [user] 
+  /// * [userEntity] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -391,11 +391,11 @@ class UsersApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [User] as data
+  /// Returns a [Future] containing a [Response] with a [UserEntity] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<User>> updateOneBaseUsersControllerUser({ 
+  Future<Response<UserEntity>> updateOneBaseUsersControllerUserEntity({ 
     required String id,
-    required User user,
+    required UserEntity userEntity,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -426,8 +426,8 @@ class UsersApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(User);
-      _bodyData = _serializers.serialize(user, specifiedType: _type);
+      const _type = FullType(UserEntity);
+      _bodyData = _serializers.serialize(userEntity, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioError(
@@ -449,14 +449,14 @@ class UsersApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    User _responseData;
+    UserEntity _responseData;
 
     try {
-      const _responseType = FullType(User);
+      const _responseType = FullType(UserEntity);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as User;
+      ) as UserEntity;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -467,7 +467,7 @@ class UsersApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<User>(
+    return Response<UserEntity>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -491,9 +491,9 @@ class UsersApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [User] as data
+  /// Returns a [Future] containing a [Response] with a [UserEntity] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<User>> usersControllerApproveUser({ 
+  Future<Response<UserEntity>> usersControllerApproveUser({ 
     required String id,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -529,14 +529,14 @@ class UsersApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    User _responseData;
+    UserEntity _responseData;
 
     try {
-      const _responseType = FullType(User);
+      const _responseType = FullType(UserEntity);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as User;
+      ) as UserEntity;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -547,7 +547,7 @@ class UsersApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<User>(
+    return Response<UserEntity>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -571,9 +571,9 @@ class UsersApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [User] as data
+  /// Returns a [Future] containing a [Response] with a [UserEntity] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<User>> usersControllerRejectUser({ 
+  Future<Response<UserEntity>> usersControllerRejectUser({ 
     required String id,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -609,14 +609,14 @@ class UsersApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    User _responseData;
+    UserEntity _responseData;
 
     try {
-      const _responseType = FullType(User);
+      const _responseType = FullType(UserEntity);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as User;
+      ) as UserEntity;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -627,7 +627,7 @@ class UsersApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<User>(
+    return Response<UserEntity>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -644,7 +644,7 @@ class UsersApi {
   ///
   /// Parameters:
   /// * [id] 
-  /// * [pictureUpdateDto] 
+  /// * [imageUpdateDto] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -652,11 +652,11 @@ class UsersApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [User] as data
+  /// Returns a [Future] containing a [Response] with a [UserEntity] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<User>> usersControllerUpdateAvatar({ 
+  Future<Response<UserEntity>> usersControllerUpdateAvatar({ 
     required String id,
-    required PictureUpdateDto pictureUpdateDto,
+    required ImageUpdateDto imageUpdateDto,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -687,8 +687,8 @@ class UsersApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(PictureUpdateDto);
-      _bodyData = _serializers.serialize(pictureUpdateDto, specifiedType: _type);
+      const _type = FullType(ImageUpdateDto);
+      _bodyData = _serializers.serialize(imageUpdateDto, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioError(
@@ -710,14 +710,14 @@ class UsersApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    User _responseData;
+    UserEntity _responseData;
 
     try {
-      const _responseType = FullType(User);
+      const _responseType = FullType(UserEntity);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as User;
+      ) as UserEntity;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -728,7 +728,7 @@ class UsersApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<User>(
+    return Response<UserEntity>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

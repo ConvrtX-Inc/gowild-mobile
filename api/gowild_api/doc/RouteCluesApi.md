@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**getManyBaseRouteCluesControllerRouteClue**](RouteCluesApi.md#getmanybaseroutecluescontrollerrouteclue) | **GET** /api/v1/route-clues | Retrieve many RouteClue
 [**getOneBaseRouteCluesControllerRouteClue**](RouteCluesApi.md#getonebaseroutecluescontrollerrouteclue) | **GET** /api/v1/route-clues/{id} | Retrieve one RouteClue
 [**routeCluesControllerGetAllClues**](RouteCluesApi.md#routecluescontrollergetallclues) | **GET** /api/v1/route-clues/all-clues/{route_id} | Get all clues
+[**routeCluesControllerUpdateMedias**](RouteCluesApi.md#routecluescontrollerupdatemedias) | **POST** /api/v1/route-clues/{id}/medias | 
 [**updateOneBaseRouteCluesControllerRouteClue**](RouteCluesApi.md#updateonebaseroutecluescontrollerrouteclue) | **PATCH** /api/v1/route-clues/{id} | Update one RouteClue
 
 
@@ -256,6 +257,52 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **routeCluesControllerUpdateMedias**
+> RouteClue routeCluesControllerUpdateMedias(id, imageUpdateDto)
+
+
+
+### Example
+```dart
+import 'package:gowild_api/api.dart';
+// TODO Configure HTTP basic authorization: bearer
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearer').username = 'YOUR_USERNAME'
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearer').password = 'YOUR_PASSWORD';
+
+final api = GowildApi().getRouteCluesApi();
+final String id = id_example; // String | 
+final BuiltList<ImageUpdateDto> imageUpdateDto = ; // BuiltList<ImageUpdateDto> | 
+
+try {
+    final response = api.routeCluesControllerUpdateMedias(id, imageUpdateDto);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling RouteCluesApi->routeCluesControllerUpdateMedias: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **imageUpdateDto** | [**BuiltList&lt;ImageUpdateDto&gt;**](ImageUpdateDto.md)|  | 
+
+### Return type
+
+[**RouteClue**](RouteClue.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

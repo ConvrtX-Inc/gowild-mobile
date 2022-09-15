@@ -11,7 +11,7 @@ class LoginProvider {
 
   LoginProvider(this.authProvider, this.api);
 
-  Future<User> register(SimpleRegister register) async {
+  Future<UserEntity> register(SimpleRegister register) async {
     try {
       final builder = AuthRegisterLoginDtoBuilder();
       builder.email = register.email;

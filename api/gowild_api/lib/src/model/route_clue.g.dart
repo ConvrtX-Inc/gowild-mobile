@@ -16,21 +16,13 @@ class _$RouteClue extends RouteClue {
   @override
   final String routeId;
   @override
-  final double locationPointLong;
+  final AppPoint point;
   @override
-  final double locationPointLat;
-  @override
-  final double cluePointLong;
-  @override
-  final double cluePointLat;
-  @override
-  final String clueTitle;
+  final String title;
   @override
   final String description;
   @override
-  final JsonObject clueImg;
-  @override
-  final String videoUrl;
+  final BuiltList<FileEntity>? medias;
   @override
   final String arClue;
 
@@ -42,31 +34,18 @@ class _$RouteClue extends RouteClue {
       this.createdDate,
       this.updatedDate,
       required this.routeId,
-      required this.locationPointLong,
-      required this.locationPointLat,
-      required this.cluePointLong,
-      required this.cluePointLat,
-      required this.clueTitle,
+      required this.point,
+      required this.title,
       required this.description,
-      required this.clueImg,
-      required this.videoUrl,
+      this.medias,
       required this.arClue})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'RouteClue', 'id');
     BuiltValueNullFieldError.checkNotNull(routeId, r'RouteClue', 'routeId');
-    BuiltValueNullFieldError.checkNotNull(
-        locationPointLong, r'RouteClue', 'locationPointLong');
-    BuiltValueNullFieldError.checkNotNull(
-        locationPointLat, r'RouteClue', 'locationPointLat');
-    BuiltValueNullFieldError.checkNotNull(
-        cluePointLong, r'RouteClue', 'cluePointLong');
-    BuiltValueNullFieldError.checkNotNull(
-        cluePointLat, r'RouteClue', 'cluePointLat');
-    BuiltValueNullFieldError.checkNotNull(clueTitle, r'RouteClue', 'clueTitle');
+    BuiltValueNullFieldError.checkNotNull(point, r'RouteClue', 'point');
+    BuiltValueNullFieldError.checkNotNull(title, r'RouteClue', 'title');
     BuiltValueNullFieldError.checkNotNull(
         description, r'RouteClue', 'description');
-    BuiltValueNullFieldError.checkNotNull(clueImg, r'RouteClue', 'clueImg');
-    BuiltValueNullFieldError.checkNotNull(videoUrl, r'RouteClue', 'videoUrl');
     BuiltValueNullFieldError.checkNotNull(arClue, r'RouteClue', 'arClue');
   }
 
@@ -85,14 +64,10 @@ class _$RouteClue extends RouteClue {
         createdDate == other.createdDate &&
         updatedDate == other.updatedDate &&
         routeId == other.routeId &&
-        locationPointLong == other.locationPointLong &&
-        locationPointLat == other.locationPointLat &&
-        cluePointLong == other.cluePointLong &&
-        cluePointLat == other.cluePointLat &&
-        clueTitle == other.clueTitle &&
+        point == other.point &&
+        title == other.title &&
         description == other.description &&
-        clueImg == other.clueImg &&
-        videoUrl == other.videoUrl &&
+        medias == other.medias &&
         arClue == other.arClue;
   }
 
@@ -104,23 +79,13 @@ class _$RouteClue extends RouteClue {
                 $jc(
                     $jc(
                         $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc($jc(0, id.hashCode),
-                                                    createdDate.hashCode),
-                                                updatedDate.hashCode),
-                                            routeId.hashCode),
-                                        locationPointLong.hashCode),
-                                    locationPointLat.hashCode),
-                                cluePointLong.hashCode),
-                            cluePointLat.hashCode),
-                        clueTitle.hashCode),
-                    description.hashCode),
-                clueImg.hashCode),
-            videoUrl.hashCode),
+                            $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
+                                updatedDate.hashCode),
+                            routeId.hashCode),
+                        point.hashCode),
+                    title.hashCode),
+                description.hashCode),
+            medias.hashCode),
         arClue.hashCode));
   }
 
@@ -131,14 +96,10 @@ class _$RouteClue extends RouteClue {
           ..add('createdDate', createdDate)
           ..add('updatedDate', updatedDate)
           ..add('routeId', routeId)
-          ..add('locationPointLong', locationPointLong)
-          ..add('locationPointLat', locationPointLat)
-          ..add('cluePointLong', cluePointLong)
-          ..add('cluePointLat', cluePointLat)
-          ..add('clueTitle', clueTitle)
+          ..add('point', point)
+          ..add('title', title)
           ..add('description', description)
-          ..add('clueImg', clueImg)
-          ..add('videoUrl', videoUrl)
+          ..add('medias', medias)
           ..add('arClue', arClue))
         .toString();
   }
@@ -163,40 +124,22 @@ class RouteClueBuilder implements Builder<RouteClue, RouteClueBuilder> {
   String? get routeId => _$this._routeId;
   set routeId(String? routeId) => _$this._routeId = routeId;
 
-  double? _locationPointLong;
-  double? get locationPointLong => _$this._locationPointLong;
-  set locationPointLong(double? locationPointLong) =>
-      _$this._locationPointLong = locationPointLong;
+  AppPointBuilder? _point;
+  AppPointBuilder get point => _$this._point ??= new AppPointBuilder();
+  set point(AppPointBuilder? point) => _$this._point = point;
 
-  double? _locationPointLat;
-  double? get locationPointLat => _$this._locationPointLat;
-  set locationPointLat(double? locationPointLat) =>
-      _$this._locationPointLat = locationPointLat;
-
-  double? _cluePointLong;
-  double? get cluePointLong => _$this._cluePointLong;
-  set cluePointLong(double? cluePointLong) =>
-      _$this._cluePointLong = cluePointLong;
-
-  double? _cluePointLat;
-  double? get cluePointLat => _$this._cluePointLat;
-  set cluePointLat(double? cluePointLat) => _$this._cluePointLat = cluePointLat;
-
-  String? _clueTitle;
-  String? get clueTitle => _$this._clueTitle;
-  set clueTitle(String? clueTitle) => _$this._clueTitle = clueTitle;
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
 
   String? _description;
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  JsonObject? _clueImg;
-  JsonObject? get clueImg => _$this._clueImg;
-  set clueImg(JsonObject? clueImg) => _$this._clueImg = clueImg;
-
-  String? _videoUrl;
-  String? get videoUrl => _$this._videoUrl;
-  set videoUrl(String? videoUrl) => _$this._videoUrl = videoUrl;
+  ListBuilder<FileEntity>? _medias;
+  ListBuilder<FileEntity> get medias =>
+      _$this._medias ??= new ListBuilder<FileEntity>();
+  set medias(ListBuilder<FileEntity>? medias) => _$this._medias = medias;
 
   String? _arClue;
   String? get arClue => _$this._arClue;
@@ -213,14 +156,10 @@ class RouteClueBuilder implements Builder<RouteClue, RouteClueBuilder> {
       _createdDate = $v.createdDate;
       _updatedDate = $v.updatedDate;
       _routeId = $v.routeId;
-      _locationPointLong = $v.locationPointLong;
-      _locationPointLat = $v.locationPointLat;
-      _cluePointLong = $v.cluePointLong;
-      _cluePointLat = $v.cluePointLat;
-      _clueTitle = $v.clueTitle;
+      _point = $v.point.toBuilder();
+      _title = $v.title;
       _description = $v.description;
-      _clueImg = $v.clueImg;
-      _videoUrl = $v.videoUrl;
+      _medias = $v.medias?.toBuilder();
       _arClue = $v.arClue;
       _$v = null;
     }
@@ -242,30 +181,37 @@ class RouteClueBuilder implements Builder<RouteClue, RouteClueBuilder> {
   RouteClue build() => _build();
 
   _$RouteClue _build() {
-    final _$result = _$v ??
-        new _$RouteClue._(
-            id: BuiltValueNullFieldError.checkNotNull(id, r'RouteClue', 'id'),
-            createdDate: createdDate,
-            updatedDate: updatedDate,
-            routeId: BuiltValueNullFieldError.checkNotNull(
-                routeId, r'RouteClue', 'routeId'),
-            locationPointLong: BuiltValueNullFieldError.checkNotNull(
-                locationPointLong, r'RouteClue', 'locationPointLong'),
-            locationPointLat: BuiltValueNullFieldError.checkNotNull(
-                locationPointLat, r'RouteClue', 'locationPointLat'),
-            cluePointLong: BuiltValueNullFieldError.checkNotNull(
-                cluePointLong, r'RouteClue', 'cluePointLong'),
-            cluePointLat: BuiltValueNullFieldError.checkNotNull(
-                cluePointLat, r'RouteClue', 'cluePointLat'),
-            clueTitle: BuiltValueNullFieldError.checkNotNull(
-                clueTitle, r'RouteClue', 'clueTitle'),
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'RouteClue', 'description'),
-            clueImg: BuiltValueNullFieldError.checkNotNull(
-                clueImg, r'RouteClue', 'clueImg'),
-            videoUrl:
-                BuiltValueNullFieldError.checkNotNull(videoUrl, r'RouteClue', 'videoUrl'),
-            arClue: BuiltValueNullFieldError.checkNotNull(arClue, r'RouteClue', 'arClue'));
+    _$RouteClue _$result;
+    try {
+      _$result = _$v ??
+          new _$RouteClue._(
+              id: BuiltValueNullFieldError.checkNotNull(id, r'RouteClue', 'id'),
+              createdDate: createdDate,
+              updatedDate: updatedDate,
+              routeId: BuiltValueNullFieldError.checkNotNull(
+                  routeId, r'RouteClue', 'routeId'),
+              point: point.build(),
+              title: BuiltValueNullFieldError.checkNotNull(
+                  title, r'RouteClue', 'title'),
+              description: BuiltValueNullFieldError.checkNotNull(
+                  description, r'RouteClue', 'description'),
+              medias: _medias?.build(),
+              arClue: BuiltValueNullFieldError.checkNotNull(
+                  arClue, r'RouteClue', 'arClue'));
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'point';
+        point.build();
+
+        _$failedField = 'medias';
+        _medias?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'RouteClue', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

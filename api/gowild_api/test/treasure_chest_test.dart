@@ -32,13 +32,8 @@ void main() {
       // TODO
     });
 
-    // double locationLong
-    test('to test the property `locationLong`', () async {
-      // TODO
-    });
-
-    // double locationLat
-    test('to test the property `locationLat`', () async {
+    // AppPoint location
+    test('to test the property `location`', () async {
       // TODO
     });
 
@@ -57,13 +52,8 @@ void main() {
       // TODO
     });
 
-    // String imgUrl
-    test('to test the property `imgUrl`', () async {
-      // TODO
-    });
-
-    // JsonObject thumbnailImg
-    test('to test the property `thumbnailImg`', () async {
+    // UserEntityPicture picture
+    test('to test the property `picture`', () async {
       // TODO
     });
 

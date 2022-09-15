@@ -2,7 +2,8 @@
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
-import 'package:built_value/json_object.dart';
+import 'package:gowild_api/src/model/app_point.dart';
+import 'package:gowild_api/src/model/user_entity_picture.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -16,13 +17,11 @@ part 'treasure_chest.g.dart';
 /// * [updatedDate] 
 /// * [title] 
 /// * [description] 
-/// * [locationLong] 
-/// * [locationLat] 
+/// * [location] 
 /// * [eventDate] 
 /// * [eventTime] 
 /// * [noOfParticipants] 
-/// * [imgUrl] 
-/// * [thumbnailImg] 
+/// * [picture] 
 /// * [aR] 
 abstract class TreasureChest implements Built<TreasureChest, TreasureChestBuilder> {
     @BuiltValueField(wireName: r'id')
@@ -40,13 +39,10 @@ abstract class TreasureChest implements Built<TreasureChest, TreasureChestBuilde
     @BuiltValueField(wireName: r'description')
     String get description;
 
-    @BuiltValueField(wireName: r'location_long')
-    double get locationLong;
+    @BuiltValueField(wireName: r'location')
+    AppPoint get location;
 
-    @BuiltValueField(wireName: r'location_lat')
-    double get locationLat;
-
-    @BuiltValueField(wireName: r'eventDate')
+    @BuiltValueField(wireName: r'event_date')
     DateTime get eventDate;
 
     @BuiltValueField(wireName: r'event_time')
@@ -55,11 +51,8 @@ abstract class TreasureChest implements Built<TreasureChest, TreasureChestBuilde
     @BuiltValueField(wireName: r'no_of_participants')
     num get noOfParticipants;
 
-    @BuiltValueField(wireName: r'img_url')
-    String get imgUrl;
-
-    @BuiltValueField(wireName: r'thumbnail_img')
-    JsonObject get thumbnailImg;
+    @BuiltValueField(wireName: r'picture')
+    UserEntityPicture? get picture;
 
     @BuiltValueField(wireName: r'a_r')
     String get aR;
@@ -107,15 +100,11 @@ class _$TreasureChestSerializer implements StructuredSerializer<TreasureChest> {
             ..add(serializers.serialize(object.description,
                 specifiedType: const FullType(String)));
         result
-            ..add(r'location_long')
-            ..add(serializers.serialize(object.locationLong,
-                specifiedType: const FullType(double)));
+            ..add(r'location')
+            ..add(serializers.serialize(object.location,
+                specifiedType: const FullType(AppPoint)));
         result
-            ..add(r'location_lat')
-            ..add(serializers.serialize(object.locationLat,
-                specifiedType: const FullType(double)));
-        result
-            ..add(r'eventDate')
+            ..add(r'event_date')
             ..add(serializers.serialize(object.eventDate,
                 specifiedType: const FullType(DateTime)));
         result
@@ -127,13 +116,9 @@ class _$TreasureChestSerializer implements StructuredSerializer<TreasureChest> {
             ..add(serializers.serialize(object.noOfParticipants,
                 specifiedType: const FullType(num)));
         result
-            ..add(r'img_url')
-            ..add(serializers.serialize(object.imgUrl,
-                specifiedType: const FullType(String)));
-        result
-            ..add(r'thumbnail_img')
-            ..add(serializers.serialize(object.thumbnailImg,
-                specifiedType: const FullType(JsonObject)));
+            ..add(r'picture')
+            ..add(object.picture == null ? null : serializers.serialize(object.picture,
+                specifiedType: const FullType.nullable(UserEntityPicture)));
         result
             ..add(r'a_r')
             ..add(serializers.serialize(object.aR,
@@ -180,17 +165,12 @@ class _$TreasureChestSerializer implements StructuredSerializer<TreasureChest> {
                         specifiedType: const FullType(String)) as String;
                     result.description = valueDes;
                     break;
-                case r'location_long':
+                case r'location':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(double)) as double;
-                    result.locationLong = valueDes;
+                        specifiedType: const FullType(AppPoint)) as AppPoint;
+                    result.location.replace(valueDes);
                     break;
-                case r'location_lat':
-                    final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(double)) as double;
-                    result.locationLat = valueDes;
-                    break;
-                case r'eventDate':
+                case r'event_date':
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(DateTime)) as DateTime;
                     result.eventDate = valueDes;
@@ -205,15 +185,11 @@ class _$TreasureChestSerializer implements StructuredSerializer<TreasureChest> {
                         specifiedType: const FullType(num)) as num;
                     result.noOfParticipants = valueDes;
                     break;
-                case r'img_url':
+                case r'picture':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
-                    result.imgUrl = valueDes;
-                    break;
-                case r'thumbnail_img':
-                    final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(JsonObject)) as JsonObject;
-                    result.thumbnailImg = valueDes;
+                        specifiedType: const FullType.nullable(UserEntityPicture)) as UserEntityPicture?;
+                    if (valueDes == null) continue;
+                    result.picture.replace(valueDes);
                     break;
                 case r'a_r':
                     final valueDes = serializers.deserialize(value,

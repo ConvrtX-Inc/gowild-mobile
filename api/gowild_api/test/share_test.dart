@@ -27,8 +27,8 @@ void main() {
       // TODO
     });
 
-    // String postfeedId
-    test('to test the property `postfeedId`', () async {
+    // String postFeedId
+    test('to test the property `postFeedId`', () async {
       // TODO
     });
 

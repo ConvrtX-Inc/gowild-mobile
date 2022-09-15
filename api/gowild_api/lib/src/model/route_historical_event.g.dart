@@ -14,19 +14,21 @@ class _$RouteHistoricalEvent extends RouteHistoricalEvent {
   @override
   final DateTime? updatedDate;
   @override
-  final String routeId;
+  final RouteHistoricalEventRoute? route;
   @override
-  final String closureUid;
+  final String? closureUid;
   @override
-  final double eventLong;
+  final RouteHistoricalEventPoint? point;
   @override
-  final double eventLat;
+  final String? title;
   @override
-  final String eventTitle;
+  final String? subtitle;
   @override
-  final String eventSubtitle;
+  final String? description;
   @override
-  final String description;
+  final UserEntityPicture? image;
+  @override
+  final BuiltList<FileEntity>? medias;
 
   factory _$RouteHistoricalEvent(
           [void Function(RouteHistoricalEventBuilder)? updates]) =>
@@ -36,29 +38,16 @@ class _$RouteHistoricalEvent extends RouteHistoricalEvent {
       {required this.id,
       this.createdDate,
       this.updatedDate,
-      required this.routeId,
-      required this.closureUid,
-      required this.eventLong,
-      required this.eventLat,
-      required this.eventTitle,
-      required this.eventSubtitle,
-      required this.description})
+      this.route,
+      this.closureUid,
+      this.point,
+      this.title,
+      this.subtitle,
+      this.description,
+      this.image,
+      this.medias})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'RouteHistoricalEvent', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        routeId, r'RouteHistoricalEvent', 'routeId');
-    BuiltValueNullFieldError.checkNotNull(
-        closureUid, r'RouteHistoricalEvent', 'closureUid');
-    BuiltValueNullFieldError.checkNotNull(
-        eventLong, r'RouteHistoricalEvent', 'eventLong');
-    BuiltValueNullFieldError.checkNotNull(
-        eventLat, r'RouteHistoricalEvent', 'eventLat');
-    BuiltValueNullFieldError.checkNotNull(
-        eventTitle, r'RouteHistoricalEvent', 'eventTitle');
-    BuiltValueNullFieldError.checkNotNull(
-        eventSubtitle, r'RouteHistoricalEvent', 'eventSubtitle');
-    BuiltValueNullFieldError.checkNotNull(
-        description, r'RouteHistoricalEvent', 'description');
   }
 
   @override
@@ -77,13 +66,14 @@ class _$RouteHistoricalEvent extends RouteHistoricalEvent {
         id == other.id &&
         createdDate == other.createdDate &&
         updatedDate == other.updatedDate &&
-        routeId == other.routeId &&
+        route == other.route &&
         closureUid == other.closureUid &&
-        eventLong == other.eventLong &&
-        eventLat == other.eventLat &&
-        eventTitle == other.eventTitle &&
-        eventSubtitle == other.eventSubtitle &&
-        description == other.description;
+        point == other.point &&
+        title == other.title &&
+        subtitle == other.subtitle &&
+        description == other.description &&
+        image == other.image &&
+        medias == other.medias;
   }
 
   @override
@@ -96,16 +86,18 @@ class _$RouteHistoricalEvent extends RouteHistoricalEvent {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, id.hashCode),
-                                        createdDate.hashCode),
-                                    updatedDate.hashCode),
-                                routeId.hashCode),
-                            closureUid.hashCode),
-                        eventLong.hashCode),
-                    eventLat.hashCode),
-                eventTitle.hashCode),
-            eventSubtitle.hashCode),
-        description.hashCode));
+                                    $jc(
+                                        $jc($jc(0, id.hashCode),
+                                            createdDate.hashCode),
+                                        updatedDate.hashCode),
+                                    route.hashCode),
+                                closureUid.hashCode),
+                            point.hashCode),
+                        title.hashCode),
+                    subtitle.hashCode),
+                description.hashCode),
+            image.hashCode),
+        medias.hashCode));
   }
 
   @override
@@ -114,13 +106,14 @@ class _$RouteHistoricalEvent extends RouteHistoricalEvent {
           ..add('id', id)
           ..add('createdDate', createdDate)
           ..add('updatedDate', updatedDate)
-          ..add('routeId', routeId)
+          ..add('route', route)
           ..add('closureUid', closureUid)
-          ..add('eventLong', eventLong)
-          ..add('eventLat', eventLat)
-          ..add('eventTitle', eventTitle)
-          ..add('eventSubtitle', eventSubtitle)
-          ..add('description', description))
+          ..add('point', point)
+          ..add('title', title)
+          ..add('subtitle', subtitle)
+          ..add('description', description)
+          ..add('image', image)
+          ..add('medias', medias))
         .toString();
   }
 }
@@ -141,34 +134,41 @@ class RouteHistoricalEventBuilder
   DateTime? get updatedDate => _$this._updatedDate;
   set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
 
-  String? _routeId;
-  String? get routeId => _$this._routeId;
-  set routeId(String? routeId) => _$this._routeId = routeId;
+  RouteHistoricalEventRouteBuilder? _route;
+  RouteHistoricalEventRouteBuilder get route =>
+      _$this._route ??= new RouteHistoricalEventRouteBuilder();
+  set route(RouteHistoricalEventRouteBuilder? route) => _$this._route = route;
 
   String? _closureUid;
   String? get closureUid => _$this._closureUid;
   set closureUid(String? closureUid) => _$this._closureUid = closureUid;
 
-  double? _eventLong;
-  double? get eventLong => _$this._eventLong;
-  set eventLong(double? eventLong) => _$this._eventLong = eventLong;
+  RouteHistoricalEventPointBuilder? _point;
+  RouteHistoricalEventPointBuilder get point =>
+      _$this._point ??= new RouteHistoricalEventPointBuilder();
+  set point(RouteHistoricalEventPointBuilder? point) => _$this._point = point;
 
-  double? _eventLat;
-  double? get eventLat => _$this._eventLat;
-  set eventLat(double? eventLat) => _$this._eventLat = eventLat;
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
 
-  String? _eventTitle;
-  String? get eventTitle => _$this._eventTitle;
-  set eventTitle(String? eventTitle) => _$this._eventTitle = eventTitle;
-
-  String? _eventSubtitle;
-  String? get eventSubtitle => _$this._eventSubtitle;
-  set eventSubtitle(String? eventSubtitle) =>
-      _$this._eventSubtitle = eventSubtitle;
+  String? _subtitle;
+  String? get subtitle => _$this._subtitle;
+  set subtitle(String? subtitle) => _$this._subtitle = subtitle;
 
   String? _description;
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
+
+  UserEntityPictureBuilder? _image;
+  UserEntityPictureBuilder get image =>
+      _$this._image ??= new UserEntityPictureBuilder();
+  set image(UserEntityPictureBuilder? image) => _$this._image = image;
+
+  ListBuilder<FileEntity>? _medias;
+  ListBuilder<FileEntity> get medias =>
+      _$this._medias ??= new ListBuilder<FileEntity>();
+  set medias(ListBuilder<FileEntity>? medias) => _$this._medias = medias;
 
   RouteHistoricalEventBuilder() {
     RouteHistoricalEvent._defaults(this);
@@ -180,13 +180,14 @@ class RouteHistoricalEventBuilder
       _id = $v.id;
       _createdDate = $v.createdDate;
       _updatedDate = $v.updatedDate;
-      _routeId = $v.routeId;
+      _route = $v.route?.toBuilder();
       _closureUid = $v.closureUid;
-      _eventLong = $v.eventLong;
-      _eventLat = $v.eventLat;
-      _eventTitle = $v.eventTitle;
-      _eventSubtitle = $v.eventSubtitle;
+      _point = $v.point?.toBuilder();
+      _title = $v.title;
+      _subtitle = $v.subtitle;
       _description = $v.description;
+      _image = $v.image?.toBuilder();
+      _medias = $v.medias?.toBuilder();
       _$v = null;
     }
     return this;
@@ -207,26 +208,41 @@ class RouteHistoricalEventBuilder
   RouteHistoricalEvent build() => _build();
 
   _$RouteHistoricalEvent _build() {
-    final _$result = _$v ??
-        new _$RouteHistoricalEvent._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'RouteHistoricalEvent', 'id'),
-            createdDate: createdDate,
-            updatedDate: updatedDate,
-            routeId: BuiltValueNullFieldError.checkNotNull(
-                routeId, r'RouteHistoricalEvent', 'routeId'),
-            closureUid: BuiltValueNullFieldError.checkNotNull(
-                closureUid, r'RouteHistoricalEvent', 'closureUid'),
-            eventLong: BuiltValueNullFieldError.checkNotNull(
-                eventLong, r'RouteHistoricalEvent', 'eventLong'),
-            eventLat: BuiltValueNullFieldError.checkNotNull(
-                eventLat, r'RouteHistoricalEvent', 'eventLat'),
-            eventTitle: BuiltValueNullFieldError.checkNotNull(
-                eventTitle, r'RouteHistoricalEvent', 'eventTitle'),
-            eventSubtitle: BuiltValueNullFieldError.checkNotNull(
-                eventSubtitle, r'RouteHistoricalEvent', 'eventSubtitle'),
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'RouteHistoricalEvent', 'description'));
+    _$RouteHistoricalEvent _$result;
+    try {
+      _$result = _$v ??
+          new _$RouteHistoricalEvent._(
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'RouteHistoricalEvent', 'id'),
+              createdDate: createdDate,
+              updatedDate: updatedDate,
+              route: _route?.build(),
+              closureUid: closureUid,
+              point: _point?.build(),
+              title: title,
+              subtitle: subtitle,
+              description: description,
+              image: _image?.build(),
+              medias: _medias?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'route';
+        _route?.build();
+
+        _$failedField = 'point';
+        _point?.build();
+
+        _$failedField = 'image';
+        _image?.build();
+        _$failedField = 'medias';
+        _medias?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'RouteHistoricalEvent', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

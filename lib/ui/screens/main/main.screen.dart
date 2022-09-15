@@ -62,53 +62,49 @@ class MainBottomNavigationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 75,
-      decoration: const BoxDecoration(
-        boxShadow: [
-          BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-        ],
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(30),
+        topRight: Radius.circular(30),
       ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-        child: BottomNavigationBar(
-          onTap: onTap,
-          type: BottomNavigationBarType.fixed,
-          currentIndex: selectedIndex,
-          backgroundColor: const Color(0xff00755E),
-          enableFeedback: false,
-          items: [
-            _CustomBottomNavigationBarItem(
-              icon: BottomNavIconWidget(
-                iconPath: homeIcon,
-                isFocus: selectedIndex == 0,
-              ),
+      child: BottomNavigationBar(
+        onTap: onTap,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: selectedIndex,
+        backgroundColor: const Color(0xff00755E),
+        enableFeedback: false,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: [
+          _CustomBottomNavigationBarItem(
+            icon: BottomNavIconWidget(
+              iconPath: homeIcon,
+              isFocus: selectedIndex == 0,
             ),
-            _CustomBottomNavigationBarItem(
-              icon: BottomNavIconWidget(
-                iconPath: treasureMapIcon,
-                isFocus: selectedIndex == 1,
-              ),
+          ),
+          _CustomBottomNavigationBarItem(
+            icon: BottomNavIconWidget(
+              iconPath: treasureMapIcon,
+              isFocus: selectedIndex == 1,
             ),
-            const BottomNavigationBarItem(
-              icon: SizedBox.shrink(),
-              label: '',
+          ),
+          const BottomNavigationBarItem(
+            icon: SizedBox.shrink(),
+            label: '',
+          ),
+          _CustomBottomNavigationBarItem(
+            icon: BottomNavIconWidget(
+              iconPath: directionSignIcon,
+              isFocus: selectedIndex == 3,
             ),
-            _CustomBottomNavigationBarItem(
-              icon: BottomNavIconWidget(
-                iconPath: directionSignIcon,
-                isFocus: selectedIndex == 3,
-              ),
+          ),
+          _CustomBottomNavigationBarItem(
+            icon: BottomNavIconWidget(
+              iconPath: profileIcon,
+              isFocus: selectedIndex == 4,
             ),
-            _CustomBottomNavigationBarItem(
-              icon: BottomNavIconWidget(
-                iconPath: directionSignIcon,
-                isFocus: selectedIndex == 4,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -133,6 +129,7 @@ class BottomNavIconWidget extends StatelessWidget {
     return SvgPicture.asset(
       iconPath,
       color: isFocus ? const Color(0xffE5592F) : Colors.white,
+      placeholderBuilder: (context) => const Icon(Icons.add),
     );
   }
 }
@@ -142,33 +139,30 @@ class BottomFlatButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 40),
-      child: SizedBox(
-        height: 68,
-        width: 68,
-        child: FloatingActionButton(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          onPressed: () {},
-          child: Container(
-            height: 70,
-            width: 70,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                begin: Alignment(0.7, -0.5),
-                end: Alignment(0.6, 0.5),
-                colors: [
-                  Color(0xFFFA7C47),
-                  Color(0xFFE4572E),
-                ],
-              ),
+    return SizedBox(
+      height: 68,
+      width: 68,
+      child: FloatingActionButton(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        onPressed: () {},
+        child: Container(
+          height: 70,
+          width: 70,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              begin: Alignment(0.7, -0.5),
+              end: Alignment(0.6, 0.5),
+              colors: [
+                Color(0xFFFA7C47),
+                Color(0xFFE4572E),
+              ],
             ),
-            child: UnconstrainedBox(
-              child: SvgPicture.asset(
-                cameraFlat,
-              ),
+          ),
+          child: UnconstrainedBox(
+            child: SvgPicture.asset(
+              cameraFlat,
             ),
           ),
         ),

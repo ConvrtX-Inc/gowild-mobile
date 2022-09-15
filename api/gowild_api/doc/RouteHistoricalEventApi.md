@@ -13,6 +13,8 @@ Method | HTTP request | Description
 [**deleteOneBaseRouteHistoricalEventsControllerRouteHistoricalEvent**](RouteHistoricalEventApi.md#deleteonebaseroutehistoricaleventscontrollerroutehistoricalevent) | **DELETE** /api/v1/route-historical-events/{id} | Delete one RouteHistoricalEvent
 [**getManyBaseRouteHistoricalEventsControllerRouteHistoricalEvent**](RouteHistoricalEventApi.md#getmanybaseroutehistoricaleventscontrollerroutehistoricalevent) | **GET** /api/v1/route-historical-events | Retrieve many RouteHistoricalEvent
 [**getOneBaseRouteHistoricalEventsControllerRouteHistoricalEvent**](RouteHistoricalEventApi.md#getonebaseroutehistoricaleventscontrollerroutehistoricalevent) | **GET** /api/v1/route-historical-events/{id} | Retrieve one RouteHistoricalEvent
+[**routeHistoricalEventsControllerUpdateMedias**](RouteHistoricalEventApi.md#routehistoricaleventscontrollerupdatemedias) | **POST** /api/v1/route-historical-events/{id}/medias | 
+[**routeHistoricalEventsControllerUpdatePicture**](RouteHistoricalEventApi.md#routehistoricaleventscontrollerupdatepicture) | **POST** /api/v1/route-historical-events/{id}/update-picture | 
 [**updateOneBaseRouteHistoricalEventsControllerRouteHistoricalEvent**](RouteHistoricalEventApi.md#updateonebaseroutehistoricaleventscontrollerroutehistoricalevent) | **PATCH** /api/v1/route-historical-events/{id} | Update one RouteHistoricalEvent
 
 
@@ -211,6 +213,98 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **routeHistoricalEventsControllerUpdateMedias**
+> RouteHistoricalEvent routeHistoricalEventsControllerUpdateMedias(id, imageUpdateDto)
+
+
+
+### Example
+```dart
+import 'package:gowild_api/api.dart';
+// TODO Configure HTTP basic authorization: bearer
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearer').username = 'YOUR_USERNAME'
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearer').password = 'YOUR_PASSWORD';
+
+final api = GowildApi().getRouteHistoricalEventApi();
+final String id = id_example; // String | 
+final BuiltList<ImageUpdateDto> imageUpdateDto = ; // BuiltList<ImageUpdateDto> | 
+
+try {
+    final response = api.routeHistoricalEventsControllerUpdateMedias(id, imageUpdateDto);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling RouteHistoricalEventApi->routeHistoricalEventsControllerUpdateMedias: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **imageUpdateDto** | [**BuiltList&lt;ImageUpdateDto&gt;**](ImageUpdateDto.md)|  | 
+
+### Return type
+
+[**RouteHistoricalEvent**](RouteHistoricalEvent.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **routeHistoricalEventsControllerUpdatePicture**
+> RouteHistoricalEvent routeHistoricalEventsControllerUpdatePicture(id, imageUpdateDto)
+
+
+
+### Example
+```dart
+import 'package:gowild_api/api.dart';
+// TODO Configure HTTP basic authorization: bearer
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearer').username = 'YOUR_USERNAME'
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearer').password = 'YOUR_PASSWORD';
+
+final api = GowildApi().getRouteHistoricalEventApi();
+final String id = id_example; // String | 
+final ImageUpdateDto imageUpdateDto = ; // ImageUpdateDto | 
+
+try {
+    final response = api.routeHistoricalEventsControllerUpdatePicture(id, imageUpdateDto);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling RouteHistoricalEventApi->routeHistoricalEventsControllerUpdatePicture: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **imageUpdateDto** | [**ImageUpdateDto**](ImageUpdateDto.md)|  | 
+
+### Return type
+
+[**RouteHistoricalEvent**](RouteHistoricalEvent.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

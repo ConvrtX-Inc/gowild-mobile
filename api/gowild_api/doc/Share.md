@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **createdDate** | [**DateTime**](DateTime.md) |  | 
 **updatedDate** | [**DateTime**](DateTime.md) |  | 
 **userId** | **String** |  | 
-**postfeedId** | **String** |  | 
+**postFeedId** | **String** |  | 
 **url** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -16,7 +16,7 @@ class _$Share extends Share {
   @override
   final String userId;
   @override
-  final String postfeedId;
+  final String postFeedId;
   @override
   final String url;
 
@@ -28,12 +28,12 @@ class _$Share extends Share {
       this.createdDate,
       this.updatedDate,
       required this.userId,
-      required this.postfeedId,
+      required this.postFeedId,
       required this.url})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'Share', 'id');
     BuiltValueNullFieldError.checkNotNull(userId, r'Share', 'userId');
-    BuiltValueNullFieldError.checkNotNull(postfeedId, r'Share', 'postfeedId');
+    BuiltValueNullFieldError.checkNotNull(postFeedId, r'Share', 'postFeedId');
     BuiltValueNullFieldError.checkNotNull(url, r'Share', 'url');
   }
 
@@ -52,7 +52,7 @@ class _$Share extends Share {
         createdDate == other.createdDate &&
         updatedDate == other.updatedDate &&
         userId == other.userId &&
-        postfeedId == other.postfeedId &&
+        postFeedId == other.postFeedId &&
         url == other.url;
   }
 
@@ -64,7 +64,7 @@ class _$Share extends Share {
                 $jc($jc($jc(0, id.hashCode), createdDate.hashCode),
                     updatedDate.hashCode),
                 userId.hashCode),
-            postfeedId.hashCode),
+            postFeedId.hashCode),
         url.hashCode));
   }
 
@@ -75,7 +75,7 @@ class _$Share extends Share {
           ..add('createdDate', createdDate)
           ..add('updatedDate', updatedDate)
           ..add('userId', userId)
-          ..add('postfeedId', postfeedId)
+          ..add('postFeedId', postFeedId)
           ..add('url', url))
         .toString();
   }
@@ -100,9 +100,9 @@ class ShareBuilder implements Builder<Share, ShareBuilder> {
   String? get userId => _$this._userId;
   set userId(String? userId) => _$this._userId = userId;
 
-  String? _postfeedId;
-  String? get postfeedId => _$this._postfeedId;
-  set postfeedId(String? postfeedId) => _$this._postfeedId = postfeedId;
+  String? _postFeedId;
+  String? get postFeedId => _$this._postFeedId;
+  set postFeedId(String? postFeedId) => _$this._postFeedId = postFeedId;
 
   String? _url;
   String? get url => _$this._url;
@@ -119,7 +119,7 @@ class ShareBuilder implements Builder<Share, ShareBuilder> {
       _createdDate = $v.createdDate;
       _updatedDate = $v.updatedDate;
       _userId = $v.userId;
-      _postfeedId = $v.postfeedId;
+      _postFeedId = $v.postFeedId;
       _url = $v.url;
       _$v = null;
     }
@@ -148,8 +148,8 @@ class ShareBuilder implements Builder<Share, ShareBuilder> {
             updatedDate: updatedDate,
             userId: BuiltValueNullFieldError.checkNotNull(
                 userId, r'Share', 'userId'),
-            postfeedId: BuiltValueNullFieldError.checkNotNull(
-                postfeedId, r'Share', 'postfeedId'),
+            postFeedId: BuiltValueNullFieldError.checkNotNull(
+                postFeedId, r'Share', 'postFeedId'),
             url: BuiltValueNullFieldError.checkNotNull(url, r'Share', 'url'));
     replace(_$result);
     return _$result;

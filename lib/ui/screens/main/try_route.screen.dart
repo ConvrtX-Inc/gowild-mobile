@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:beamer/beamer.dart';
 import 'package:easy_geofencing/easy_geofencing.dart';
 import 'package:flutter/cupertino.dart' show CupertinoSwitch;
@@ -86,7 +84,7 @@ class _TryRouteContentWidget extends HookConsumerWidget {
     // Fixed camera
     final initialCameraPosition = useMemoized(
       () => CameraPosition(
-        target: route.toStart(),
+        target: route.start!.toPoint(),
         zoom: 17,
       ),
       [],
@@ -151,7 +149,7 @@ class _TryRouteContentWidget extends HookConsumerWidget {
         icon: BitmapDescriptor.fromBytes(bytes),
         infoWindow: InfoWindow(
           title: title,
-          snippet: route.routeName,
+          snippet: route.title,
         ),
       );
       markers.value = {...markers.value, marker};
@@ -177,7 +175,7 @@ class _TryRouteContentWidget extends HookConsumerWidget {
         final points = await findPolyLines(route);
         final polyline = Polyline(
           polylineId: PolylineId('poly-line-${route.id}'),
-          points: [route.toStart(), ...points, route.toEnd()],
+          points: [route.start!.toPoint(), ...points, route.end!.toPoint()],
           visible: true,
         );
         logger.d('Got poly lines for route ${points.length}');
@@ -207,12 +205,12 @@ class _TryRouteContentWidget extends HookConsumerWidget {
       addMarker(
         type: MarkerType.end,
         title: 'Ending point',
-        latLng: route.toEnd(),
+        latLng: route.end!.toPoint(),
       );
       addMarker(
         type: MarkerType.start,
         title: 'Starting point',
-        latLng: route.toStart(),
+        latLng: route.start!.toPoint(),
       );
       return () {
         EasyGeofencing.stopGeofenceService();

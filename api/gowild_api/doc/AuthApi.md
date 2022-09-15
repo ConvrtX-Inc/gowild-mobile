@@ -63,7 +63,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authControllerGenerateAdmin**
-> User authControllerGenerateAdmin()
+> UserEntity authControllerGenerateAdmin()
 
 Generates default admin
 
@@ -86,7 +86,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**User**](User.md)
+[**UserEntity**](UserEntity.md)
 
 ### Authorization
 
@@ -177,7 +177,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authControllerMe**
-> User authControllerMe()
+> UserEntity authControllerMe()
 
 
 
@@ -203,7 +203,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**User**](User.md)
+[**UserEntity**](UserEntity.md)
 
 ### Authorization
 
@@ -258,7 +258,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authControllerRegister**
-> User authControllerRegister(authRegisterLoginDto)
+> UserEntity authControllerRegister(authRegisterLoginDto)
 
 Register new account
 
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**User**](User.md)
+[**UserEntity**](UserEntity.md)
 
 ### Authorization
 
@@ -299,7 +299,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authControllerResetAdminPassword**
-> User authControllerResetAdminPassword(authResetPasswordAdminDto)
+> UserEntity authControllerResetAdminPassword(authResetPasswordAdminDto)
 
 Reset password for default admin
 
@@ -326,7 +326,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**User**](User.md)
+[**UserEntity**](UserEntity.md)
 
 ### Authorization
 

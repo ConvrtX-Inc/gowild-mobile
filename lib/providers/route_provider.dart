@@ -6,11 +6,6 @@ final routeApiProvider = Provider.autoDispose((ref) {
   return gowildApi.getRouteApi();
 });
 
-final routeHistoricalEventPhotoApiProvider = Provider.autoDispose((ref) {
-  final gowildApi = ref.watch(gowildApiProvider);
-  return gowildApi.getRouteHistoricalEventPhotoApi();
-});
-
 final routeHistoricalEventApiProvider = Provider.autoDispose((ref) {
   final gowildApi = ref.watch(gowildApiProvider);
   return gowildApi.getRouteHistoricalEventApi();

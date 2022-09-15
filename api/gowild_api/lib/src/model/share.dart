@@ -14,7 +14,7 @@ part 'share.g.dart';
 /// * [createdDate] 
 /// * [updatedDate] 
 /// * [userId] 
-/// * [postfeedId] 
+/// * [postFeedId] 
 /// * [url] 
 abstract class Share implements Built<Share, ShareBuilder> {
     @BuiltValueField(wireName: r'id')
@@ -29,8 +29,8 @@ abstract class Share implements Built<Share, ShareBuilder> {
     @BuiltValueField(wireName: r'user_id')
     String get userId;
 
-    @BuiltValueField(wireName: r'postfeed_id')
-    String get postfeedId;
+    @BuiltValueField(wireName: r'post_feed_id')
+    String get postFeedId;
 
     @BuiltValueField(wireName: r'url')
     String get url;
@@ -74,8 +74,8 @@ class _$ShareSerializer implements StructuredSerializer<Share> {
             ..add(serializers.serialize(object.userId,
                 specifiedType: const FullType(String)));
         result
-            ..add(r'postfeed_id')
-            ..add(serializers.serialize(object.postfeedId,
+            ..add(r'post_feed_id')
+            ..add(serializers.serialize(object.postFeedId,
                 specifiedType: const FullType(String)));
         result
             ..add(r'url')
@@ -118,10 +118,10 @@ class _$ShareSerializer implements StructuredSerializer<Share> {
                         specifiedType: const FullType(String)) as String;
                     result.userId = valueDes;
                     break;
-                case r'postfeed_id':
+                case r'post_feed_id':
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
-                    result.postfeedId = valueDes;
+                    result.postFeedId = valueDes;
                     break;
                 case r'url':
                     final valueDes = serializers.deserialize(value,

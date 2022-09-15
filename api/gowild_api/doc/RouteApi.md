@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**deleteOneBaseRouteControllerRoute**](RouteApi.md#deleteonebaseroutecontrollerroute) | **DELETE** /api/v1/route/{id} | Delete one Route
 [**getManyBaseRouteControllerRoute**](RouteApi.md#getmanybaseroutecontrollerroute) | **GET** /api/v1/route | Retrieve many Route
 [**getOneBaseRouteControllerRoute**](RouteApi.md#getonebaseroutecontrollerroute) | **GET** /api/v1/route/{id} | Retrieve one Route
+[**routeControllerUpdatePicture**](RouteApi.md#routecontrollerupdatepicture) | **POST** /api/v1/route/{id}/update-picture | 
 [**updateOneBaseRouteControllerRoute**](RouteApi.md#updateonebaseroutecontrollerroute) | **PATCH** /api/v1/route/{id} | Update one Route
 
 
@@ -211,6 +212,52 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **routeControllerUpdatePicture**
+> Route routeControllerUpdatePicture(id, imageUpdateDto)
+
+
+
+### Example
+```dart
+import 'package:gowild_api/api.dart';
+// TODO Configure HTTP basic authorization: bearer
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearer').username = 'YOUR_USERNAME'
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearer').password = 'YOUR_PASSWORD';
+
+final api = GowildApi().getRouteApi();
+final String id = id_example; // String | 
+final ImageUpdateDto imageUpdateDto = ; // ImageUpdateDto | 
+
+try {
+    final response = api.routeControllerUpdatePicture(id, imageUpdateDto);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling RouteApi->routeControllerUpdatePicture: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **imageUpdateDto** | [**ImageUpdateDto**](ImageUpdateDto.md)|  | 
+
+### Return type
+
+[**Route**](Route.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -9,20 +9,20 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createOneBaseUsersControllerUser**](UsersApi.md#createonebaseuserscontrolleruser) | **POST** /api/v1/users | Create one User
-[**deleteOneBaseUsersControllerUser**](UsersApi.md#deleteonebaseuserscontrolleruser) | **DELETE** /api/v1/users/{id} | Delete one User
-[**getManyBaseUsersControllerUser**](UsersApi.md#getmanybaseuserscontrolleruser) | **GET** /api/v1/users | Retrieve many User
-[**getOneBaseUsersControllerUser**](UsersApi.md#getonebaseuserscontrolleruser) | **GET** /api/v1/users/{id} | Retrieve one User
-[**updateOneBaseUsersControllerUser**](UsersApi.md#updateonebaseuserscontrolleruser) | **PATCH** /api/v1/users/{id} | Update one User
+[**createOneBaseUsersControllerUserEntity**](UsersApi.md#createonebaseuserscontrolleruserentity) | **POST** /api/v1/users | Create one UserEntity
+[**deleteOneBaseUsersControllerUserEntity**](UsersApi.md#deleteonebaseuserscontrolleruserentity) | **DELETE** /api/v1/users/{id} | Delete one UserEntity
+[**getManyBaseUsersControllerUserEntity**](UsersApi.md#getmanybaseuserscontrolleruserentity) | **GET** /api/v1/users | Retrieve many UserEntity
+[**getOneBaseUsersControllerUserEntity**](UsersApi.md#getonebaseuserscontrolleruserentity) | **GET** /api/v1/users/{id} | Retrieve one UserEntity
+[**updateOneBaseUsersControllerUserEntity**](UsersApi.md#updateonebaseuserscontrolleruserentity) | **PATCH** /api/v1/users/{id} | Update one UserEntity
 [**usersControllerApproveUser**](UsersApi.md#userscontrollerapproveuser) | **POST** /api/v1/users/{id}/approve | Approved an user.
 [**usersControllerRejectUser**](UsersApi.md#userscontrollerrejectuser) | **POST** /api/v1/users/{id}/reject | Reject an user.
 [**usersControllerUpdateAvatar**](UsersApi.md#userscontrollerupdateavatar) | **POST** /api/v1/users/{id}/update-avatar | Update user&#39;s profile picture
 
 
-# **createOneBaseUsersControllerUser**
-> User createOneBaseUsersControllerUser(user)
+# **createOneBaseUsersControllerUserEntity**
+> UserEntity createOneBaseUsersControllerUserEntity(userEntity)
 
-Create one User
+Create one UserEntity
 
 ### Example
 ```dart
@@ -32,13 +32,13 @@ import 'package:gowild_api/api.dart';
 //defaultApiClient.getAuthentication<HttpBasicAuth>('bearer').password = 'YOUR_PASSWORD';
 
 final api = GowildApi().getUsersApi();
-final User user = ; // User | 
+final UserEntity userEntity = ; // UserEntity | 
 
 try {
-    final response = api.createOneBaseUsersControllerUser(user);
+    final response = api.createOneBaseUsersControllerUserEntity(userEntity);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling UsersApi->createOneBaseUsersControllerUser: $e\n');
+    print('Exception when calling UsersApi->createOneBaseUsersControllerUserEntity: $e\n');
 }
 ```
 
@@ -46,11 +46,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user** | [**User**](User.md)|  | 
+ **userEntity** | [**UserEntity**](UserEntity.md)|  | 
 
 ### Return type
 
-[**User**](User.md)
+[**UserEntity**](UserEntity.md)
 
 ### Authorization
 
@@ -63,10 +63,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **deleteOneBaseUsersControllerUser**
-> deleteOneBaseUsersControllerUser(id)
+# **deleteOneBaseUsersControllerUserEntity**
+> deleteOneBaseUsersControllerUserEntity(id)
 
-Delete one User
+Delete one UserEntity
 
 ### Example
 ```dart
@@ -79,9 +79,9 @@ final api = GowildApi().getUsersApi();
 final String id = id_example; // String | 
 
 try {
-    api.deleteOneBaseUsersControllerUser(id);
+    api.deleteOneBaseUsersControllerUserEntity(id);
 } catch on DioError (e) {
-    print('Exception when calling UsersApi->deleteOneBaseUsersControllerUser: $e\n');
+    print('Exception when calling UsersApi->deleteOneBaseUsersControllerUserEntity: $e\n');
 }
 ```
 
@@ -106,10 +106,10 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getManyBaseUsersControllerUser**
-> GetManyUserResponseDto getManyBaseUsersControllerUser(fields, s, filter, or, sort, join, limit, offset, page, cache)
+# **getManyBaseUsersControllerUserEntity**
+> GetManyUserEntityResponseDto getManyBaseUsersControllerUserEntity(fields, s, filter, or, sort, join, limit, offset, page, cache)
 
-Retrieve many User
+Retrieve many UserEntity
 
 ### Example
 ```dart
@@ -131,10 +131,10 @@ final int page = 56; // int | Page portion of resources. <a href=\"https://githu
 final int cache = 56; // int | Reset cache (if was enabled). <a href=\"https://github.com/nestjsx/crud/wiki/Requests#cache\" target=\"_blank\">Docs</a>
 
 try {
-    final response = api.getManyBaseUsersControllerUser(fields, s, filter, or, sort, join, limit, offset, page, cache);
+    final response = api.getManyBaseUsersControllerUserEntity(fields, s, filter, or, sort, join, limit, offset, page, cache);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling UsersApi->getManyBaseUsersControllerUser: $e\n');
+    print('Exception when calling UsersApi->getManyBaseUsersControllerUserEntity: $e\n');
 }
 ```
 
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetManyUserResponseDto**](GetManyUserResponseDto.md)
+[**GetManyUserEntityResponseDto**](GetManyUserEntityResponseDto.md)
 
 ### Authorization
 
@@ -168,10 +168,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getOneBaseUsersControllerUser**
-> User getOneBaseUsersControllerUser(id, fields, join, cache)
+# **getOneBaseUsersControllerUserEntity**
+> UserEntity getOneBaseUsersControllerUserEntity(id, fields, join, cache)
 
-Retrieve one User
+Retrieve one UserEntity
 
 ### Example
 ```dart
@@ -187,10 +187,10 @@ final BuiltList<String> join = ; // BuiltList<String> | Adds relational resource
 final int cache = 56; // int | Reset cache (if was enabled). <a href=\"https://github.com/nestjsx/crud/wiki/Requests#cache\" target=\"_blank\">Docs</a>
 
 try {
-    final response = api.getOneBaseUsersControllerUser(id, fields, join, cache);
+    final response = api.getOneBaseUsersControllerUserEntity(id, fields, join, cache);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling UsersApi->getOneBaseUsersControllerUser: $e\n');
+    print('Exception when calling UsersApi->getOneBaseUsersControllerUserEntity: $e\n');
 }
 ```
 
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**User**](User.md)
+[**UserEntity**](UserEntity.md)
 
 ### Authorization
 
@@ -218,10 +218,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **updateOneBaseUsersControllerUser**
-> User updateOneBaseUsersControllerUser(id, user)
+# **updateOneBaseUsersControllerUserEntity**
+> UserEntity updateOneBaseUsersControllerUserEntity(id, userEntity)
 
-Update one User
+Update one UserEntity
 
 ### Example
 ```dart
@@ -232,13 +232,13 @@ import 'package:gowild_api/api.dart';
 
 final api = GowildApi().getUsersApi();
 final String id = id_example; // String | 
-final User user = ; // User | 
+final UserEntity userEntity = ; // UserEntity | 
 
 try {
-    final response = api.updateOneBaseUsersControllerUser(id, user);
+    final response = api.updateOneBaseUsersControllerUserEntity(id, userEntity);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling UsersApi->updateOneBaseUsersControllerUser: $e\n');
+    print('Exception when calling UsersApi->updateOneBaseUsersControllerUserEntity: $e\n');
 }
 ```
 
@@ -247,11 +247,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  | 
- **user** | [**User**](User.md)|  | 
+ **userEntity** | [**UserEntity**](UserEntity.md)|  | 
 
 ### Return type
 
-[**User**](User.md)
+[**UserEntity**](UserEntity.md)
 
 ### Authorization
 
@@ -265,7 +265,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **usersControllerApproveUser**
-> User usersControllerApproveUser(id)
+> UserEntity usersControllerApproveUser(id)
 
 Approved an user.
 
@@ -295,7 +295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**User**](User.md)
+[**UserEntity**](UserEntity.md)
 
 ### Authorization
 
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **usersControllerRejectUser**
-> User usersControllerRejectUser(id)
+> UserEntity usersControllerRejectUser(id)
 
 Reject an user.
 
@@ -339,7 +339,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**User**](User.md)
+[**UserEntity**](UserEntity.md)
 
 ### Authorization
 
@@ -353,7 +353,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **usersControllerUpdateAvatar**
-> User usersControllerUpdateAvatar(id, pictureUpdateDto)
+> UserEntity usersControllerUpdateAvatar(id, imageUpdateDto)
 
 Update user's profile picture
 
@@ -366,10 +366,10 @@ import 'package:gowild_api/api.dart';
 
 final api = GowildApi().getUsersApi();
 final String id = id_example; // String | 
-final PictureUpdateDto pictureUpdateDto = ; // PictureUpdateDto | 
+final ImageUpdateDto imageUpdateDto = ; // ImageUpdateDto | 
 
 try {
-    final response = api.usersControllerUpdateAvatar(id, pictureUpdateDto);
+    final response = api.usersControllerUpdateAvatar(id, imageUpdateDto);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling UsersApi->usersControllerUpdateAvatar: $e\n');
@@ -381,11 +381,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  | 
- **pictureUpdateDto** | [**PictureUpdateDto**](PictureUpdateDto.md)|  | 
+ **imageUpdateDto** | [**ImageUpdateDto**](ImageUpdateDto.md)|  | 
 
 ### Return type
 
-[**User**](User.md)
+[**UserEntity**](UserEntity.md)
 
 ### Authorization
 

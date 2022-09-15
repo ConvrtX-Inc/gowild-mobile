@@ -18,9 +18,7 @@ class _$TreasureChest extends TreasureChest {
   @override
   final String description;
   @override
-  final double locationLong;
-  @override
-  final double locationLat;
+  final AppPoint location;
   @override
   final DateTime eventDate;
   @override
@@ -28,9 +26,7 @@ class _$TreasureChest extends TreasureChest {
   @override
   final num noOfParticipants;
   @override
-  final String imgUrl;
-  @override
-  final JsonObject thumbnailImg;
+  final UserEntityPicture? picture;
   @override
   final String aR;
 
@@ -43,13 +39,11 @@ class _$TreasureChest extends TreasureChest {
       this.updatedDate,
       required this.title,
       required this.description,
-      required this.locationLong,
-      required this.locationLat,
+      required this.location,
       required this.eventDate,
       required this.eventTime,
       required this.noOfParticipants,
-      required this.imgUrl,
-      required this.thumbnailImg,
+      this.picture,
       required this.aR})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'TreasureChest', 'id');
@@ -57,18 +51,13 @@ class _$TreasureChest extends TreasureChest {
     BuiltValueNullFieldError.checkNotNull(
         description, r'TreasureChest', 'description');
     BuiltValueNullFieldError.checkNotNull(
-        locationLong, r'TreasureChest', 'locationLong');
-    BuiltValueNullFieldError.checkNotNull(
-        locationLat, r'TreasureChest', 'locationLat');
+        location, r'TreasureChest', 'location');
     BuiltValueNullFieldError.checkNotNull(
         eventDate, r'TreasureChest', 'eventDate');
     BuiltValueNullFieldError.checkNotNull(
         eventTime, r'TreasureChest', 'eventTime');
     BuiltValueNullFieldError.checkNotNull(
         noOfParticipants, r'TreasureChest', 'noOfParticipants');
-    BuiltValueNullFieldError.checkNotNull(imgUrl, r'TreasureChest', 'imgUrl');
-    BuiltValueNullFieldError.checkNotNull(
-        thumbnailImg, r'TreasureChest', 'thumbnailImg');
     BuiltValueNullFieldError.checkNotNull(aR, r'TreasureChest', 'aR');
   }
 
@@ -88,13 +77,11 @@ class _$TreasureChest extends TreasureChest {
         updatedDate == other.updatedDate &&
         title == other.title &&
         description == other.description &&
-        locationLong == other.locationLong &&
-        locationLat == other.locationLat &&
+        location == other.location &&
         eventDate == other.eventDate &&
         eventTime == other.eventTime &&
         noOfParticipants == other.noOfParticipants &&
-        imgUrl == other.imgUrl &&
-        thumbnailImg == other.thumbnailImg &&
+        picture == other.picture &&
         aR == other.aR;
   }
 
@@ -109,20 +96,16 @@ class _$TreasureChest extends TreasureChest {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc($jc(0, id.hashCode),
-                                                    createdDate.hashCode),
-                                                updatedDate.hashCode),
-                                            title.hashCode),
-                                        description.hashCode),
-                                    locationLong.hashCode),
-                                locationLat.hashCode),
-                            eventDate.hashCode),
-                        eventTime.hashCode),
-                    noOfParticipants.hashCode),
-                imgUrl.hashCode),
-            thumbnailImg.hashCode),
+                                        $jc($jc(0, id.hashCode),
+                                            createdDate.hashCode),
+                                        updatedDate.hashCode),
+                                    title.hashCode),
+                                description.hashCode),
+                            location.hashCode),
+                        eventDate.hashCode),
+                    eventTime.hashCode),
+                noOfParticipants.hashCode),
+            picture.hashCode),
         aR.hashCode));
   }
 
@@ -134,13 +117,11 @@ class _$TreasureChest extends TreasureChest {
           ..add('updatedDate', updatedDate)
           ..add('title', title)
           ..add('description', description)
-          ..add('locationLong', locationLong)
-          ..add('locationLat', locationLat)
+          ..add('location', location)
           ..add('eventDate', eventDate)
           ..add('eventTime', eventTime)
           ..add('noOfParticipants', noOfParticipants)
-          ..add('imgUrl', imgUrl)
-          ..add('thumbnailImg', thumbnailImg)
+          ..add('picture', picture)
           ..add('aR', aR))
         .toString();
   }
@@ -170,13 +151,9 @@ class TreasureChestBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  double? _locationLong;
-  double? get locationLong => _$this._locationLong;
-  set locationLong(double? locationLong) => _$this._locationLong = locationLong;
-
-  double? _locationLat;
-  double? get locationLat => _$this._locationLat;
-  set locationLat(double? locationLat) => _$this._locationLat = locationLat;
+  AppPointBuilder? _location;
+  AppPointBuilder get location => _$this._location ??= new AppPointBuilder();
+  set location(AppPointBuilder? location) => _$this._location = location;
 
   DateTime? _eventDate;
   DateTime? get eventDate => _$this._eventDate;
@@ -191,14 +168,10 @@ class TreasureChestBuilder
   set noOfParticipants(num? noOfParticipants) =>
       _$this._noOfParticipants = noOfParticipants;
 
-  String? _imgUrl;
-  String? get imgUrl => _$this._imgUrl;
-  set imgUrl(String? imgUrl) => _$this._imgUrl = imgUrl;
-
-  JsonObject? _thumbnailImg;
-  JsonObject? get thumbnailImg => _$this._thumbnailImg;
-  set thumbnailImg(JsonObject? thumbnailImg) =>
-      _$this._thumbnailImg = thumbnailImg;
+  UserEntityPictureBuilder? _picture;
+  UserEntityPictureBuilder get picture =>
+      _$this._picture ??= new UserEntityPictureBuilder();
+  set picture(UserEntityPictureBuilder? picture) => _$this._picture = picture;
 
   String? _aR;
   String? get aR => _$this._aR;
@@ -216,13 +189,11 @@ class TreasureChestBuilder
       _updatedDate = $v.updatedDate;
       _title = $v.title;
       _description = $v.description;
-      _locationLong = $v.locationLong;
-      _locationLat = $v.locationLat;
+      _location = $v.location.toBuilder();
       _eventDate = $v.eventDate;
       _eventTime = $v.eventTime;
       _noOfParticipants = $v.noOfParticipants;
-      _imgUrl = $v.imgUrl;
-      _thumbnailImg = $v.thumbnailImg;
+      _picture = $v.picture?.toBuilder();
       _aR = $v.aR;
       _$v = null;
     }
@@ -244,31 +215,42 @@ class TreasureChestBuilder
   TreasureChest build() => _build();
 
   _$TreasureChest _build() {
-    final _$result = _$v ??
-        new _$TreasureChest._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'TreasureChest', 'id'),
-            createdDate: createdDate,
-            updatedDate: updatedDate,
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'TreasureChest', 'title'),
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'TreasureChest', 'description'),
-            locationLong: BuiltValueNullFieldError.checkNotNull(
-                locationLong, r'TreasureChest', 'locationLong'),
-            locationLat: BuiltValueNullFieldError.checkNotNull(
-                locationLat, r'TreasureChest', 'locationLat'),
-            eventDate: BuiltValueNullFieldError.checkNotNull(
-                eventDate, r'TreasureChest', 'eventDate'),
-            eventTime: BuiltValueNullFieldError.checkNotNull(
-                eventTime, r'TreasureChest', 'eventTime'),
-            noOfParticipants: BuiltValueNullFieldError.checkNotNull(
-                noOfParticipants, r'TreasureChest', 'noOfParticipants'),
-            imgUrl: BuiltValueNullFieldError.checkNotNull(
-                imgUrl, r'TreasureChest', 'imgUrl'),
-            thumbnailImg:
-                BuiltValueNullFieldError.checkNotNull(thumbnailImg, r'TreasureChest', 'thumbnailImg'),
-            aR: BuiltValueNullFieldError.checkNotNull(aR, r'TreasureChest', 'aR'));
+    _$TreasureChest _$result;
+    try {
+      _$result = _$v ??
+          new _$TreasureChest._(
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'TreasureChest', 'id'),
+              createdDate: createdDate,
+              updatedDate: updatedDate,
+              title: BuiltValueNullFieldError.checkNotNull(
+                  title, r'TreasureChest', 'title'),
+              description: BuiltValueNullFieldError.checkNotNull(
+                  description, r'TreasureChest', 'description'),
+              location: location.build(),
+              eventDate: BuiltValueNullFieldError.checkNotNull(
+                  eventDate, r'TreasureChest', 'eventDate'),
+              eventTime: BuiltValueNullFieldError.checkNotNull(
+                  eventTime, r'TreasureChest', 'eventTime'),
+              noOfParticipants: BuiltValueNullFieldError.checkNotNull(
+                  noOfParticipants, r'TreasureChest', 'noOfParticipants'),
+              picture: _picture?.build(),
+              aR: BuiltValueNullFieldError.checkNotNull(
+                  aR, r'TreasureChest', 'aR'));
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'location';
+        location.build();
+
+        _$failedField = 'picture';
+        _picture?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'TreasureChest', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

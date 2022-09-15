@@ -14,23 +14,19 @@ class _$Route extends Route {
   @override
   final DateTime? updatedDate;
   @override
-  final String userId;
+  final RouteUser? user;
   @override
-  final String routeName;
+  final String? title;
   @override
-  final JsonObject routePhoto;
+  final RouteHistoricalEventPoint? start;
   @override
-  final double startPointLong;
+  final RouteHistoricalEventPoint? end;
   @override
-  final double startPointLat;
+  final BuiltList<RouteHistoricalEvent>? historicalEvents;
   @override
-  final double stopPointLong;
+  final UserEntityPicture? picture;
   @override
-  final double stopPointLat;
-  @override
-  final String imgUrl;
-  @override
-  final String description;
+  final String? description;
 
   factory _$Route([void Function(RouteBuilder)? updates]) =>
       (new RouteBuilder()..update(updates))._build();
@@ -39,30 +35,15 @@ class _$Route extends Route {
       {required this.id,
       this.createdDate,
       this.updatedDate,
-      required this.userId,
-      required this.routeName,
-      required this.routePhoto,
-      required this.startPointLong,
-      required this.startPointLat,
-      required this.stopPointLong,
-      required this.stopPointLat,
-      required this.imgUrl,
-      required this.description})
+      this.user,
+      this.title,
+      this.start,
+      this.end,
+      this.historicalEvents,
+      this.picture,
+      this.description})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'Route', 'id');
-    BuiltValueNullFieldError.checkNotNull(userId, r'Route', 'userId');
-    BuiltValueNullFieldError.checkNotNull(routeName, r'Route', 'routeName');
-    BuiltValueNullFieldError.checkNotNull(routePhoto, r'Route', 'routePhoto');
-    BuiltValueNullFieldError.checkNotNull(
-        startPointLong, r'Route', 'startPointLong');
-    BuiltValueNullFieldError.checkNotNull(
-        startPointLat, r'Route', 'startPointLat');
-    BuiltValueNullFieldError.checkNotNull(
-        stopPointLong, r'Route', 'stopPointLong');
-    BuiltValueNullFieldError.checkNotNull(
-        stopPointLat, r'Route', 'stopPointLat');
-    BuiltValueNullFieldError.checkNotNull(imgUrl, r'Route', 'imgUrl');
-    BuiltValueNullFieldError.checkNotNull(description, r'Route', 'description');
   }
 
   @override
@@ -79,14 +60,12 @@ class _$Route extends Route {
         id == other.id &&
         createdDate == other.createdDate &&
         updatedDate == other.updatedDate &&
-        userId == other.userId &&
-        routeName == other.routeName &&
-        routePhoto == other.routePhoto &&
-        startPointLong == other.startPointLong &&
-        startPointLat == other.startPointLat &&
-        stopPointLong == other.stopPointLong &&
-        stopPointLat == other.stopPointLat &&
-        imgUrl == other.imgUrl &&
+        user == other.user &&
+        title == other.title &&
+        start == other.start &&
+        end == other.end &&
+        historicalEvents == other.historicalEvents &&
+        picture == other.picture &&
         description == other.description;
   }
 
@@ -100,19 +79,15 @@ class _$Route extends Route {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc($jc(0, id.hashCode),
-                                                createdDate.hashCode),
-                                            updatedDate.hashCode),
-                                        userId.hashCode),
-                                    routeName.hashCode),
-                                routePhoto.hashCode),
-                            startPointLong.hashCode),
-                        startPointLat.hashCode),
-                    stopPointLong.hashCode),
-                stopPointLat.hashCode),
-            imgUrl.hashCode),
+                                    $jc($jc(0, id.hashCode),
+                                        createdDate.hashCode),
+                                    updatedDate.hashCode),
+                                user.hashCode),
+                            title.hashCode),
+                        start.hashCode),
+                    end.hashCode),
+                historicalEvents.hashCode),
+            picture.hashCode),
         description.hashCode));
   }
 
@@ -122,14 +97,12 @@ class _$Route extends Route {
           ..add('id', id)
           ..add('createdDate', createdDate)
           ..add('updatedDate', updatedDate)
-          ..add('userId', userId)
-          ..add('routeName', routeName)
-          ..add('routePhoto', routePhoto)
-          ..add('startPointLong', startPointLong)
-          ..add('startPointLat', startPointLat)
-          ..add('stopPointLong', stopPointLong)
-          ..add('stopPointLat', stopPointLat)
-          ..add('imgUrl', imgUrl)
+          ..add('user', user)
+          ..add('title', title)
+          ..add('start', start)
+          ..add('end', end)
+          ..add('historicalEvents', historicalEvents)
+          ..add('picture', picture)
           ..add('description', description))
         .toString();
   }
@@ -150,40 +123,34 @@ class RouteBuilder implements Builder<Route, RouteBuilder> {
   DateTime? get updatedDate => _$this._updatedDate;
   set updatedDate(DateTime? updatedDate) => _$this._updatedDate = updatedDate;
 
-  String? _userId;
-  String? get userId => _$this._userId;
-  set userId(String? userId) => _$this._userId = userId;
+  RouteUserBuilder? _user;
+  RouteUserBuilder get user => _$this._user ??= new RouteUserBuilder();
+  set user(RouteUserBuilder? user) => _$this._user = user;
 
-  String? _routeName;
-  String? get routeName => _$this._routeName;
-  set routeName(String? routeName) => _$this._routeName = routeName;
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
 
-  JsonObject? _routePhoto;
-  JsonObject? get routePhoto => _$this._routePhoto;
-  set routePhoto(JsonObject? routePhoto) => _$this._routePhoto = routePhoto;
+  RouteHistoricalEventPointBuilder? _start;
+  RouteHistoricalEventPointBuilder get start =>
+      _$this._start ??= new RouteHistoricalEventPointBuilder();
+  set start(RouteHistoricalEventPointBuilder? start) => _$this._start = start;
 
-  double? _startPointLong;
-  double? get startPointLong => _$this._startPointLong;
-  set startPointLong(double? startPointLong) =>
-      _$this._startPointLong = startPointLong;
+  RouteHistoricalEventPointBuilder? _end;
+  RouteHistoricalEventPointBuilder get end =>
+      _$this._end ??= new RouteHistoricalEventPointBuilder();
+  set end(RouteHistoricalEventPointBuilder? end) => _$this._end = end;
 
-  double? _startPointLat;
-  double? get startPointLat => _$this._startPointLat;
-  set startPointLat(double? startPointLat) =>
-      _$this._startPointLat = startPointLat;
+  ListBuilder<RouteHistoricalEvent>? _historicalEvents;
+  ListBuilder<RouteHistoricalEvent> get historicalEvents =>
+      _$this._historicalEvents ??= new ListBuilder<RouteHistoricalEvent>();
+  set historicalEvents(ListBuilder<RouteHistoricalEvent>? historicalEvents) =>
+      _$this._historicalEvents = historicalEvents;
 
-  double? _stopPointLong;
-  double? get stopPointLong => _$this._stopPointLong;
-  set stopPointLong(double? stopPointLong) =>
-      _$this._stopPointLong = stopPointLong;
-
-  double? _stopPointLat;
-  double? get stopPointLat => _$this._stopPointLat;
-  set stopPointLat(double? stopPointLat) => _$this._stopPointLat = stopPointLat;
-
-  String? _imgUrl;
-  String? get imgUrl => _$this._imgUrl;
-  set imgUrl(String? imgUrl) => _$this._imgUrl = imgUrl;
+  UserEntityPictureBuilder? _picture;
+  UserEntityPictureBuilder get picture =>
+      _$this._picture ??= new UserEntityPictureBuilder();
+  set picture(UserEntityPictureBuilder? picture) => _$this._picture = picture;
 
   String? _description;
   String? get description => _$this._description;
@@ -199,14 +166,12 @@ class RouteBuilder implements Builder<Route, RouteBuilder> {
       _id = $v.id;
       _createdDate = $v.createdDate;
       _updatedDate = $v.updatedDate;
-      _userId = $v.userId;
-      _routeName = $v.routeName;
-      _routePhoto = $v.routePhoto;
-      _startPointLong = $v.startPointLong;
-      _startPointLat = $v.startPointLat;
-      _stopPointLong = $v.stopPointLong;
-      _stopPointLat = $v.stopPointLat;
-      _imgUrl = $v.imgUrl;
+      _user = $v.user?.toBuilder();
+      _title = $v.title;
+      _start = $v.start?.toBuilder();
+      _end = $v.end?.toBuilder();
+      _historicalEvents = $v.historicalEvents?.toBuilder();
+      _picture = $v.picture?.toBuilder();
       _description = $v.description;
       _$v = null;
     }
@@ -228,29 +193,40 @@ class RouteBuilder implements Builder<Route, RouteBuilder> {
   Route build() => _build();
 
   _$Route _build() {
-    final _$result = _$v ??
-        new _$Route._(
-            id: BuiltValueNullFieldError.checkNotNull(id, r'Route', 'id'),
-            createdDate: createdDate,
-            updatedDate: updatedDate,
-            userId: BuiltValueNullFieldError.checkNotNull(
-                userId, r'Route', 'userId'),
-            routeName: BuiltValueNullFieldError.checkNotNull(
-                routeName, r'Route', 'routeName'),
-            routePhoto: BuiltValueNullFieldError.checkNotNull(
-                routePhoto, r'Route', 'routePhoto'),
-            startPointLong: BuiltValueNullFieldError.checkNotNull(
-                startPointLong, r'Route', 'startPointLong'),
-            startPointLat: BuiltValueNullFieldError.checkNotNull(
-                startPointLat, r'Route', 'startPointLat'),
-            stopPointLong: BuiltValueNullFieldError.checkNotNull(
-                stopPointLong, r'Route', 'stopPointLong'),
-            stopPointLat: BuiltValueNullFieldError.checkNotNull(
-                stopPointLat, r'Route', 'stopPointLat'),
-            imgUrl: BuiltValueNullFieldError.checkNotNull(
-                imgUrl, r'Route', 'imgUrl'),
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'Route', 'description'));
+    _$Route _$result;
+    try {
+      _$result = _$v ??
+          new _$Route._(
+              id: BuiltValueNullFieldError.checkNotNull(id, r'Route', 'id'),
+              createdDate: createdDate,
+              updatedDate: updatedDate,
+              user: _user?.build(),
+              title: title,
+              start: _start?.build(),
+              end: _end?.build(),
+              historicalEvents: _historicalEvents?.build(),
+              picture: _picture?.build(),
+              description: description);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'user';
+        _user?.build();
+
+        _$failedField = 'start';
+        _start?.build();
+        _$failedField = 'end';
+        _end?.build();
+        _$failedField = 'historicalEvents';
+        _historicalEvents?.build();
+        _$failedField = 'picture';
+        _picture?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'Route', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

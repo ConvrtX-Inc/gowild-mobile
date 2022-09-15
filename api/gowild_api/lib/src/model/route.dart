@@ -2,7 +2,11 @@
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
-import 'package:built_value/json_object.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:gowild_api/src/model/route_user.dart';
+import 'package:gowild_api/src/model/user_entity_picture.dart';
+import 'package:gowild_api/src/model/route_historical_event.dart';
+import 'package:gowild_api/src/model/route_historical_event_point.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -14,14 +18,12 @@ part 'route.g.dart';
 /// * [id] 
 /// * [createdDate] 
 /// * [updatedDate] 
-/// * [userId] 
-/// * [routeName] 
-/// * [routePhoto] 
-/// * [startPointLong] 
-/// * [startPointLat] 
-/// * [stopPointLong] 
-/// * [stopPointLat] 
-/// * [imgUrl] 
+/// * [user] 
+/// * [title] 
+/// * [start] 
+/// * [end] 
+/// * [historicalEvents] 
+/// * [picture] 
 /// * [description] 
 abstract class Route implements Built<Route, RouteBuilder> {
     @BuiltValueField(wireName: r'id')
@@ -33,32 +35,26 @@ abstract class Route implements Built<Route, RouteBuilder> {
     @BuiltValueField(wireName: r'updatedDate')
     DateTime? get updatedDate;
 
-    @BuiltValueField(wireName: r'user_id')
-    String get userId;
+    @BuiltValueField(wireName: r'user')
+    RouteUser? get user;
 
-    @BuiltValueField(wireName: r'route_name')
-    String get routeName;
+    @BuiltValueField(wireName: r'title')
+    String? get title;
 
-    @BuiltValueField(wireName: r'route_photo')
-    JsonObject get routePhoto;
+    @BuiltValueField(wireName: r'start')
+    RouteHistoricalEventPoint? get start;
 
-    @BuiltValueField(wireName: r'start_point_long')
-    double get startPointLong;
+    @BuiltValueField(wireName: r'end')
+    RouteHistoricalEventPoint? get end;
 
-    @BuiltValueField(wireName: r'start_point_lat')
-    double get startPointLat;
+    @BuiltValueField(wireName: r'historicalEvents')
+    BuiltList<RouteHistoricalEvent>? get historicalEvents;
 
-    @BuiltValueField(wireName: r'stop_point_long')
-    double get stopPointLong;
-
-    @BuiltValueField(wireName: r'stop_point_lat')
-    double get stopPointLat;
-
-    @BuiltValueField(wireName: r'img_url')
-    String get imgUrl;
+    @BuiltValueField(wireName: r'picture')
+    UserEntityPicture? get picture;
 
     @BuiltValueField(wireName: r'description')
-    String get description;
+    String? get description;
 
     Route._();
 
@@ -95,41 +91,33 @@ class _$RouteSerializer implements StructuredSerializer<Route> {
             ..add(object.updatedDate == null ? null : serializers.serialize(object.updatedDate,
                 specifiedType: const FullType.nullable(DateTime)));
         result
-            ..add(r'user_id')
-            ..add(serializers.serialize(object.userId,
-                specifiedType: const FullType(String)));
+            ..add(r'user')
+            ..add(object.user == null ? null : serializers.serialize(object.user,
+                specifiedType: const FullType.nullable(RouteUser)));
         result
-            ..add(r'route_name')
-            ..add(serializers.serialize(object.routeName,
-                specifiedType: const FullType(String)));
+            ..add(r'title')
+            ..add(object.title == null ? null : serializers.serialize(object.title,
+                specifiedType: const FullType.nullable(String)));
         result
-            ..add(r'route_photo')
-            ..add(serializers.serialize(object.routePhoto,
-                specifiedType: const FullType(JsonObject)));
+            ..add(r'start')
+            ..add(object.start == null ? null : serializers.serialize(object.start,
+                specifiedType: const FullType.nullable(RouteHistoricalEventPoint)));
         result
-            ..add(r'start_point_long')
-            ..add(serializers.serialize(object.startPointLong,
-                specifiedType: const FullType(double)));
+            ..add(r'end')
+            ..add(object.end == null ? null : serializers.serialize(object.end,
+                specifiedType: const FullType.nullable(RouteHistoricalEventPoint)));
         result
-            ..add(r'start_point_lat')
-            ..add(serializers.serialize(object.startPointLat,
-                specifiedType: const FullType(double)));
+            ..add(r'historicalEvents')
+            ..add(object.historicalEvents == null ? null : serializers.serialize(object.historicalEvents,
+                specifiedType: const FullType.nullable(BuiltList, [FullType(RouteHistoricalEvent)])));
         result
-            ..add(r'stop_point_long')
-            ..add(serializers.serialize(object.stopPointLong,
-                specifiedType: const FullType(double)));
-        result
-            ..add(r'stop_point_lat')
-            ..add(serializers.serialize(object.stopPointLat,
-                specifiedType: const FullType(double)));
-        result
-            ..add(r'img_url')
-            ..add(serializers.serialize(object.imgUrl,
-                specifiedType: const FullType(String)));
+            ..add(r'picture')
+            ..add(object.picture == null ? null : serializers.serialize(object.picture,
+                specifiedType: const FullType.nullable(UserEntityPicture)));
         result
             ..add(r'description')
-            ..add(serializers.serialize(object.description,
-                specifiedType: const FullType(String)));
+            ..add(object.description == null ? null : serializers.serialize(object.description,
+                specifiedType: const FullType.nullable(String)));
         return result;
     }
 
@@ -162,49 +150,46 @@ class _$RouteSerializer implements StructuredSerializer<Route> {
                     if (valueDes == null) continue;
                     result.updatedDate = valueDes;
                     break;
-                case r'user_id':
+                case r'user':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
-                    result.userId = valueDes;
+                        specifiedType: const FullType.nullable(RouteUser)) as RouteUser?;
+                    if (valueDes == null) continue;
+                    result.user.replace(valueDes);
                     break;
-                case r'route_name':
+                case r'title':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
-                    result.routeName = valueDes;
+                        specifiedType: const FullType.nullable(String)) as String?;
+                    if (valueDes == null) continue;
+                    result.title = valueDes;
                     break;
-                case r'route_photo':
+                case r'start':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(JsonObject)) as JsonObject;
-                    result.routePhoto = valueDes;
+                        specifiedType: const FullType.nullable(RouteHistoricalEventPoint)) as RouteHistoricalEventPoint?;
+                    if (valueDes == null) continue;
+                    result.start.replace(valueDes);
                     break;
-                case r'start_point_long':
+                case r'end':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(double)) as double;
-                    result.startPointLong = valueDes;
+                        specifiedType: const FullType.nullable(RouteHistoricalEventPoint)) as RouteHistoricalEventPoint?;
+                    if (valueDes == null) continue;
+                    result.end.replace(valueDes);
                     break;
-                case r'start_point_lat':
+                case r'historicalEvents':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(double)) as double;
-                    result.startPointLat = valueDes;
+                        specifiedType: const FullType.nullable(BuiltList, [FullType(RouteHistoricalEvent)])) as BuiltList<RouteHistoricalEvent>?;
+                    if (valueDes == null) continue;
+                    result.historicalEvents.replace(valueDes);
                     break;
-                case r'stop_point_long':
+                case r'picture':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(double)) as double;
-                    result.stopPointLong = valueDes;
-                    break;
-                case r'stop_point_lat':
-                    final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(double)) as double;
-                    result.stopPointLat = valueDes;
-                    break;
-                case r'img_url':
-                    final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
-                    result.imgUrl = valueDes;
+                        specifiedType: const FullType.nullable(UserEntityPicture)) as UserEntityPicture?;
+                    if (valueDes == null) continue;
+                    result.picture.replace(valueDes);
                     break;
                 case r'description':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
+                        specifiedType: const FullType.nullable(String)) as String?;
+                    if (valueDes == null) continue;
                     result.description = valueDes;
                     break;
             }

@@ -8,7 +8,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_widget/google_maps_widget.dart';
 import 'package:gowild/constants/image_constants.dart';
-import 'package:gowild/helper/location.dart';
 import 'package:gowild/helper/logging.dart';
 import 'package:gowild/helper/maps_utils.dart';
 import 'package:gowild/helper/poly_lines.dart';
@@ -33,11 +32,6 @@ class HomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    useEffect(() {
-      determinePosition();
-      return null;
-    }, []);
-
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -47,44 +41,43 @@ class HomeScreen extends HookWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          // physics: const NeverScrollableScrollPhysics(),
-          children: [
-            const SizedBox(
-              height: 24,
-            ),
-            const Text(
-              'GOOD AFTERNOON,',
-              style: TextStyle(color: Colors.white, fontSize: 24),
-            ),
-            const _RowNameAndAvatarWidget(),
-            const SizedBox(
-              height: 24,
-            ),
-            const _SearchTextFieldWidget(),
-            ListView(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              children: const [
-                ExpandableListViewWidget(
-                  title: 'ROUTES',
-                  child: _RoutesWidget(),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-          ],
+        body: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              const Text(
+                'GOOD AFTERNOON,',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+              const RowNameAndAvatarWidget(),
+              const SizedBox(
+                height: 24,
+              ),
+              const SearchTextFieldWidget(),
+              ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: const [
+                  ExpandableListViewWidget(
+                    title: 'ROUTES',
+                    child: RoutesWidget(),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _RoutesWidget extends HookConsumerWidget {
-  const _RoutesWidget({super.key});
+class RoutesWidget extends HookConsumerWidget {
+  const RoutesWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -100,8 +93,8 @@ class _RoutesWidget extends HookConsumerWidget {
   }
 }
 
-class _SearchTextFieldWidget extends HookConsumerWidget {
-  const _SearchTextFieldWidget({
+class SearchTextFieldWidget extends HookConsumerWidget {
+  const SearchTextFieldWidget({
     super.key,
   });
 
@@ -139,8 +132,8 @@ class _SearchTextFieldWidget extends HookConsumerWidget {
   }
 }
 
-class _RowNameAndAvatarWidget extends HookConsumerWidget {
-  const _RowNameAndAvatarWidget({
+class RowNameAndAvatarWidget extends HookConsumerWidget {
+  const RowNameAndAvatarWidget({
     super.key,
   });
 
@@ -190,8 +183,8 @@ class _RowNameAndAvatarWidget extends HookConsumerWidget {
   }
 }
 
-class _AdventureCardWidget extends HookWidget {
-  const _AdventureCardWidget({super.key});
+class AdventureCardWidget extends HookWidget {
+  const AdventureCardWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -204,7 +197,7 @@ class _AdventureCardWidget extends HookWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(30.0),
             child: Container(
-              height: 550,
+              height: 100,
               width: 300,
               // padding: const EdgeInsets.all(20),
               decoration: const BoxDecoration(
@@ -295,11 +288,12 @@ class _AdventureCardWidget extends HookWidget {
                       const Padding(
                         padding: EdgeInsets.only(top: 10, left: 20, right: 20),
                         child: Text(
-                            'Bacon ipsum dolor amet turducken chicken meatball, kielbasa fatback ham ball tip corned beef hamburger drumstick pork belly alcatra meatloaf.',
-                            style: TextStyle(
-                                color: Color(0xff18243C),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500)),
+                          'Bacon ipsum dolor amet turducken chicken meatball, kielbasa fatback ham ball tip corned beef hamburger drumstick pork belly alcatra meatloaf.',
+                          style: TextStyle(
+                              color: Color(0xff18243C),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                       Row(
                         children: [
@@ -393,7 +387,7 @@ class ExpandableListViewWidget extends HookWidget {
           ),
           ExpandableContainer(
             expanded: expandFlag.value,
-            expandedHeight: MediaQuery.of(context).size.height * .7,
+            expandedHeight: MediaQuery.of(context).size.height * .6,
             child: child,
           )
         ],
@@ -405,28 +399,46 @@ class ExpandableListViewWidget extends HookWidget {
 class SlidingPanelWidget extends HookWidget {
   const SlidingPanelWidget({super.key});
 
+  Widget _floatingCollapsed() {
+    return Container(
+      margin: const EdgeInsets.only(right: 48),
+      decoration: const BoxDecoration(
+        // color: Colors.blueGrey,
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(24.0),
+        ),
+        color: Colors.white,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: const <Widget>[
+          Icon(Icons.arrow_upward_rounded),
+          Text('Suggested Routes'),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return ClipRRect(
       borderRadius: BorderRadius.circular(24.0),
-      child: SizedBox(
-        child: SlidingUpPanel(
-          minHeight: MediaQuery.of(context).size.height * 0.05,
-          maxHeight: MediaQuery.of(context).size.height / 2,
-          panelBuilder: (sc) => PanelWidget(
-            scrollController: sc,
-          ),
-          body: SizedBox(
-            height: size.height * .72,
-            child: const MyGoogleMap(),
-          ),
-          backdropEnabled: true,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
-          parallaxEnabled: true,
-          parallaxOffset: .5,
-          color: Colors.white,
+      child: SlidingUpPanel(
+        minHeight: MediaQuery.of(context).size.height * 0.05,
+        maxHeight: MediaQuery.of(context).size.height * 2,
+        panel: const PanelWidget(),
+        collapsed: _floatingCollapsed(),
+        body: SizedBox(
+          height: size.height * .64,
+          child: const MyGoogleMap(),
         ),
+        backdropEnabled: true,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        parallaxEnabled: true,
+        parallaxOffset: .5,
+        color: Colors.white,
       ),
     );
   }
@@ -471,11 +483,6 @@ class MyGoogleMap extends HookConsumerWidget {
 
     final cameraPosition = useState<CameraPosition>(
         CameraPosition(target: currentLocation, zoom: 12));
-    useEffect(() {
-      logger.d('currentLocation changed: $currentLocation');
-      cameraPosition.value = CameraPosition(target: currentLocation, zoom: 12);
-      return () {};
-    }, [currentLocation]);
 
     // Maps controllers
     final controller = useState<GoogleMapController?>(null);
@@ -495,6 +502,16 @@ class MyGoogleMap extends HookConsumerWidget {
       }
     }, [controller]);
 
+    useEffect(() {
+      logger.d(
+          'currentLocation changed: $currentLocation # ${controller.value != null}');
+      if (controller.value != null) {
+        controller.value!
+            .animateCamera(CameraUpdate.newLatLng(currentLocation));
+      }
+      return () {};
+    }, [currentLocation, controller]);
+
     // Get routes
     final findRoutes = useMemoized(
         () => routeApi
@@ -513,7 +530,7 @@ class MyGoogleMap extends HookConsumerWidget {
         final id = PolylineId('poly-line-${route.id}');
         final polyline = Polyline(
           polylineId: id,
-          points: [route.toStart(), ...points, route.toEnd()],
+          points: [route.start!.toPoint(), ...points, route.end!.toPoint()],
           color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
               .withOpacity(1.0),
         );
@@ -530,20 +547,20 @@ class MyGoogleMap extends HookConsumerWidget {
       );
       final startPoint = Marker(
         markerId: MarkerId(
-            '${route.id}-${route.toStart().toString()}-${const Uuid().v4()}'),
-        position: route.toStart(),
+            '${route.id}-${route.start!.toPoint().toString()}-${const Uuid().v4()}'),
+        position: route.start!.toPoint(),
         icon: BitmapDescriptor.fromBytes(bytes),
         infoWindow: InfoWindow(
-          title: route.routeName,
+          title: route.title,
         ),
       );
       final endPoint = Marker(
         markerId: MarkerId(
-            '${route.id}-${route.toEnd().toString()}-${const Uuid().v4()}'),
-        position: route.toEnd(),
+            '${route.id}-${route.end!.toPoint().toString()}-${const Uuid().v4()}'),
+        position: route.end!.toPoint(),
         icon: BitmapDescriptor.fromBytes(bytes),
         infoWindow: InfoWindow(
-          title: route.routeName,
+          title: route.title,
         ),
       );
       markersMap.value = {
@@ -592,7 +609,7 @@ class MyGoogleMap extends HookConsumerWidget {
             gestureRecognizers: {}..add(Factory<EagerGestureRecognizer>(
                 () => EagerGestureRecognizer())),
           ),
-          const _MapOverlayButtonWidget(),
+          const MapOverlayButtonWidget(),
           Positioned(
             top: 100,
             right: 45,
@@ -633,8 +650,8 @@ class MyGoogleMap extends HookConsumerWidget {
   }
 }
 
-class _MapOverlayButtonWidget extends HookWidget {
-  const _MapOverlayButtonWidget({super.key});
+class MapOverlayButtonWidget extends HookWidget {
+  const MapOverlayButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -661,9 +678,7 @@ class _MapOverlayButtonWidget extends HookWidget {
 }
 
 class PanelWidget extends HookConsumerWidget {
-  final ScrollController scrollController;
-
-  const PanelWidget({super.key, required this.scrollController});
+  const PanelWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -678,19 +693,12 @@ class PanelWidget extends HookConsumerWidget {
     final data = routes$.data?.data.toList() ?? [];
 
     return SingleChildScrollView(
+      padding: const EdgeInsets.only(right: 56, left: 8),
       child: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Icon(Icons.arrow_upward_rounded),
-              Text('Suggested Routes'),
-            ],
-          ),
+          const SizedBox(height: 64),
           if (!routes$.hasData)
             const Center(
               child: CircularProgressIndicator(),
@@ -742,7 +750,7 @@ class FoundRouteRow extends HookWidget {
                 ),
               ),
               height: 90,
-              child: _SmallMapWidget(
+              child: SmallMapWidget(
                 route: route,
               ),
             ),
@@ -750,7 +758,7 @@ class FoundRouteRow extends HookWidget {
               child: Column(
                 children: [
                   Text(
-                    route.routeName,
+                    route.title ?? '',
                     style: const TextStyle(
                       color: Color(0xff18243C),
                       fontSize: 14,
@@ -786,10 +794,11 @@ class FoundRouteRow extends HookWidget {
                           Text(
                             '1 hr 30 mins',
                             style: TextStyle(
-                                color: Color(0xff18243C),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),
-                          )
+                              color: Color(0xff18243C),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 0, width: 8),
@@ -816,10 +825,10 @@ class FoundRouteRow extends HookWidget {
   }
 }
 
-class _SmallMapWidget extends HookWidget {
+class SmallMapWidget extends HookWidget {
   final Route route;
 
-  const _SmallMapWidget({
+  const SmallMapWidget({
     required this.route,
     super.key,
   });
@@ -834,7 +843,9 @@ class _SmallMapWidget extends HookWidget {
         decoration: BoxDecoration(
           color: Colors.grey.withAlpha(50),
         ),
-        child: Image.network(route.imgUrl),
+        child: route.picture != null
+            ? Image.network(route.picture!.path)
+            : Container(),
       ),
     );
   }

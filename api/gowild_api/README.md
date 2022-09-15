@@ -133,23 +133,22 @@ Class | Method | HTTP request | Description
 [*RouteApi*](doc/RouteApi.md) | [**deleteOneBaseRouteControllerRoute**](doc/RouteApi.md#deleteonebaseroutecontrollerroute) | **DELETE** /api/v1/route/{id} | Delete one Route
 [*RouteApi*](doc/RouteApi.md) | [**getManyBaseRouteControllerRoute**](doc/RouteApi.md#getmanybaseroutecontrollerroute) | **GET** /api/v1/route | Retrieve many Route
 [*RouteApi*](doc/RouteApi.md) | [**getOneBaseRouteControllerRoute**](doc/RouteApi.md#getonebaseroutecontrollerroute) | **GET** /api/v1/route/{id} | Retrieve one Route
+[*RouteApi*](doc/RouteApi.md) | [**routeControllerUpdatePicture**](doc/RouteApi.md#routecontrollerupdatepicture) | **POST** /api/v1/route/{id}/update-picture | 
 [*RouteApi*](doc/RouteApi.md) | [**updateOneBaseRouteControllerRoute**](doc/RouteApi.md#updateonebaseroutecontrollerroute) | **PATCH** /api/v1/route/{id} | Update one Route
 [*RouteCluesApi*](doc/RouteCluesApi.md) | [**createOneBaseRouteCluesControllerRouteClue**](doc/RouteCluesApi.md#createonebaseroutecluescontrollerrouteclue) | **POST** /api/v1/route-clues | Create one RouteClue
 [*RouteCluesApi*](doc/RouteCluesApi.md) | [**deleteOneBaseRouteCluesControllerRouteClue**](doc/RouteCluesApi.md#deleteonebaseroutecluescontrollerrouteclue) | **DELETE** /api/v1/route-clues/{id} | Delete one RouteClue
 [*RouteCluesApi*](doc/RouteCluesApi.md) | [**getManyBaseRouteCluesControllerRouteClue**](doc/RouteCluesApi.md#getmanybaseroutecluescontrollerrouteclue) | **GET** /api/v1/route-clues | Retrieve many RouteClue
 [*RouteCluesApi*](doc/RouteCluesApi.md) | [**getOneBaseRouteCluesControllerRouteClue**](doc/RouteCluesApi.md#getonebaseroutecluescontrollerrouteclue) | **GET** /api/v1/route-clues/{id} | Retrieve one RouteClue
 [*RouteCluesApi*](doc/RouteCluesApi.md) | [**routeCluesControllerGetAllClues**](doc/RouteCluesApi.md#routecluescontrollergetallclues) | **GET** /api/v1/route-clues/all-clues/{route_id} | Get all clues
+[*RouteCluesApi*](doc/RouteCluesApi.md) | [**routeCluesControllerUpdateMedias**](doc/RouteCluesApi.md#routecluescontrollerupdatemedias) | **POST** /api/v1/route-clues/{id}/medias | 
 [*RouteCluesApi*](doc/RouteCluesApi.md) | [**updateOneBaseRouteCluesControllerRouteClue**](doc/RouteCluesApi.md#updateonebaseroutecluescontrollerrouteclue) | **PATCH** /api/v1/route-clues/{id} | Update one RouteClue
 [*RouteHistoricalEventApi*](doc/RouteHistoricalEventApi.md) | [**createOneBaseRouteHistoricalEventsControllerRouteHistoricalEvent**](doc/RouteHistoricalEventApi.md#createonebaseroutehistoricaleventscontrollerroutehistoricalevent) | **POST** /api/v1/route-historical-events | Create one RouteHistoricalEvent
 [*RouteHistoricalEventApi*](doc/RouteHistoricalEventApi.md) | [**deleteOneBaseRouteHistoricalEventsControllerRouteHistoricalEvent**](doc/RouteHistoricalEventApi.md#deleteonebaseroutehistoricaleventscontrollerroutehistoricalevent) | **DELETE** /api/v1/route-historical-events/{id} | Delete one RouteHistoricalEvent
 [*RouteHistoricalEventApi*](doc/RouteHistoricalEventApi.md) | [**getManyBaseRouteHistoricalEventsControllerRouteHistoricalEvent**](doc/RouteHistoricalEventApi.md#getmanybaseroutehistoricaleventscontrollerroutehistoricalevent) | **GET** /api/v1/route-historical-events | Retrieve many RouteHistoricalEvent
 [*RouteHistoricalEventApi*](doc/RouteHistoricalEventApi.md) | [**getOneBaseRouteHistoricalEventsControllerRouteHistoricalEvent**](doc/RouteHistoricalEventApi.md#getonebaseroutehistoricaleventscontrollerroutehistoricalevent) | **GET** /api/v1/route-historical-events/{id} | Retrieve one RouteHistoricalEvent
+[*RouteHistoricalEventApi*](doc/RouteHistoricalEventApi.md) | [**routeHistoricalEventsControllerUpdateMedias**](doc/RouteHistoricalEventApi.md#routehistoricaleventscontrollerupdatemedias) | **POST** /api/v1/route-historical-events/{id}/medias | 
+[*RouteHistoricalEventApi*](doc/RouteHistoricalEventApi.md) | [**routeHistoricalEventsControllerUpdatePicture**](doc/RouteHistoricalEventApi.md#routehistoricaleventscontrollerupdatepicture) | **POST** /api/v1/route-historical-events/{id}/update-picture | 
 [*RouteHistoricalEventApi*](doc/RouteHistoricalEventApi.md) | [**updateOneBaseRouteHistoricalEventsControllerRouteHistoricalEvent**](doc/RouteHistoricalEventApi.md#updateonebaseroutehistoricaleventscontrollerroutehistoricalevent) | **PATCH** /api/v1/route-historical-events/{id} | Update one RouteHistoricalEvent
-[*RouteHistoricalEventPhotoApi*](doc/RouteHistoricalEventPhotoApi.md) | [**createOneBaseRouteHistoricalEventPhotoControllerRouteHistoricalEventPhoto**](doc/RouteHistoricalEventPhotoApi.md#createonebaseroutehistoricaleventphotocontrollerroutehistoricaleventphoto) | **POST** /api/v1/route-historical-event-photo | Create one RouteHistoricalEventPhoto
-[*RouteHistoricalEventPhotoApi*](doc/RouteHistoricalEventPhotoApi.md) | [**deleteOneBaseRouteHistoricalEventPhotoControllerRouteHistoricalEventPhoto**](doc/RouteHistoricalEventPhotoApi.md#deleteonebaseroutehistoricaleventphotocontrollerroutehistoricaleventphoto) | **DELETE** /api/v1/route-historical-event-photo/{id} | Delete one RouteHistoricalEventPhoto
-[*RouteHistoricalEventPhotoApi*](doc/RouteHistoricalEventPhotoApi.md) | [**getManyBaseRouteHistoricalEventPhotoControllerRouteHistoricalEventPhoto**](doc/RouteHistoricalEventPhotoApi.md#getmanybaseroutehistoricaleventphotocontrollerroutehistoricaleventphoto) | **GET** /api/v1/route-historical-event-photo | Retrieve many RouteHistoricalEventPhoto
-[*RouteHistoricalEventPhotoApi*](doc/RouteHistoricalEventPhotoApi.md) | [**getOneBaseRouteHistoricalEventPhotoControllerRouteHistoricalEventPhoto**](doc/RouteHistoricalEventPhotoApi.md#getonebaseroutehistoricaleventphotocontrollerroutehistoricaleventphoto) | **GET** /api/v1/route-historical-event-photo/{id} | Retrieve one RouteHistoricalEventPhoto
-[*RouteHistoricalEventPhotoApi*](doc/RouteHistoricalEventPhotoApi.md) | [**updateOneBaseRouteHistoricalEventPhotoControllerRouteHistoricalEventPhoto**](doc/RouteHistoricalEventPhotoApi.md#updateonebaseroutehistoricaleventphotocontrollerroutehistoricaleventphoto) | **PATCH** /api/v1/route-historical-event-photo/{id} | Update one RouteHistoricalEventPhoto
 [*ShareApi*](doc/ShareApi.md) | [**createOneBaseShareControllerShare**](doc/ShareApi.md#createonebasesharecontrollershare) | **POST** /api/v1/share | Create one Share
 [*ShareApi*](doc/ShareApi.md) | [**deleteOneBaseShareControllerShare**](doc/ShareApi.md#deleteonebasesharecontrollershare) | **DELETE** /api/v1/share/{id} | Delete one Share
 [*ShareApi*](doc/ShareApi.md) | [**getManyBaseShareControllerShare**](doc/ShareApi.md#getmanybasesharecontrollershare) | **GET** /api/v1/share | Retrieve many Share
@@ -181,11 +180,11 @@ Class | Method | HTTP request | Description
 [*TreasureChestApi*](doc/TreasureChestApi.md) | [**getManyBaseTreasureChestControllerTreasureChest**](doc/TreasureChestApi.md#getmanybasetreasurechestcontrollertreasurechest) | **GET** /api/v1/treasure-chest | Retrieve many TreasureChest
 [*TreasureChestApi*](doc/TreasureChestApi.md) | [**getOneBaseTreasureChestControllerTreasureChest**](doc/TreasureChestApi.md#getonebasetreasurechestcontrollertreasurechest) | **GET** /api/v1/treasure-chest/{id} | Retrieve one TreasureChest
 [*TreasureChestApi*](doc/TreasureChestApi.md) | [**updateOneBaseTreasureChestControllerTreasureChest**](doc/TreasureChestApi.md#updateonebasetreasurechestcontrollertreasurechest) | **PATCH** /api/v1/treasure-chest/{id} | Update one TreasureChest
-[*UsersApi*](doc/UsersApi.md) | [**createOneBaseUsersControllerUser**](doc/UsersApi.md#createonebaseuserscontrolleruser) | **POST** /api/v1/users | Create one User
-[*UsersApi*](doc/UsersApi.md) | [**deleteOneBaseUsersControllerUser**](doc/UsersApi.md#deleteonebaseuserscontrolleruser) | **DELETE** /api/v1/users/{id} | Delete one User
-[*UsersApi*](doc/UsersApi.md) | [**getManyBaseUsersControllerUser**](doc/UsersApi.md#getmanybaseuserscontrolleruser) | **GET** /api/v1/users | Retrieve many User
-[*UsersApi*](doc/UsersApi.md) | [**getOneBaseUsersControllerUser**](doc/UsersApi.md#getonebaseuserscontrolleruser) | **GET** /api/v1/users/{id} | Retrieve one User
-[*UsersApi*](doc/UsersApi.md) | [**updateOneBaseUsersControllerUser**](doc/UsersApi.md#updateonebaseuserscontrolleruser) | **PATCH** /api/v1/users/{id} | Update one User
+[*UsersApi*](doc/UsersApi.md) | [**createOneBaseUsersControllerUserEntity**](doc/UsersApi.md#createonebaseuserscontrolleruserentity) | **POST** /api/v1/users | Create one UserEntity
+[*UsersApi*](doc/UsersApi.md) | [**deleteOneBaseUsersControllerUserEntity**](doc/UsersApi.md#deleteonebaseuserscontrolleruserentity) | **DELETE** /api/v1/users/{id} | Delete one UserEntity
+[*UsersApi*](doc/UsersApi.md) | [**getManyBaseUsersControllerUserEntity**](doc/UsersApi.md#getmanybaseuserscontrolleruserentity) | **GET** /api/v1/users | Retrieve many UserEntity
+[*UsersApi*](doc/UsersApi.md) | [**getOneBaseUsersControllerUserEntity**](doc/UsersApi.md#getonebaseuserscontrolleruserentity) | **GET** /api/v1/users/{id} | Retrieve one UserEntity
+[*UsersApi*](doc/UsersApi.md) | [**updateOneBaseUsersControllerUserEntity**](doc/UsersApi.md#updateonebaseuserscontrolleruserentity) | **PATCH** /api/v1/users/{id} | Update one UserEntity
 [*UsersApi*](doc/UsersApi.md) | [**usersControllerApproveUser**](doc/UsersApi.md#userscontrollerapproveuser) | **POST** /api/v1/users/{id}/approve | Approved an user.
 [*UsersApi*](doc/UsersApi.md) | [**usersControllerRejectUser**](doc/UsersApi.md#userscontrollerrejectuser) | **POST** /api/v1/users/{id}/reject | Reject an user.
 [*UsersApi*](doc/UsersApi.md) | [**usersControllerUpdateAvatar**](doc/UsersApi.md#userscontrollerupdateavatar) | **POST** /api/v1/users/{id}/update-avatar | Update user&#39;s profile picture
@@ -196,6 +195,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [AccessToken](doc/AccessToken.md)
+ - [AppPoint](doc/AppPoint.md)
  - [AuthEmailLoginDto](doc/AuthEmailLoginDto.md)
  - [AuthFacebookLoginDto](doc/AuthFacebookLoginDto.md)
  - [AuthForgotPasswordDto](doc/AuthForgotPasswordDto.md)
@@ -223,7 +223,6 @@ Class | Method | HTTP request | Description
  - [GetManyPostFeedResponseDto](doc/GetManyPostFeedResponseDto.md)
  - [GetManyRoomResponseDto](doc/GetManyRoomResponseDto.md)
  - [GetManyRouteClueResponseDto](doc/GetManyRouteClueResponseDto.md)
- - [GetManyRouteHistoricalEventPhotoResponseDto](doc/GetManyRouteHistoricalEventPhotoResponseDto.md)
  - [GetManyRouteHistoricalEventResponseDto](doc/GetManyRouteHistoricalEventResponseDto.md)
  - [GetManyRouteResponseDto](doc/GetManyRouteResponseDto.md)
  - [GetManyShareResponseDto](doc/GetManyShareResponseDto.md)
@@ -233,23 +232,25 @@ Class | Method | HTTP request | Description
  - [GetManyTicketMessageResponseDto](doc/GetManyTicketMessageResponseDto.md)
  - [GetManyTicketResponseDto](doc/GetManyTicketResponseDto.md)
  - [GetManyTreasureChestResponseDto](doc/GetManyTreasureChestResponseDto.md)
- - [GetManyUserResponseDto](doc/GetManyUserResponseDto.md)
+ - [GetManyUserEntityResponseDto](doc/GetManyUserEntityResponseDto.md)
  - [Guideline](doc/Guideline.md)
  - [GuidelineLog](doc/GuidelineLog.md)
  - [HealthControllerCheck200Response](doc/HealthControllerCheck200Response.md)
  - [HealthControllerCheck200ResponseInfoValue](doc/HealthControllerCheck200ResponseInfoValue.md)
  - [HealthControllerCheck503Response](doc/HealthControllerCheck503Response.md)
+ - [ImageUpdateDto](doc/ImageUpdateDto.md)
  - [Like](doc/Like.md)
  - [Notification](doc/Notification.md)
  - [Participant](doc/Participant.md)
- - [PictureUpdateDto](doc/PictureUpdateDto.md)
  - [PostFeed](doc/PostFeed.md)
  - [RefreshToken](doc/RefreshToken.md)
  - [Room](doc/Room.md)
  - [Route](doc/Route.md)
  - [RouteClue](doc/RouteClue.md)
  - [RouteHistoricalEvent](doc/RouteHistoricalEvent.md)
- - [RouteHistoricalEventPhoto](doc/RouteHistoricalEventPhoto.md)
+ - [RouteHistoricalEventPoint](doc/RouteHistoricalEventPoint.md)
+ - [RouteHistoricalEventRoute](doc/RouteHistoricalEventRoute.md)
+ - [RouteUser](doc/RouteUser.md)
  - [SendVerificationTokenDto](doc/SendVerificationTokenDto.md)
  - [Share](doc/Share.md)
  - [SimpleUser](doc/SimpleUser.md)
@@ -261,10 +262,10 @@ Class | Method | HTTP request | Description
  - [TicketMessage](doc/TicketMessage.md)
  - [TokenResponse](doc/TokenResponse.md)
  - [TreasureChest](doc/TreasureChest.md)
- - [User](doc/User.md)
  - [UserAuthResponse](doc/UserAuthResponse.md)
- - [UserPicture](doc/UserPicture.md)
- - [UserStatus](doc/UserStatus.md)
+ - [UserEntity](doc/UserEntity.md)
+ - [UserEntityPicture](doc/UserEntityPicture.md)
+ - [UserEntityStatus](doc/UserEntityStatus.md)
 
 
 ## Documentation For Authorization

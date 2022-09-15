@@ -7,8 +7,11 @@ import 'package:gowild_api/gowild_api.dart';
 final polylinePoints = PolylinePoints();
 
 Future<List<LatLng>> findPolyLines(Route route) async {
-  final start = route.toStart();
-  final end = route.toEnd();
+  final start = route.start?.toPoint();
+  final end = route.end?.toPoint();
+  if (end == null || start == null) {
+    throw AssertionError('missing starting or ending point');
+  }
 
   final value = await polylinePoints.getRouteBetweenCoordinates(
     'AIzaSyCgUycdQ8C8cnGaYTPymLvIzidBENWVicU',

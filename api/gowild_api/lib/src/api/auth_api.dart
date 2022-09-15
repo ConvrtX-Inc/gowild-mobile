@@ -16,8 +16,8 @@ import 'package:gowild_api/src/model/auth_register_login_dto.dart';
 import 'package:gowild_api/src/model/auth_reset_password_admin_dto.dart';
 import 'package:gowild_api/src/model/auth_reset_password_dto.dart';
 import 'package:gowild_api/src/model/token_response.dart';
-import 'package:gowild_api/src/model/user.dart';
 import 'package:gowild_api/src/model/user_auth_response.dart';
+import 'package:gowild_api/src/model/user_entity.dart';
 
 class AuthApi {
 
@@ -104,9 +104,9 @@ class AuthApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [User] as data
+  /// Returns a [Future] containing a [Response] with a [UserEntity] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<User>> authControllerGenerateAdmin({ 
+  Future<Response<UserEntity>> authControllerGenerateAdmin({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -135,14 +135,14 @@ class AuthApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    User _responseData;
+    UserEntity _responseData;
 
     try {
-      const _responseType = FullType(User);
+      const _responseType = FullType(UserEntity);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as User;
+      ) as UserEntity;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -153,7 +153,7 @@ class AuthApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<User>(
+    return Response<UserEntity>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -314,9 +314,9 @@ class AuthApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [User] as data
+  /// Returns a [Future] containing a [Response] with a [UserEntity] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<User>> authControllerMe({ 
+  Future<Response<UserEntity>> authControllerMe({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -351,14 +351,14 @@ class AuthApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    User _responseData;
+    UserEntity _responseData;
 
     try {
-      const _responseType = FullType(User);
+      const _responseType = FullType(UserEntity);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as User;
+      ) as UserEntity;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -369,7 +369,7 @@ class AuthApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<User>(
+    return Response<UserEntity>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -486,9 +486,9 @@ class AuthApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [User] as data
+  /// Returns a [Future] containing a [Response] with a [UserEntity] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<User>> authControllerRegister({ 
+  Future<Response<UserEntity>> authControllerRegister({ 
     required AuthRegisterLoginDto authRegisterLoginDto,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -537,14 +537,14 @@ class AuthApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    User _responseData;
+    UserEntity _responseData;
 
     try {
-      const _responseType = FullType(User);
+      const _responseType = FullType(UserEntity);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as User;
+      ) as UserEntity;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -555,7 +555,7 @@ class AuthApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<User>(
+    return Response<UserEntity>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -579,9 +579,9 @@ class AuthApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [User] as data
+  /// Returns a [Future] containing a [Response] with a [UserEntity] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<User>> authControllerResetAdminPassword({ 
+  Future<Response<UserEntity>> authControllerResetAdminPassword({ 
     required AuthResetPasswordAdminDto authResetPasswordAdminDto,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -630,14 +630,14 @@ class AuthApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    User _responseData;
+    UserEntity _responseData;
 
     try {
-      const _responseType = FullType(User);
+      const _responseType = FullType(UserEntity);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as User;
+      ) as UserEntity;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -648,7 +648,7 @@ class AuthApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<User>(
+    return Response<UserEntity>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

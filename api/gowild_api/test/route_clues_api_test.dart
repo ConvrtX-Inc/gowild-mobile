@@ -42,6 +42,11 @@ void main() {
       // TODO
     });
 
+    //Future<RouteClue> routeCluesControllerUpdateMedias(String id, BuiltList<ImageUpdateDto> imageUpdateDto) async
+    test('test routeCluesControllerUpdateMedias', () async {
+      // TODO
+    });
+
     // Update one RouteClue
     //
     //Future<RouteClue> updateOneBaseRouteCluesControllerRouteClue(String id, RouteClue routeClue) async

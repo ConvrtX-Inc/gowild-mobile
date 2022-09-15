@@ -35,6 +35,11 @@ void main() {
       // TODO
     });
 
+    //Future<Route> routeControllerUpdatePicture(String id, ImageUpdateDto imageUpdateDto) async
+    test('test routeControllerUpdatePicture', () async {
+      // TODO
+    });
+
     // Update one Route
     //
     //Future<Route> updateOneBaseRouteControllerRoute(String id, Route route) async

@@ -27,28 +27,13 @@ void main() {
       // TODO
     });
 
-    // double locationPointLong
-    test('to test the property `locationPointLong`', () async {
+    // AppPoint point
+    test('to test the property `point`', () async {
       // TODO
     });
 
-    // double locationPointLat
-    test('to test the property `locationPointLat`', () async {
-      // TODO
-    });
-
-    // double cluePointLong
-    test('to test the property `cluePointLong`', () async {
-      // TODO
-    });
-
-    // double cluePointLat
-    test('to test the property `cluePointLat`', () async {
-      // TODO
-    });
-
-    // String clueTitle
-    test('to test the property `clueTitle`', () async {
+    // String title
+    test('to test the property `title`', () async {
       // TODO
     });
 
@@ -57,13 +42,8 @@ void main() {
       // TODO
     });
 
-    // JsonObject clueImg
-    test('to test the property `clueImg`', () async {
-      // TODO
-    });
-
-    // String videoUrl
-    test('to test the property `videoUrl`', () async {
+    // BuiltList<FileEntity> medias
+    test('to test the property `medias`', () async {
       // TODO
     });
 

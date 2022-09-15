@@ -12,14 +12,10 @@ Name | Type | Description | Notes
 **createdDate** | [**DateTime**](DateTime.md) |  | 
 **updatedDate** | [**DateTime**](DateTime.md) |  | 
 **routeId** | **String** |  | 
-**locationPointLong** | **double** |  | 
-**locationPointLat** | **double** |  | 
-**cluePointLong** | **double** |  | 
-**cluePointLat** | **double** |  | 
-**clueTitle** | **String** |  | 
+**point** | [**AppPoint**](AppPoint.md) |  | 
+**title** | **String** |  | 
 **description** | **String** |  | 
-**clueImg** | [**JsonObject**](.md) |  | 
-**videoUrl** | **String** |  | 
+**medias** | [**BuiltList&lt;FileEntity&gt;**](FileEntity.md) |  | 
 **arClue** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

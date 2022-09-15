@@ -13,13 +13,11 @@ Name | Type | Description | Notes
 **updatedDate** | [**DateTime**](DateTime.md) |  | 
 **title** | **String** |  | 
 **description** | **String** |  | 
-**locationLong** | **double** |  | 
-**locationLat** | **double** |  | 
+**location** | [**AppPoint**](AppPoint.md) |  | 
 **eventDate** | [**DateTime**](DateTime.md) |  | 
 **eventTime** | **String** |  | 
 **noOfParticipants** | **num** |  | 
-**imgUrl** | **String** |  | 
-**thumbnailImg** | [**JsonObject**](.md) |  | 
+**picture** | [**UserEntityPicture**](UserEntityPicture.md) |  | 
 **aR** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

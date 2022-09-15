@@ -8,6 +8,8 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AccessToken.serializer)
+      ..add(AppPoint.serializer)
+      ..add(AppPointTypeEnum.serializer)
       ..add(AuthEmailLoginDto.serializer)
       ..add(AuthFacebookLoginDto.serializer)
       ..add(AuthForgotPasswordDto.serializer)
@@ -35,7 +37,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GetManyPostFeedResponseDto.serializer)
       ..add(GetManyRoomResponseDto.serializer)
       ..add(GetManyRouteClueResponseDto.serializer)
-      ..add(GetManyRouteHistoricalEventPhotoResponseDto.serializer)
       ..add(GetManyRouteHistoricalEventResponseDto.serializer)
       ..add(GetManyRouteResponseDto.serializer)
       ..add(GetManyShareResponseDto.serializer)
@@ -45,23 +46,26 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GetManyTicketMessageResponseDto.serializer)
       ..add(GetManyTicketResponseDto.serializer)
       ..add(GetManyTreasureChestResponseDto.serializer)
-      ..add(GetManyUserResponseDto.serializer)
+      ..add(GetManyUserEntityResponseDto.serializer)
       ..add(Guideline.serializer)
       ..add(GuidelineLog.serializer)
       ..add(HealthControllerCheck200Response.serializer)
       ..add(HealthControllerCheck200ResponseInfoValue.serializer)
       ..add(HealthControllerCheck503Response.serializer)
+      ..add(ImageUpdateDto.serializer)
       ..add(Like.serializer)
       ..add(Notification.serializer)
       ..add(Participant.serializer)
-      ..add(PictureUpdateDto.serializer)
       ..add(PostFeed.serializer)
       ..add(RefreshToken.serializer)
       ..add(Room.serializer)
       ..add(Route.serializer)
       ..add(RouteClue.serializer)
       ..add(RouteHistoricalEvent.serializer)
-      ..add(RouteHistoricalEventPhoto.serializer)
+      ..add(RouteHistoricalEventPoint.serializer)
+      ..add(RouteHistoricalEventPointTypeEnum.serializer)
+      ..add(RouteHistoricalEventRoute.serializer)
+      ..add(RouteUser.serializer)
       ..add(SendVerificationTokenDto.serializer)
       ..add(Share.serializer)
       ..add(SimpleUser.serializer)
@@ -74,17 +78,23 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(TicketMessage.serializer)
       ..add(TokenResponse.serializer)
       ..add(TreasureChest.serializer)
-      ..add(User.serializer)
       ..add(UserAuthResponse.serializer)
-      ..add(UserPicture.serializer)
-      ..add(UserStatus.serializer)
-      ..add(UserStatusStatusNameEnum.serializer)
+      ..add(UserEntity.serializer)
+      ..add(UserEntityPicture.serializer)
+      ..add(UserEntityStatus.serializer)
+      ..add(UserEntityStatusStatusNameEnum.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Comment)]),
           () => new ListBuilder<Comment>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Currency)]),
           () => new ListBuilder<Currency>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(FileEntity)]),
+          () => new ListBuilder<FileEntity>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(FileEntity)]),
+          () => new ListBuilder<FileEntity>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Friends)]),
           () => new ListBuilder<Friends>())
@@ -121,8 +131,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
           () => new ListBuilder<RouteHistoricalEvent>())
       ..addBuilderFactory(
           const FullType(
-              BuiltList, const [const FullType(RouteHistoricalEventPhoto)]),
-          () => new ListBuilder<RouteHistoricalEventPhoto>())
+              BuiltList, const [const FullType(RouteHistoricalEvent)]),
+          () => new ListBuilder<RouteHistoricalEvent>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(RouteHistoricalEvent)]),
+          () => new ListBuilder<RouteHistoricalEvent>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Share)]),
           () => new ListBuilder<Share>())
@@ -145,8 +159,14 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(TreasureChest)]),
           () => new ListBuilder<TreasureChest>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(User)]),
-          () => new ListBuilder<User>())
+          const FullType(BuiltList, const [const FullType(UserEntity)]),
+          () => new ListBuilder<UserEntity>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(double)]),
+          () => new ListBuilder<double>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(double)]),
+          () => new ListBuilder<double>())
       ..addBuilderFactory(
           const FullType(BuiltMap, const [
             const FullType(String),

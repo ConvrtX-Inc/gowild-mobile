@@ -2,7 +2,7 @@
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
-import 'package:gowild_api/src/model/user.dart';
+import 'package:gowild_api/src/model/user_entity.dart';
 import 'package:gowild_api/src/model/token_response.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -19,7 +19,7 @@ abstract class UserAuthResponse implements Built<UserAuthResponse, UserAuthRespo
     TokenResponse get token;
 
     @BuiltValueField(wireName: r'user')
-    User get user;
+    UserEntity get user;
 
     UserAuthResponse._();
 
@@ -50,7 +50,7 @@ class _$UserAuthResponseSerializer implements StructuredSerializer<UserAuthRespo
         result
             ..add(r'user')
             ..add(serializers.serialize(object.user,
-                specifiedType: const FullType(User)));
+                specifiedType: const FullType(UserEntity)));
         return result;
     }
 
@@ -73,7 +73,7 @@ class _$UserAuthResponseSerializer implements StructuredSerializer<UserAuthRespo
                     break;
                 case r'user':
                     final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(User)) as User;
+                        specifiedType: const FullType(UserEntity)) as UserEntity;
                     result.user.replace(valueDes);
                     break;
             }

@@ -38,9 +38,6 @@ class MapOverlayWidget extends HookConsumerWidget {
       extendBodyBehindAppBar: true,
       extendBody: true,
       resizeToAvoidBottomInset: true,
-      floatingActionButton: const BottomFlatButtonWidget(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // bottomNavigationBar: const BottomNavBar(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         // iconTheme: const IconThemeData(color: primaryYellow, size: 28),

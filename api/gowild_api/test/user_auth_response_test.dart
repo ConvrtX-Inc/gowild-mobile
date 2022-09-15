@@ -12,7 +12,7 @@ void main() {
       // TODO
     });
 
-    // User user
+    // UserEntity user
     test('to test the property `user`', () async {
       // TODO
     });
