@@ -1,10 +1,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.gowild_mobile">
+    package="com.convrtx.mobile.gowild">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
    <application
-        android:label="gowild_mobile"
+        android:label="gowild"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
-        <activity
+        android:icon="@mipmap/launcher_icon">
+
+       <meta-data android:name="com.google.android.geo.API_KEY"
+                   android:value="AIzaSyCHqBsTX7vH5oS1Cs4Xc_61Ij5PtBZahjQ"/>
+
+       <activity
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
@@ -12,6 +24,7 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
+
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues

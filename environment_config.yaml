@@ -1,0 +1,15 @@
+environment_config:
+  path: environment_config.dart # optional, result file path against `lib/` folder
+  dotenv_path: .env # optional, result file path for .env file against project root folder
+  class: EnvironmentConfig # optional, class name
+
+  fields: # set of fields for command
+    apiBaseUrl: # key name
+      type: String
+      short_name: a
+      const: TRUE
+      default: http://localhost:3001
+      dotenv: true
+      config_field: TRUE
+      env_var: API_BASE_URL
+      static: TRUE
