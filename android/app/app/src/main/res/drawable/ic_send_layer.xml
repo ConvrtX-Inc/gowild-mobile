@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingMode="nest"
+    android:shape="rectangle">
+
+
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#00755E" />
+        </shape>
+    </item>
+    <item
+        android:bottom="5dp"
+        android:drawable="@drawable/ic_send"
+        android:end="5dp"
+        android:start="5dp"
+        android:top="5dp" />
+
+
+</layer-list>

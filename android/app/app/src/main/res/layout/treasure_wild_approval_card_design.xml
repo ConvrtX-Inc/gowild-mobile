@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_10sdp"
+    android:layout_marginEnd="@dimen/_10sdp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_231sdp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/parent_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_123sdp"
+                android:scaleType="fitXY"
+                android:src="@drawable/islmbd_pic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/parent_layout"
+                app:layout_constraintTop_toTopOf="@id/parent_layout" />
+
+            <TextView
+                android:id="@+id/tv_event_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_display_new"
+                android:text="@string/download_this_event_map"
+                android:textColor="@color/event_map_color"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_image" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/_25sdp"
+                android:fontFamily="@font/the_foregen_rough_one"
+                android:text="@string/my_company_treasure_hunt"
+                android:textColor="@color/description_color"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@id/parent_layout"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/parent_layout"
+                app:layout_constraintTop_toBottomOf="@id/iv_image" />
+
+            <TextView
+                android:id="@+id/company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:fontFamily="@font/me_source_sans_pro"
+                android:text="@string/my_company"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@id/tv_username"
+                app:layout_constraintTop_toBottomOf="@+id/tv_username" />
+
+            <TextView
+                android:id="@+id/sponsored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/me_source_sans_pro"
+                android:text="@string/sponsored"
+                android:textColor="@color/txt_description_color"
+                android:textSize="12sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@id/company_name"
+                app:layout_constraintTop_toBottomOf="@+id/company_name" />
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/red_bull"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@id/sponsored"
+                app:layout_constraintTop_toBottomOf="@id/sponsored" />
+
+            <TextView
+                android:id="@id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_24sdp"
+                android:fontFamily="@font/me_source_sans_pro"
+                android:text="@string/formated_date"
+                android:textColor="@color/darkOrange"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/company_name"
+                app:layout_constraintEnd_toEndOf="@id/parent_layout"
+                app:layout_constraintTop_toTopOf="@id/company_name" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/me_source_sans_pro"
+                android:text="@string/time"
+                android:textColor="@color/darkOrange"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/img"
+                app:layout_constraintEnd_toEndOf="@id/date"
+                app:layout_constraintTop_toBottomOf="@id/date" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_61sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_venenatis_volutpat_risus_vitae_iaculis_duis_laoreet_molestie_efficitur_aenean_arcu_velit_vestibulum_a_libero_vel_sollicitudin_posuere_dui"
+                android:textColor="@color/txt_description_color"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/parent_layout"
+                app:layout_constraintStart_toStartOf="@id/img"
+                app:layout_constraintTop_toBottomOf="@id/tv_username" />
+
+            <TextView
+                android:id="@+id/registered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/registered"
+                android:textColor="@color/txt_description_color"
+                android:textSize="12sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@id/user_img1"
+                app:layout_constraintStart_toStartOf="@id/tv_description"
+                app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/gilroy_bold"
+                android:text="@string/how_many_left"
+                android:textColor="@color/txt_left"
+                android:textSize="12sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toEndOf="@id/registered"
+                app:layout_constraintTop_toTopOf="@id/registered" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_img1"
+                android:layout_width="@dimen/_29sdp"
+                android:layout_height="@dimen/_29sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:background="@drawable/views_img_bg"
+                android:padding="2dp"
+                android:src="@drawable/profile_img"
+                app:layout_constraintStart_toStartOf="@id/tv_description"
+                app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_img2"
+                android:layout_width="@dimen/_29sdp"
+                android:layout_height="@dimen/_29sdp"
+                android:layout_marginStart="3dp"
+                android:background="@drawable/views_img_bg"
+                android:padding="2dp"
+                android:src="@drawable/profile_img"
+                app:layout_constraintStart_toEndOf="@id/user_img1"
+                app:layout_constraintTop_toTopOf="@id/user_img1" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_img3"
+                android:layout_width="@dimen/_29sdp"
+                android:layout_height="@dimen/_29sdp"
+                android:layout_marginStart="3dp"
+                android:background="@drawable/views_img_bg"
+                android:padding="2dp"
+                android:src="@drawable/profile_img"
+                app:layout_constraintStart_toEndOf="@id/user_img2"
+                app:layout_constraintTop_toTopOf="@id/user_img2" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_img4"
+                android:layout_width="@dimen/_29sdp"
+                android:layout_height="@dimen/_29sdp"
+                android:layout_marginStart="3dp"
+                android:background="@drawable/views_img_bg"
+                android:padding="2dp"
+                android:src="@drawable/profile_img"
+                app:layout_constraintStart_toEndOf="@id/user_img3"
+                app:layout_constraintTop_toTopOf="@id/user_img3" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_img5"
+                android:layout_width="@dimen/_29sdp"
+                android:layout_height="@dimen/_29sdp"
+                android:layout_marginStart="3dp"
+                android:background="@drawable/views_img_bg"
+                android:padding="2dp"
+                android:src="@drawable/profile_img"
+                app:layout_constraintStart_toEndOf="@id/user_img4"
+                app:layout_constraintTop_toTopOf="@id/user_img4" />
+
+            <TextView
+                android:id="@+id/totoal_views"
+                android:layout_width="@dimen/_29sdp"
+                android:layout_height="@dimen/_29sdp"
+                android:layout_marginStart="3dp"
+                android:background="@drawable/view_bg"
+                android:fontFamily="@font/gilroy_bold"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="@string/total_count"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/user_img5"
+                app:layout_constraintStart_toEndOf="@id/user_img5"
+                app:layout_constraintTop_toTopOf="@id/user_img5" />
+
+            <Button
+                android:id="@+id/startBtn"
+                style="@style/Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/bg_btn"
+                android:fontFamily="@font/gilroy_bold"
+                android:scaleType="centerCrop"
+                android:text="@string/start"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_img3" />
+
+            <TextView
+                android:id="@+id/waitingForAprovalBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_34sdp"
+                android:layout_marginBottom="@dimen/_31sdp"
+                android:fontFamily="@font/gilroy_bold"
+                android:text="@string/waiting_for_approval"
+                android:textColor="@color/gold_orange"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_img3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

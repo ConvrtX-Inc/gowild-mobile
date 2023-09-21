@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_285sdp"
+        android:layout_height="@dimen/_370sdp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="@dimen/_31sdp"
+                android:layout_height="@dimen/_31sdp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/profile_img"
+                app:layout_constraintStart_toStartOf="@id/parent"
+                app:layout_constraintTop_toTopOf="@id/parent" />
+
+            <TextView
+                android:id="@id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/sf_pro_display"
+                android:text="@string/jennylyn_artecona"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/iv_profile"
+                app:layout_constraintTop_toTopOf="@id/iv_profile" />
+
+            <TextView
+                android:id="@id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/minutes_age"
+                android:textColor="@color/time_color"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/iv_profile"
+                app:layout_constraintTop_toBottomOf="@id/tv_username" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:lines="3"
+                android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_venenatis_volutpat_risus_vitae_iaculis_duis_laoreet_molestie_efficitur_aenean_arcu_velit_vestibulum_a_libero_vel_sollicitudin_posuere_dui"
+                android:textColor="@color/more_color"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/parent"
+                app:layout_constraintStart_toStartOf="@id/parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_time" />
+
+            <TextView
+                android:id="@+id/tv_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/more"
+                android:textColor="@color/more_color"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/tv_description"
+                app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="@dimen/_226sdp"
+                android:layout_height="@dimen/_167sdp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="26dp"
+                android:src="@drawable/front_view_female"
+                app:layout_constraintEnd_toEndOf="@id/parent"
+                app:layout_constraintStart_toStartOf="@id/parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_more" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_position_one"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginTop="26dp"
+                android:src="@drawable/profile_img"
+                app:layout_constraintStart_toStartOf="@id/iv_profile"
+                app:layout_constraintTop_toBottomOf="@id/iv_profile" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_position_two"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginStart="-10dp"
+                android:background="@drawable/views_img_bg"
+                android:padding="2dp"
+                android:src="@drawable/profile_img"
+                app:layout_constraintStart_toEndOf="@id/iv_position_one"
+                app:layout_constraintTop_toTopOf="@id/iv_position_one" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_position_three"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginStart="-10dp"
+                android:background="@drawable/views_img_bg"
+                android:padding="2dp"
+                android:src="@drawable/profile_img"
+                app:layout_constraintStart_toEndOf="@id/iv_position_two"
+                app:layout_constraintTop_toTopOf="@id/iv_position_two" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/likes"
+                android:textColor="@color/likes_color"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_position_one"
+                app:layout_constraintStart_toEndOf="@id/iv_position_three"
+                app:layout_constraintTop_toTopOf="@id/iv_position_one" />
+
+            <ImageView
+                android:id="@+id/img_eye"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/eye"
+                app:layout_constraintBottom_toBottomOf="@id/parent"
+                app:layout_constraintStart_toStartOf="@id/iv_position_one"
+                app:layout_constraintTop_toBottomOf="@id/iv_position_one"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tv_views"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="23"
+                android:textColor="@color/orange_light"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@id/img_eye"
+                app:layout_constraintTop_toTopOf="@id/img_eye" />
+
+            <TextView
+                android:id="@+id/tv_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="8"
+                android:textColor="@color/orange_light"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="@id/iv_profile"
+                app:layout_constraintTop_toTopOf="@id/img_eye" />
+
+            <ImageView
+                android:id="@+id/img_like"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/like"
+                app:layout_constraintEnd_toStartOf="@id/tv_likes"
+                app:layout_constraintTop_toTopOf="@id/tv_likes" />
+
+            <TextView
+                android:id="@+id/tv_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:text="5"
+                android:textColor="@color/orange_light"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toStartOf="@id/img_like"
+                app:layout_constraintTop_toTopOf="@id/tv_likes" />
+
+            <ImageView
+                android:id="@+id/img_comment"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/comment"
+                app:layout_constraintEnd_toStartOf="@id/tv_comment"
+                app:layout_constraintTop_toTopOf="@id/tv_likes" />
+
+
+            <TextView
+                android:id="@+id/tv_forward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:text="7"
+                android:textColor="@color/orange_light"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toStartOf="@id/img_comment"
+                app:layout_constraintTop_toTopOf="@id/tv_likes" />
+
+            <ImageView
+                android:id="@+id/img_forward"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/forward"
+                app:layout_constraintEnd_toStartOf="@id/tv_forward"
+                app:layout_constraintTop_toTopOf="@id/tv_likes" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

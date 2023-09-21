@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.map.runwild.LeaderBoardDetailFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_30sdp">
+
+        <ImageView
+            android:id="@+id/backIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_23sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/titleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="19dp"
+            android:fontFamily="@font/the_foregen_rough_one_normal"
+            android:gravity="center"
+            android:text="@string/leaderboard"
+
+            android:textAlignment="gravity"
+            android:textColor="@color/lightOrange"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/backIv"
+            app:layout_constraintStart_toEndOf="@+id/backIv"
+            app:layout_constraintTop_toTopOf="@+id/backIv" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/achievement_profile_img"
+            android:layout_width="@dimen/_61sdp"
+            android:layout_height="@dimen/_61sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTv"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_13sdp"
+            android:fontFamily="@font/gilroy_semibold"
+            android:text="@string/jennylyn_artecona"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/achievement_profile_img"
+            app:layout_constraintStart_toEndOf="@id/achievement_profile_img"
+            app:layout_constraintTop_toTopOf="@id/achievement_profile_img"
+            app:layout_constraintVertical_bias="0.2" />
+
+        <TextView
+            android:id="@+id/congratulations_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_149sdp"
+            android:fontFamily="@font/gilroy_semibold"
+            android:gravity="center"
+            android:text="@string/congratulations_you_are_8th_place_on_this_route"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_114sdp"
+            android:fontFamily="@font/digital_number"
+            android:text="@string/minutes_time"
+            android:textColor="@color/leadboard_time_color"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/congratulations_txt" />
+
+        <TextView
+            android:id="@+id/distance_start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_28sdp"
+            android:layout_marginTop="@dimen/_21sdp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/gilroy_semibold"
+            android:gravity="center"
+            android:text="-"
+            android:textAlignment="gravity"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_label_to"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_time" />
+
+        <TextView
+            android:id="@+id/distance_start_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/gilroy_semibold"
+            android:text="@string/coast_mountains"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/distance_start"
+            app:layout_constraintStart_toStartOf="@id/distance_start"
+            app:layout_constraintTop_toBottomOf="@id/distance_start" />
+
+        <TextView
+            android:id="@+id/tv_label_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/the_foregen_rough_one"
+            android:text="@string/to"
+            android:textColor="@color/lightOrange"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@id/distance_start_hint"
+            app:layout_constraintEnd_toStartOf="@+id/distance_end"
+            app:layout_constraintStart_toEndOf="@id/distance_start"
+            app:layout_constraintTop_toTopOf="@id/distance_start" />
+
+        <TextView
+            android:id="@+id/distance_end"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="@dimen/_28sdp"
+            android:fontFamily="@font/gilroy_semibold"
+            android:gravity="center"
+            android:text="@string/alexander_ave"
+            android:textAlignment="gravity"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_label_to"
+            app:layout_constraintTop_toTopOf="@id/distance_start" />
+
+        <TextView
+            android:id="@+id/distance_end_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/gilroy_semibold"
+            android:text="@string/mathew_platform"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/distance_end"
+            app:layout_constraintStart_toStartOf="@id/distance_end"
+            app:layout_constraintTop_toBottomOf="@id/distance_end" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

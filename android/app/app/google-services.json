@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "321129921779",
+    "project_id": "gowild-373607",
+    "storage_bucket": "gowild-373607.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321129921779:android:c6f6fbae6b1b93c044cb86",
+        "android_client_info": {
+          "package_name": "com.android.gowild"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "321129921779-qcc60tt4eovc2kcn9ftth861itp2msp7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.gowild",
+            "certificate_hash": "8b7039bd0ab116d4743572e18a1eb87ba099ef74"
+          }
+        },
+        {
+          "client_id": "321129921779-bit1jtnm7aap0l7krnhcpul96gmefndb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtVThKa-eKLICif2jChvtv5yPYn4lQt1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321129921779-bit1jtnm7aap0l7krnhcpul96gmefndb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "321129921779-ggru82m00j5ann43jpcltk54m4668569.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.goWildHistory"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321129921779:android:cb426ccedd11814744cb86",
+        "android_client_info": {
+          "package_name": "com.android.gowild.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "321129921779-3sb8q9ne6viisl5itofl6g8bim6j8bio.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.gowild.debug",
+            "certificate_hash": "8b7039bd0ab116d4743572e18a1eb87ba099ef74"
+          }
+        },
+        {
+          "client_id": "321129921779-bit1jtnm7aap0l7krnhcpul96gmefndb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtVThKa-eKLICif2jChvtv5yPYn4lQt1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321129921779-bit1jtnm7aap0l7krnhcpul96gmefndb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "321129921779-ggru82m00j5ann43jpcltk54m4668569.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.goWildHistory"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

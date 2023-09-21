@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.android.gowild.data.model.myTrail.SaveRoutesDataModel" />
+
+        <variable
+            name="options"
+            type="String" />
+
+        <variable
+            name="position"
+            type="Integer" />
+
+        <variable
+            name="listener"
+            type="com.android.gowild.interfaces.UnSaveRouteCallback" />
+
+        <import type="com.android.gowild.R" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_leader_board"
+            data="@{item.leaderboard}"
+            layout="@{R.layout.list_item_leader_board}"
+            options="@{options}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toStartOf="@id/view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:itemCount="1"
+            tools:listitem="@layout/list_item_leader_board" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="125dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/new_map_border"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/rv_leader_board"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_map"
+            adjustLayout="@{item.leaderboard}"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/view"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/view"
+            app:layout_constraintTop_toTopOf="@id/view">
+
+            <ImageView
+                android:id="@+id/iv_map"
+                image_url="@{`https://api.gowild.appscorridor.com`+item.route.picture}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/map" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_route_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:fontFamily="@font/roboto"
+            android:lines="1"
+            android:text="@{item.route.title, default=`Muhammad Usman`}"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/cv_map"
+            app:layout_constraintTop_toTopOf="@id/view"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/iv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:src="@drawable/ic_location"
+            app:layout_constraintStart_toEndOf="@id/cv_map"
+            app:layout_constraintTop_toBottomOf="@id/tv_route_name" />
+
+        <TextView
+            android:id="@+id/tv_miles"
+            round_value="@{item.route.distance_miles}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/txt_color"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_location"
+            app:layout_constraintStart_toEndOf="@id/iv_location"
+            app:layout_constraintTop_toTopOf="@id/iv_location" />
+
+        <ImageView
+            android:id="@+id/iv_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_clock"
+            app:layout_constraintBottom_toBottomOf="@id/tv_miles"
+            app:layout_constraintStart_toEndOf="@id/tv_miles"
+            app:layout_constraintTop_toTopOf="@id/tv_miles" />
+
+        <TextView
+            android:id="@+id/tv_times"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto"
+            android:text="@{item.route.estimate_time, default=`1h 13m`}"
+            android:textColor="@color/txt_color"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_clock"
+            app:layout_constraintStart_toEndOf="@id/iv_clock"
+            app:layout_constraintTop_toTopOf="@id/iv_clock" />
+
+        <TextView
+            android:id="@+id/tv_meters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto"
+            android:text="@{String.valueOf(item.route.distance_meters+`m`), default=`500m`}"
+            android:textColor="@color/txt_color"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_times"
+            app:layout_constraintStart_toEndOf="@id/tv_times"
+            app:layout_constraintTop_toTopOf="@id/tv_times" />
+
+        <ImageView
+            android:id="@+id/iv_route_layer"
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:src="@drawable/layers"
+            app:layout_constraintBottom_toBottomOf="@id/tv_meters"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_meters"
+            app:layout_constraintTop_toTopOf="@id/tv_meters" />
+
+        <TextView
+            android:id="@+id/tv_try_route"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="@dimen/_17sdp"
+            android:background="@drawable/new_try_route_bg"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:onClick="@{() -> listener.onTryRoute(item.route, position)}"
+            android:padding="10dp"
+            android:text="@string/try_route"
+            android:textColor="@color/orange_light"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/cv_map"
+            app:layout_constraintStart_toStartOf="@id/iv_location"
+            app:layout_constraintTop_toBottomOf="@+id/iv_location" />
+
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/new_try_route_bg"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:onClick="@{() -> listener.onUnSaveRoute(item.route_id, position)}"
+            android:padding="10dp"
+            android:text="Unsave"
+            android:textColor="@color/orange_light"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_try_route"
+            app:layout_constraintStart_toEndOf="@+id/tv_try_route"
+            app:layout_constraintTop_toTopOf="@+id/tv_try_route" />
+
+        <TextView
+            android:id="@+id/tv_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/post_btn_bg"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:onClick="@{() -> listener.openDetailsFragment(item.route_id)}"
+            android:padding="10dp"
+            android:text="@string/details"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_save"
+            app:layout_constraintStart_toEndOf="@+id/tv_save"
+            app:layout_constraintTop_toTopOf="@+id/tv_save" />
+
+        <View
+            android:id="@+id/space_details_end"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_save"
+            app:layout_constraintEnd_toEndOf="@id/view"
+            app:layout_constraintStart_toEndOf="@+id/tv_details"
+            app:layout_constraintTop_toTopOf="@+id/tv_save" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
