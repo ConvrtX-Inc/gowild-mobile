@@ -1,0 +1,333 @@
+PODS:
+  - Alamofire (5.6.2)
+  - AppAuth (1.6.0):
+    - AppAuth/Core (= 1.6.0)
+    - AppAuth/ExternalUserAgent (= 1.6.0)
+  - AppAuth/Core (1.6.0)
+  - AppAuth/ExternalUserAgent (1.6.0):
+    - AppAuth/Core
+  - Cache (6.0.0)
+  - Cosmos (23.0.0)
+  - FBAEMKit (12.3.2):
+    - FBSDKCoreKit_Basics (= 12.3.2)
+  - FBSDKCoreKit (12.3.2):
+    - FBAEMKit (= 12.3.2)
+    - FBSDKCoreKit_Basics (= 12.3.2)
+  - FBSDKCoreKit_Basics (12.3.2)
+  - FBSDKLoginKit (12.3.2):
+    - FBSDKCoreKit (= 12.3.2)
+  - Firebase/Analytics (10.4.0):
+    - Firebase/Core
+  - Firebase/Auth (10.4.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 10.4.0)
+  - Firebase/Core (10.4.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (~> 10.4.0)
+  - Firebase/CoreOnly (10.4.0):
+    - FirebaseCore (= 10.4.0)
+  - Firebase/Messaging (10.4.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 10.4.0)
+  - FirebaseAnalytics (10.4.0):
+    - FirebaseAnalytics/AdIdSupport (= 10.4.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseAnalytics/AdIdSupport (10.4.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleAppMeasurement (= 10.4.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseAuth (10.4.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
+  - FirebaseCore (10.4.0):
+    - FirebaseCoreInternal (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Logger (~> 7.8)
+  - FirebaseCoreInternal (10.4.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseInstallations (10.4.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - PromisesObjC (~> 2.1)
+  - FirebaseMessaging (10.4.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Reachability (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement (10.4.0):
+    - GoogleAppMeasurement/AdIdSupport (= 10.4.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/AdIdSupport (10.4.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.4.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/WithoutAdIdSupport (10.4.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleDataTransport (9.2.1):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleMaps (7.3.0):
+    - GoogleMaps/Maps (= 7.3.0)
+  - GoogleMaps/Base (7.3.0)
+  - GoogleMaps/Maps (7.3.0):
+    - GoogleMaps/Base
+  - GooglePlaces (7.2.0)
+  - GoogleSignIn (6.2.4):
+    - AppAuth (~> 1.5)
+    - GTMAppAuth (~> 1.3)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.1)
+  - GoogleUtilities/AppDelegateSwizzler (7.11.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (7.11.0):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.11.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (7.11.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (7.11.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.11.0)"
+  - GoogleUtilities/Reachability (7.11.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (7.11.0):
+    - GoogleUtilities/Logger
+  - GTMAppAuth (1.3.1):
+    - AppAuth/Core (~> 1.6)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.5)
+  - GTMSessionFetcher/Core (2.3.0)
+  - Imaginary (5.0.0):
+    - Cache (~> 6.0.0)
+  - InputBarAccessoryView (5.5.0):
+    - InputBarAccessoryView/Core (= 5.5.0)
+  - InputBarAccessoryView/Core (5.5.0)
+  - IQDropDownTextField (3.0.2)
+  - IQKeyboardManagerSwift (6.5.10)
+  - JGProgressHUD (2.2)
+  - Kingfisher (7.4.1)
+  - Lightbox (2.5.0):
+    - Imaginary (~> 5.0.0)
+  - MapboxCommon (23.6.0)
+  - MapboxCoreMaps (10.14.0):
+    - MapboxCommon (~> 23.6)
+  - MapboxMaps (10.14.0):
+    - MapboxCommon (= 23.6.0)
+    - MapboxCoreMaps (= 10.14.0)
+    - MapboxMobileEvents (= 1.0.10)
+    - Turf (~> 2.0)
+  - MapboxMobileEvents (1.0.10)
+  - MessageKit (3.8.0):
+    - InputBarAccessoryView (~> 5.5.0)
+  - nanopb (2.30909.0):
+    - nanopb/decode (= 2.30909.0)
+    - nanopb/encode (= 2.30909.0)
+  - nanopb/decode (2.30909.0)
+  - nanopb/encode (2.30909.0)
+  - netfox (1.21.0)
+  - NotificationView (0.2.5)
+  - ObjectMapper (3.5.3)
+  - PhoneNumberKit (3.3.4):
+    - PhoneNumberKit/PhoneNumberKitCore (= 3.3.4)
+    - PhoneNumberKit/UIKit (= 3.3.4)
+  - PhoneNumberKit/PhoneNumberKitCore (3.3.4)
+  - PhoneNumberKit/UIKit (3.3.4):
+    - PhoneNumberKit/PhoneNumberKitCore
+  - PKHUD (5.3.0)
+  - Polyline (5.1.0)
+  - PromisesObjC (2.1.1)
+  - PryntTrimmerView (4.0.2)
+  - R.swift (5.0.0):
+    - R.swift.Library (~> 5.0.0)
+  - R.swift.Library (5.0.1)
+  - SnapKit (5.6.0)
+  - Socket.IO-Client-Swift (15.2.0):
+    - Starscream (~> 3.1)
+  - Starscream (3.1.1)
+  - SteviaLayout (4.7.3)
+  - SVPinView (1.0.11)
+  - TOCropViewController (2.6.1)
+  - Turf (2.6.1)
+  - YPImagePicker (4.5.0):
+    - PryntTrimmerView (~> 4.0.2)
+    - SteviaLayout (~> 4.7.3)
+
+DEPENDENCIES:
+  - Alamofire
+  - Cosmos (~> 23.0)
+  - FBSDKLoginKit
+  - Firebase/Analytics
+  - Firebase/Auth
+  - Firebase/Core
+  - Firebase/Messaging
+  - GoogleMaps (= 7.3.0)
+  - GooglePlaces (= 7.2.0)
+  - GoogleSignIn
+  - IQDropDownTextField
+  - IQKeyboardManagerSwift
+  - JGProgressHUD
+  - Kingfisher (~> 7.0)
+  - Lightbox
+  - MapboxMaps (= 10.14.0)
+  - MessageKit
+  - netfox
+  - NotificationView
+  - ObjectMapper (~> 3.5)
+  - PhoneNumberKit
+  - PKHUD (~> 5.0)
+  - Polyline (~> 5.0)
+  - R.swift (= 5.0.0)
+  - SnapKit (~> 5.6.0)
+  - Socket.IO-Client-Swift (~> 15.2.0)
+  - SVPinView (~> 1.0)
+  - TOCropViewController
+  - YPImagePicker
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - AppAuth
+    - Cache
+    - Cosmos
+    - FBAEMKit
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
+    - FBSDKLoginKit
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseCoreInternal
+    - FirebaseInstallations
+    - FirebaseMessaging
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleMaps
+    - GooglePlaces
+    - GoogleSignIn
+    - GoogleUtilities
+    - GTMAppAuth
+    - GTMSessionFetcher
+    - Imaginary
+    - InputBarAccessoryView
+    - IQDropDownTextField
+    - IQKeyboardManagerSwift
+    - JGProgressHUD
+    - Kingfisher
+    - Lightbox
+    - MapboxCommon
+    - MapboxCoreMaps
+    - MapboxMaps
+    - MapboxMobileEvents
+    - MessageKit
+    - nanopb
+    - netfox
+    - NotificationView
+    - ObjectMapper
+    - PhoneNumberKit
+    - PKHUD
+    - Polyline
+    - PromisesObjC
+    - PryntTrimmerView
+    - R.swift
+    - R.swift.Library
+    - SnapKit
+    - Socket.IO-Client-Swift
+    - Starscream
+    - SteviaLayout
+    - SVPinView
+    - TOCropViewController
+    - Turf
+    - YPImagePicker
+
+SPEC CHECKSUMS:
+  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
+  AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
+  Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
+  FBAEMKit: 955ca52eba8219c20f90774e8c6ff8bc7b3192a3
+  FBSDKCoreKit: 678f64eda3f0ff25c189c2ebbfe87b1d96a85a6d
+  FBSDKCoreKit_Basics: 6bee7c1f0932432901781203fa5e587ec5099148
+  FBSDKLoginKit: 56d55e23fe66a6db045826190b0b4dbc0e1ca0a0
+  Firebase: ba3501b5142a57747eac74d27c96d2b313bdec90
+  FirebaseAnalytics: 0be84b933ca3222bca03e8cccf020ad9b1c3c6ff
+  FirebaseAuth: 5608282535d6f2dc902b2b88a379aaf6912fb837
+  FirebaseCore: b8697a177690b69b0dbce9d612b69b893be70469
+  FirebaseCoreInternal: e301297f4c15a17489e48ed722d733b1578e0c02
+  FirebaseInstallations: 36b38c733fd37e50857e5e8d74138648f466f18c
+  FirebaseMessaging: e7304d6ce5f83d9139f0a61383a2302beb99b111
+  GoogleAppMeasurement: 173fa22ce7d62c29332568e853b39b2525a0e584
+  GoogleDataTransport: ea169759df570f4e37bdee1623ec32a7e64e67c4
+  GoogleMaps: a146f275ee429d14822178c7a841c03366ec92a1
+  GooglePlaces: 590dea495d69431454ea92217033c3184995165d
+  GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
+  GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
+  GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
+  GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
+  Imaginary: cf5e3a7dd6ab1dcbd47ba8ce5edf2307c4e99eb3
+  InputBarAccessoryView: 1d7b0a672b36e370f01f264b3907ef39d03328e3
+  IQDropDownTextField: 6894c0f8b3acddd1e1bdf167ee23df7a3c30c705
+  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
+  Kingfisher: cd762a593a61b2fbecf7645c00f9a801a3ebfc9c
+  Lightbox: cc3d5124f024fa8197fd23f913160db1c61a1852
+  MapboxCommon: 4a0251dd470ee37e7fadda8e285c01921a5e1eb0
+  MapboxCoreMaps: eb07203bbb0b1509395db5ab89cd3ad6c2e3c04c
+  MapboxMaps: af50ec61a7eb3b032c3f7962c6bd671d93d2a209
+  MapboxMobileEvents: de50b3a4de180dd129c326e09cd12c8adaaa46d6
+  MessageKit: a1ba0c69ebead94029867853eb44dd05b9b3f453
+  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  netfox: 9d5cc727fe7576c4c7688a2504618a156b7d44b7
+  NotificationView: bcefe832af2bb65700406d0e4cb070cd9f433557
+  ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
+  PhoneNumberKit: 441e8b26ec88d598e3591de9061eff18f5dd12e8
+  PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
+  Polyline: 2a1f29f87f8d9b7de868940f4f76deb8c678a5b1
+  PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
+  R.swift: f88c7d7d48a2be4dffa132dde1b3d389620310eb
+  R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
+  SVPinView: 9b538d0ba68cdb092afe4f0f67ec84cbed079466
+  TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
+  Turf: 469ce2c3d22e5e8e4818d5a3b254699a5c89efa4
+  YPImagePicker: 6f410f475bd22fa8cd430495b54d4b2f15865c2d
+
+PODFILE CHECKSUM: 4ec63ce6a54d9f801f017a1eb7a31522b9373c3f
+
+COCOAPODS: 1.12.1

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Debug</key>
+	<dict>
+		<key>backendUrl</key>
+		<string>https://api.gowild.appscorridor.com/</string>
+		<key>googleMapApiKey</key>
+		<string>AIzaSyAoyevYqWkjKEJjq6vPXzfhulxkIecZhX0</string>
+		<key>socketIOURL</key>
+		<string>https://chat.gowild.appscorridor.com</string>
+		<key>googleClientID</key>
+		<string>321129921779-ggru82m00j5ann43jpcltk54m4668569.apps.googleusercontent.com</string>
+		<key>mapBoxAccessToken</key>
+		<string>sk.eyJ1IjoiaGFtaWRoZXJlIiwiYSI6ImNsa2h3YmVmdjA3M3ozcW82OWdoZ3E1ZjEifQ.Ij9ZBLckjsk6JWkLhwoCmA</string>
+	</dict>
+	<key>Staging</key>
+	<dict>
+		<key>backendUrl</key>
+		<string>https://api.gowild.appscorridor.com/</string>
+		<key>googleMapApiKey</key>
+		<string>AIzaSyAoyevYqWkjKEJjq6vPXzfhulxkIecZhX0</string>
+		<key>socketIOURL</key>
+		<string>https://chat.gowild.appscorridor.com</string>
+		<key>googleClientID</key>
+		<string>321129921779-ggru82m00j5ann43jpcltk54m4668569.apps.googleusercontent.com</string>
+		<key>mapBoxAccessToken</key>
+		<string>sk.eyJ1IjoiaGFtaWRoZXJlIiwiYSI6ImNsa2h3YmVmdjA3M3ozcW82OWdoZ3E1ZjEifQ.Ij9ZBLckjsk6JWkLhwoCmA</string>
+	</dict>
+	<key>Release</key>
+	<dict>
+		<key>backendUrl</key>
+		<string>https://api.gowild.appscorridor.com/</string>
+		<key>googleMapApiKey</key>
+		<string>AIzaSyAoyevYqWkjKEJjq6vPXzfhulxkIecZhX0</string>
+		<key>socketIOURL</key>
+		<string>https://chat.gowild.appscorridor.com</string>
+		<key>googleClientID</key>
+		<string>321129921779-ggru82m00j5ann43jpcltk54m4668569.apps.googleusercontent.com</string>
+		<key>mapBoxAccessToken</key>
+		<string>sk.eyJ1IjoiaGFtaWRoZXJlIiwiYSI6ImNsa2h3YmVmdjA3M3ozcW82OWdoZ3E1ZjEifQ.Ij9ZBLckjsk6JWkLhwoCmA</string>
+	</dict>
+</dict>
+</plist>

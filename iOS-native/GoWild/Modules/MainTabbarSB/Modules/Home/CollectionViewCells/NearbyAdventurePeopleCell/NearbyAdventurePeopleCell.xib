@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="NearbyAdventurePeopleCell" id="gTV-IL-0wX" customClass="NearbyAdventurePeopleCell" customModule="GoWild" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="211" height="128"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="211" height="128"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vSw-Ej-Fg8">
+                        <rect key="frame" x="0.0" y="0.0" width="211" height="128"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_placeholder_image" translatesAutoresizingMaskIntoConstraints="NO" id="OR2-Jd-dTC">
+                                <rect key="frame" x="5" y="5" width="201" height="118"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CsA-N7-Pw8">
+                                <rect key="frame" x="2" y="2" width="207" height="124"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="12"/>
+                                <color key="textColor" name="AppBgBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="OR2-Jd-dTC" secondAttribute="trailing" constant="5" id="25W-ux-cFI"/>
+                            <constraint firstItem="CsA-N7-Pw8" firstAttribute="leading" secondItem="vSw-Ej-Fg8" secondAttribute="leading" constant="2" id="5v0-4G-H1p"/>
+                            <constraint firstAttribute="bottom" secondItem="OR2-Jd-dTC" secondAttribute="bottom" constant="5" id="ASn-5H-cpd"/>
+                            <constraint firstItem="CsA-N7-Pw8" firstAttribute="top" secondItem="vSw-Ej-Fg8" secondAttribute="top" constant="2" id="dLx-n9-fUB"/>
+                            <constraint firstItem="OR2-Jd-dTC" firstAttribute="top" secondItem="vSw-Ej-Fg8" secondAttribute="top" constant="5" id="pth-6e-tPb"/>
+                            <constraint firstAttribute="trailing" secondItem="CsA-N7-Pw8" secondAttribute="trailing" constant="2" id="qqR-9H-XHE"/>
+                            <constraint firstAttribute="bottom" secondItem="CsA-N7-Pw8" secondAttribute="bottom" constant="2" id="rzC-N1-5bF"/>
+                            <constraint firstItem="OR2-Jd-dTC" firstAttribute="leading" secondItem="vSw-Ej-Fg8" secondAttribute="leading" constant="5" id="zsG-oF-UNf"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vSw-Ej-Fg8" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="7fC-yD-6h3"/>
+                <constraint firstAttribute="trailing" secondItem="vSw-Ej-Fg8" secondAttribute="trailing" id="GGw-1f-uZH"/>
+                <constraint firstAttribute="bottom" secondItem="vSw-Ej-Fg8" secondAttribute="bottom" id="O2h-Zn-iXa"/>
+                <constraint firstItem="vSw-Ej-Fg8" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="e0N-BJ-fHZ"/>
+            </constraints>
+            <size key="customSize" width="211" height="128"/>
+            <connections>
+                <outlet property="backView" destination="vSw-Ej-Fg8" id="5pb-98-KRN"/>
+                <outlet property="countLbl" destination="CsA-N7-Pw8" id="TDe-z8-Wes"/>
+                <outlet property="peopleImageView" destination="OR2-Jd-dTC" id="olh-ce-8eW"/>
+            </connections>
+            <point key="canvasLocation" x="254" y="71"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_user_placeholder_image" width="350" height="350"/>
+        <namedColor name="AppBgBlack">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

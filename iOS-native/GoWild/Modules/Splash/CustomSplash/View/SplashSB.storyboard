@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FontsFree-Net-TheForegenRoughOne.ttf">
+            <string>TheForegenRoughOne</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--SplashVC-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="SplashVC" title="SplashVC" id="Y6W-OH-hqX" customClass="SplashVC" customModule="GoWild" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="customSplashBG" translatesAutoresizingMaskIntoConstraints="NO" id="MHg-M1-FEW">
+                                <rect key="frame" x="-5" y="-5" width="424" height="906"/>
+                            </imageView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jap-uD-eaU">
+                                <rect key="frame" x="172" y="762" width="70" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="AxU-3l-u1c"/>
+                                    <constraint firstAttribute="width" constant="70" id="K62-6X-c9o"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="splashBtnIcon"/>
+                                <connections>
+                                    <action selector="didTapContinueBtn:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="iak-tJ-bVR"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GoWildIcon" translatesAutoresizingMaskIntoConstraints="NO" id="N1Q-4b-dE5">
+                                <rect key="frame" x="122" y="102" width="170" height="190"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="5ei-Xc-uar"/>
+                                    <constraint firstAttribute="width" constant="170" id="8Gd-i8-0V0"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prepare for the adventure of a lifetime!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjI-kj-kjD">
+                                <rect key="frame" x="40" y="386" width="334" height="124"/>
+                                <fontDescription key="fontDescription" name="TheForegenRoughOne" family="The Foregen Rough One" pointSize="40"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="MHg-M1-FEW" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="-5" id="167-DU-O45"/>
+                            <constraint firstItem="MHg-M1-FEW" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="-5" id="1d6-pk-Hln"/>
+                            <constraint firstItem="Jap-uD-eaU" firstAttribute="centerX" secondItem="MHg-M1-FEW" secondAttribute="centerX" id="259-fd-YxK"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Jap-uD-eaU" secondAttribute="bottom" constant="30" id="4CZ-VW-g4j"/>
+                            <constraint firstAttribute="trailing" secondItem="MHg-M1-FEW" secondAttribute="trailing" constant="-5" id="GCU-bC-t1l"/>
+                            <constraint firstItem="Jap-uD-eaU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FjI-kj-kjD" secondAttribute="bottom" constant="20" id="UzC-Sk-Oef"/>
+                            <constraint firstItem="N1Q-4b-dE5" firstAttribute="centerX" secondItem="MHg-M1-FEW" secondAttribute="centerX" id="Zh9-P2-R0C"/>
+                            <constraint firstItem="FjI-kj-kjD" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="aXK-U7-ppg"/>
+                            <constraint firstAttribute="bottom" secondItem="MHg-M1-FEW" secondAttribute="bottom" constant="-5" id="c92-9y-1FM"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="FjI-kj-kjD" secondAttribute="trailing" constant="40" id="t1v-Gu-47w"/>
+                            <constraint firstItem="FjI-kj-kjD" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="ukK-7q-z78"/>
+                            <constraint firstItem="FjI-kj-kjD" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="v4i-5g-MT4"/>
+                            <constraint firstItem="N1Q-4b-dE5" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="54" id="vij-PD-Dgh"/>
+                            <constraint firstItem="FjI-kj-kjD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="N1Q-4b-dE5" secondAttribute="bottom" constant="20" id="vyz-lQ-SkR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="p0k-fs-E2B"/>
+                    <connections>
+                        <outlet property="adventureLbl" destination="FjI-kj-kjD" id="HGT-R2-OL3"/>
+                        <outlet property="continueBtn" destination="Jap-uD-eaU" id="bCw-mj-Lu9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1064.885496183206" y="-2.1126760563380285"/>
+        </scene>
+        <!--CustomSplashNavigationVC-->
+        <scene sceneID="6tb-61-3Tl">
+            <objects>
+                <navigationController storyboardIdentifier="CustomSplashNavigationVC" title="CustomSplashNavigationVC" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Q6H-HE-gxi" customClass="CustomSplashNavigationVC" customModule="GoWild" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7kp-FS-zOG">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="T8c-pU-Av1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bLR-y9-Cbe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138.1679389312977" y="-2.1126760563380285"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="GoWildIcon" width="168" height="187"/>
+        <image name="customSplashBG" width="375" height="812"/>
+        <image name="splashBtnIcon" width="95" height="95"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.6</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1760191937693875</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.321129921779-ggru82m00j5ann43jpcltk54m4668569</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.goWild</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Configuration</key>
+	<string>$(CONFIGURATION)</string>
+	<key>FacebookAppID</key>
+	<string>1760191937693875</string>
+	<key>FacebookClientToken</key>
+	<string>f394b29eca16a5e90c3f3a36d243b9c4</string>
+	<key>FacebookDisplayName</key>
+	<string>GoWild</string>
+	<key>GMSServicesAPIKey</key>
+	<string>AIzaSyAoyevYqWkjKEJjq6vPXzfhulxkIecZhX0</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>GoWild need to access your camera to capture photo.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>GoWild will use your location to show you nearby routes.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>GoWild will use your location to show you nearby routes.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>GoWild will use your location to show you nearby routes.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>GoWild will use your location to show you nearby routes.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>GoWild need to access your library to upload photo.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FontsFree-Net-TheForegenRoughOne</string>
+		<string>digitalnumbers-regular</string>
+		<string>digital-7</string>
+		<string>SourceSansPro-Black</string>
+		<string>SourceSansPro-BlackItalic</string>
+		<string>SourceSansPro-Bold</string>
+		<string>SourceSansPro-BoldItalic</string>
+		<string>SourceSansPro-ExtraLight</string>
+		<string>SourceSansPro-ExtraLightItalic</string>
+		<string>SourceSansPro-Italic</string>
+		<string>SourceSansPro-Light</string>
+		<string>SourceSansPro-LightItalic</string>
+		<string>SourceSansPro-Regular</string>
+		<string>SourceSansPro-SemiBold</string>
+		<string>SourceSansPro-SemiBoldItalic</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
+</dict>
+</plist>

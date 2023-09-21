@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Bold.ttf">
+            <string>SourceSansPro-Bold</string>
+        </array>
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeFriendsPostCell" rowHeight="415" id="KGk-i7-Jjw" customClass="HomeFriendsPostCell" customModule="GoWild" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="429" height="602"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="429" height="602"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPx-Sv-x7F">
+                        <rect key="frame" x="16" y="10" width="397" height="582"/>
+                        <subviews>
+                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="6Lr-QH-iRQ">
+                                <rect key="frame" x="16" y="16" width="365" height="550"/>
+                                <subviews>
+                                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7AB-dM-DLs">
+                                        <rect key="frame" x="0.0" y="0.0" width="365" height="50"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_placeholder_image" translatesAutoresizingMaskIntoConstraints="NO" id="JLs-eh-GlK">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="kog-MV-oWH"/>
+                                                    <constraint firstAttribute="width" constant="50" id="zmQ-pN-MSv"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
+                                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2ux-nF-6RO">
+                                                <rect key="frame" x="60" y="0.0" width="305" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Jennylyn Artecona" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIn-co-Cpb">
+                                                        <rect key="frame" x="0.0" y="0.0" width="305" height="34.666666666666664"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="16"/>
+                                                        <color key="textColor" name="AppBgBlack"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 minutes ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YjE-9T-ffG">
+                                                        <rect key="frame" x="0.0" y="34.666666666666664" width="305" height="15.333333333333336"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
+                                                        <color key="textColor" name="AppBgBlack"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="2T9-ip-WzM"/>
+                                        </constraints>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0D-yW-uX3">
+                                        <rect key="frame" x="0.0" y="61.999999999999993" width="365" height="66.333333333333314"/>
+                                        <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem a commodo consequat</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="AppBgBlack"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99J-lW-YKS">
+                                        <rect key="frame" x="0.0" y="140.33333333333334" width="365" height="17.666666666666657"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="14"/>
+                                        <color key="textColor" name="AppLightBlueColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="friends_post_image" translatesAutoresizingMaskIntoConstraints="NO" id="vuP-Sx-qEm">
+                                        <rect key="frame" x="0.0" y="170" width="365" height="290"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="290" id="Vj0-jK-BnF"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tSb-b4-Ms8">
+                                        <rect key="frame" x="0.0" y="472" width="365" height="50"/>
+                                        <subviews>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BKb-wJ-qeB" userLabel="FriendsImagesBackView">
+                                                <rect key="frame" x="0.0" y="0.0" width="86" height="50"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_placeholder_image" translatesAutoresizingMaskIntoConstraints="NO" id="VNm-Mo-BCq">
+                                                        <rect key="frame" x="0.0" y="9" width="32" height="32"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="32" id="Qaq-Iv-7FT"/>
+                                                            <constraint firstAttribute="width" constant="32" id="xJg-iW-MIB"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_placeholder_image" translatesAutoresizingMaskIntoConstraints="NO" id="n5Q-9W-EwY">
+                                                        <rect key="frame" x="24" y="9" width="32" height="32"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="32" id="43R-PI-vIH"/>
+                                                            <constraint firstAttribute="width" constant="32" id="wHa-uR-xdL"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_placeholder_image" translatesAutoresizingMaskIntoConstraints="NO" id="HqR-B4-8B6">
+                                                        <rect key="frame" x="48" y="9" width="32" height="32"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="32" id="8JR-Bi-eBF"/>
+                                                            <constraint firstAttribute="width" constant="32" id="C29-ir-jbc"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="VNm-Mo-BCq" firstAttribute="leading" secondItem="BKb-wJ-qeB" secondAttribute="leading" id="GaJ-z1-ox7"/>
+                                                    <constraint firstItem="HqR-B4-8B6" firstAttribute="centerY" secondItem="BKb-wJ-qeB" secondAttribute="centerY" id="Kgf-j3-EtU"/>
+                                                    <constraint firstItem="n5Q-9W-EwY" firstAttribute="centerY" secondItem="BKb-wJ-qeB" secondAttribute="centerY" id="Man-Hu-mkq"/>
+                                                    <constraint firstAttribute="width" constant="86" id="TAu-m5-mge"/>
+                                                    <constraint firstItem="HqR-B4-8B6" firstAttribute="leading" secondItem="BKb-wJ-qeB" secondAttribute="leading" constant="48" id="i1M-4D-Ny5"/>
+                                                    <constraint firstItem="n5Q-9W-EwY" firstAttribute="leading" secondItem="BKb-wJ-qeB" secondAttribute="leading" constant="24" id="oR0-t0-YEb"/>
+                                                    <constraint firstItem="VNm-Mo-BCq" firstAttribute="centerY" secondItem="BKb-wJ-qeB" secondAttribute="centerY" id="xJQ-NJ-TuI"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+8 Likes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SW3-wC-8Os">
+                                                <rect key="frame" x="86" y="0.0" width="279" height="50"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                <color key="textColor" name="AppBgBlack"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="MT3-XW-ddn"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="hCG-oh-L6y">
+                                        <rect key="frame" x="0.0" y="534" width="365" height="16"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_post_views_icon" translatesAutoresizingMaskIntoConstraints="NO" id="3xi-40-4Vv">
+                                                <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                                <color key="tintColor" name="TextLightOrangeColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="16" id="fOZ-HI-h7s"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="20" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJ4-uV-eJZ">
+                                                <rect key="frame" x="21" y="0.0" width="251" height="16"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="10"/>
+                                                <color key="textColor" name="TextLightOrangeColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_post_share_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Q7L-sj-LOT">
+                                                <rect key="frame" x="277" y="0.0" width="16" height="16"/>
+                                                <color key="tintColor" name="TextLightOrangeColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="16" id="6bf-da-Y1U"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFI-Ow-w4F">
+                                                <rect key="frame" x="298" y="0.0" width="5" height="16"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="10"/>
+                                                <color key="textColor" name="TextLightOrangeColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_post_comment_icon" translatesAutoresizingMaskIntoConstraints="NO" id="x1q-Qb-DqH">
+                                                <rect key="frame" x="308" y="0.0" width="16" height="16"/>
+                                                <color key="tintColor" name="TextLightOrangeColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="16" id="Aar-Kq-t96"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YhH-vY-L1U">
+                                                <rect key="frame" x="329" y="0.0" width="5" height="16"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="10"/>
+                                                <color key="textColor" name="TextLightOrangeColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_post_like_icon" translatesAutoresizingMaskIntoConstraints="NO" id="zJj-tf-2Mi">
+                                                <rect key="frame" x="339" y="0.0" width="16" height="16"/>
+                                                <color key="tintColor" name="TextLightOrangeColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="16" id="Y3L-m3-4Dc"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhh-38-twJ">
+                                                <rect key="frame" x="360" y="0.0" width="5" height="16"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="10"/>
+                                                <color key="textColor" name="TextLightOrangeColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="F87-CS-9hD"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="AppWhiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6Lr-QH-iRQ" firstAttribute="leading" secondItem="TPx-Sv-x7F" secondAttribute="leading" constant="16" id="2C5-fO-jjG"/>
+                            <constraint firstItem="6Lr-QH-iRQ" firstAttribute="top" secondItem="TPx-Sv-x7F" secondAttribute="top" constant="16" id="dra-gZ-cmt"/>
+                            <constraint firstAttribute="bottom" secondItem="6Lr-QH-iRQ" secondAttribute="bottom" constant="16" id="g8s-pb-UOa"/>
+                            <constraint firstAttribute="trailing" secondItem="6Lr-QH-iRQ" secondAttribute="trailing" constant="16" id="u9p-1Q-KZu"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="TPx-Sv-x7F" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="6Vu-7q-cs7"/>
+                    <constraint firstItem="TPx-Sv-x7F" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Q6K-70-kXF"/>
+                    <constraint firstAttribute="bottom" secondItem="TPx-Sv-x7F" secondAttribute="bottom" constant="10" id="Qvb-Vi-Vq7"/>
+                    <constraint firstAttribute="trailing" secondItem="TPx-Sv-x7F" secondAttribute="trailing" constant="16" id="iKX-RL-ir7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="attachmentLbl" destination="99J-lW-YKS" id="e1n-gN-QR5"/>
+                <outlet property="backView" destination="TPx-Sv-x7F" id="Kea-Es-VJY"/>
+                <outlet property="friendImageView" destination="JLs-eh-GlK" id="UIm-hI-Rbq"/>
+                <outlet property="friendNameLbl" destination="oIn-co-Cpb" id="cdZ-9T-ssB"/>
+                <outlet property="friendOneImageView" destination="VNm-Mo-BCq" id="Jqc-tz-co4"/>
+                <outlet property="friendThreeImageView" destination="HqR-B4-8B6" id="2wR-iY-xo5"/>
+                <outlet property="friendTwoImageView" destination="n5Q-9W-EwY" id="enm-OH-sK9"/>
+                <outlet property="friendsLikeLbl" destination="SW3-wC-8Os" id="dci-u1-2MY"/>
+                <outlet property="imageHeightConstrain" destination="Vj0-jK-BnF" id="OfG-pg-P5M"/>
+                <outlet property="likeImagesStackView" destination="tSb-b4-Ms8" id="4lU-Ke-KVM"/>
+                <outlet property="postCommentCountLbl" destination="YhH-vY-L1U" id="o63-HT-fsb"/>
+                <outlet property="postCommentImageView" destination="x1q-Qb-DqH" id="Ziu-f7-B9o"/>
+                <outlet property="postDescriptionLbl" destination="E0D-yW-uX3" id="puX-i6-dYq"/>
+                <outlet property="postImageView" destination="vuP-Sx-qEm" id="0YN-nW-cQE"/>
+                <outlet property="postLikeCountLbl" destination="qhh-38-twJ" id="rvg-PV-EiQ"/>
+                <outlet property="postLikeImageView" destination="zJj-tf-2Mi" id="2Za-M7-FYh"/>
+                <outlet property="postShareCountLbl" destination="qFI-Ow-w4F" id="bgR-j6-2WI"/>
+                <outlet property="postShareImageView" destination="Q7L-sj-LOT" id="2Uc-M5-au4"/>
+                <outlet property="postTimeLbl" destination="YjE-9T-ffG" id="eoc-QS-xJM"/>
+                <outlet property="postViewCountLbl" destination="zJ4-uV-eJZ" id="o3D-2P-w91"/>
+                <outlet property="postViewImageView" destination="3xi-40-4Vv" id="sWP-Wu-AY4"/>
+            </connections>
+            <point key="canvasLocation" x="-241.98473282442748" y="151.40845070422537"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="friends_post_image" width="882" height="652"/>
+        <image name="ic_post_comment_icon" width="12" height="12"/>
+        <image name="ic_post_like_icon" width="12" height="12"/>
+        <image name="ic_post_share_icon" width="12" height="12"/>
+        <image name="ic_post_views_icon" width="12" height="12"/>
+        <image name="ic_user_placeholder_image" width="1300" height="1300"/>
+        <namedColor name="AppBgBlack">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="AppLightBlueColor">
+            <color red="0.23100000619888306" green="0.34900000691413879" blue="0.59600001573562622" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppWhiteColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextLightOrangeColor">
+            <color red="1" green="0.47099998593330383" blue="0.31799998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--MainTabbarNavigationVC-->
+        <scene sceneID="hpE-YM-4mb">
+            <objects>
+                <navigationController storyboardIdentifier="MainTabbarNavigationVC" title="MainTabbarNavigationVC" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="8C2-2h-JpN" customClass="MainTabbarNavigationVC" customModule="GoWild" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="T3p-eg-ZsC">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ngo-lU-1EF" kind="relationship" relationship="rootViewController" id="ioF-Ks-aWS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LF0-0N-NBU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1608.6956521739132" y="-200.22321428571428"/>
+        </scene>
+        <!--MainContainerVC-->
+        <scene sceneID="tWT-b9-P8U">
+            <objects>
+                <viewController storyboardIdentifier="MainContainerVC" title="MainContainerVC" id="ngo-lU-1EF" customClass="MainContainerVC" customModule="GoWild" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="5eX-jh-NhD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OSt-JI-Z2S">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
+                                <color key="backgroundColor" name="AppBgColor"/>
+                            </view>
+                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dbh-8J-Q5v">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <subviews>
+                                    <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfs-Q9-3Oj" userLabel="Header">
+                                        <rect key="frame" x="0.0" y="-70" width="414" height="70"/>
+                                        <color key="backgroundColor" name="AppBgColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="ev7-8C-Hl3"/>
+                                        </constraints>
+                                    </view>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u8q-mO-LjX" userLabel="Body">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="794"/>
+                                        <subviews>
+                                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v1B-fz-B5z">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="794"/>
+                                                <connections>
+                                                    <segue destination="hQa-IS-Yrv" kind="embed" id="D7v-nn-CzB"/>
+                                                </connections>
+                                            </containerView>
+                                        </subviews>
+                                        <color key="backgroundColor" name="AppBgColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="v1B-fz-B5z" secondAttribute="bottom" id="F7k-eb-ZYg"/>
+                                            <constraint firstItem="v1B-fz-B5z" firstAttribute="top" secondItem="u8q-mO-LjX" secondAttribute="top" id="KuO-JT-ued"/>
+                                            <constraint firstItem="v1B-fz-B5z" firstAttribute="leading" secondItem="u8q-mO-LjX" secondAttribute="leading" id="OPc-NX-WYG"/>
+                                            <constraint firstAttribute="trailing" secondItem="v1B-fz-B5z" secondAttribute="trailing" id="aej-ZS-L8b"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b3b-hc-bH7" userLabel="Tabbar">
+                                        <rect key="frame" x="0.0" y="794" width="414" height="68"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="JVL-D1-tZm">
+                                                <rect key="frame" x="0.0" y="8" width="414" height="60"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f7J-zt-JNy" userLabel="Home">
+                                                        <rect key="frame" x="0.0" y="0.0" width="83" height="60"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ic_tabbar_home" translatesAutoresizingMaskIntoConstraints="NO" id="9eY-yd-QCM">
+                                                                <rect key="frame" x="27.5" y="16" width="28" height="28"/>
+                                                                <color key="tintColor" name="TextLightOrangeColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="28" id="bTr-U2-FFW"/>
+                                                                    <constraint firstAttribute="height" constant="28" id="ujO-KP-NKi"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tA0-R6-5Mm">
+                                                                <rect key="frame" x="0.0" y="0.0" width="83" height="60"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="badgeBackgroundColor">
+                                                                        <color key="value" name="appRedColor"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="badgeTextColor">
+                                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="point" keyPath="badgeOffset">
+                                                                        <point key="value" x="-10" y="-5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="didTapTabBarItem:" destination="ngo-lU-1EF" eventType="touchUpInside" id="icJ-TW-Ur5"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="tA0-R6-5Mm" secondAttribute="trailing" id="6nO-u2-IC2"/>
+                                                            <constraint firstItem="9eY-yd-QCM" firstAttribute="centerY" secondItem="f7J-zt-JNy" secondAttribute="centerY" id="Bau-98-h6a"/>
+                                                            <constraint firstItem="9eY-yd-QCM" firstAttribute="centerX" secondItem="f7J-zt-JNy" secondAttribute="centerX" id="V6g-Hn-Xgs"/>
+                                                            <constraint firstAttribute="bottom" secondItem="tA0-R6-5Mm" secondAttribute="bottom" id="cGU-pG-Au7"/>
+                                                            <constraint firstItem="tA0-R6-5Mm" firstAttribute="top" secondItem="f7J-zt-JNy" secondAttribute="top" id="nId-Wu-6w8"/>
+                                                            <constraint firstItem="tA0-R6-5Mm" firstAttribute="leading" secondItem="f7J-zt-JNy" secondAttribute="leading" id="qKJ-1N-3DP"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NEW-Hc-2Hb" userLabel="Route">
+                                                        <rect key="frame" x="83" y="0.0" width="82.5" height="60"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ic_tabbar_map" translatesAutoresizingMaskIntoConstraints="NO" id="c2f-Cg-EeD">
+                                                                <rect key="frame" x="27" y="16" width="28" height="28"/>
+                                                                <color key="tintColor" name="AppWhiteColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="28" id="GbG-hI-RPi"/>
+                                                                    <constraint firstAttribute="height" constant="28" id="uMO-Ui-6CD"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4x5-WT-VKW">
+                                                                <rect key="frame" x="0.0" y="0.0" width="82.5" height="60"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="badgeBackgroundColor">
+                                                                        <color key="value" name="appRedColor"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="badgeTextColor">
+                                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="point" keyPath="badgeOffset">
+                                                                        <point key="value" x="-10" y="-5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="didTapTabBarItem:" destination="ngo-lU-1EF" eventType="touchUpInside" id="vuf-m4-J30"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="4x5-WT-VKW" firstAttribute="top" secondItem="NEW-Hc-2Hb" secondAttribute="top" id="7Jg-DQ-Pky"/>
+                                                            <constraint firstAttribute="trailing" secondItem="4x5-WT-VKW" secondAttribute="trailing" id="Wgk-nD-7gX"/>
+                                                            <constraint firstAttribute="bottom" secondItem="4x5-WT-VKW" secondAttribute="bottom" id="X60-Jr-WFh"/>
+                                                            <constraint firstItem="c2f-Cg-EeD" firstAttribute="centerX" secondItem="NEW-Hc-2Hb" secondAttribute="centerX" id="b23-UH-B9H"/>
+                                                            <constraint firstItem="4x5-WT-VKW" firstAttribute="leading" secondItem="NEW-Hc-2Hb" secondAttribute="leading" id="qVe-pi-7Mw"/>
+                                                            <constraint firstItem="c2f-Cg-EeD" firstAttribute="centerY" secondItem="NEW-Hc-2Hb" secondAttribute="centerY" id="sYK-lN-t64"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCk-gD-I1t" userLabel="Spacer">
+                                                        <rect key="frame" x="165.5" y="0.0" width="83" height="60"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRv-1I-V9g" userLabel="OnlineStore">
+                                                        <rect key="frame" x="248.5" y="0.0" width="82.5" height="60"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ic_tabbar_online_store" translatesAutoresizingMaskIntoConstraints="NO" id="hw9-bN-4vA">
+                                                                <rect key="frame" x="27.5" y="16" width="28" height="28"/>
+                                                                <color key="tintColor" name="AppWhiteColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="28" id="1SB-Fo-xy3"/>
+                                                                    <constraint firstAttribute="height" constant="28" id="56b-mf-at5"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7H-rh-KVc">
+                                                                <rect key="frame" x="0.0" y="0.0" width="82.5" height="60"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="badgeBackgroundColor">
+                                                                        <color key="value" name="appRedColor"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="badgeTextColor">
+                                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="point" keyPath="badgeOffset">
+                                                                        <point key="value" x="-10" y="-5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="didTapTabBarItem:" destination="ngo-lU-1EF" eventType="touchUpInside" id="gqf-zs-x7G"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="hw9-bN-4vA" firstAttribute="centerY" secondItem="SRv-1I-V9g" secondAttribute="centerY" id="F9h-7o-4fI"/>
+                                                            <constraint firstItem="U7H-rh-KVc" firstAttribute="leading" secondItem="SRv-1I-V9g" secondAttribute="leading" id="ItK-6b-35Q"/>
+                                                            <constraint firstAttribute="trailing" secondItem="U7H-rh-KVc" secondAttribute="trailing" id="aa3-aa-EAV"/>
+                                                            <constraint firstItem="U7H-rh-KVc" firstAttribute="top" secondItem="SRv-1I-V9g" secondAttribute="top" id="jsU-gU-N2L"/>
+                                                            <constraint firstItem="hw9-bN-4vA" firstAttribute="centerX" secondItem="SRv-1I-V9g" secondAttribute="centerX" id="kZR-qU-Y2J"/>
+                                                            <constraint firstAttribute="bottom" secondItem="U7H-rh-KVc" secondAttribute="bottom" id="qnf-Va-ySb"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jkT-G2-7AI" userLabel="Profile">
+                                                        <rect key="frame" x="331" y="0.0" width="83" height="60"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ic_tabbar_profile" translatesAutoresizingMaskIntoConstraints="NO" id="YZi-WE-EqB">
+                                                                <rect key="frame" x="27.5" y="16" width="28" height="28"/>
+                                                                <color key="tintColor" name="AppWhiteColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="28" id="5wK-dH-rPV"/>
+                                                                    <constraint firstAttribute="height" constant="28" id="ub4-Y3-fSM"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ln8-Bu-jm8">
+                                                                <rect key="frame" x="0.0" y="0.0" width="83" height="60"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="point" keyPath="badgeOffset">
+                                                                        <point key="value" x="-10" y="-5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="didTapTabBarItem:" destination="ngo-lU-1EF" eventType="touchUpInside" id="wZp-ZK-zp7"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="ln8-Bu-jm8" secondAttribute="bottom" id="GWX-RX-GiI"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ln8-Bu-jm8" secondAttribute="trailing" id="KuH-Co-vp9"/>
+                                                            <constraint firstItem="YZi-WE-EqB" firstAttribute="centerY" secondItem="jkT-G2-7AI" secondAttribute="centerY" id="eAK-rx-MWq"/>
+                                                            <constraint firstItem="ln8-Bu-jm8" firstAttribute="leading" secondItem="jkT-G2-7AI" secondAttribute="leading" id="fTZ-3J-Ync"/>
+                                                            <constraint firstItem="YZi-WE-EqB" firstAttribute="centerX" secondItem="jkT-G2-7AI" secondAttribute="centerX" id="sAl-Rm-hfw"/>
+                                                            <constraint firstItem="ln8-Bu-jm8" firstAttribute="top" secondItem="jkT-G2-7AI" secondAttribute="top" id="yoM-yq-etl"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycH-bR-Kd6" userLabel="CameraAR">
+                                                <rect key="frame" x="167" y="-22" width="80" height="80"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEa-J6-qWc">
+                                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" backgroundImage="ic_tabbar_camera_ar"/>
+                                                        <connections>
+                                                            <action selector="didTapTabBarItem:" destination="ngo-lU-1EF" eventType="touchUpInside" id="T2q-0d-L2k"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="kEa-J6-qWc" firstAttribute="top" secondItem="ycH-bR-Kd6" secondAttribute="top" id="7ib-6D-Yi3"/>
+                                                    <constraint firstAttribute="height" constant="80" id="R29-27-7Al"/>
+                                                    <constraint firstAttribute="bottom" secondItem="kEa-J6-qWc" secondAttribute="bottom" id="VBb-G0-Y2G"/>
+                                                    <constraint firstAttribute="width" constant="80" id="i6o-Wc-FnQ"/>
+                                                    <constraint firstItem="kEa-J6-qWc" firstAttribute="leading" secondItem="ycH-bR-Kd6" secondAttribute="leading" id="kyr-88-Tvt"/>
+                                                    <constraint firstAttribute="trailing" secondItem="kEa-J6-qWc" secondAttribute="trailing" id="wJX-b5-Lzr"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="40"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" name="AppTabbarBgColor"/>
+                                        <constraints>
+                                            <constraint firstItem="ycH-bR-Kd6" firstAttribute="centerX" secondItem="cCk-gD-I1t" secondAttribute="centerX" id="PI2-Rs-mcz"/>
+                                            <constraint firstItem="JVL-D1-tZm" firstAttribute="leading" secondItem="b3b-hc-bH7" secondAttribute="leading" id="QwL-DV-Vn5"/>
+                                            <constraint firstItem="JVL-D1-tZm" firstAttribute="top" secondItem="b3b-hc-bH7" secondAttribute="top" constant="8" id="RHx-yQ-E8y"/>
+                                            <constraint firstAttribute="height" constant="68" id="dHy-i5-Yjr"/>
+                                            <constraint firstAttribute="bottom" secondItem="JVL-D1-tZm" secondAttribute="bottom" id="ged-pE-i49"/>
+                                            <constraint firstItem="ycH-bR-Kd6" firstAttribute="centerY" secondItem="cCk-gD-I1t" secondAttribute="centerY" constant="-20" id="qHz-ek-NhH"/>
+                                            <constraint firstAttribute="trailing" secondItem="JVL-D1-tZm" secondAttribute="trailing" id="vfF-4O-Q5z"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHG-EI-ApO">
+                                <rect key="frame" x="0.0" y="862" width="414" height="34"/>
+                                <color key="backgroundColor" name="AppTabbarBgColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mRz-7p-AS0"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="OSt-JI-Z2S" secondAttribute="trailing" id="0lg-iz-MRz"/>
+                            <constraint firstItem="dbh-8J-Q5v" firstAttribute="top" secondItem="5eX-jh-NhD" secondAttribute="top" id="6bt-Fg-kXp"/>
+                            <constraint firstItem="OSt-JI-Z2S" firstAttribute="leading" secondItem="5eX-jh-NhD" secondAttribute="leading" id="7om-Ql-T5i"/>
+                            <constraint firstItem="mRz-7p-AS0" firstAttribute="trailing" secondItem="dbh-8J-Q5v" secondAttribute="trailing" id="Dzc-MC-2QZ"/>
+                            <constraint firstItem="zHG-EI-ApO" firstAttribute="top" secondItem="dbh-8J-Q5v" secondAttribute="bottom" id="Jm4-0n-YaQ"/>
+                            <constraint firstItem="OSt-JI-Z2S" firstAttribute="top" secondItem="5eX-jh-NhD" secondAttribute="top" id="OlM-V9-Wye"/>
+                            <constraint firstItem="dbh-8J-Q5v" firstAttribute="top" secondItem="OSt-JI-Z2S" secondAttribute="bottom" id="PMe-nB-EKA"/>
+                            <constraint firstAttribute="bottom" secondItem="zHG-EI-ApO" secondAttribute="bottom" id="Uxm-QD-Eu6"/>
+                            <constraint firstItem="zHG-EI-ApO" firstAttribute="leading" secondItem="5eX-jh-NhD" secondAttribute="leading" id="e2l-sa-Uay"/>
+                            <constraint firstItem="dbh-8J-Q5v" firstAttribute="leading" secondItem="mRz-7p-AS0" secondAttribute="leading" id="j1e-Hq-CBs"/>
+                            <constraint firstAttribute="trailing" secondItem="zHG-EI-ApO" secondAttribute="trailing" id="mIQ-0h-qnq"/>
+                            <constraint firstItem="mRz-7p-AS0" firstAttribute="bottom" secondItem="dbh-8J-Q5v" secondAttribute="bottom" id="w4J-qi-7oa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="NqU-4v-bgw"/>
+                    <connections>
+                        <outlet property="homeImgView" destination="9eY-yd-QCM" id="1mh-VL-rVS"/>
+                        <outlet property="mapImgView" destination="c2f-Cg-EeD" id="kae-63-xEH"/>
+                        <outlet property="onlineStoreImgView" destination="hw9-bN-4vA" id="RPl-06-vKj"/>
+                        <outlet property="parentStackView" destination="dbh-8J-Q5v" id="Fpt-sL-Cjz"/>
+                        <outlet property="profileImgView" destination="YZi-WE-EqB" id="sfT-3n-Phq"/>
+                        <outlet property="tabBarCameraAR" destination="kEa-J6-qWc" id="5Kc-ZS-3IY"/>
+                        <outlet property="tabBarHome" destination="tA0-R6-5Mm" id="FIs-4h-ykh"/>
+                        <outlet property="tabBarMap" destination="4x5-WT-VKW" id="18N-yo-xQL"/>
+                        <outlet property="tabBarOnlineStore" destination="U7H-rh-KVc" id="Zlx-jD-Hku"/>
+                        <outlet property="tabBarProfile" destination="ln8-Bu-jm8" id="wvx-an-1jh"/>
+                        <outlet property="tabbarView" destination="b3b-hc-bH7" id="nT7-e5-O5r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Emx-sa-Kjr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2518.840579710145" y="-200.22321428571428"/>
+        </scene>
+        <!--MainTabbarPageVC-->
+        <scene sceneID="CnI-ND-49t">
+            <objects>
+                <viewController storyboardIdentifier="MainTabbarPageVC" title="MainTabbarPageVC" id="hQa-IS-Yrv" customClass="MainTabbarPageVC" customModule="GoWild" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Ur-qD-MmZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="794"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="FBP-Le-wy2"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wry-pp-jr8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3418.840579710145" y="-200.22321428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic_tabbar_camera_ar" width="71" height="70"/>
+        <image name="ic_tabbar_home" width="27" height="28"/>
+        <image name="ic_tabbar_map" width="27" height="28"/>
+        <image name="ic_tabbar_online_store" width="20" height="29"/>
+        <image name="ic_tabbar_profile" width="27" height="28"/>
+        <namedColor name="AppBgColor">
+            <color red="0.10999999940395355" green="0.078000001609325409" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppTabbarBgColor">
+            <color red="0.0" green="0.45899999141693115" blue="0.36899998784065247" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppWhiteColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextLightOrangeColor">
+            <color red="1" green="0.47099998593330383" blue="0.31799998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appRedColor">
+            <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

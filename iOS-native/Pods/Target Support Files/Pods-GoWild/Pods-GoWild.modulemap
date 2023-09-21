@@ -1,0 +1,6 @@
+framework module Pods_GoWild {
+  umbrella header "Pods-GoWild-umbrella.h"
+
+  export *
+  module * { export * }
+}

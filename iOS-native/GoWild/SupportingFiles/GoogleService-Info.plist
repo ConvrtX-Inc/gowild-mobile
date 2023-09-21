@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>321129921779-ggru82m00j5ann43jpcltk54m4668569.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.321129921779-ggru82m00j5ann43jpcltk54m4668569</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>321129921779-3sb8q9ne6viisl5itofl6g8bim6j8bio.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDNTAbrgGD4k_oj3tw0rruY5mNi4hpaiWc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>321129921779</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.goWildHistory</string>
+	<key>PROJECT_ID</key>
+	<string>gowild-373607</string>
+	<key>STORAGE_BUCKET</key>
+	<string>gowild-373607.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:321129921779:ios:03cd6b782798c92b44cb86</string>
+</dict>
+</plist>

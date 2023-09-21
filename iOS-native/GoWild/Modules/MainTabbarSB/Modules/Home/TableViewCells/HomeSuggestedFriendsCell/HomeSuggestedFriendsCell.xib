@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeSuggestedFriendsCell" rowHeight="71" id="KGk-i7-Jjw" customClass="HomeSuggestedFriendsCell" customModule="GoWild" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="432" height="71"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="432" height="71"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tuZ-4b-RpL">
+                        <rect key="frame" x="0.0" y="0.0" width="432" height="74"/>
+                        <subviews>
+                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pgo-zU-sgE">
+                                <rect key="frame" x="20" y="12" width="396" height="50"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_people_3" translatesAutoresizingMaskIntoConstraints="NO" id="whA-Ti-DdC">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="3uI-I5-UdI"/>
+                                            <constraint firstAttribute="height" constant="50" id="7MO-7r-D1W"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amber J Santiago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZkX-rv-ram">
+                                        <rect key="frame" x="60" y="0.0" width="236" height="50"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                        <color key="textColor" name="AppWhiteColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nzh-AM-6zX">
+                                        <rect key="frame" x="306" y="5" width="90" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXz-dg-XEo">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="BQP-fw-D9h"/>
+                                                    <constraint firstAttribute="width" constant="40" id="eqg-gN-VCK"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="ic_add_friend_icon">
+                                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1x-AU-Cx0">
+                                                <rect key="frame" x="50" y="0.0" width="40" height="40"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="0qT-mQ-iwj"/>
+                                                    <constraint firstAttribute="width" constant="40" id="HYK-5q-Ths"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="ic_delete_friend_icon">
+                                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5JZ-jL-YgZ"/>
+                                    <constraint firstItem="nzh-AM-6zX" firstAttribute="centerY" secondItem="Pgo-zU-sgE" secondAttribute="centerY" id="c7W-kt-7TZ"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="AppBgBlack"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Pgo-zU-sgE" secondAttribute="bottom" constant="12" id="5eb-4J-YtT"/>
+                            <constraint firstItem="Pgo-zU-sgE" firstAttribute="leading" secondItem="tuZ-4b-RpL" secondAttribute="leading" constant="20" id="CsH-Yf-A0l"/>
+                            <constraint firstItem="Pgo-zU-sgE" firstAttribute="top" secondItem="tuZ-4b-RpL" secondAttribute="top" constant="12" id="PiP-IB-Kd4"/>
+                            <constraint firstAttribute="trailing" secondItem="Pgo-zU-sgE" secondAttribute="trailing" constant="16" id="ha2-ym-j3P"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="tuZ-4b-RpL" secondAttribute="trailing" id="3tR-Oz-Il9"/>
+                    <constraint firstItem="tuZ-4b-RpL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="5el-Be-tVF"/>
+                    <constraint firstAttribute="bottom" secondItem="tuZ-4b-RpL" secondAttribute="bottom" id="6Rx-ve-3wC"/>
+                    <constraint firstItem="tuZ-4b-RpL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="tli-wV-QgH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="addFriendBtn" destination="TXz-dg-XEo" id="ToA-Yg-8EY"/>
+                <outlet property="backView" destination="tuZ-4b-RpL" id="yKG-bd-6ZG"/>
+                <outlet property="friendImageView" destination="whA-Ti-DdC" id="aHn-YW-ROt"/>
+                <outlet property="friendNameLbl" destination="ZkX-rv-ram" id="jO4-WV-Hgj"/>
+                <outlet property="removeFriendBtn" destination="e1x-AU-Cx0" id="tWF-2Y-7aa"/>
+            </connections>
+            <point key="canvasLocation" x="166.41221374045801" y="28.52112676056338"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_add_friend_icon" width="40" height="40"/>
+        <image name="ic_delete_friend_icon" width="40" height="40"/>
+        <image name="ic_people_3" width="50" height="50"/>
+        <namedColor name="AppBgBlack">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="AppWhiteColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

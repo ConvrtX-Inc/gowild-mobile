@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Bold.ttf">
+            <string>SourceSansPro-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MessageCell" rowHeight="80" id="KGk-i7-Jjw" customClass="MessageCell" customModule="GoWild" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhz-by-kW3">
+                        <rect key="frame" x="16" y="5" width="288" height="70"/>
+                        <subviews>
+                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VyH-ha-Kap">
+                                <rect key="frame" x="15" y="10" width="258" height="50"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_people_3" translatesAutoresizingMaskIntoConstraints="NO" id="6yx-RO-GYq">
+                                        <rect key="frame" x="0.0" y="0.0" width="46" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="0Kz-BI-76G"/>
+                                            <constraint firstAttribute="height" constant="46" id="SrN-Ag-05A"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="23"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miranda" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h72-KH-EPm">
+                                        <rect key="frame" x="56" y="0.0" width="157" height="50"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="14"/>
+                                        <color key="textColor" name="AppWhiteColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pnb-T7-sz1">
+                                        <rect key="frame" x="223" y="0.0" width="35" height="50"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_chat_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Adx-5L-sNr">
+                                                <rect key="frame" x="0.0" y="7.6666666666666679" width="35" height="35"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="35" id="7zo-45-n7A"/>
+                                                    <constraint firstAttribute="height" constant="35" id="s46-bn-xc1"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="DqI-Cp-Iex"/>
+                                            <constraint firstItem="Adx-5L-sNr" firstAttribute="centerX" secondItem="pnb-T7-sz1" secondAttribute="centerX" id="Rn6-81-WDu"/>
+                                            <constraint firstItem="Adx-5L-sNr" firstAttribute="centerY" secondItem="pnb-T7-sz1" secondAttribute="centerY" id="rEQ-QI-Au4"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="AppLightGreenBgColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="VyH-ha-Kap" secondAttribute="trailing" constant="15" id="1wn-QB-7Vg"/>
+                            <constraint firstItem="VyH-ha-Kap" firstAttribute="top" secondItem="bhz-by-kW3" secondAttribute="top" constant="10" id="IvS-XY-4N8"/>
+                            <constraint firstAttribute="bottom" secondItem="VyH-ha-Kap" secondAttribute="bottom" constant="10" id="aQt-Rj-8lR"/>
+                            <constraint firstItem="VyH-ha-Kap" firstAttribute="leading" secondItem="bhz-by-kW3" secondAttribute="leading" constant="15" id="cII-Ud-hAG"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="bhz-by-kW3" secondAttribute="bottom" constant="5" id="42g-td-O3S"/>
+                    <constraint firstAttribute="trailing" secondItem="bhz-by-kW3" secondAttribute="trailing" constant="16" id="6UW-ib-3Ya"/>
+                    <constraint firstItem="bhz-by-kW3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="nX7-UR-jJj"/>
+                    <constraint firstItem="bhz-by-kW3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="oPM-9Y-p8M"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="backView" destination="bhz-by-kW3" id="5s6-db-fWG"/>
+                <outlet property="chatImageView" destination="Adx-5L-sNr" id="NsE-Jg-f2y"/>
+                <outlet property="nameLbl" destination="h72-KH-EPm" id="LGB-Hq-97t"/>
+                <outlet property="profileImageView" destination="6yx-RO-GYq" id="4zT-pZ-tg2"/>
+            </connections>
+            <point key="canvasLocation" x="80.916030534351137" y="32.394366197183103"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_chat_icon" width="95" height="95"/>
+        <image name="ic_people_3" width="50" height="50"/>
+        <namedColor name="AppLightGreenBgColor">
+            <color red="0.071000002324581146" green="0.11800000071525574" blue="0.078000001609325409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppWhiteColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

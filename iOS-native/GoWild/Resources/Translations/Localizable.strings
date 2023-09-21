@@ -1,0 +1,273 @@
+/* 
+  Localizable.strings
+  GoWild
+
+  Copyright © Go_Wild. All rights reserved.
+*/
+
+// MARK: Common
+
+"common.ok" = "Ok";
+"common.cancel" = "Cancel";
+"common.error" = "Error";
+
+//MARK: - ERRORS -
+
+"alert" = "Alert";
+"success" = "Success";
+"anonymous" = "Anonymous";
+"loading" = "Loading";
+"done" = "Done";
+"retry" = "Retry";
+"oopsNetworkError" = "Oops! Network is not available.";
+"oopsSomethingWentWrong" = "Oops! something went wrong. Please try again later.";
+"emailRequired" = "Email is required";
+"enterValidEmail" = "Please enter valid email";
+"passwordRequired" = "Password is required";
+"passwordLenghtError" = "Password should be minimum of 6 characters";
+"fullNameRequired" = "Full name is required.";
+"fullNameLenghtError" = "Full name length should be minimum 2 and maximum 30 characters.";
+"phoneNmbIsInvalid" = "Phone number is invalid.";
+"addressLineOneRequired" = "Address line 1 is required";
+"addressLineTwoRequired" = "Address line 2 is required";
+"addressLineLenghtError" = "Address line length should be less than 20 characters.";
+"selectEWaiverTermAndConditionError" = "Please select EWaiver term and conditions.";
+"signupCompleteMessage" = "You have successfully completed your signup. Please login from same user.";
+"fbLoginCancelError" = "You have cancelled facebook login.";
+"googleLoginCancelError" = "You have cancelled google login.";
+"otpRequired" = "OTP is required";
+"otpLengthError" = "Please enter complete OTP.";
+"newPasswordRequired" = "New password is required.";
+"newPasswordLenghtError" = "New password should be minimum of 6 characters";
+"confirmPasswordRequired" = "Confirm password is required.";
+"confirmPasswordLenghtError" = "Confirm password should be minimum of 6 characters";
+"bothPasswordMatchError" = "Both password should be matched.";
+"passwordResetSuccessMessage" = "Password reset successfully.";
+"imageSizeError" = "Image size should not be greater than 5 MB.";
+"attachmentSizeError" = "Attachment size should not be greater than 5 MB.";
+"cameraPermissionError" = "GoWild need to access your camera to perform this action.";
+"libraryPermissionError" = "GoWild need to access your gallery to perform this action.";
+"createPostDescriptionError" = "Please enter post description.";
+"idImagesError" = "ID images are required.";
+"frontIdImageError" = "Front ID image is required.";
+"backIdImageError" = "Back ID image is required.";
+"firstNameRequired" = "First name is required.";
+"firstNameLenghtError" = "First name length should be minimum 2 and maximum 15 characters.";
+"lastNameRequired" = "Last name is required.";
+"lastNameLenghtError" = "Last name length should be minimum 2 and maximum 15 characters.";
+"userNameLenghtError" = "User name length should be minimum 2 and maximum 15 characters.";
+"aboutMeLenghtError" = "About Me text length should not be greater than 100 characters.";
+"postImagePickCancelError" = "You have cancelled image picking";
+"subjectIsRequired" = "Subject is required";
+"messageIsRequired" = "Message is required";
+"locationEnabledError" = "You have not enable your location. To proceed this please enable your location.";
+"routeNameRequired" = "Route name is required.";
+"startingPointRequired" = "Starting point is required.";
+"endPointRequired" = "End point is required.";
+"invalidRoutePath" = "Route path is invalid.";
+"alreadyTryThisRouteError" = "You have already try this route.";
+"cannotStartNavigationError" = "You are not in the proximity of the starting point of this route.";
+"routePathIsInvalid" = "You can't start this route because its invalid.";
+"completeRouteMessage" = "Congratulations!\nYou Have Completed This Route.";
+"areYouSureYouWantToGoBackAlert" = "Are you sure you want to go back?";
+"youAreAlmostThere" = "You are almost there!";
+"routeIsNotApprovedByAdminError" = "Route is not yet approved by Admin";
+
+// MARK: - SPLASH VC -
+
+"prepareForTheAdventureOfALifetime" = "Prepare for the \nadventure of a \nlifetime!";
+
+//MARK: - LOGIN VC -
+
+"loginTitle" = "LOGIN";
+"logInWithFacebook" = "Log in with Facebook";
+"logInWithGoogle" = "Log in with Google";
+"or" = "OR";
+"email" = "Email";
+"password" = "Password";
+"forgotPassword" = "Forgot password";
+"byLoggingInYouAgreeToOur" = "By logging in, you agree to our";
+"termsAndConditions" = "Terms & Conditions";
+"and" = "&";
+"privacyPolicy" = "Privacy Policy";
+"login" = "Login";
+"dontHaveAnAccount? " = "Don’t have an account? ";
+"signUp" = "Sign Up";
+
+// MARK: - SIGNUP VC -
+
+"register" = "Register";
+"fullName" = "Full name";
+"phoneNumber" = "Phone number";
+"addressLineOne" = "Address Line 1";
+"addressLineTwo" = "Address Line 2";
+"bySignupYouAgreeToOur" = "By creating an account, you agree to our";
+"doYouHaveAlreadyAccount? " = "Do you have already account?";
+
+//MARK: - VERIFY PHONE VC -
+
+"verifyPhone" = "Verify phone";
+"verifyCode" = "Verify code";
+"verificationCodeSentTo" = "Verification code sent to ";
+"didNotRecieveCode" = "Didn’t recieve code?";
+"resendOTP" = "Resend OTP";
+"verifyAccount" = "Verify account";
+
+//MARK: - E-WAVIER -
+
+"eWavier" = "E-Wavier";
+"iAgreeWithLocalLawsAndTaxesTerms" = "I agree with local laws and taxes terms";
+"iAgree" = "I Agree";
+
+// MARK: - RESET PASSWORD VC -
+
+"resetPassword" = "Reset \npassword";
+"enterEmailOrPhoneAssociatedWithYourAccount" = "Enter your email ID  or phone number associated with your account and we’ll send an verification code for reset your password";
+
+//MARK: - CREATE NEW PASSWORD VC -
+
+"createNewPassword" = "Create new \npassword";
+"yourPasswordMustBeDifferentFromPreviousUsedPassword" = "Your password must be different from previous used password.";
+"enterNewPassword" = "Enter new password";
+"confirmNewPassword" = "Confirm new password";
+"reset_Password" = "Reset Password";
+
+//MARK: - HOME VC -
+
+"routes" = "Routes";
+"nearbyAdventures" = "Nearby Adventures";
+"goWildFeed" = "Go wild feed";
+"suggestedRoutes" = "Suggested Routes";
+"tryRoute" = "Try Route";
+"historicalPointTitle" = "Video Title";
+"infoLblText" = "DID YOU KNOW?";
+"save" = "Save";
+"unsave" = "UnSave";
+"details" = "Details";
+"myFeed" = "My Feed";
+"myFriends" = "My Friends";
+"newPostTextViewPlaceholder" = "Your Activity For Today";
+"post" = "Post";
+"registered" = "Registered";
+"left" = "Left";
+"seeAll" = "See all";
+"comments" = "Comments";
+"commentEmptyError" = "Please type comment.";
+"friendRequest" = "Friend Request";
+"suggestedFriend" = "Suggested Friend";
+"likes" = "Likes";
+"hello" = "Hello";
+"goodMorning" = "Good Morning";
+"goodAfternoon" = "Good Afternoon";
+"goodEvening" = "Good Evening";
+"mapOverlay" = "Map Overlay";
+"roadMap" = "Road Map";
+"terrain" = "Terrain";
+"satelite" = "Satelite";
+"outdoors" = "Outdoors";
+"streets" = "Streets";
+"satellite" = "Satellite";
+"_default" = "Default";
+"setAsDefault" = "Set as default";
+"miles" = "Miles";
+"meter" = "m";
+
+//MARK: - MAP VC -
+
+"map" = "Map";
+"treasureMap" = "Treasure\nWild";
+"treasureMapTitle" = "Treasure Wild";
+"runWild" = "Map\nWild";
+"runWildTitle" = "Map Wild";
+"myTrails" = "My\nTrails";
+"myTrailsTitle" = "My Trails";
+"upcoming" = "Upcoming";
+"onGoing" = "On Going";
+"notRegistered" = "Not Registered";
+"waitingForApproval" = "Waiting for approval";
+"start" = "Start";
+"newRoute" = "New Route";
+
+//MARK: - EVENT REGISTERATION VC -
+
+"registration" = "Registration";
+"gender" = "Gender";
+"dob" = "Date of Birth";
+"frontID" = "Front ID";
+"backID" = "Back ID";
+"submit" = "Submit";
+"registrationNumber" = "Registration Number";
+"informationFromYourRegistration" = "Information from your registration";
+"resendRegistrationNumber" = "Resend Registration Number";
+"congratulationsYouHaveFoundTreasureHunt" = "Congratulations! You have found Treasure Wild.";
+
+//MARK: - PROFILE VC -
+
+"profile" = "Profile";
+"aboutMe" = "About Me";
+"selfieVerification" = "Selfie Verification";
+"prepareToScanYourFace" = "Prepare to scan your face";
+"makeSureYouAreInAWellLitRoomDescription" = "Make sure you are in a well-lit room and hold the phone as shown in the picture";
+"yourSelfieAlreadyVerified" = "Your selfie is already verified.";
+
+//MARK: - SETTING VC -
+
+"settings" = "Settings";
+"editProfile" = "Edit Profile";
+"subscriptions" = "Subscriptions";
+"messages" = "Messages";
+"myRaces" = "My Races";
+"support" = "Support";
+"faq" = "FAQ";
+"faqs" = "FAQS";
+"myAchievements" = "My Achievements";
+"payment" = "Payment";
+"notifications" = "Notifications";
+"logout" = "Logout";
+
+//MARK: - EDIT PROFILE VC -
+
+"firstName" = "First name";
+"lastName" = "Last name";
+"userName" = "Username";
+"typeHere" = "Type here";
+
+//MARK: - MY TRAILS VC -
+
+"saveRoutes" = "Save Routes";
+"createdRoute" = "Created Route";
+"leaderboard" = "Leaderboard";
+"distance" = "Distance";
+"elevationGain" = "Elevation Gain";
+"movingTime" = "Moving Time";
+"maxElevation" = "Max Elevation";
+"elapsedTime" = "Elapsed Time";
+"avgSpeed" = "Avg Speed";
+"to" = "To";
+"congratulationsYouAre" = "Congratulations\nYou are";
+"placeOnThisRoute" = "place on this route";
+
+//MARK: - SUPPORT VC -
+
+"howCanWeHelpYou" = "How can we help you";
+"sendNewTicket" = "Send New Ticket";
+"pending" = "Pending";
+"completed" = "Completed";
+"onHold" = "On hold";
+"sendMessage" = "Send Message";
+"subject" = "Subject";
+"yourMessage" = "Your Message";
+"writeSubjectHerePlaceholder" = "Write subject here...";
+"whatWouldYouLikeToTellUs" = "What would you like to tell us?";
+"attachImagesOrProof" = "Attach images or proof";
+"goWildAdmin" = "Go Wild Admin";
+"deleteConversation" = "Delete Conversation";
+"goWildHistory" = "Go Wild History";
+
+//MARK: - CREATE NEW ROUTE VC -
+
+"routeName" = "Route Name";
+"startingPoint" = "Starting Point";
+"endPoint" = "End Point";
+"startRoute" = "Start Route";
+"showMyResults" = "Show My Results";

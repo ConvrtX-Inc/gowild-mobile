@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FontsFree-Net-TheForegenRoughOne.ttf">
+            <string>TheForegenRoughOne</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--MessagesVC-->
+        <scene sceneID="PxQ-cE-2zW">
+            <objects>
+                <viewController storyboardIdentifier="MessagesVC" title="MessagesVC" id="EEg-0O-PIv" customClass="MessagesVC" customModule="GoWild" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="I5b-dR-nQe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q85-L9-yDu">
+                                <rect key="frame" x="0.0" y="48" width="414" height="56"/>
+                                <subviews>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ePQ-rP-88w">
+                                        <rect key="frame" x="8" y="3" width="50" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="HoE-I2-X4v"/>
+                                            <constraint firstAttribute="width" constant="50" id="zMm-Mh-WSS"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="ic_back_icon"/>
+                                        <connections>
+                                            <action selector="didTapBackBtn:" destination="EEg-0O-PIv" eventType="touchUpInside" id="ySs-DX-ayH"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Messages" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTM-sI-K3t">
+                                        <rect key="frame" x="66" y="0.0" width="328" height="56"/>
+                                        <fontDescription key="fontDescription" name="TheForegenRoughOne" family="The Foregen Rough One" pointSize="30"/>
+                                        <color key="textColor" name="TextLightYellow"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="aTM-sI-K3t" secondAttribute="bottom" id="7Yc-5g-W1m"/>
+                                    <constraint firstItem="ePQ-rP-88w" firstAttribute="leading" secondItem="Q85-L9-yDu" secondAttribute="leading" constant="8" id="9DY-Sp-z2D"/>
+                                    <constraint firstItem="aTM-sI-K3t" firstAttribute="leading" secondItem="ePQ-rP-88w" secondAttribute="trailing" constant="8" id="QGi-Mb-hV0"/>
+                                    <constraint firstItem="aTM-sI-K3t" firstAttribute="top" secondItem="Q85-L9-yDu" secondAttribute="top" id="RCU-vi-VNN"/>
+                                    <constraint firstItem="ePQ-rP-88w" firstAttribute="centerY" secondItem="Q85-L9-yDu" secondAttribute="centerY" id="obv-2r-xXn"/>
+                                    <constraint firstAttribute="height" constant="56" id="tcb-Zj-YoW"/>
+                                    <constraint firstAttribute="trailing" secondItem="aTM-sI-K3t" secondAttribute="trailing" constant="20" id="xoz-ka-WM7"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FyI-Ql-LqG">
+                                <rect key="frame" x="0.0" y="114" width="414" height="738"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="t28-IC-cw5"/>
+                        <color key="backgroundColor" name="AppChatBgColor"/>
+                        <constraints>
+                            <constraint firstItem="t28-IC-cw5" firstAttribute="bottom" secondItem="FyI-Ql-LqG" secondAttribute="bottom" constant="10" id="1R6-hH-XCW"/>
+                            <constraint firstItem="Q85-L9-yDu" firstAttribute="top" secondItem="t28-IC-cw5" secondAttribute="top" id="JNL-aq-N0d"/>
+                            <constraint firstItem="t28-IC-cw5" firstAttribute="trailing" secondItem="FyI-Ql-LqG" secondAttribute="trailing" id="OXn-pr-YGd"/>
+                            <constraint firstItem="Q85-L9-yDu" firstAttribute="leading" secondItem="t28-IC-cw5" secondAttribute="leading" id="ZWE-3W-4IG"/>
+                            <constraint firstItem="FyI-Ql-LqG" firstAttribute="top" secondItem="Q85-L9-yDu" secondAttribute="bottom" constant="10" id="ZoY-m2-n9O"/>
+                            <constraint firstItem="t28-IC-cw5" firstAttribute="trailing" secondItem="Q85-L9-yDu" secondAttribute="trailing" id="r5D-fx-Kei"/>
+                            <constraint firstItem="FyI-Ql-LqG" firstAttribute="leading" secondItem="t28-IC-cw5" secondAttribute="leading" id="rOC-Wd-jLP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backBtn" destination="ePQ-rP-88w" id="kbk-9e-g8X"/>
+                        <outlet property="messagesTableView" destination="FyI-Ql-LqG" id="hM1-Ev-vJ7"/>
+                        <outlet property="titleLbl" destination="aTM-sI-K3t" id="DI6-4X-w0o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aMU-CV-otr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1955" y="65"/>
+        </scene>
+        <!--ChatVC-->
+        <scene sceneID="SBy-Cj-VIs">
+            <objects>
+                <viewController storyboardIdentifier="ChatVC" title="ChatVC" id="tEw-hl-Ztc" customClass="ChatVC" customModule="GoWild" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="IPl-gn-XMy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="vWa-wp-mox"/>
+                        <color key="backgroundColor" name="AppChatBgColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="JLJ-Li-FL3"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4v3-08-eUu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2678" y="65"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic_back_icon" width="10" height="17"/>
+        <namedColor name="AppChatBgColor">
+            <color red="0.059000000357627869" green="0.078000001609325409" blue="0.059000000357627869" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="TextLightYellow">
+            <color red="0.97600001096725464" green="0.85900002717971802" blue="0.59200000762939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

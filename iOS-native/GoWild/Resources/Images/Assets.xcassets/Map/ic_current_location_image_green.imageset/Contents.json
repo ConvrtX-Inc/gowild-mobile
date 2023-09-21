@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_current_location_image_Green 1.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
