@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryColor"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".ui.map.treasurewild.TreasureWildEWaiverFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/_31sdp" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/_31sdp" />
+
+        <ImageView
+            android:id="@+id/backIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_23sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/titleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/the_foregen_rough_one_normal"
+            android:padding="5dp"
+            android:text="@string/e_waiver"
+            android:textColor="@color/lightOrange"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/backIv"
+            app:layout_constraintTop_toTopOf="@id/backIv"
+            app:layout_constraintBottom_toBottomOf="@id/backIv"/>
+
+        <TextView
+            android:id="@+id/my_company_treasure_hunt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_company_s_treasure_hunt"
+            android:textSize="22sp"
+            android:fontFamily="@font/the_foregen_rough_one"
+            android:textColor="@color/lightOrange"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="@id/guideline7"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/titleTv"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date_new"
+            android:textSize="16sp"
+            android:fontFamily="@font/the_foregen_rough_one"
+            android:textColor="@color/lightOrange"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="@id/guideline7"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/my_company_treasure_hunt"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tv1"
+            style="@style/Normal"
+            android:layout_width="0dp"
+            android:layout_height="108dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_venenatis_volutpat_risus_vitae_iaculis_duis_laoreet_molestie_efficitur_aenean_arcu_velit_vestibulum_a_libero_vel_sollicitudin_posuere_dui"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/date" />
+
+        <TextView
+            android:id="@+id/tv2"
+            style="@style/Normal"
+            android:layout_width="0dp"
+            android:layout_height="108dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_venenatis_volutpat_risus_vitae_iaculis_duis_laoreet_molestie_efficitur_aenean_arcu_velit_vestibulum_a_libero_vel_sollicitudin_posuere_dui"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/tv1" />
+
+        <TextView
+            android:id="@+id/tv3"
+            style="@style/Normal"
+            android:layout_width="0dp"
+            android:layout_height="108dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_venenatis_volutpat_risus_vitae_iaculis_duis_laoreet_molestie_efficitur_aenean_arcu_velit_vestibulum_a_libero_vel_sollicitudin_posuere_dui"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/tv2" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            style="@style/Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_44sdp"
+            android:button="@drawable/check_box"
+            android:fontFamily="@font/gilroy_medium"
+            android:paddingStart="12dp"
+            android:paddingEnd="1dp"
+            android:text="@string/i_agree_with_local_laws_and_terms"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/tv3"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tv3"
+            app:layout_constraintTop_toBottomOf="@+id/tv3" />
+
+
+        <Button
+            android:id="@+id/iAgreeBtn"
+            style="@style/Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_31sdp"
+            android:layout_marginBottom="90dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bg_btn"
+            android:fontFamily="@font/gilroy_bold"
+            android:scaleType="centerCrop"
+            android:text="@string/i_agree"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

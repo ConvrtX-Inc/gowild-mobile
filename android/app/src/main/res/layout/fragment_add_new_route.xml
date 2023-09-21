@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryColor">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_23sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_back" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="50dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/the_foregen_rough_one_normal"
+        android:lines="1"
+        android:padding="5dp"
+        android:text="@string/new_route"
+        android:textColor="@color/lightOrange"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_back"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/iv_back"
+        app:layout_constraintTop_toTopOf="@id/iv_back" />
+
+    <ImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/ic_delete"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/tv_title"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintTop_toTopOf="@id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_route_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/route_name"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <EditText
+        android:id="@+id/et_route_name"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_shape"
+        android:ems="10"
+        android:fontFamily="@font/gilroy_medium"
+        android:hint="New Route"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingTop="@dimen/_17sdp"
+        android:paddingBottom="@dimen/_15sdp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_right"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/tv_route_title" />
+
+    <TextView
+        android:id="@+id/tv_starting_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/starting_point"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/et_route_name" />
+
+    <TextView
+        android:id="@+id/tv_end_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="@string/end_point"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_starting_point"
+        app:layout_constraintStart_toStartOf="@id/tv_end_long"
+        app:layout_constraintTop_toTopOf="@+id/tv_starting_point" />
+
+    <TextView
+        android:id="@+id/tv_start_long"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_shape"
+        android:ems="10"
+        android:fontFamily="@font/gilroy_medium"
+        android:gravity="start|center"
+        android:hint="Long"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_end_long"
+        app:layout_constraintEnd_toStartOf="@id/tv_end_long"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/tv_starting_point" />
+
+    <TextView
+        android:id="@+id/tv_end_long"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_shape"
+        android:ems="10"
+        android:fontFamily="@font/gilroy_medium"
+        android:gravity="start|center"
+        android:hint="Long"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_start_long"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_start_long"
+        app:layout_constraintTop_toBottomOf="@+id/tv_starting_point" />
+
+    <TextView
+        android:id="@+id/tv_start_lat"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_shape"
+        android:ems="10"
+        android:fontFamily="@font/gilroy_medium"
+        android:gravity="start|center"
+        android:hint="Lat"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_end_lat"
+        app:layout_constraintEnd_toStartOf="@+id/tv_end_lat"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/tv_start_long" />
+
+    <TextView
+        android:id="@+id/tv_end_lat"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_shape"
+        android:ems="10"
+        android:fontFamily="@font/gilroy_medium"
+        android:gravity="start|center"
+        android:hint="Lat"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_start_lat"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_start_lat"
+        app:layout_constraintTop_toBottomOf="@+id/tv_end_long" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_map"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_185sdp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:layout_constraintBottom_toTopOf="@id/btn_submit"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/tv_start_lat">
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:id="@+id/iv_zoom_plus"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="11dp"
+        android:src="@drawable/ic_zoom_plus"
+        android:translationZ="10dp"
+        app:layout_constraintEnd_toEndOf="@id/cv_map"
+        app:layout_constraintTop_toTopOf="@id/cv_map" />
+
+    <ImageView
+        android:id="@+id/iv_zoom_minus"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="11dp"
+        android:src="@drawable/ic_zoom_minus"
+        android:translationZ="10dp"
+        app:layout_constraintEnd_toEndOf="@id/cv_map"
+        app:layout_constraintTop_toBottomOf="@id/iv_zoom_plus" />
+
+    <ImageView
+        android:id="@+id/iv_start_marker"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="11dp"
+        android:background="@color/light_gray_color"
+        android:padding="3dp"
+        android:src="@drawable/ic_starts_marker"
+        android:translationZ="90dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/cv_map"
+        app:layout_constraintTop_toBottomOf="@+id/iv_zoom_minus" />
+
+    <ImageView
+        android:id="@+id/iv_end_marker"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="11dp"
+        android:background="@color/light_gray_color"
+        android:padding="3dp"
+        android:src="@drawable/ic_ends_marker"
+        android:translationZ="90dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/cv_map"
+        app:layout_constraintTop_toBottomOf="@+id/iv_start_marker" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        style="@style/Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="20dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/bg_btn"
+        android:fontFamily="@font/gilroy_bold"
+        android:scaleType="centerCrop"
+        android:text="@string/submit"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="26dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="26dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

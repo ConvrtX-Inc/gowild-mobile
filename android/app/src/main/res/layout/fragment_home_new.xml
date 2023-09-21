@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_main"
+    tools:context=".ui.home.HomeFragmentNew">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="snap|scroll|enterAlways">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/startGuideLine1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/_20sdp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/endGuideLine1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layoutDirection="inherit"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/_20sdp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/topGuideLine1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/_25sdp" />
+
+            <TextView
+                android:id="@+id/tvGreetings"
+                style="@style/Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_50sdp"
+                android:fontFamily="@font/the_foregen_rough_one"
+                android:text="Good Morning,"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toStartOf="@id/imageCard"
+                app:layout_constraintStart_toStartOf="@id/startGuideLine1"
+                app:layout_constraintTop_toTopOf="@id/topGuideLine1" />
+
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_50sdp"
+                android:fontFamily="@font/the_foregen_rough_one"
+                android:text="@string/muhammad_bilal"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toStartOf="@id/imageCard"
+                app:layout_constraintStart_toStartOf="@id/startGuideLine1"
+                app:layout_constraintTop_toBottomOf="@id/tvGreetings" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/imageCard"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_100sdp"
+                app:layout_constraintEnd_toEndOf="@id/endGuideLine1"
+                app:layout_constraintTop_toTopOf="@id/topGuideLine1">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/userImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile_img"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="2dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearch"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_39sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/bg_search"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="@dimen/_5sdp"
+                android:hint="@string/search_for_trail_or_activity"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/grey"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/endGuideLine1"
+                app:layout_constraintStart_toStartOf="@id/startGuideLine1"
+                app:layout_constraintTop_toBottomOf="@id/imageCard" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/list_item_header_home" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

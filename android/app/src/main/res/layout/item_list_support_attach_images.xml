@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="android.net.Uri" />
+
+        <variable
+            name="position"
+            type="Integer" />
+
+        <variable
+            name="listener"
+            type="com.android.gowild.interfaces.SimpleCallbackValue" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_image"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_image"
+                uri="@{item}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/islmbd_pic" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageView
+            android:id="@+id/iv_cancel"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:onClick="@{()->listener.callback(position)}"
+            android:src="@drawable/ic_cancel"
+            android:translationZ="10dp"
+            app:layout_constraintEnd_toEndOf="@id/cv_image"
+            app:layout_constraintStart_toEndOf="@id/cv_image"
+            app:layout_constraintTop_toTopOf="@id/cv_image" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

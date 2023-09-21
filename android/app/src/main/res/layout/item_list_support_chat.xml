@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.android.gowild.data.model.support.SupportMessagesDataModel" />
+
+        <variable
+            name="listener"
+            type="com.android.gowild.interfaces.SimpleCallbackValue" />
+
+        <import
+            alias="TimeUtils"
+            type="com.android.gowild.utils.TimeUtilsKt" />
+
+        <import
+            alias="Extensions"
+            type="com.android.gowild.utils.extension.ExtensionsKt" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_9sdp">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="@dimen/_37sdp"
+            android:layout_height="@dimen/_37sdp"
+            android:layout_marginStart="@dimen/_17sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/ic_app"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/gilroy_medium"
+            android:lines="1"
+            android:text="@{item.id, default=@string/support_title}"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/iv_image"
+            app:layout_constraintTop_toTopOf="@+id/iv_image" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:fontFamily="@font/gilroy_semibold"
+            android:text="@{item.role.equals(`user`)? item.user.firstName + ` ` + item.user.lastName : `Go Wild Admin` , default=placeholder}"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_id"
+            app:layout_constraintTop_toBottomOf="@id/tv_id" />
+
+        <TextView
+            android:id="@+id/tv_created_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="@dimen/_9sdp"
+            android:layout_marginBottom="9dp"
+            android:fontFamily="@font/gilroy_regular"
+            android:text="@{TimeUtils.changeDateFormat(item.createdDate,TimeUtils.TIME_FORMAT_TIME_STAMP,TimeUtils.TIME_FORMAT_SUPPORT)}"
+            android:textColor="@color/lightOrange"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_user_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.message}"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/iv_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_created_date" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_attachment"
+            support_attachment_cv="@{item.attachment}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:onClick="@{ () -> listener.callback(item.attachment.get(0))}"
+            android:visibility="gone"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintStart_toStartOf="@id/tv_desc"
+            app:layout_constraintTop_toBottomOf="@id/tv_desc">
+
+            <ImageView
+                android:id="@+id/iv_attachment"
+                support_attachment_iv="@{item.attachment}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_placeholder" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

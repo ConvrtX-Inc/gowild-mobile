@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:windowBackground"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".ui.ewaiver.EWaiverFragment">
+
+    <ImageView
+        android:id="@+id/backIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="65dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_back" />
+
+    <TextView
+        android:id="@+id/titleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:fontFamily="@font/the_foregen_rough_one_normal"
+        android:padding="5dp"
+        android:text="@string/e_waiver"
+        android:textColor="@color/lightOrange"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/backIv"
+        app:layout_constraintStart_toEndOf="@+id/backIv"
+        app:layout_constraintTop_toTopOf="@+id/backIv" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/checkBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTv">
+
+        <TextView
+            android:id="@+id/tv1"
+            style="@style/Normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_venenatis_volutpat_risus_vitae_iaculis_duis_laoreet_molestie_efficitur_aenean_arcu_velit_vestibulum_a_libero_vel_sollicitudin_posuere_dui"
+            android:textColor="@color/white" />
+
+    </ScrollView>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/checkbox_selector"
+        android:button="@color/transparent"
+        android:fontFamily="@font/gilroy_medium"
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/iAgreeBtn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:text="@string/i_agree_with_local_laws_and_terms"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/checkBox"
+        app:layout_constraintStart_toEndOf="@id/checkBox"
+        app:layout_constraintTop_toTopOf="@id/checkBox" />
+
+    <Button
+        android:id="@+id/iAgreeBtn"
+        style="@style/Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="60dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/bg_btn"
+        android:fontFamily="@font/gilroy_bold"
+        android:text="@string/i_agree"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

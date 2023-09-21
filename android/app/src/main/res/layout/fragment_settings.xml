@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.setting.SettingsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/backIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_23sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/titleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:fontFamily="@font/the_foregen_rough_one_normal"
+            android:padding="5dp"
+            android:text="@string/settings"
+            android:textColor="@color/lightOrange"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/backIv"
+            app:layout_constraintStart_toEndOf="@+id/backIv"
+            app:layout_constraintTop_toTopOf="@+id/backIv" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/achievement_profile_img"
+            android:layout_width="@dimen/_33sdp"
+            android:layout_height="@dimen/_33sdp"
+            android:layout_marginBottom="-18dp"
+            android:elevation="5dp"
+            android:src="@drawable/profile_img"
+            app:layout_constraintBottom_toTopOf="@+id/nameTv"
+            app:layout_constraintEnd_toEndOf="@+id/nameTv"
+            app:layout_constraintStart_toStartOf="@+id/nameTv"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/nameTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/setting_name_bg"
+            android:fontFamily="@font/gilroy_bold"
+            android:gravity="center"
+            android:paddingStart="47dp"
+            android:paddingTop="21dp"
+            android:paddingEnd="48dp"
+            android:paddingBottom="18dp"
+            android:text="@string/jennylyn_artecona"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTv"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <ImageView
+            android:id="@+id/ic_profile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="44dp"
+            android:src="@drawable/ic_profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nameTv" />
+
+        <TextView
+            android:id="@+id/txt_edit_profile"
+            style="@style/Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/edit_profile"
+            app:layout_constraintBottom_toBottomOf="@id/ic_profile"
+            app:layout_constraintStart_toStartOf="@id/guideline8"
+            app:layout_constraintTop_toTopOf="@id/ic_profile" />
+
+        <ImageView
+            android:id="@+id/ic_subscription"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_subscription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ic_profile" />
+
+        <TextView
+            android:id="@+id/txt_subscription"
+            style="@style/Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/subscriptions"
+            app:layout_constraintBottom_toBottomOf="@id/ic_subscription"
+            app:layout_constraintStart_toStartOf="@id/guideline8"
+            app:layout_constraintTop_toTopOf="@id/ic_subscription" />
+
+        <ImageView
+            android:id="@+id/ic_message"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_message"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ic_subscription" />
+
+        <TextView
+            android:id="@+id/txt_message"
+            style="@style/Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/messages"
+            app:layout_constraintBottom_toBottomOf="@id/ic_message"
+            app:layout_constraintStart_toStartOf="@id/guideline8"
+            app:layout_constraintTop_toTopOf="@id/ic_message" />
+
+        <ImageView
+            android:id="@+id/ic_user"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_users"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ic_message" />
+
+        <TextView
+            android:id="@+id/txt_user"
+            style="@style/Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/my_races"
+            app:layout_constraintBottom_toBottomOf="@id/ic_user"
+            app:layout_constraintStart_toStartOf="@id/guideline8"
+            app:layout_constraintTop_toTopOf="@id/ic_user" />
+
+        <ImageView
+            android:id="@+id/ic_faq"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_faq"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ic_support" />
+
+        <TextView
+            android:id="@+id/txt_faq"
+            style="@style/Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="FAQ"
+            app:layout_constraintBottom_toBottomOf="@id/ic_faq"
+            app:layout_constraintStart_toStartOf="@id/guideline8"
+            app:layout_constraintTop_toTopOf="@id/ic_faq" />
+
+        <ImageView
+            android:id="@+id/ic_support"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_support"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ic_user" />
+
+        <TextView
+            android:id="@+id/txt_support"
+            style="@style/Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/support"
+            app:layout_constraintBottom_toBottomOf="@id/ic_support"
+            app:layout_constraintStart_toStartOf="@id/guideline8"
+            app:layout_constraintTop_toTopOf="@id/ic_support" />
+
+        <ImageView
+            android:id="@+id/ic_achievements"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_achievements"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ic_faq" />
+
+        <TextView
+            android:id="@+id/txt_achievements"
+            style="@style/Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/my_achievements"
+            app:layout_constraintBottom_toBottomOf="@id/ic_achievements"
+            app:layout_constraintStart_toStartOf="@id/guideline8"
+            app:layout_constraintTop_toTopOf="@id/ic_achievements" />
+
+        <ImageView
+            android:id="@+id/ic_payment"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_payment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ic_achievements" />
+
+        <TextView
+            android:id="@+id/txt_payment"
+            style="@style/Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/payment"
+            app:layout_constraintBottom_toBottomOf="@id/ic_payment"
+            app:layout_constraintStart_toStartOf="@id/guideline8"
+            app:layout_constraintTop_toTopOf="@id/ic_payment" />
+
+        <ImageView
+            android:id="@+id/ic_notification"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_notification"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ic_payment" />
+
+        <TextView
+            android:id="@+id/txt_notification"
+            style="@style/Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/notifications"
+            app:layout_constraintBottom_toBottomOf="@id/ic_notification"
+            app:layout_constraintStart_toStartOf="@id/guideline8"
+            app:layout_constraintTop_toTopOf="@id/ic_notification" />
+
+        <ImageView
+            android:id="@+id/ic_logout"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_logout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ic_notification" />
+
+        <TextView
+            android:id="@+id/txt_logout"
+            style="@style/Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/logout"
+            app:layout_constraintBottom_toBottomOf="@id/ic_logout"
+            app:layout_constraintStart_toStartOf="@id/guideline8"
+            app:layout_constraintTop_toTopOf="@id/ic_logout" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="106dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
